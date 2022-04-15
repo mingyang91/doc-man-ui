@@ -95,7 +95,7 @@ export class Cache<T> {
 
     if (!ret) return null
 
-    let item = null
+    let item: CacheItem<T> | null = null
 
     try {
       item = JSON.parse(ret) as CacheItem<T>

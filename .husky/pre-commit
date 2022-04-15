@@ -1,4 +1,4 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-pnpm lint && pnpm tsc --noEmit
+pnpm lint && pnpm exec -- tsc --skipLibCheck  --noEmit
