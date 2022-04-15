@@ -69,7 +69,8 @@ typings/
 .yarn-integrity
 
 # dotenv environment variables file
-.env
+.env.*.local
+.env.local
 .env.test
 
 # parcel-bundler cache (https://parceljs.org/)
@@ -102,3 +103,14 @@ dist
 
 # TernJS port file
 .tern-port
+
+# Mac
+.DS_Store
+
+# build
+lib/
+esm/
+docs/.docgen/
+
+# swc
+.swc
