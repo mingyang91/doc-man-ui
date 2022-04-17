@@ -1,10 +1,11 @@
 import { resolve } from 'path'
 
-import { defineConfig, loadEnv } from 'vite'
+import { defineConfig, loadEnv, Plugin, PluginOption } from 'vite'
+import { viteMockServe } from 'vite-plugin-mock'
 import react from '@vitejs/plugin-react'
 import legacy from '@vitejs/plugin-legacy'
 import postcssPresetEnv from 'postcss-preset-env'
-import inject from '@rollup/plugin-inject'
+// import inject from '@rollup/plugin-inject'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import emotionBabel from '@emotion/babel-plugin'
 import jotaiDebugLabel from 'jotai/babel/plugin-debug-label'
@@ -19,76 +20,59 @@ const gitInfo = gitDescribeSync({
   match: '[0-9]*', // tag name
 })
 
-export default defineConfig(configEnv => {
+export default defineConfig(({ mode, command }) => {
   const envDir = resolve(__dirname, './env')
-  const isDevelopment = configEnv.mode === 'development'
-  const env = loadEnv(configEnv.mode, envDir, ['DEV_', 'VITE_'])
+  const isDevelopment = mode === 'development'
+
+  const env = loadEnv(mode, envDir, ['DEV_', 'VITE_'])
+
+  const isMock = env.VITE_MOCK === 'true'
 
   const PORT = Number(env.DEV_PORT || 8888)
+
+  const plugins: (Plugin | PluginOption[])[] = [
+    react({
+      babel: {
+        plugins: [emotionBabel, jotaiDebugLabel, jotaiReactRefresh],
+      },
+    }),
+    tsconfigPaths(),
+
+    legacy({
+      targets: browserslist[mode],
+    }),
+    createHtmlPlugin({
+      inject: {
+        data: {
+          sha: gitInfo.hash || '_NO_SHA_',
+          tag: gitInfo.tag || '_NO_TAG_',
+        },
+      },
+    }),
+  ]
+
+  if (command === 'serve' && isMock) {
+    plugins.push(
+      viteMockServe({
+        mockPath: './__mocks__',
+        localEnabled: true,
+      })
+    )
+  }
 
   return {
     envDir,
     define: {
-      'process.env.NODE_ENV': `"${configEnv.mode}"`,
+      'process.env.NODE_ENV': `"${mode}"`,
     },
-    plugins: [
-      react({
-        babel: {
-          plugins: [emotionBabel, jotaiDebugLabel, jotaiReactRefresh],
-        },
-      }),
-      tsconfigPaths(),
-      inject({
-        'window.store': 'store2',
-        store: 'store2',
-        include: ['*/**/*.js'],
-      }),
-      legacy({
-        targets: browserslist[configEnv.mode],
-      }),
-      createHtmlPlugin({
-        inject: {
-          data: {
-            sha: gitInfo.hash || '_NO_SHA_',
-            tag: gitInfo.tag || '_NO_TAG_',
-          },
-        },
-      }),
-    ],
+    plugins,
     resolve: {
-      alias: {
-        '@': resolve(__dirname, './src'),
-        '~': resolve(__dirname, 'node_modules'),
-        'store2/src/old': resolve(
-          __dirname,
-          'node_modules/store2/src/store.old.js'
-        ),
-        'store2/src/cache': resolve(
-          __dirname,
-          'node_modules/store2/src/store.cache.js'
-        ),
-        'store2/src/cookie': resolve(
-          __dirname,
-          'node_modules/store2/src/store.cookie.js'
-        ),
-        'store2/src/cookies': resolve(
-          __dirname,
-          'node_modules/store2/src/store.cookies.js'
-        ),
-        'store2/src/on': resolve(
-          __dirname,
-          'node_modules/store2/src/store.on.js'
-        ),
-        'store2/src/deep': resolve(
-          __dirname,
-          'node_modules/store2/src/store.deep.js'
-        ),
-        moment: resolve(__dirname, 'src/utils/replacemoment'),
-        'verification-input': resolve(
-          __dirname,
-          'src/utils/verification-input'
-        ),
-      },
+      alias: [
+        {
+          find: /store2\/src\/(.*)/,
+          replacement: resolve(__dirname, 'node_modules/store2/src/$1.js'),
+        },
+      ],
     },
     css: {
       postcss: {
@@ -136,9 +120,8 @@ export default defineConfig(configEnv => {
       port: PORT,
       host: env.DEV_HOST || '0.0.0.0',
       proxy: {
-        '/graphql': {
+        '/v1/graphql': {
           target: env.DEV_API_PROXY,
-          // secure: true,
           changeOrigin: true,
         },
       },

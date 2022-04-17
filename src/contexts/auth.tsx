@@ -1,80 +1,87 @@
-import { atomWithStorage, useUpdateAtom } from 'jotai/utils'
-import { useAtom, useAtomValue } from 'jotai'
-import { useCallback } from 'react'
+import { useState, useMemo } from 'react'
+import { useMemoizedFn, useMount } from 'ahooks'
 
-import { Cache, SessionStorageCacheStorage } from '@utils/cache'
-
-import { useRequest } from './request'
+import { createContainer } from '@utils/create-container'
+import { request, setAuthToken, clearAuthToken } from '@common/request'
 
 type AuthState = {
-  username?: string
+  id: string
+  username: string
+  display_name: string
+  role?: string
+  email?: string
 }
 
-const keyPrefix =
-  import.meta.env.MODE === 'development'
-    ? `dev-${import.meta.env.VITE_APP_NAME}`
-    : import.meta.env.VITE_APP_NAME
+type SessionStatus = 'loading' | 'authenticated' | 'unauthenticated'
 
-const authCache = new Cache<AuthState | null>({
-  keyPrefix,
-  storage: new SessionStorageCacheStorage(),
+const SessionContainer = createContainer(function useSessionContainer() {
+  const [loading, setLoading] = useState(true)
+  const [authState, setAuthState] = useState<AuthState>()
+
+  const whoAmI = useMemoizedFn(() => {
+    return request.get<AuthState>('/api/user/me').then(res => res.data)
+  })
+
+  const refreshToken = useMemoizedFn(() => {
+    return request
+      .post<{ access_token: string }>('/api/user/refreshToken')
+      .then(res => {
+        return res.data.access_token
+      })
+      .then(accessToken => {
+        setAuthToken(accessToken)
+        return accessToken
+      })
+  })
+
+  const authorize = useMemoizedFn(async (accessToken: string) => {
+    setLoading(true)
+    setAuthToken(accessToken)
+    const authState = await whoAmI()
+    setAuthState(authState)
+    setLoading(false)
+    return authState
+  })
+
+  const clearAuth = useMemoizedFn(() => {
+    clearAuthToken()
+    setAuthState(undefined)
+  })
+
+  const status: SessionStatus = useMemo(
+    () =>
+      loading ? 'loading' : authState ? 'authenticated' : 'unauthenticated',
+    [loading, authState]
+  )
+
+  const isAuthenticated = useMemo(
+    () => status === 'authenticated' && !!authState,
+    [authState, status]
+  )
+
+  useMount(() => {
+    const initSession = async () => {
+      try {
+        const newToken = await refreshToken()
+        await setAuthToken(newToken)
+      } catch {
+        // history.push(`/signin`)
+      } finally {
+        setLoading(false)
+      }
+    }
+    initSession()
+  })
+
+  return {
+    isAuthenticated,
+    status,
+    userInfo: authState,
+    authorize,
+    clearAuth,
+  }
 })
 
-export const accessTokenAtom = atomWithStorage<string | null>(
-  `${keyPrefix}-accessToken`,
-  null
-)
+export const useAuth = SessionContainer.useContainer
 
-const authAtom = atomWithStorage('auth', null, authCache)
-
-export const useAuthState = () => {
-  const authState = useAtomValue(authAtom)
-  const accessToken = useAtom(accessTokenAtom)
-
-  return {
-    ...authState,
-    isAuthenticated: !!accessToken && !!authState?.username,
-  }
-}
-
-export const useSignIn = () => {
-  const setAuthState = useUpdateAtom(authAtom)
-  const setAccessToken = useUpdateAtom(accessTokenAtom)
-  const request = useRequest()
-
-  const signIn = useCallback(
-    (username: string, password: string) => {
-      return request
-        .post('/auth/signin', { username, password })
-        .then(({ data }) => {
-          setAuthState({ username })
-          setAccessToken(data.accessToken)
-        })
-    },
-    [request, setAccessToken, setAuthState]
-  )
-
-  return {
-    signIn,
-  }
-}
-
-export const useSignOut = () => {
-  const setAuthState = useUpdateAtom(authAtom)
-  const setAccessToken = useUpdateAtom(accessTokenAtom)
-  const request = useRequest()
-
-  const signOut = useCallback(
-    (username: string, password: string) => {
-      return request.post('/auth/logout', { username, password }).then(() => {
-        setAuthState(null)
-        setAccessToken(null)
-      })
-    },
-    [request, setAccessToken, setAuthState]
-  )
-
-  return {
-    signOut,
-  }
-}
+export const AuthProvider = SessionContainer.Provider

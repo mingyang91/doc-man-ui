@@ -1,5 +1,5 @@
 import { PropsWithChildren, ReactNode } from 'react'
-import { Box, Heading, Stack, useColorModeValue } from '@chakra-ui/react'
+import { Box, Stack, useColorModeValue } from '@chakra-ui/react'
 
 type FormBoxProps = PropsWithChildren<{
   header?: ReactNode
@@ -7,17 +7,13 @@ type FormBoxProps = PropsWithChildren<{
 
 export const FormBox = ({ header, children }: FormBoxProps) => {
   return (
-    <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
-      {header && (
-        <Stack align={'center'}>
-          <Heading fontSize={'4xl'}>{header}</Heading>
-        </Stack>
-      )}
+    <Stack spacing={8} mx={'auto'} minW={'md'} maxW={'lg'} py={12} px={6}>
+      {header && <Stack align={'center'}>{header}</Stack>}
       <Box
         rounded={'lg'}
         bg={useColorModeValue('white', 'gray.700')}
         boxShadow={'lg'}
-        p={8}
+        p={10}
       >
         {children}
       </Box>
