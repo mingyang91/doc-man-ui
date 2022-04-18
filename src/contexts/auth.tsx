@@ -56,14 +56,14 @@ const SessionContainer = createContainer(function useSessionContainer() {
 
   const isAuthenticated = useMemo(
     () => status === 'authenticated' && !!authState,
-    [authState, status]
+    [status, authState]
   )
 
   useMount(() => {
     const initSession = async () => {
       try {
         const newToken = await refreshToken()
-        await setAuthToken(newToken)
+        await authorize(newToken)
       } catch {
         // history.push(`/signin`)
       } finally {

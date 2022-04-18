@@ -1,16 +1,13 @@
-import { PropsWithChildren } from 'react'
-import { useLocation, Navigate } from 'react-router-dom'
+import { useLocation, Navigate, Outlet } from 'react-router-dom'
 
 import { useAuth } from '@contexts/auth'
 
-type RequireAuthModuleProps = PropsWithChildren<Record<never, never>>
-
-export const RequireAuthModule = ({ children }: RequireAuthModuleProps) => {
+export const RequireAuthModule = () => {
   const location = useLocation()
   const { status } = useAuth()
 
   if (status === 'unauthenticated') {
     return <Navigate to="/signin" state={{ from: location }} replace />
   }
-  return children
+  return <Outlet />
 }

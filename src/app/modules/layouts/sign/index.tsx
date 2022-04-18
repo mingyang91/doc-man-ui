@@ -1,7 +1,7 @@
 import { Flex, useColorModeValue } from '@chakra-ui/react'
 import { PropsWithChildren } from 'react'
 
-export const Wrapper = ({
+export const SignLayout = ({
   children,
 }: PropsWithChildren<Record<never, never>>) => {
   return (

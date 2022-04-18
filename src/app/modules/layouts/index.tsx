@@ -1,38 +1,22 @@
-import {
-  Box,
-  useDisclosure,
-  useColorModeValue,
-  Drawer,
-  DrawerContent,
-} from '@chakra-ui/react'
-import { PropsWithChildren } from 'react'
+import { Fragment, PropsWithChildren } from 'react'
 
-import { Sidebar } from './components/sidebar'
-import { Topbar } from './components/topbar'
-type LayoutProps = PropsWithChildren<Record<never, never>>
+import { AdminLayout } from './admin'
+import { PreviewLayout } from './preview'
+import { SignLayout } from './sign'
 
-export const Layout = ({ children }: LayoutProps) => {
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  return (
-    <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
-      <Sidebar display={{ base: 'none', md: 'block' }} onClose={onClose} />
-      <Drawer
-        autoFocus={false}
-        isOpen={isOpen}
-        placement="left"
-        onClose={onClose}
-        returnFocusOnClose={false}
-        onOverlayClick={onClose}
-        size="full"
-      >
-        <DrawerContent>
-          <Sidebar onClose={onClose} />
-        </DrawerContent>
-        <Topbar onOpen={onOpen} />
-        <Box ml={{ base: 0, md: 60 }} p="4">
-          {children}
-        </Box>
-      </Drawer>
-    </Box>
-  )
+export type LayoutType = 'admin' | 'sign' | 'preview'
+
+const Layouts = {
+  admin: AdminLayout,
+  sign: SignLayout,
+  preview: PreviewLayout,
+} as const
+
+export type LayoutProps = PropsWithChildren<{
+  layout: LayoutType
+}>
+
+export const Layout = ({ layout, children }: LayoutProps) => {
+  const Layout = Layouts[layout] || Fragment
+  return <Layout>{children}</Layout>
 }
