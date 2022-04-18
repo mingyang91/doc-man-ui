@@ -18,10 +18,8 @@ export interface SidebarProps extends BoxProps {
 }
 
 export const Sidebar = ({ onClose, ...rest }: SidebarProps) => {
-  const sidebarBg = useColorModeValue('white', 'gray.700')
   return (
     <Box
-      bg={sidebarBg}
       borderRadius="16px"
       transition={'0.2s linear'}
       w="260px"
@@ -37,22 +35,21 @@ export const Sidebar = ({ onClose, ...rest }: SidebarProps) => {
       pe="20px"
       {...rest}
     >
-      <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
+      <Flex h="20" alignItems="center" justifyContent="space-between">
         <Box pt={'25px'} mb="12px">
           <Link
             href={`${process.env.PUBLIC_URL}/dashboard`}
             target="_blank"
             display="flex"
             lineHeight="100%"
-            mb="30px"
+            mb="16px"
             fontWeight="bold"
             justifyContent="center"
             alignItems="center"
-            fontSize="11px"
           >
-            <Avatar w="32px" h="32px" me="10px" src="/logo" />
-            <Text fontSize="sm" mt="3px">
-              Doc Man
+            <Avatar w="48px" h="48px" me="10px" src="/logo.png" />
+            <Text fontSize="xl" mt="3px">
+              Doc Man Build
             </Text>
           </Link>
           <Separator />

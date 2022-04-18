@@ -13,7 +13,7 @@ export const SidebarContent = () => {
   const menus = createMenus(routes, location)
 
   return (
-    <Stack direction="column" mb="40px">
+    <Stack direction="column" mt="16px" mb="40px">
       <Box>
         {menus.map(menu => (
           <NavItem key={menu.title} menu={menu} />
