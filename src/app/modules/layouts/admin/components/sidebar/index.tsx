@@ -7,8 +7,6 @@ import {
   useColorModeValue,
   Link,
   Avatar,
-  useTheme,
-  useStyleConfig,
 } from '@chakra-ui/react'
 
 import { Separator } from '@components/separator'
