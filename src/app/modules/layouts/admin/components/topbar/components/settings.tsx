@@ -1,4 +1,3 @@
-import { BellIcon } from '@chakra-ui/icons'
 import { Flex, Icon, IconButton, useColorModeValue } from '@chakra-ui/react'
 import { RiSendToBack } from 'react-icons/ri'
 

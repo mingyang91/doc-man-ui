@@ -1,10 +1,9 @@
 import { useAtomValue } from 'jotai'
-import { Avatar, Box, Link, Text, Stack } from '@chakra-ui/react'
+import { Box, Stack } from '@chakra-ui/react'
 import { useLocation } from 'react-router-dom'
 
 import { routesAtom } from '@app/routes'
 import { createMenus } from '@app/routes/create-menus'
-import { Separator } from '@components/separator'
 
 import { NavItem } from './nav-item'
 
