@@ -17,15 +17,21 @@ import { assertGroupTitle } from '@app/routes'
 type IconBoxProps = PropsWithChildren<{
   isActive?: boolean
   activeColor?: string
+  color?: string
 }>
 
-const IconBox = ({ isActive, activeColor, children }: IconBoxProps) => {
+const IconBox = ({
+  isActive,
+  activeColor,
+  color = 'white',
+  children,
+}: IconBoxProps) => {
   const sx = isActive
     ? {
         bgColor: activeColor,
-        color: 'white',
+        color,
       }
-    : { bgColor: 'white', color: activeColor }
+    : { bgColor: color, color: activeColor }
 
   return (
     <Flex
@@ -35,6 +41,7 @@ const IconBox = ({ isActive, activeColor, children }: IconBoxProps) => {
       alignItems="center"
       justifyContent="center"
       borderRadius="12px"
+      transition="background-color 0.2s, color 0.2s"
       sx={sx}
     >
       {children}
@@ -60,35 +67,32 @@ export const NavItem = ({ menu, children, ...rest }: NavItemProps) => {
 
   if (assertGroupTitle(menu)) {
     content = (
-      <Text
-        color={activeColor}
-        fontWeight="bold"
+      <Flex
         mb={{
           xl: '12px',
         }}
         mx="auto"
-        ps={{
-          sm: '10px',
-          xl: '16px',
-        }}
         py="12px"
+        alignItems="center"
       >
-        {menu.title}
-      </Text>
+        {menu.icon && (
+          <IconBox activeColor={inactiveColor} color={inactiveBg}>
+            <Icon as={menu.icon} w="24px" h="24px" />
+          </IconBox>
+        )}
+        <Text color={activeColor} fontWeight="bold">
+          {menu.title}
+        </Text>
+      </Flex>
     )
     submodule = hasChildren && <>{children}</>
   } else {
-    const [bg, color, iconColor] =
-      menu.isActive && !hasChildren
-        ? [activeBg, activeColor, 'teal.300']
-        : [inactiveBg, inactiveColor, 'white']
+    const color = menu.isActive ? activeColor : inactiveColor
     content = (
       <NavLink to={menu.path}>
         <Button
-          data-active={menu.isActive}
           justifyContent="flex-start"
           alignItems="center"
-          bg={bg}
           mb={{
             xl: '12px',
           }}
@@ -96,24 +100,40 @@ export const NavItem = ({ menu, children, ...rest }: NavItemProps) => {
             xl: 'auto',
           }}
           ps={{
-            sm: '10px',
-            xl: '16px',
+            sm: '5px',
+            xl: '8px',
           }}
           py="12px"
           borderRadius="15px"
-          _hover={{}}
           w="100%"
           h="auto"
           _active={{
             transform: 'none',
             borderColor: 'transparent',
           }}
+          _hover={{
+            bg: activeBg,
+          }}
           _focus={{
             boxShadow: 'none',
           }}
+          sx={
+            menu.isActive
+              ? {
+                  bg: activeBg,
+                  boxShadow: 'rgb(0 0 0 / 4%) 0px 7px 11px',
+                }
+              : {
+                  bg: inactiveBg,
+                }
+          }
         >
           {menu.icon && (
-            <IconBox isActive={menu.isActive} activeColor={iconColor}>
+            <IconBox
+              isActive={menu.isActive}
+              activeColor="teal.300"
+              color="white"
+            >
               <Icon as={menu.icon} />
             </IconBox>
           )}

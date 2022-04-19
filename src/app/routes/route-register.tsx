@@ -12,7 +12,7 @@ const routeWalk = (
   free: JSX.Element[] = []
 ) => {
   routes.forEach(route => {
-    const fullPath = `${parentPath}${route.path}`
+    const fullPath = `${parentPath}${route.path || ''}`
     if (!assertGroupTitle(route)) {
       const { isRequireAuth, layout, Component, props } = route
 

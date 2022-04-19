@@ -13,9 +13,11 @@ const MenuAndRoutesContainer = createContainer(
     const routes = useAtomValue(routesAtom)
     const menus = createMenus(routes, location)
 
-    const [viewTitle, setViewTitle] = useState('')
-
     const activeMenus = useCreation(() => getActiveMenuPath(menus), [menus])
+
+    const [viewTitle, setViewTitle] = useState(
+      activeMenus.length > 0 ? activeMenus[activeMenus.length - 1].title : ''
+    )
 
     return {
       menus,

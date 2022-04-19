@@ -1,6 +1,8 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import { ChakraProvider } from '@chakra-ui/react'
+import { HelmetProvider } from 'react-helmet-async'
+import { useAtomValue } from 'jotai'
 
 import { GlobalStyle } from '@components/global-style'
 import { themeConfig } from '@common/theme'
@@ -11,26 +13,30 @@ import { RequireAuthModule } from '@app/modules/auth'
 import { SHOULD_SHOW_REACT_QUERY_DEVTOOL } from '../common/const'
 
 import { routeRegister } from './routes/route-register'
-import { routes } from './routes'
+import { routesAtom } from './routes'
 
 export const App = () => {
+  const routes = useAtomValue(routesAtom)
   const { requireAuth, free } = routeRegister(routes)
+
   return (
-    <ChakraProvider theme={themeConfig}>
-      {SHOULD_SHOW_REACT_QUERY_DEVTOOL ? <ReactQueryDevtools /> : null}
-      <GlobalStyle />
-      <BrowserRouter>
-        <AuthProvider>
-          <UserProvider>
-            <Routes>
-              {free.map(element => element)}
-              <Route element={<RequireAuthModule />}>
-                {requireAuth.map(element => element)}
-              </Route>
-            </Routes>
-          </UserProvider>
-        </AuthProvider>
-      </BrowserRouter>
-    </ChakraProvider>
+    <HelmetProvider>
+      <ChakraProvider theme={themeConfig}>
+        {SHOULD_SHOW_REACT_QUERY_DEVTOOL ? <ReactQueryDevtools /> : null}
+        <GlobalStyle />
+        <BrowserRouter>
+          <AuthProvider>
+            <UserProvider>
+              <Routes>
+                {free.map(element => element)}
+                <Route element={<RequireAuthModule />}>
+                  {requireAuth.map(element => element)}
+                </Route>
+              </Routes>
+            </UserProvider>
+          </AuthProvider>
+        </BrowserRouter>
+      </ChakraProvider>
+    </HelmetProvider>
   )
 }

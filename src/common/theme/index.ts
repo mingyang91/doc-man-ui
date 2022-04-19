@@ -3,12 +3,12 @@ import { extendTheme } from '@chakra-ui/react'
 import { badgeStyles } from './components/badge'
 import { buttonStyles } from './components/button'
 import { drawerStyles } from './components/drawer'
-import { CardComponent } from './additions/card/Card'
-import { CardBodyComponent } from './additions/card/CardBody'
-import { CardHeaderComponent } from './additions/card/CardHeader'
-import { MainPanelComponent } from './additions/layout/MainPanel'
-import { PanelContentComponent } from './additions/layout/PanelContent'
-import { PanelContainerComponent } from './additions/layout/PanelContainer'
+import { CardContainerComponent } from './additions/card/card-container'
+import { CardBodyComponent } from './additions/card/card-body'
+import { CardHeaderComponent } from './additions/card/card-header'
+import { MainPanelComponent } from './additions/layout/main-panel'
+import { PanelContentComponent } from './additions/layout/panel-content'
+import { PanelContainerComponent } from './additions/layout/panel-container'
 import foundations from './foundations'
 import { globalStyles } from './styles'
 const direction = 'ltr'
@@ -31,7 +31,7 @@ export const themeConfig = extendTheme(
   buttonStyles,
   badgeStyles,
   drawerStyles,
-  CardComponent, // Card component
+  CardContainerComponent, // Card component
   CardBodyComponent, // Card Body component
   CardHeaderComponent, // Card Header component
   MainPanelComponent, // Main Panel component

@@ -1,5 +1,5 @@
 import { Flex, Icon, IconButton, useColorModeValue } from '@chakra-ui/react'
-import { RiSendToBack } from 'react-icons/ri'
+import { RiLogoutBoxRFill } from 'react-icons/ri'
 
 export const Settings = () => {
   const navbarIcon = useColorModeValue('gray.500', 'gray.200')
@@ -13,8 +13,9 @@ export const Settings = () => {
     >
       <IconButton
         bg="transparent"
+        fontSize={'xl'}
         color={navbarIcon}
-        icon={<Icon as={RiSendToBack} />}
+        icon={<Icon as={RiLogoutBoxRFill} />}
         aria-label="log out"
       />
     </Flex>

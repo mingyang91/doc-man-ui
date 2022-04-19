@@ -15,14 +15,14 @@ import {
   PanelContainer,
   PanelContent,
 } from './components/main-panel'
-import { MenuAndRoutesProvider } from './contexts/menu-and-routes'
+import { MenuAndRoutes } from './components/menu-and-routes'
 type LayoutProps = PropsWithChildren<Record<never, never>>
 
 export const AdminLayout = ({ children }: LayoutProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
-    <MenuAndRoutesProvider>
+    <MenuAndRoutes>
       <Flex minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
         <Sidebar display={{ base: 'none', md: 'block' }} onClose={onClose} />
         <Drawer
@@ -54,6 +54,6 @@ export const AdminLayout = ({ children }: LayoutProps) => {
           </PanelContent>
         </MainPanel>
       </Flex>
-    </MenuAndRoutesProvider>
+    </MenuAndRoutes>
   )
 }

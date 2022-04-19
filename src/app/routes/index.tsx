@@ -1,11 +1,12 @@
 import { ComponentType } from 'react'
-import { RiHome2Line } from 'react-icons/ri'
+import { RiArtboard2Fill, RiFile2Fill, RiHome2Line } from 'react-icons/ri'
 import { IconType } from 'react-icons'
 import { atom } from 'jotai'
 
 import { Dashboard } from '@app/views/dashboard'
 import { SignIn } from '@app/views/sign-in/index'
 import { LayoutType } from '@app/modules/layouts/index'
+import { Documents } from '@app/views/documents'
 
 import type { MenuConfig, MenuGroupTitle } from './create-menus'
 
@@ -57,9 +58,21 @@ export const routes: RouteView[] = [
     layout: 'admin',
   },
   {
-    title: 'Documents',
+    title: 'Manager',
+    icon: RiArtboard2Fill,
     isMenu: true,
     isGroupTitle: true,
+    views: [
+      {
+        path: 'documents',
+        isRequireAuth: true,
+        title: 'Documents',
+        icon: RiFile2Fill,
+        isMenu: true,
+        Component: Documents,
+        layout: 'admin',
+      },
+    ],
   },
 ]
 

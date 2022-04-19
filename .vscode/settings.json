@@ -9,7 +9,10 @@
   },
   "typescript.tsdk": "node_modules/typescript/lib",
   "cSpell.words": [
+    "codegen",
     "formik",
+    "HASURA",
+    "prestart",
     "primeflex",
     "primeicons",
     "primereact",

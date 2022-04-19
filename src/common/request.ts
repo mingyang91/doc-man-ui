@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { GraphQLClient } from 'graphql-request'
 
 import { Cache, SessionStorageCacheStorage } from '@utils/cache'
 
@@ -28,14 +29,18 @@ export const request = axios.create({
   },
 })
 
-export const postRequest = <T>(url: string, body?: unknown) => {
-  return request.post<T>(url, body)
-}
+export const graphQLClient = new GraphQLClient(
+  new URL('v1/graphql', baseUrl).toString(),
+  {
+    fetch: request,
+  }
+)
 
 request.interceptors.request.use(config => {
   const { headers = {} } = config
   const accessToken = authTokenStore.getItem(SESSION_KEY)
   accessToken && (headers.Authorization = accessToken)
+  headers['x-hasura-admin-secret'] = import.meta.env.VITE_HASURA_ADMIN_SECRET
   config.headers = headers
   return config
 })

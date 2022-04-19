@@ -6,6 +6,7 @@ interface ImportMetaEnv {
   readonly VITE_API_BASE: string
   readonly VITE_OSS_BASE: string
   readonly VITE_HIDE_REACT_QUERY_DEVTOOL: string
+  readonly VITE_HASURA_ADMIN_SECRET: string
   // 更多环境变量...
 }
 

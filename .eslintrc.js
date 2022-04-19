@@ -99,6 +99,14 @@ module.exports = {
       files: ['**/__tests__/**'],
       env: { jest: true },
     },
+    {
+      files: ['*.graphql'],
+      parser: '@graphql-eslint/eslint-plugin',
+      plugins: ['@graphql-eslint'],
+      rules: {
+        '@graphql-eslint/known-type-names': 'error',
+      },
+    },
   ],
   settings: {
     react: {

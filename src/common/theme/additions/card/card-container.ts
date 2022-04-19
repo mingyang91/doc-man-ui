@@ -1,4 +1,4 @@
-const Card = {
+const CardContainer = {
   baseStyle: {
     p: '22px',
     display: 'flex',
@@ -22,8 +22,8 @@ const Card = {
   },
 }
 
-export const CardComponent = {
+export const CardContainerComponent = {
   components: {
-    Card,
+    CardContainer,
   },
 }

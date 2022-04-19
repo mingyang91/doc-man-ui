@@ -5,7 +5,7 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react'
 
-import { useMenuAndRoutes } from '../../../contexts/menu-and-routes'
+import { useMenuAndRoutes } from '../../menu-and-routes'
 
 export const NavBreadcrumb = () => {
   const { activeMenus } = useMenuAndRoutes()

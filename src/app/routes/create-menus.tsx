@@ -55,23 +55,27 @@ export const createMenus = (
 
 function walkMenu(
   menus: MenuConfig[],
-  paths: MenuConfig[] = [],
   iteratee: (menu: MenuConfig, paths: MenuConfig[]) => boolean
 ) {
-  for (let i = 0; i < menus.length; i++) {
-    const menu = menus[i]
-    paths.push(menu)
-    if (menu.submodule && menu.submodule.length > 0) {
-      walkMenu(menu.submodule, paths, iteratee)
+  function walkSelf(menus: MenuConfig[], paths: MenuConfig[] = [], depth = 0) {
+    for (const menu of menus) {
+      paths[depth] = menu
+      if (menu.submodule && menu.submodule.length > 0) {
+        walkSelf(menu.submodule, paths, ++depth)
+      }
+      const shouldContinue = iteratee(menu, paths)
+      if (!shouldContinue) break
     }
-    const shouldContinue = iteratee(menu, paths)
-    if (!shouldContinue) break
+    return paths
   }
-  return paths
+
+  const paths: MenuConfig[] = []
+
+  return walkSelf(menus, paths)
 }
 
 export const getActiveMenuPath = (menus: MenuConfig[]) => {
-  return walkMenu(menus, [], menu => {
-    return assertGroupTitle(menu) ? true : !menu.isActive
+  return walkMenu(menus, menu => {
+    return assertGroupTitle(menu) ? true : !menu.isActive && !menu.submodule
   })
 }
