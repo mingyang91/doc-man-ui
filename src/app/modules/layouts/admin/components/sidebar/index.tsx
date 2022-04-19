@@ -4,7 +4,6 @@ import {
   Flex,
   Text,
   CloseButton,
-  useColorModeValue,
   Link,
   Avatar,
 } from '@chakra-ui/react'

@@ -25,7 +25,7 @@ export const App = () => {
             <Routes>
               {free.map(element => element)}
               <Route element={<RequireAuthModule />}>
-                <>{requireAuth.map(element => element)}</>
+                {requireAuth.map(element => element)}
               </Route>
             </Routes>
           </UserProvider>

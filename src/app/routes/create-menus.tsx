@@ -7,6 +7,7 @@ export type MenuGroupTitle = {
   icon?: IconType
   isGroupTitle: true
   title: string
+  submodule?: MenuConfig[]
 }
 
 export type MenuRouteConfig = {
@@ -27,13 +28,15 @@ export const createMenus = (
   parentPath = '/'
 ): MenuConfig[] => {
   return routes
-    .filter(route => !!route.title)
+    .filter(route => !!route.isMenu)
     .map(route => {
+      const submodule = route.views && createMenus(route.views, location)
       if (assertGroupTitle(route)) {
         return {
           isGroupTitle: true,
           title: route.title,
           icon: route.icon,
+          submodule,
         }
       }
       const fullPath = `${parentPath}${route.path}`
@@ -45,8 +48,30 @@ export const createMenus = (
         path: fullPath,
         state: route.state,
         redirect: route.redirect,
-        submodule:
-          route.views && createMenus(route.views || [], location, fullPath),
+        submodule,
       }
     })
+}
+
+function walkMenu(
+  menus: MenuConfig[],
+  paths: MenuConfig[] = [],
+  iteratee: (menu: MenuConfig, paths: MenuConfig[]) => boolean
+) {
+  for (let i = 0; i < menus.length; i++) {
+    const menu = menus[i]
+    paths.push(menu)
+    if (menu.submodule && menu.submodule.length > 0) {
+      walkMenu(menu.submodule, paths, iteratee)
+    }
+    const shouldContinue = iteratee(menu, paths)
+    if (!shouldContinue) break
+  }
+  return paths
+}
+
+export const getActiveMenuPath = (menus: MenuConfig[]) => {
+  return walkMenu(menus, [], menu => {
+    return assertGroupTitle(menu) ? true : !menu.isActive
+  })
 }

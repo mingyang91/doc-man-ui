@@ -12,20 +12,22 @@ import type { MenuConfig, MenuGroupTitle } from './create-menus'
 export type GroupTitle = {
   title: string
   icon?: IconType
+  isMenu: true
   isGroupTitle: true
-  children: RouteView[]
+  path?: undefined
+  views?: RouteView[]
 }
 
 export type RouteView =
   | {
       path: string
       isRequireAuth?: boolean
+      isMenu?: boolean
       title?: string
       icon?: IconType
       redirect?: string
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      Component: ComponentType<any>
-      props?: unknown
+      Component: ComponentType<Record<string, unknown>>
+      props?: Record<string, unknown>
       layout: LayoutType
       state?: unknown
       views?: RouteView[]
@@ -48,10 +50,16 @@ export const routes: RouteView[] = [
   {
     path: 'dashboard',
     title: 'Dashboard',
+    isMenu: true,
     isRequireAuth: true,
     icon: RiHome2Line,
     Component: Dashboard,
     layout: 'admin',
+  },
+  {
+    title: 'Documents',
+    isMenu: true,
+    isGroupTitle: true,
   },
 ]
 

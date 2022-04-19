@@ -1,16 +1,11 @@
-import { useAtomValue } from 'jotai'
 import { Box, Stack } from '@chakra-ui/react'
-import { useLocation } from 'react-router-dom'
 
-import { routesAtom } from '@app/routes'
-import { createMenus } from '@app/routes/create-menus'
+import { useMenuAndRoutes } from '../../../contexts/menu-and-routes'
 
 import { NavItem } from './nav-item'
 
 export const SidebarContent = () => {
-  const location = useLocation()
-  const routes = useAtomValue(routesAtom)
-  const menus = createMenus(routes, location)
+  const { menus } = useMenuAndRoutes()
 
   return (
     <Stack direction="column" mt="16px" mb="40px">

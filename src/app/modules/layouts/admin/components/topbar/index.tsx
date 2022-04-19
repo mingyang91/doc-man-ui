@@ -4,13 +4,11 @@ import {
   IconButton,
   useColorModeValue,
   Box,
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
 } from '@chakra-ui/react'
 import { FiMenu } from 'react-icons/fi'
 
 import { Settings } from './components/settings'
+import { NavBreadcrumb } from './components/nav-breadcrumb'
 
 export interface TopbarProps extends FlexProps {
   fixed?: boolean
@@ -18,8 +16,6 @@ export interface TopbarProps extends FlexProps {
 }
 
 export const Topbar = ({ onOpen, fixed, ...rest }: TopbarProps) => {
-  const mainText = useColorModeValue('gray.700', 'gray.200')
-  const secondaryText = useColorModeValue('gray.400', 'gray.200')
   const navbarPosition = fixed ? 'fixed' : 'absolute'
   const navbarFilter = useColorModeValue(
     'none',
@@ -91,19 +87,7 @@ export const Topbar = ({ onOpen, fixed, ...rest }: TopbarProps) => {
         alignItems={{ xl: 'center' }}
       >
         <Box mb={{ sm: '8px', md: '0px' }}>
-          <Breadcrumb>
-            <BreadcrumbItem color={mainText}>
-              <BreadcrumbLink href="#" color={secondaryText}>
-                Pages
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-
-            <BreadcrumbItem color={mainText}>
-              <BreadcrumbLink href="#" color={mainText}>
-                current page
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-          </Breadcrumb>
+          <NavBreadcrumb />
         </Box>
         <Box ms="auto" w={{ sm: '100%', md: 'unset' }}>
           <Settings />

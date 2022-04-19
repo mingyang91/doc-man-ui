@@ -9,9 +9,38 @@ import {
   Collapse,
 } from '@chakra-ui/react'
 import { NavLink } from 'react-router-dom'
+import { ReactNode, PropsWithChildren } from 'react'
 
 import { MenuConfig } from '@app/routes/create-menus'
 import { assertGroupTitle } from '@app/routes'
+
+type IconBoxProps = PropsWithChildren<{
+  isActive?: boolean
+  activeColor?: string
+}>
+
+const IconBox = ({ isActive, activeColor, children }: IconBoxProps) => {
+  const sx = isActive
+    ? {
+        bgColor: activeColor,
+        color: 'white',
+      }
+    : { bgColor: 'white', color: activeColor }
+
+  return (
+    <Flex
+      mx="12px"
+      w="32px"
+      h="32px"
+      alignItems="center"
+      justifyContent="center"
+      borderRadius="12px"
+      sx={sx}
+    >
+      {children}
+    </Flex>
+  )
+}
 
 export interface NavItemProps extends BoxProps {
   menu: MenuConfig
@@ -23,8 +52,14 @@ export const NavItem = ({ menu, children, ...rest }: NavItemProps) => {
   const activeColor = useColorModeValue('gray.700', 'white')
   const inactiveColor = useColorModeValue('gray.400', 'gray.400')
 
+  const hasChildren = menu.submodule && menu.submodule.length > 0
+
+  let content: ReactNode
+
+  let submodule: ReactNode
+
   if (assertGroupTitle(menu)) {
-    return (
+    content = (
       <Text
         color={activeColor}
         fontWeight="bold"
@@ -41,64 +76,62 @@ export const NavItem = ({ menu, children, ...rest }: NavItemProps) => {
         {menu.title}
       </Text>
     )
+    submodule = hasChildren && <>{children}</>
+  } else {
+    const [bg, color, iconColor] =
+      menu.isActive && !hasChildren
+        ? [activeBg, activeColor, 'teal.300']
+        : [inactiveBg, inactiveColor, 'white']
+    content = (
+      <NavLink to={menu.path}>
+        <Button
+          data-active={menu.isActive}
+          justifyContent="flex-start"
+          alignItems="center"
+          bg={bg}
+          mb={{
+            xl: '12px',
+          }}
+          mx={{
+            xl: 'auto',
+          }}
+          ps={{
+            sm: '10px',
+            xl: '16px',
+          }}
+          py="12px"
+          borderRadius="15px"
+          _hover={{}}
+          w="100%"
+          h="auto"
+          _active={{
+            transform: 'none',
+            borderColor: 'transparent',
+          }}
+          _focus={{
+            boxShadow: 'none',
+          }}
+        >
+          {menu.icon && (
+            <IconBox isActive={menu.isActive} activeColor={iconColor}>
+              <Icon as={menu.icon} />
+            </IconBox>
+          )}
+          <Text color={color} my="auto" fontSize="sm">
+            {menu.title}
+          </Text>
+        </Button>
+      </NavLink>
+    )
+    submodule = hasChildren && (
+      <Collapse in={menu.isActive}>{children}</Collapse>
+    )
   }
-  const hasChildren = menu.submodule && menu.submodule.length > 0
 
-  const [bg, color, iconColor] =
-    menu.isActive && !hasChildren
-      ? [activeBg, activeColor, 'teal.300']
-      : [inactiveBg, inactiveColor, 'white']
-  const content = (
-    <NavLink to={menu.path}>
-      <Button
-        data-active={menu.isActive}
-        justifyContent="flex-start"
-        alignItems="center"
-        bg={bg}
-        mb={{
-          xl: '12px',
-        }}
-        mx={{
-          xl: 'auto',
-        }}
-        ps={{
-          sm: '10px',
-          xl: '16px',
-        }}
-        py="12px"
-        borderRadius="15px"
-        _hover={{}}
-        w="100%"
-        _active={{
-          transform: 'none',
-          borderColor: 'transparent',
-        }}
-        _focus={{
-          boxShadow: 'none',
-        }}
-      >
-        {menu.icon && (
-          <Flex
-            w="32px"
-            h="32px"
-            alignItems={'center'}
-            justifyContent={'center'}
-            borderRadius={'12px'}
-            color={iconColor}
-          >
-            <Icon as={menu.icon} />
-          </Flex>
-        )}
-        <Text color={color} my="auto" fontSize="sm">
-          {menu.title}
-        </Text>
-      </Button>
-    </NavLink>
-  )
   return (
     <Box {...rest}>
       {content}
-      {hasChildren && <Collapse in={menu.isActive}>{children}</Collapse>}
+      {submodule}
     </Box>
   )
 }
