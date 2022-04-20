@@ -1,5 +1,5 @@
-import { useCallback, useMemo } from 'react'
-import { createTable, ColumnDefaultOptions } from '@tanstack/react-table'
+import { useCallback } from 'react'
+import { createTable } from '@tanstack/react-table'
 import { isNil } from 'lodash-es'
 import { Button, Link } from '@chakra-ui/react'
 
@@ -86,7 +86,11 @@ export const DocumentList = ({ title, dataSource }: DocumentListProps) => {
 
   return (
     <Card header={title}>
-      <ProTable tableInstance={table} columns={columns} />
+      <ProTable
+        tableInstance={table}
+        columns={columns}
+        dataSource={dataSource}
+      />
     </Card>
   )
 }

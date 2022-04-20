@@ -1,39 +1,56 @@
-import { isNil } from 'lodash-es'
-import { Route } from 'react-router-dom'
+import { RouteObject, Navigate, generatePath } from 'react-router-dom'
+import { Fragment } from 'react'
 
 import { Layout } from '@app/modules/layouts'
+import { RequireAuthModule } from '@app/modules/auth'
 
 import { RouteView, assertGroupTitle } from '.'
 
-const routeWalk = (
-  routes: RouteView[],
-  parentPath = '/',
-  requireAuth: JSX.Element[] = [],
-  free: JSX.Element[] = []
-) => {
-  routes.forEach(route => {
+const routeWalk = (routes: RouteView[], parentPath = '/'): RouteObject[] => {
+  return routes.reduce<RouteObject[]>((acc, route) => {
     const fullPath = `${parentPath}${route.path || ''}`
-    if (!assertGroupTitle(route)) {
-      const { isRequireAuth, layout, Component, props } = route
 
-      if (isNil(route.views)) {
+    if (
+      assertGroupTitle(route) &&
+      route.submodule &&
+      route.submodule.length > 0
+    ) {
+      return acc.concat(routeWalk(route.submodule, fullPath))
+    }
+
+    if (!assertGroupTitle(route)) {
+      if (route.redirect) {
+        acc.push({
+          path: fullPath,
+          element: (
+            <Navigate to={generatePath(route.redirect, route.params)} replace />
+          ),
+        })
+      } else {
+        const { isRequireAuth, layout, Component, props } = route
+        const Wrapper = isRequireAuth ? RequireAuthModule : Fragment
         const element = (
-          <Layout layout={layout}>
-            <Component {...props} />
-          </Layout>
+          <Wrapper>
+            <Layout layout={layout}>
+              <Component {...props} />
+            </Layout>
+          </Wrapper>
         )
-        const routeRender = (
-          <Route key={fullPath} path={fullPath} element={element} />
-        )
-        isRequireAuth ? requireAuth.push(routeRender) : free.push(routeRender)
+        const routeObject: RouteObject = {
+          path: fullPath,
+          element,
+        }
+
+        if (route.submodule && route.submodule.length > 0) {
+          routeObject.children = routeWalk(route.submodule, fullPath)
+        }
+
+        acc.push(routeObject)
       }
     }
-    route.views && routeWalk(route.views, fullPath, requireAuth, free)
-  })
-  return {
-    requireAuth,
-    free,
-  }
+
+    return acc
+  }, [])
 }
 
 export const routeRegister = (routes: RouteView[]) => {

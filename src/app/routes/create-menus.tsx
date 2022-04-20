@@ -30,7 +30,8 @@ export const createMenus = (
   return routes
     .filter(route => !!route.isMenu)
     .map(route => {
-      const submodule = route.views && createMenus(route.views, location)
+      const submodule =
+        route.submodule && createMenus(route.submodule, location)
       if (assertGroupTitle(route)) {
         return {
           isGroupTitle: true,

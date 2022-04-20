@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import { ReactNode } from 'react'
 import {
   Table as TableInstance,
