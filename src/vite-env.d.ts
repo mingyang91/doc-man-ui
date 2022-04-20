@@ -1,6 +1,7 @@
 /// <reference types="vite/client" />
 /// <reference types="@emotion/react/types/css-prop" />
 
+declare module 'deck.gl'
 interface ImportMetaEnv {
   readonly VITE_APP_NAME: string
   readonly VITE_API_BASE: string
