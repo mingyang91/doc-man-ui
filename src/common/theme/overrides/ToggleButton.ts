@@ -1,6 +1,6 @@
-import { Theme, alpha } from '@mui/material/styles';
-//
-import { ColorSchema } from '../palette';
+import { Theme, alpha } from '@mui/material/styles'
+
+import { ColorSchema } from '../palette'
 
 // ----------------------------------------------------------------------
 
@@ -10,13 +10,16 @@ export default function ToggleButton(theme: Theme) {
     style: {
       '&:hover': {
         borderColor: alpha(theme.palette[color].main, 0.48),
-        backgroundColor: alpha(theme.palette[color].main, theme.palette.action.hoverOpacity),
+        backgroundColor: alpha(
+          theme.palette[color].main,
+          theme.palette.action.hoverOpacity
+        ),
       },
       '&.Mui-selected': {
         borderColor: alpha(theme.palette[color].main, 0.48),
       },
     },
-  });
+  })
 
   return {
     MuiToggleButton: {
@@ -51,5 +54,5 @@ export default function ToggleButton(theme: Theme) {
         },
       },
     },
-  };
+  }
 }

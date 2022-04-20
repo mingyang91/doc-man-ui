@@ -1,9 +1,6 @@
 import { NavLink as RouterLink } from 'react-router-dom'
 // @mui
 import { Box, Link, ListItemText, Typography, Tooltip } from '@mui/material'
-
-// type
-import { FiArrowDown } from 'react-icons/fi'
 import { RiArrowDownFill, RiArrowGoForwardFill } from 'react-icons/ri'
 
 import Iconify from '@components/iconify'

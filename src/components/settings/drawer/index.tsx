@@ -3,14 +3,10 @@ import { useState, useEffect } from 'react'
 // @mui
 import { alpha, styled } from '@mui/material/styles'
 import { Stack, Divider, Backdrop, Typography, IconButton } from '@mui/material'
-
-// hooks
 import { RiCloseCircleFill, RiRefreshLine } from 'react-icons/ri'
 
 import useSettings from '@hooks/use-settings'
 import cssStyles from '@utils/css-styles'
-
-// config
 import Iconify from '@components/iconify'
 
 import { NAVBAR, defaultSettings } from '../../../config'

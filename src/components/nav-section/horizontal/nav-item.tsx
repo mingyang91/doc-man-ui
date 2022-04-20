@@ -1,8 +1,6 @@
 import { ReactElement, forwardRef } from 'react'
 import { NavLink as RouterLink } from 'react-router-dom'
 import { Box, Link } from '@mui/material'
-
-// config
 import { FiChevronDown, FiChevronRight } from 'react-icons/fi'
 
 import Iconify from '@components/iconify'
