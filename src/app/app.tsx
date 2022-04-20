@@ -1,4 +1,3 @@
-import { BrowserRouter } from 'react-router-dom'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import { ChakraProvider } from '@chakra-ui/react'
 import { HelmetProvider } from 'react-helmet-async'
