@@ -7,7 +7,7 @@ import {
   InputAdornment,
   ClickAwayListener,
 } from '@mui/material'
-import { RiSearchLine, RiSearchFill } from 'react-icons/ri'
+import { RiSearchLine } from 'react-icons/ri'
 
 import cssStyles from '@/utils/css-styles'
 import Iconify from '@components/iconify'

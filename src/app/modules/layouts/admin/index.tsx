@@ -1,10 +1,10 @@
-import { PropsWithChildren, ReactNode, useState } from 'react'
+import { PropsWithChildren, useState } from 'react'
 import { Box } from '@mui/material'
 
 import useCollapseDrawer from '@/hooks/use-collapse-drawer'
 import { useSettings } from '@/contexts/settings'
 import useResponsive from '@/hooks/use-responsive'
-import { HEADER, NAVBAR } from '@/config'
+import { HEADER } from '@/config'
 
 import NavbarVertical from './components/navbar/navbar-vertical'
 import NavbarHorizontal from './components/navbar/navbar-horizontal'
