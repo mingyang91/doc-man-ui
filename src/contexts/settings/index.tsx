@@ -1,10 +1,8 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { ReactNode, useEffect, createContext } from 'react'
+import { useEffect } from 'react'
 import { useLocalStorageState } from 'ahooks'
 
 import { createContainer } from '@utils/create-container'
-
-// config
 import {
   ThemeMode,
   ThemeLayout,

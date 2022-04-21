@@ -21,6 +21,7 @@ export default function GetFontValue(variant: Variant) {
     variant === 'h5' ||
     variant === 'h6'
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const getFont: any =
     hasResponsive && theme.typography[variant][key]
       ? theme.typography[variant][key]

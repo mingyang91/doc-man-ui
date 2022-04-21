@@ -1,23 +1,31 @@
 // @types
-import { VariantsType } from '../type';
-//
-import { varTranEnter, varTranExit } from './transition';
+import { VariantsType } from '../type'
+
+import { varTranEnter, varTranExit } from './transition'
 
 // ----------------------------------------------------------------------
 
 export const varZoom = (props?: VariantsType) => {
-  const distance = props?.distance || 720;
-  const durationIn = props?.durationIn;
-  const durationOut = props?.durationOut;
-  const easeIn = props?.easeIn;
-  const easeOut = props?.easeOut;
+  const distance = props?.distance || 720
+  const durationIn = props?.durationIn
+  const durationOut = props?.durationOut
+  const easeIn = props?.easeIn
+  const easeOut = props?.easeOut
 
   return {
     // IN
     in: {
       initial: { scale: 0, opacity: 0 },
-      animate: { scale: 1, opacity: 1, transition: varTranEnter({ durationIn, easeIn }) },
-      exit: { scale: 0, opacity: 0, transition: varTranExit({ durationOut, easeOut }) },
+      animate: {
+        scale: 1,
+        opacity: 1,
+        transition: varTranEnter({ durationIn, easeIn }),
+      },
+      exit: {
+        scale: 0,
+        opacity: 0,
+        transition: varTranExit({ durationOut, easeOut }),
+      },
     },
     inUp: {
       initial: { scale: 0, opacity: 0, translateY: distance },
@@ -83,7 +91,11 @@ export const varZoom = (props?: VariantsType) => {
     // OUT
     out: {
       initial: { scale: 1, opacity: 1 },
-      animate: { scale: 0, opacity: 0, transition: varTranEnter({ durationIn, easeIn }) },
+      animate: {
+        scale: 0,
+        opacity: 0,
+        transition: varTranEnter({ durationIn, easeIn }),
+      },
     },
     outUp: {
       initial: { scale: 1, opacity: 1 },
@@ -121,5 +133,5 @@ export const varZoom = (props?: VariantsType) => {
         transition: varTranEnter({ durationIn, easeIn }),
       },
     },
-  };
-};
+  }
+}

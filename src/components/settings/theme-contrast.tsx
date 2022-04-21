@@ -9,9 +9,7 @@ import {
   useTheme,
 } from '@mui/material/styles'
 
-// hooks
 import { useSettings } from '@contexts/settings'
-
 import componentsOverride from '@common/theme/overrides'
 //
 
