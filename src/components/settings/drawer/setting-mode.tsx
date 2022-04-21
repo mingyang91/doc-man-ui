@@ -4,7 +4,7 @@ import { Grid, RadioGroup, CardActionArea } from '@mui/material'
 import { MdLightMode, MdDarkMode } from 'react-icons/md'
 
 // hooks
-import useSettings from '@hooks/use-settings'
+import { useSettings } from '@contexts/settings'
 
 //
 import Iconify from '../../iconify'

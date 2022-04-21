@@ -2,13 +2,14 @@ import { ReactElement, forwardRef } from 'react'
 import { NavLink as RouterLink } from 'react-router-dom'
 import { Box, Link } from '@mui/material'
 import { FiChevronDown, FiChevronRight } from 'react-icons/fi'
+import { IconType } from 'react-icons'
 
 import Iconify from '@components/iconify'
+import { ICON } from '@/config'
+import { assertGroupTitle } from '@/app/routes'
+import { MenuConfig, MenuGroupTitle } from '@/app/routes/create-menus'
 
-import { ICON } from '../../../config'
-// type
 import { NavItemProps } from '../type'
-//
 import { isExternalLink } from '..'
 
 import { ListItemStyle as ListItem } from './style'
@@ -18,51 +19,53 @@ import { ListItemStyle as ListItem } from './style'
 export const NavItemRoot = forwardRef<
   HTMLButtonElement & HTMLAnchorElement,
   NavItemProps
->(({ item, active, open, onMouseEnter, onMouseLeave }, ref) => {
-  const { title, path, icon, children, disabled, roles } = item
-
-  if (children) {
+>(({ item, isActive, open, onMouseEnter, onMouseLeave }, ref) => {
+  if (assertGroupTitle<MenuGroupTitle>(item)) {
     return (
       <ListItem
         ref={ref}
         open={open}
-        activeRoot={active}
+        activeRoot={isActive}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
-        disabled={disabled}
-        roles={roles}
       >
-        <NavItemContent icon={icon} title={title}>
-          {children}
-        </NavItemContent>
+        <NavItemContent
+          icon={item.icon}
+          title={item.title}
+          submodule={item.submodule}
+        />
       </ListItem>
     )
   }
 
-  return isExternalLink(path) ? (
+  return isExternalLink(item.path) ? (
     <ListItem
       component={Link}
-      href={path}
+      href={item.path}
       target="_blank"
       rel="noopener"
-      disabled={disabled}
-      roles={roles}
+      disabled={item.isDisabled}
+      roles={item.roles}
     >
-      <NavItemContent icon={icon} title={title}>
-        {children}
-      </NavItemContent>
+      <NavItemContent
+        icon={item.icon}
+        title={item.title}
+        submodule={item.submodule}
+      />
     </ListItem>
   ) : (
     <ListItem
       component={RouterLink}
-      to={path}
-      activeRoot={active}
-      disabled={disabled}
-      roles={roles}
+      to={item.path}
+      activeRoot={isActive}
+      disabled={item.isDisabled}
+      roles={item.roles}
     >
-      <NavItemContent icon={icon} title={title}>
-        {children}
-      </NavItemContent>
+      <NavItemContent
+        icon={item.icon}
+        title={item.title}
+        submodule={item.submodule}
+      />
     </ListItem>
   )
 })
@@ -72,57 +75,58 @@ export const NavItemRoot = forwardRef<
 export const NavItemSub = forwardRef<
   HTMLButtonElement & HTMLAnchorElement,
   NavItemProps
->(({ item, active, open, onMouseEnter, onMouseLeave }, ref) => {
-  const { title, path, icon, children, disabled, roles } = item
-
-  if (children) {
+>(({ item, isActive, open, onMouseEnter, onMouseLeave }, ref) => {
+  if (assertGroupTitle(item)) {
     return (
       <ListItem
         ref={ref}
         subItem
         disableRipple
         open={open}
-        activeSub={active}
+        activeSub={isActive}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
-        disabled={disabled}
-        roles={roles}
+        disabled={false}
       >
-        <NavItemContent icon={icon} title={title} subItem>
-          {children}
-        </NavItemContent>
+        <NavItemContent
+          icon={item.icon}
+          title={item.title}
+          submodule={item.submodule}
+          subItem
+        />
       </ListItem>
     )
   }
 
-  return isExternalLink(path) ? (
+  return isExternalLink(item.path) ? (
     <ListItem
       subItem
-      href={path}
+      href={item.path}
       disableRipple
       rel="noopener"
       target="_blank"
       component={Link}
-      disabled={disabled}
-      roles={roles}
+      disabled={item.isDisabled}
+      roles={item.roles}
     >
-      <NavItemContent icon={icon} title={title} subItem>
-        {children}
-      </NavItemContent>
+      <NavItemContent icon={item.icon} title={item.title} subItem />
     </ListItem>
   ) : (
     <ListItem
       disableRipple
       component={RouterLink}
-      to={path}
-      activeSub={active}
+      to={item.path}
+      activeSub={isActive}
       subItem
-      disabled={disabled}
-      roles={roles}
+      disabled={item.isDisabled}
+      roles={item.roles}
     >
-      <NavItemContent icon={icon} title={title} subItem>
-        {children}
-      </NavItemContent>
+      <NavItemContent
+        icon={item.icon}
+        title={item.title}
+        submodule={item.submodule}
+        subItem
+      />
     </ListItem>
   )
 })
@@ -131,20 +135,20 @@ export const NavItemSub = forwardRef<
 
 type NavItemContentProps = {
   title: string
-  icon?: ReactElement
-  children?: { title: string; path: string }[]
+  icon?: IconType
+  submodule?: MenuConfig[]
   subItem?: boolean
 }
 
 function NavItemContent({
-  icon,
+  icon: Icon,
   title,
-  children,
+  submodule,
   subItem,
 }: NavItemContentProps) {
   return (
     <>
-      {icon && (
+      {Icon && (
         <Box
           component="span"
           sx={{
@@ -154,13 +158,13 @@ function NavItemContent({
             '& svg': { width: '100%', height: '100%' },
           }}
         >
-          {icon}
+          {<Icon />}
         </Box>
       )}
 
       {title}
 
-      {children && (
+      {submodule && (
         <Iconify
           icon={subItem ? FiChevronRight : FiChevronDown}
           sx={{

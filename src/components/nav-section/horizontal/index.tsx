@@ -28,8 +28,8 @@ function NavSectionHorizontal({ navConfig }: NavSectionProps) {
     >
       <Stack direction="row" sx={{ ...hideScrollbar, py: 1 }}>
         {navConfig.map(group => (
-          <Stack key={group.subheader} direction="row" flexShrink={0}>
-            {group.items.map(list => (
+          <Stack key={group.title} direction="row" flexShrink={0}>
+            {group.submodule?.map(list => (
               <NavListRoot key={list.title + list.path} list={list} />
             ))}
           </Stack>

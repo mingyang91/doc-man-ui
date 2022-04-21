@@ -1,10 +1,8 @@
-import { ComponentType, PropsWithChildren } from 'react'
-// @mui
 import { alpha, styled } from '@mui/material/styles'
 import { Button, Link, Popover, ButtonProps, LinkProps } from '@mui/material'
 import { NavLink, NavLinkProps } from 'react-router-dom'
 
-import { NAVBAR } from '../../../config'
+import { NAVBAR } from '@/config'
 
 // ----------------------------------------------------------------------
 

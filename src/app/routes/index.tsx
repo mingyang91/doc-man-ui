@@ -1,4 +1,4 @@
-import { ComponentType } from 'react'
+import { ComponentType, ReactElement } from 'react'
 import { Params, useRoutes } from 'react-router-dom'
 import { IconType } from 'react-icons'
 import { useAtomValue } from 'jotai'
@@ -15,7 +15,10 @@ export type GroupTitle = {
   icon?: IconType
   isMenu: true
   isGroupTitle: true
+  roles?: string[]
+  info?: ReactElement
   path?: undefined
+  caption?: string
   submodule?: RouteView[]
 }
 
@@ -25,6 +28,10 @@ export type RouteView =
       params?: Params
       isRequireAuth?: boolean
       isMenu?: boolean
+      isDisabled?: boolean
+      roles?: string[]
+      info?: ReactElement
+      caption?: string
       title?: string
       icon?: IconType
       redirect?: string
@@ -42,9 +49,7 @@ export const assertGroupTitle = <T extends MenuGroupTitle | GroupTitle>(
   return 'isGroupTitle' in route && !!route.isGroupTitle
 }
 
-export const assertHasSubViews = <T extends MenuGroupTitle | GroupTitle>(
-  route: RouteView | MenuConfig
-): route is T => {
+export const assertHasSubViews = (route: RouteView | MenuConfig) => {
   return 'submodule' in route && !!route.submodule?.length
 }
 

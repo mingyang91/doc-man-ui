@@ -8,7 +8,7 @@ import {
 } from '@mui/material/styles'
 
 // hooks
-import useSettings from '@hooks/use-settings'
+import { useSettings } from '@contexts/settings'
 
 //
 import palette from './palette'

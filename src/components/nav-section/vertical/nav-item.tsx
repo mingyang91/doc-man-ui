@@ -4,6 +4,7 @@ import { Box, Link, ListItemText, Typography, Tooltip } from '@mui/material'
 import { RiArrowDownFill, RiArrowGoForwardFill } from 'react-icons/ri'
 
 import Iconify from '@components/iconify'
+import { assertHasSubViews, assertGroupTitle } from '@app/routes/index'
 
 import { NavItemProps } from '../type'
 //
@@ -21,14 +22,22 @@ export function NavItemRoot({
   item,
   isCollapse,
   open = false,
-  active,
+  isActive,
   onOpen,
 }: NavItemProps) {
-  const { title, path, icon, info, children, disabled, caption, roles } = item
+  const hasChildren = assertHasSubViews(item)
+
+  const { icon: Icon, title, caption, info } = item
+
+  const isDisabled = 'isDisabled' in item ? item.isDisabled : false
 
   const renderContent = (
     <>
-      {icon && <ListItemIconStyle>{icon}</ListItemIconStyle>}
+      {Icon && (
+        <ListItemIconStyle>
+          <Icon />
+        </ListItemIconStyle>
+      )}
       <ListItemTextStyle
         disableTypography
         primary={title}
@@ -49,46 +58,50 @@ export function NavItemRoot({
       {!isCollapse && (
         <>
           {info && info}
-          {children && <ArrowIcon open={open} />}
+          {hasChildren && <ArrowIcon open={open} />}
         </>
       )}
     </>
   )
 
-  if (children) {
+  if (hasChildren) {
     return (
       <ListItem
         onClick={onOpen}
-        activeRoot={active}
-        disabled={disabled}
-        roles={roles}
+        activeRoot={isActive}
+        disabled={isDisabled}
+        roles={item.roles}
       >
         {renderContent}
       </ListItem>
     )
   }
 
-  return isExternalLink(path) ? (
-    <ListItem
-      component={Link}
-      href={path}
-      target="_blank"
-      rel="noopener"
-      disabled={disabled}
-      roles={roles}
-    >
-      {renderContent}
-    </ListItem>
+  return item.path ? (
+    isExternalLink(item.path) ? (
+      <ListItem
+        component={Link}
+        href={item.path}
+        target="_blank"
+        rel="noopener"
+        disabled={isDisabled}
+        roles={item.roles}
+      >
+        {renderContent}
+      </ListItem>
+    ) : (
+      <ListItem
+        component={RouterLink}
+        to={item.path}
+        activeRoot={isActive}
+        disabled={isDisabled}
+        roles={item.roles}
+      >
+        {renderContent}
+      </ListItem>
+    )
   ) : (
-    <ListItem
-      component={RouterLink}
-      to={path}
-      activeRoot={active}
-      disabled={disabled}
-      roles={roles}
-    >
-      {renderContent}
-    </ListItem>
+    <ListItem roles={item.roles}>{renderContent}</ListItem>
   )
 }
 
@@ -99,14 +112,20 @@ type NavItemSubProps = Omit<NavItemProps, 'isCollapse'>
 export function NavItemSub({
   item,
   open = false,
-  active = false,
+  isActive = false,
   onOpen,
 }: NavItemSubProps) {
-  const { title, path, info, children, disabled, caption, roles } = item
+  const { title, path, info, caption, roles } = item
+
+  console.log('item', item, isActive)
+
+  const isDisabled = assertGroupTitle(item) ? false : item.isDisabled
+
+  const hasChildren = assertHasSubViews(item)
 
   const renderContent = (
     <>
-      <DotIcon active={active} />
+      <DotIcon active={isActive} />
       <ListItemText
         disableTypography
         primary={title}
@@ -124,17 +143,17 @@ export function NavItemSub({
         }
       />
       {info && info}
-      {children && <ArrowIcon open={open} />}
+      {hasChildren && <ArrowIcon open={open} />}
     </>
   )
 
-  if (children) {
+  if (hasChildren) {
     return (
       <ListItem
         onClick={onOpen}
-        activeSub={active}
+        activeSub={isActive}
         subItem
-        disabled={disabled}
+        disabled={isDisabled}
         roles={roles}
       >
         {renderContent}
@@ -142,27 +161,33 @@ export function NavItemSub({
     )
   }
 
-  return isExternalLink(path) ? (
-    <ListItem
-      component={Link}
-      href={path}
-      target="_blank"
-      rel="noopener"
-      subItem
-      disabled={disabled}
-      roles={roles}
-    >
-      {renderContent}
-    </ListItem>
+  return path ? (
+    isExternalLink(path) ? (
+      <ListItem
+        component={Link}
+        href={path}
+        target="_blank"
+        rel="noopener"
+        subItem
+        disabled={isDisabled}
+        roles={roles}
+      >
+        {renderContent}
+      </ListItem>
+    ) : (
+      <ListItem
+        component={RouterLink}
+        to={path}
+        activeSub={isActive}
+        subItem
+        disabled={isDisabled}
+        roles={roles}
+      >
+        {renderContent}
+      </ListItem>
+    )
   ) : (
-    <ListItem
-      component={RouterLink}
-      to={path}
-      activeSub={active}
-      subItem
-      disabled={disabled}
-      roles={roles}
-    >
+    <ListItem activeSub={isActive} subItem disabled={isDisabled} roles={roles}>
       {renderContent}
     </ListItem>
   )

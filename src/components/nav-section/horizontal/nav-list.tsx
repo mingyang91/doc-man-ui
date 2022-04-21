@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef } from 'react'
 import { useLocation } from 'react-router-dom'
 
-// type
+import { assertHasSubViews } from '@app/routes'
+import { getActive } from '@app/routes/create-menus'
+
 import { NavListProps } from '../type'
-import { getActive } from '..'
 
 import { NavItemRoot, NavItemSub } from './nav-item'
 import { PaperStyle } from './style'
@@ -19,11 +20,11 @@ export function NavListRoot({ list }: NavListRootProps) {
 
   const { pathname } = useLocation()
 
-  const active = getActive(list.path, pathname)
-
   const [open, setOpen] = useState(false)
 
-  const hasChildren = list.children
+  const hasChildren = assertHasSubViews(list)
+
+  const isActive = list.path ? getActive(list.path, pathname) : false
 
   useEffect(() => {
     if (open) {
@@ -46,7 +47,7 @@ export function NavListRoot({ list }: NavListRootProps) {
         <NavItemRoot
           open={open}
           item={list}
-          active={active}
+          isActive={isActive}
           ref={menuRef}
           onMouseEnter={handleOpen}
           onMouseLeave={handleClose}
@@ -62,7 +63,7 @@ export function NavListRoot({ list }: NavListRootProps) {
             onMouseLeave: handleClose,
           }}
         >
-          {(list.children || []).map(item => (
+          {(list.submodule || []).map(item => (
             <NavListSub key={item.title + item.path} list={item} />
           ))}
         </PaperStyle>
@@ -70,7 +71,7 @@ export function NavListRoot({ list }: NavListRootProps) {
     )
   }
 
-  return <NavItemRoot item={list} active={active} />
+  return <NavItemRoot item={list} isActive={isActive} />
 }
 
 // ----------------------------------------------------------------------
@@ -84,9 +85,9 @@ function NavListSub({ list }: NavListSubProps) {
 
   const { pathname } = useLocation()
 
-  const active = getActive(list.path, pathname)
-
   const [open, setOpen] = useState(false)
+
+  const isActive = list.path ? getActive(list.path, pathname) : false
 
   const handleOpen = () => {
     setOpen(true)
@@ -96,7 +97,7 @@ function NavListSub({ list }: NavListSubProps) {
     setOpen(false)
   }
 
-  const hasChildren = list.children
+  const hasChildren = assertHasSubViews(list)
 
   if (hasChildren) {
     return (
@@ -105,7 +106,7 @@ function NavListSub({ list }: NavListSubProps) {
           ref={menuRef}
           open={open}
           item={list}
-          active={active}
+          isActive={isActive}
           onMouseEnter={handleOpen}
           onMouseLeave={handleClose}
         />
@@ -120,7 +121,7 @@ function NavListSub({ list }: NavListSubProps) {
             onMouseLeave: handleClose,
           }}
         >
-          {(list.children || []).map(item => (
+          {(list.submodule || []).map(item => (
             <NavListSub key={item.title + item.path} list={item} />
           ))}
         </PaperStyle>
@@ -128,5 +129,5 @@ function NavListSub({ list }: NavListSubProps) {
     )
   }
 
-  return <NavItemSub item={list} active={active} />
+  return <NavItemSub item={list} isActive={isActive} />
 }

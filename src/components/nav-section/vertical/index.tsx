@@ -3,6 +3,8 @@ import { styled } from '@mui/material/styles'
 import { List, Box, ListSubheader, ListSubheaderProps } from '@mui/material'
 import { JSXElementConstructor } from 'react'
 
+import { assertGroupTitle } from '@app/routes'
+
 import { NavSectionProps } from '../type'
 
 //
@@ -35,18 +37,20 @@ export default function NavSectionVertical({
   return (
     <Box {...other}>
       {navConfig.map(group => (
-        <List key={group.subheader} disablePadding sx={{ px: 2 }}>
-          <ListSubheaderStyle
-            sx={{
-              ...(isCollapse && {
-                opacity: 0,
-              }),
-            }}
-          >
-            {group.subheader}
-          </ListSubheaderStyle>
+        <List key={group.title} disablePadding sx={{ px: 2 }}>
+          {assertGroupTitle(group) ? (
+            <ListSubheaderStyle
+              sx={{
+                ...(isCollapse && {
+                  opacity: 0,
+                }),
+              }}
+            >
+              {group.title}
+            </ListSubheaderStyle>
+          ) : null}
 
-          {group.items.map(list => (
+          {group.submodule?.map(list => (
             <NavListRoot
               key={list.title + list.path}
               list={list}

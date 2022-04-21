@@ -3,7 +3,7 @@ import { styled } from '@mui/material/styles'
 import { Grid, RadioGroup, CardActionArea } from '@mui/material'
 import { RiContrast2Fill, RiContrast2Line } from 'react-icons/ri'
 
-import useSettings from '@hooks/use-settings'
+import { useSettings } from '@contexts/settings'
 import Iconify from '@components/iconify'
 
 import BoxMask from './box-mask'

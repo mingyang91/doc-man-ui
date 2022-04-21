@@ -5,7 +5,7 @@ import { alpha, styled } from '@mui/material/styles'
 import { Stack, Divider, Backdrop, Typography, IconButton } from '@mui/material'
 import { RiCloseCircleFill, RiRefreshLine } from 'react-icons/ri'
 
-import useSettings from '@hooks/use-settings'
+import { useSettings } from '@contexts/settings'
 import cssStyles from '@utils/css-styles'
 import Iconify from '@components/iconify'
 

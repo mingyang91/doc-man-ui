@@ -3,11 +3,10 @@ import { useLocation } from 'react-router-dom'
 // @mui
 import { List, Collapse } from '@mui/material'
 
-// type
-import { NavListProps } from '../type'
+import { assertHasSubViews } from '@/app/routes'
+import { getActive } from '@app/routes/create-menus'
 
-//
-import { getActive } from '..'
+import { NavListProps } from '../type'
 
 import { NavItemRoot, NavItemSub } from './nav-item'
 
@@ -21,11 +20,13 @@ type NavListRootProps = {
 export function NavListRoot({ list, isCollapse }: NavListRootProps) {
   const { pathname } = useLocation()
 
-  const active = getActive(list.path, pathname)
+  const hasChildren = assertHasSubViews(list)
 
-  const [open, setOpen] = useState(active)
+  const isActive = list.path ? getActive(list.path, pathname) : false
 
-  const hasChildren = list.children
+  console.log(list.path, pathname, isActive)
+
+  const [open, setOpen] = useState(isActive)
 
   if (hasChildren) {
     return (
@@ -33,7 +34,7 @@ export function NavListRoot({ list, isCollapse }: NavListRootProps) {
         <NavItemRoot
           item={list}
           isCollapse={isCollapse}
-          active={active}
+          isActive={isActive}
           open={open}
           onOpen={() => setOpen(!open)}
         />
@@ -41,7 +42,7 @@ export function NavListRoot({ list, isCollapse }: NavListRootProps) {
         {!isCollapse && (
           <Collapse in={open} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              {(list.children || []).map(item => (
+              {(list.submodule || []).map(item => (
                 <NavListSub key={item.title + item.path} list={item} />
               ))}
             </List>
@@ -51,7 +52,7 @@ export function NavListRoot({ list, isCollapse }: NavListRootProps) {
     )
   }
 
-  return <NavItemRoot item={list} active={active} isCollapse={isCollapse} />
+  return <NavItemRoot item={list} isActive={isActive} isCollapse={isCollapse} />
 }
 
 // ----------------------------------------------------------------------
@@ -63,11 +64,11 @@ type NavListSubProps = {
 function NavListSub({ list }: NavListSubProps) {
   const { pathname } = useLocation()
 
-  const active = getActive(list.path, pathname)
+  const isActive = list.path ? getActive(list.path, pathname) : false
 
-  const [open, setOpen] = useState(active)
+  const [open, setOpen] = useState(isActive)
 
-  const hasChildren = list.children
+  const hasChildren = assertHasSubViews(list)
 
   if (hasChildren) {
     return (
@@ -76,16 +77,16 @@ function NavListSub({ list }: NavListSubProps) {
           item={list}
           onOpen={() => setOpen(!open)}
           open={open}
-          active={active}
+          isActive={isActive}
         />
 
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List component="div" disablePadding sx={{ pl: 3 }}>
-            {(list.children || []).map(item => (
+            {(list.submodule || []).map(item => (
               <NavItemSub
                 key={item.title + item.path}
                 item={item}
-                active={getActive(item.path, pathname)}
+                isActive={item.path ? getActive(item.path, pathname) : false}
               />
             ))}
           </List>
@@ -94,5 +95,5 @@ function NavListSub({ list }: NavListSubProps) {
     )
   }
 
-  return <NavItemSub item={list} active={active} />
+  return <NavItemSub item={list} isActive={isActive} />
 }

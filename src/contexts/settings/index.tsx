@@ -2,7 +2,7 @@
 import { ReactNode, useEffect, createContext } from 'react'
 import { useLocalStorageState } from 'ahooks'
 
-// utils
+import { createContainer } from '@utils/create-container'
 
 // config
 import {
@@ -52,15 +52,7 @@ const initialState: SettingsContextProps = {
   onResetSetting: () => {},
 }
 
-const SettingsContext = createContext(initialState)
-
-// ----------------------------------------------------------------------
-
-type SettingsProviderProps = {
-  children: ReactNode
-}
-
-function SettingsProvider({ children }: SettingsProviderProps) {
+const SettingsContainer = createContainer(function useSettingsContainer() {
   const [settings, setSettings] = useLocalStorageState<SettingsValueProps>(
     'settings',
     {
@@ -74,7 +66,6 @@ function SettingsProvider({ children }: SettingsProviderProps) {
       },
     }
   )
-
   const isArabic = localStorage.getItem('i18nextLng') === 'ar'
 
   useEffect(() => {
@@ -189,46 +180,42 @@ function SettingsProvider({ children }: SettingsProviderProps) {
     })
   }
 
-  return (
-    <SettingsContext.Provider
-      value={{
-        ...settings,
+  return {
+    ...settings,
 
-        // Mode
-        onToggleMode,
-        onChangeMode,
+    // Mode
+    onToggleMode,
+    onChangeMode,
 
-        // Direction
-        onToggleDirection,
-        onChangeDirection,
-        onChangeDirectionByLang,
+    // Direction
+    onToggleDirection,
+    onChangeDirection,
+    onChangeDirectionByLang,
 
-        // Layout
-        onToggleLayout,
-        onChangeLayout,
+    // Layout
+    onToggleLayout,
+    onChangeLayout,
 
-        // Contrast
-        onChangeContrast,
-        onToggleContrast,
+    // Contrast
+    onChangeContrast,
+    onToggleContrast,
 
-        // Stretch
-        onToggleStretch,
+    // Stretch
+    onToggleStretch,
 
-        // Color
-        onChangeColor,
-        setColor: getColorPresets(settings.themeColorPresets),
-        colorOption: colorPresets.map(color => ({
-          name: color.name,
-          value: color.main,
-        })),
+    // Color
+    onChangeColor,
+    setColor: getColorPresets(settings.themeColorPresets),
+    colorOption: colorPresets.map(color => ({
+      name: color.name,
+      value: color.main,
+    })),
 
-        // Reset
-        onResetSetting,
-      }}
-    >
-      {children}
-    </SettingsContext.Provider>
-  )
-}
+    // Reset
+    onResetSetting,
+  }
+})
 
-export { SettingsProvider, SettingsContext }
+export const SettingsProvider = SettingsContainer.Provider
+
+export const useSettings = SettingsContainer.useContainer

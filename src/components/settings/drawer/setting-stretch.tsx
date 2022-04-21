@@ -4,7 +4,8 @@ import { CardActionArea, Stack } from '@mui/material'
 import { BsBack, BsForwardFill } from 'react-icons/bs'
 
 // hooks
-import useSettings from '../../../hooks/use-settings'
+import { useSettings } from '@contexts/settings'
+
 //
 import Iconify from '../../iconify'
 

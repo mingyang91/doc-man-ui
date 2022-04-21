@@ -9,6 +9,8 @@
   },
   "typescript.tsdk": "node_modules/typescript/lib",
   "cSpell.words": [
+    "APPBAR",
+    "bgcolor",
     "codegen",
     "formik",
     "HASURA",

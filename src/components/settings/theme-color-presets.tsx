@@ -9,7 +9,7 @@ import {
 
 // hooks
 import componentsOverride from '@common/theme/overrides'
-import useSettings from '@hooks/use-settings'
+import { useSettings } from '@contexts/settings'
 //
 
 // ----------------------------------------------------------------------

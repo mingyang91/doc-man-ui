@@ -1,5 +1,5 @@
 import { atom } from 'jotai'
-import { RiArtboard2Fill, RiFile2Fill, RiHome2Line } from 'react-icons/ri'
+import { RiArtboard2Fill, RiFile2Fill, RiHomeSmile2Fill } from 'react-icons/ri'
 
 import { Dashboard } from '@app/views/dashboard'
 import { SignIn } from '@app/views/sign-in/index'
@@ -15,16 +15,23 @@ export const routes: RouteView[] = [
     layout: 'sign',
   },
   {
-    path: 'dashboard',
-    title: 'Dashboard',
+    title: '工作台',
     isMenu: true,
-    isRequireAuth: true,
-    icon: RiHome2Line,
-    Component: Dashboard,
-    layout: 'admin',
+    isGroupTitle: true,
+    submodule: [
+      {
+        path: 'dashboard',
+        isRequireAuth: true,
+        title: '首页',
+        icon: RiHomeSmile2Fill,
+        isMenu: true,
+        Component: Dashboard,
+        layout: 'admin',
+      },
+    ],
   },
   {
-    title: 'Manager',
+    title: '文档管理',
     icon: RiArtboard2Fill,
     isMenu: true,
     isGroupTitle: true,
