@@ -3,7 +3,9 @@ import { RiArtboard2Fill, RiFile2Fill, RiHomeSmile2Fill } from 'react-icons/ri'
 
 import { Dashboard } from '@app/views/dashboard'
 import { SignIn } from '@app/views/sign-in/index'
-import { Documents } from '@app/views/documents'
+import { PageDeviceReports } from '@/app/views/device-reports'
+
+import { PageCreateDeviceReport } from '../views/device-reports/create'
 
 import type { RouteView } from './index'
 
@@ -37,12 +39,20 @@ export const routes: RouteView[] = [
     isGroupTitle: true,
     submodule: [
       {
-        path: 'documents',
+        path: 'device',
         isRequireAuth: true,
-        title: 'Documents',
+        title: '检验检测报告',
         icon: RiFile2Fill,
         isMenu: true,
-        Component: Documents,
+        Component: PageDeviceReports,
+        layout: 'admin',
+      },
+      {
+        path: 'device/create',
+        isRequireAuth: true,
+        title: '检验检测报告 - 新建',
+        icon: RiFile2Fill,
+        Component: PageCreateDeviceReport,
         layout: 'admin',
       },
     ],

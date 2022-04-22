@@ -24,8 +24,6 @@ export function NavListRoot({ list, isCollapse }: NavListRootProps) {
 
   const isActive = list.path ? getActive(list.path, pathname) : false
 
-  console.log(list.path, pathname, isActive)
-
   const [open, setOpen] = useState(isActive)
 
   if (hasChildren) {

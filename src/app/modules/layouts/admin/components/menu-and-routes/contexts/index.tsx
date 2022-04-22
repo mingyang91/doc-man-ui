@@ -22,8 +22,6 @@ const MenuAndRoutesContainer = createContainer(
       activeMenus.length > 0 ? activeMenus[activeMenus.length - 1].title : ''
     )
 
-    console.log(activeMenus)
-
     return {
       menus,
       activeMenus,

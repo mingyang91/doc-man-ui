@@ -1,31 +1,41 @@
-import { createContext, PropsWithChildren, useMemo, useContext } from 'react'
-import { QueryClient, QueryClientProvider } from 'react-query'
-import { AxiosInstance } from 'axios'
+import {
+  ApolloClient,
+  ApolloProvider,
+  HttpLink,
+  ApolloLink,
+  InMemoryCache,
+  concat,
+} from '@apollo/client'
+import { PropsWithChildren } from 'react'
 
-import { request } from '@common/request'
+import { getAuthToken } from '@/common/request'
 
-const RequestContext = createContext<AxiosInstance>(request)
+const baseUrl = import.meta.env.VITE_API_BASE
 
-export const useRequest = () => useContext(RequestContext)
+const hausraSecret = import.meta.env.VITE_HASURA_ADMIN_SECRET
+
+const httpLink = new HttpLink({ uri: `${baseUrl}v1/graphql` })
+
+const authMiddleware = new ApolloLink((operation, forward) => {
+  // add the authorization to the headers
+  operation.setContext(({ headers = {} }) => ({
+    headers: {
+      ...headers,
+      'x-hasura-admin-secret': hausraSecret,
+      authorization: getAuthToken(),
+    },
+  }))
+
+  return forward(operation)
+})
+
+export const graphQLClient = new ApolloClient({
+  cache: new InMemoryCache(),
+  link: concat(authMiddleware, httpLink),
+})
 
 export const RequestProvider = ({
   children,
 }: PropsWithChildren<Record<never, never>>) => {
-  const queryClient = useMemo(
-    () =>
-      new QueryClient({
-        defaultOptions: {
-          queries: {
-            refetchOnWindowFocus: !import.meta.env.DEV,
-          },
-        },
-      }),
-    []
-  )
-
-  return (
-    <RequestContext.Provider value={request}>
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-    </RequestContext.Provider>
-  )
+  return <ApolloProvider client={graphQLClient}>{children}</ApolloProvider>
 }

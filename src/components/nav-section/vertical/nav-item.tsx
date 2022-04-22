@@ -117,8 +117,6 @@ export function NavItemSub({
 }: NavItemSubProps) {
   const { title, path, info, caption, roles } = item
 
-  console.log('item', item, isActive)
-
   const isDisabled = assertGroupTitle(item) ? false : item.isDisabled
 
   const hasChildren = assertHasSubViews(item)

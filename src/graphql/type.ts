@@ -5,21 +5,26 @@ export type User = {
   avatar?: string
 }
 
-export type DomainDevice = {
-  uuid: string
-  reportNo?: string // 报告编号
-  accordingTo?: string // 检测依据
-  address?: string // 检测地址
+interface DomainData {
+  id: string
   create_time: string
   update_time: string
-  deviceNo?: string // 设备编号
-  equipment?: string // 检测仪器
-  item?: string // 检测项目
-  modelNo?: string // 设备型号
-  name?: string // 设备名称
-  place?: string // 设备场所
+}
+
+export type DomainDeviceInput = {
   requester?: string // 委托单位
-  sampleNo?: string // 样品标识
+  address?: string // 检测地址
+  reportNo?: string // 报告编号
+  modelNo?: string // 设备型号
+  deviceNo?: string // 设备编号
   vendor?: string // 制造厂商
+  place?: string // 设备场所
+  accordingTo?: string // 检测依据
+  equipment?: string // 检测仪器
+  name?: string // 设备名称
+  sampleNo?: string // 样品标识
+  item?: string // 检测项目
   owner?: User //创建者
 }
+
+export type DomainDevice = DomainDeviceInput & DomainData

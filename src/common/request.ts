@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { GraphQLClient } from 'graphql-request'
 
 import { Cache, SessionStorageCacheStorage } from '@utils/cache'
 
@@ -20,6 +19,10 @@ export const clearAuthToken = () => {
   authTokenStore.removeItem(SESSION_KEY)
 }
 
+export const getAuthToken = () => {
+  return authTokenStore.getItem(SESSION_KEY) || null
+}
+
 export const request = axios.create({
   baseURL: baseUrl,
   timeout: 6000,
@@ -28,13 +31,6 @@ export const request = axios.create({
     'Stage-Env': import.meta.env.VITE_API_ENV,
   },
 })
-
-export const graphQLClient = new GraphQLClient(
-  new URL('v1/graphql', baseUrl).toString(),
-  {
-    fetch: request,
-  }
-)
 
 request.interceptors.request.use(config => {
   const { headers = {} } = config

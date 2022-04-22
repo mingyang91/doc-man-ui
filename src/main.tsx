@@ -13,19 +13,22 @@ import { SettingsProvider } from '@contexts/settings'
 import { CollapseDrawerProvider } from '@contexts/collapse-drawer'
 
 import { App } from './app/app'
+import { RequestProvider } from './contexts/request'
 
 function bootstrap() {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const root = createRoot(document.getElementById('root')!)
   root.render(
     <HelmetProvider>
-      <SettingsProvider>
-        <CollapseDrawerProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </CollapseDrawerProvider>
-      </SettingsProvider>
+      <RequestProvider>
+        <SettingsProvider>
+          <CollapseDrawerProvider>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </CollapseDrawerProvider>
+        </SettingsProvider>
+      </RequestProvider>
     </HelmetProvider>
   )
 }
