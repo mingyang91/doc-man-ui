@@ -55,7 +55,7 @@ export const DevicesList = ({
       flex: 3,
     },
     {
-      field: 'create_time',
+      field: 'createTime',
       headerName: '创建时间',
       minWidth: 120,
       flex: 2,

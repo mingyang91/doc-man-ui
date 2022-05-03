@@ -14,7 +14,7 @@ const queryDevices = gql`
       id
       accordingTo
       address
-      create_time
+      createTime
       deviceNo
       equipment
       item
@@ -23,7 +23,7 @@ const queryDevices = gql`
       place
       requester
       sampleNo
-      update_time
+      updateTime
       vendor
     }
   }
@@ -62,7 +62,7 @@ const createDevices = gql`
     ) {
       accordingTo
       address
-      create_time
+      createTime
       deviceNo
       equipment
       id
@@ -72,7 +72,7 @@ const createDevices = gql`
       place
       requester
       sampleNo
-      update_time
+      updateTime
       vendor
     }
   }

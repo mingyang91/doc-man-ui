@@ -3,7 +3,7 @@ import { PropsWithChildren } from 'react'
 
 import { useAuth } from '@contexts/auth'
 
-export const RequireAuthModule = ({
+export const AuthProtectModule = ({
   children,
 }: PropsWithChildren<Record<never, never>>) => {
   const location = useLocation()

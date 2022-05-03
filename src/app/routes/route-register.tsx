@@ -2,7 +2,7 @@ import { RouteObject, Navigate, generatePath } from 'react-router-dom'
 import { Fragment } from 'react'
 
 import { Layout } from '@app/modules/layouts'
-import { RequireAuthModule } from '@app/modules/auth'
+import { AuthProtectModule } from '@/app/modules/auth-protect'
 
 import { RouteView, assertGroupTitle } from '.'
 
@@ -28,7 +28,7 @@ const routeWalk = (routes: RouteView[], parentPath = '/'): RouteObject[] => {
         })
       } else {
         const { isRequireAuth, layout, Component, props } = route
-        const Wrapper = isRequireAuth ? RequireAuthModule : Fragment
+        const Wrapper = isRequireAuth ? AuthProtectModule : Fragment
         const element = (
           <Wrapper>
             <Layout layout={layout}>

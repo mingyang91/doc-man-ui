@@ -11,7 +11,8 @@ import {
 
 import MenuPopover from '@components/menu-popover'
 import { IconButtonAnimate } from '@components/animate'
-import { useAuth } from '@/contexts/auth'
+import { useAuth } from '@contexts/auth'
+import { useUser } from '@contexts/user'
 
 // ----------------------------------------------------------------------
 
@@ -30,6 +31,8 @@ const MENU_OPTIONS = [
 
 export const AccountPopover = () => {
   const { userInfo } = useAuth()
+
+  const { logout } = useUser()
 
   const [open, setOpen] = useState<HTMLElement | null>(null)
 
@@ -60,7 +63,7 @@ export const AccountPopover = () => {
           }),
         }}
       >
-        <Avatar alt={userInfo?.display_name}>{userInfo?.display_name}</Avatar>
+        <Avatar alt={userInfo?.displayName}>{userInfo?.displayName}</Avatar>
       </IconButtonAnimate>
 
       <MenuPopover
@@ -79,10 +82,10 @@ export const AccountPopover = () => {
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle2" noWrap>
-            {userInfo?.display_name}
+            {userInfo?.displayName || userInfo?.username}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            {userInfo?.email}
+            {userInfo?.role}
           </Typography>
         </Box>
 
@@ -98,7 +101,9 @@ export const AccountPopover = () => {
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
-        <MenuItem sx={{ m: 1 }}>退出登录</MenuItem>
+        <MenuItem sx={{ m: 1 }} onClick={logout}>
+          退出登录
+        </MenuItem>
       </MenuPopover>
     </>
   )

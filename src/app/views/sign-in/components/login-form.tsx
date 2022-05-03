@@ -15,30 +15,34 @@ import {
 import { LoadingButton } from '@mui/lab'
 import { RiEyeFill, RiEyeOffFill } from 'react-icons/ri'
 
+import { useUser } from '@contexts/user'
 import Iconify from '@components/iconify'
 
 // ----------------------------------------------------------------------
 
 export default function LoginForm() {
+  // 登录成功后跳转
   const navigate = useNavigate()
-
   const [showPassword, setShowPassword] = useState(false)
 
+  const { signIn } = useUser()
+
+  // 登录表单校验
   const LoginSchema = Yup.object().shape({
-    email: Yup.string()
-      .email('Email must be a valid email address')
-      .required('Email is required'),
-    password: Yup.string().required('Password is required'),
+    username: Yup.string().trim('登录名不能有空格').required('请填写登录名'),
+    password: Yup.string().required('请输入密码'),
   })
 
   const formik = useFormik({
     initialValues: {
-      email: '',
+      username: '',
       password: '',
       remember: true,
     },
     validationSchema: LoginSchema,
-    onSubmit: () => {
+    onSubmit: async ({ username, password }, { setSubmitting }) => {
+      await signIn(username, password)
+      setSubmitting(false)
       navigate('/dashboard', { replace: true })
     },
   })
@@ -57,18 +61,18 @@ export default function LoginForm() {
           <TextField
             fullWidth
             autoComplete="username"
-            type="email"
-            label="Email address"
-            {...getFieldProps('email')}
-            error={Boolean(touched.email && errors.email)}
-            helperText={touched.email && errors.email}
+            type="text"
+            label="登录账号"
+            {...getFieldProps('username')}
+            error={Boolean(touched.username && errors.username)}
+            helperText={touched.username && errors.username}
           />
 
           <TextField
             fullWidth
             autoComplete="current-password"
             type={showPassword ? 'text' : 'password'}
-            label="Password"
+            label="登录密码"
             {...getFieldProps('password')}
             InputProps={{
               endAdornment: (

@@ -14,9 +14,5 @@ export const PageCreateDeviceReport = () => {
     navigate('/device')
   }
 
-  return (
-    <>
-      <DeviceEdit isEdit={false} onSubmit={onSubmit} />
-    </>
-  )
+  return <DeviceEdit isEdit={false} onSubmit={onSubmit} />
 }

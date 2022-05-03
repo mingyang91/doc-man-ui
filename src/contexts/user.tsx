@@ -14,7 +14,7 @@ function assertLocationState(state: unknown): state is { from: Location } {
 }
 
 const UserContainer = createContainer(function useUserContainer() {
-  const { authorize, clearAuth } = useAuth()
+  const { authorize } = useAuth()
   const navigate = useNavigate()
 
   const location = useLocation()
@@ -23,21 +23,18 @@ const UserContainer = createContainer(function useUserContainer() {
     const from = assertLocationState(location.state)
       ? location.state.from || '/'
       : '/'
-    const res = await request.post<{ access_token: string }>(
-      '/api/user/signin',
-      {
-        username,
-        password,
-      }
-    )
-    const accessToken = res.data.access_token
-    await authorize(accessToken)
+    await request.post<{ access_token: string }>('/api/login', {
+      username,
+      password,
+    })
+
+    await authorize()
     navigate(from, { replace: true })
   })
 
   const logout = useMemoizedFn(async () => {
-    await request.post('/signOut')
-    clearAuth()
+    await request.post('/api/logout')
+    // clearAuth()
     navigate('/signin')
   })
 

@@ -35,8 +35,6 @@
     "build": "tsc --noEmit && pnpm exec -- vite build",
     "preview": "vite preview --port 8888",
     "build:dev": "vite build --mode development",
-    "prestart": "pnpm generate -- --watch",
-    "generate": "graphql-codegen --config codegen.yml",
     "test": "jest",
     "lint": "eslint --cache --ext .tsx,.ts ./src",
     "lint:fix": "pnpm prettier:fix && pnpm lint --fix",

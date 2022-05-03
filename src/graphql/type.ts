@@ -7,11 +7,12 @@ export type User = {
 
 interface DomainData {
   id: string
-  create_time: string
-  update_time: string
+  createTime: string
+  updateTime: string
 }
 
 export type DomainDeviceInput = {
+  id?: string
   requester?: string // 委托单位
   address?: string // 检测地址
   reportNo?: string // 报告编号

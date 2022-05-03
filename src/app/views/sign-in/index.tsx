@@ -1,7 +1,6 @@
 import { Link as RouterLink } from 'react-router-dom'
 import { Container, Link, Typography } from '@mui/material'
 
-import { useUser } from '@contexts/user'
 import Page from '@components/page'
 import Logo from '@components/logo'
 import useResponsive from '@hooks/use-responsive'
@@ -15,8 +14,6 @@ import {
 import LoginForm from './components/login-form'
 
 export const SignIn = () => {
-  const { signIn } = useUser()
-
   const smUp = useResponsive('up', 'sm')
 
   const mdUp = useResponsive('up', 'md')

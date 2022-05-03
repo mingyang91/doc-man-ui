@@ -26,17 +26,17 @@ const mocks: MockMethod[] = [
       access_token: 'mock_admin',
     },
   },
-  {
-    url: '/api/user/me',
-    method: 'get',
-    response: {
-      id: 'V8QPN7blvuxAIltr',
-      username: 'admin',
-      display_name: 'Ming Yang',
-      role: 'admin',
-      email: 'admin@docman.io',
-    },
-  },
+  // {
+  //   url: '/api/user/me',
+  //   method: 'get',
+  //   response: {
+  //     id: 'V8QPN7blvuxAIltr',
+  //     username: 'admin',
+  //     display_name: 'Ming Yang',
+  //     role: 'admin',
+  //     email: 'admin@docman.io',
+  //   },
+  // },
   {
     url: '/api/user/logout',
     method: 'get',

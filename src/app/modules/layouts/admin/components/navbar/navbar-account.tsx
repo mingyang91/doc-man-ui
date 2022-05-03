@@ -34,7 +34,7 @@ export default function NavbarAccount({ isCollapse }: Props) {
           }),
         }}
       >
-        <Avatar alt={userInfo?.display_name}>{userInfo?.display_name}</Avatar>
+        <Avatar alt={userInfo?.displayName}>{userInfo?.displayName}</Avatar>
 
         <Box
           sx={{
@@ -50,7 +50,7 @@ export default function NavbarAccount({ isCollapse }: Props) {
           }}
         >
           <Typography variant="subtitle2" noWrap>
-            {userInfo?.display_name}
+            {userInfo?.displayName}
           </Typography>
           <Typography variant="body2" noWrap sx={{ color: 'text.secondary' }}>
             {userInfo?.email}
