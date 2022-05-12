@@ -96,8 +96,19 @@ module.exports = {
       },
     },
     {
+      files: ['*.cjs'],
+      env: {
+        commonjs: true,
+      },
+      rules: {
+        '@typescript-eslint/no-var-requires': 'off',
+      },
+    },
+    {
       files: ['**/__tests__/**'],
-      env: { jest: true },
+      env: {
+        jest: true,
+      },
     },
     {
       files: ['*.graphql'],

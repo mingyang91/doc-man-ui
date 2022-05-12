@@ -1,12 +1,12 @@
 import { Field } from 'formik'
 import { TextField } from 'formik-mui'
-import { Grid, Button } from '@mui/material'
+import { Grid } from '@mui/material'
 
 import { ComponentInFormikProps } from '../index'
 
-export const FormHeader = ({ isSubmitting }: ComponentInFormikProps) => {
+export const FormHeader = (_: ComponentInFormikProps) => {
   return (
-    <Grid container spacing={3}>
+    <>
       <Grid item xs={12} sm={6}>
         <Field
           component={TextField}
@@ -116,6 +116,15 @@ export const FormHeader = ({ isSubmitting }: ComponentInFormikProps) => {
           fullWidth
         />
       </Grid>
-    </Grid>
+      <Grid item xs={12} sm={6}>
+        <Field
+          component={TextField}
+          name="item"
+          label="检测项目"
+          type="text"
+          fullWidth
+        />
+      </Grid>
+    </>
   )
 }

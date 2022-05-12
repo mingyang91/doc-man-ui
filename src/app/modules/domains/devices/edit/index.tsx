@@ -1,13 +1,15 @@
-import { Field, Formik } from 'formik'
-import { TextField } from 'formik-mui'
+import { Formik, FormikHelpers } from 'formik'
 import { Typography, Grid, Button } from '@mui/material'
 import { merge } from 'lodash-es'
 
-import { DomainDeviceInput } from '@/graphql/type'
+import { DeviceInsertInput } from '@/generated/graphql'
 
 import { FormHeader } from './components/form-header'
 
-export type FnSubmitDevice = (values: DomainDeviceInput) => Promise<void>
+export type FnSubmitDevice = (
+  values: DeviceInsertInput,
+  helper: FormikHelpers<DeviceInsertInput>
+) => Promise<void>
 
 export type ComponentInFormikProps = {
   isSubmitting?: boolean
@@ -16,7 +18,7 @@ export type ComponentInFormikProps = {
 
 export type DeviceEditProps = {
   isEdit?: boolean
-  initialValues?: Partial<DomainDeviceInput>
+  initialValues?: DeviceInsertInput
   onSubmit?: FnSubmitDevice
 }
 
@@ -40,7 +42,7 @@ export const DeviceEdit = ({
       name: '',
       sampleNo: '',
       item: '',
-    } as Partial<DomainDeviceInput>,
+    } as DeviceInsertInput,
     initialValues
   )
 
@@ -51,9 +53,9 @@ export const DeviceEdit = ({
       </Typography>
       <Formik initialValues={_initialValues} onSubmit={onSubmit}>
         {({ submitForm, isSubmitting }) => (
-          <>
+          <Grid container spacing={3}>
             <FormHeader isSubmitting={isSubmitting} />
-            <Grid container spacing={3} xs={12}>
+            <Grid item xs={12}>
               <Button
                 variant="contained"
                 color="primary"
@@ -63,7 +65,7 @@ export const DeviceEdit = ({
                 保存
               </Button>
             </Grid>
-          </>
+          </Grid>
         )}
       </Formik>
     </>

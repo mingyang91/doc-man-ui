@@ -1,0 +1,61 @@
+fragment headerDeviceFields on device {
+  id
+  accordingTo
+  address
+  createTime
+  deviceNo
+  equipment
+  item
+  modelNo
+  name
+  place
+  requester
+  sampleNo
+  updateTime
+  vendor
+}
+
+fragment appendDeviceFields on device {
+  AECC2CConsistency
+  AECRepeatability
+  AECResponse
+  exposureTimeOffset
+  UsefulHarnessHalfValue
+  falseShadows
+  highContrastResolution
+  lightFieldOffset
+  lowContrastResolution
+  pipeVoltage
+  radiationOutput
+  rangingError
+  responseUniformity
+  stp
+  usefulHarnessVerticalityOffset
+}
+
+query devices($offset: Int, $limit: Int = 10) {
+  device(offset: $offset) {
+    ...headerDeviceFields
+  }
+}
+
+query deviceById($id: uuid!) {
+  device_by_pk(id: $id) {
+    ...headerDeviceFields
+    ...appendDeviceFields
+  }
+}
+
+mutation insertDevice($input: device_insert_input!) {
+  insert_device_one(object: $input) {
+    ...headerDeviceFields
+    ...appendDeviceFields
+  }
+}
+
+mutation updateDevice($id: uuid!, $input: device_set_input) {
+  update_device_by_pk(pk_columns: { id: $id }, _set: $input) {
+    ...headerDeviceFields
+    ...appendDeviceFields
+  }
+}

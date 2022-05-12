@@ -1,18 +1,31 @@
 import { useNavigate } from 'react-router-dom'
+import { useCallback } from 'react'
 
-import { useCreateDevice } from '@/graphql/query-device'
-import { DomainDeviceInput } from '@/graphql/type'
 import { DeviceEdit } from '@app/modules/domains/devices/edit'
+import {
+  useInsertDeviceMutation,
+  InsertDeviceMutationVariables,
+} from '@/generated/graphql'
 
 export const PageCreateDeviceReport = () => {
   const navigate = useNavigate()
-  const { createDevice } = useCreateDevice()
-  const onSubmit = async (values: DomainDeviceInput) => {
-    await createDevice({
-      variables: values,
-    })
-    navigate('/device')
-  }
+
+  const [insertDeviceMutation, { data, loading, error }] =
+    useInsertDeviceMutation()
+
+  const onSubmit = useCallback(
+    async (input: InsertDeviceMutationVariables['input']) => {
+      if (!loading) {
+        await insertDeviceMutation({
+          variables: {
+            input,
+          },
+        })
+        navigate('/device')
+      }
+    },
+    [loading, insertDeviceMutation, navigate]
+  )
 
   return <DeviceEdit isEdit={false} onSubmit={onSubmit} />
 }

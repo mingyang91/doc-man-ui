@@ -1,15 +1,11 @@
-import {
-  useSearchParams,
-  NavLink as RouterLink,
-  NavLink,
-} from 'react-router-dom'
+import { useSearchParams, NavLink } from 'react-router-dom'
 import { useCallback } from 'react'
 import { useCreation } from 'ahooks'
-import { Box, Button, Stack } from '@mui/material'
+import { Button, Stack } from '@mui/material'
 import { RiFileAddLine } from 'react-icons/ri'
 
 import { DevicesList } from '@/app/modules/domains/devices'
-import { useQueryDevice } from '@/graphql/query-device'
+import { useDevicesQuery } from '@/generated/graphql'
 
 export const PageDeviceReports = () => {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -26,7 +22,12 @@ export const PageDeviceReports = () => {
     }
   }, [searchParams])
 
-  const { data, loading } = useQueryDevice(pageSize, offset)
+  const { data, loading } = useDevicesQuery({
+    variables: {
+      offset,
+      limit: pageSize,
+    },
+  })
 
   const onPageChange = useCallback(
     (page: number) => {
@@ -64,7 +65,7 @@ export const PageDeviceReports = () => {
       </Stack>
       <DevicesList
         isLoading={loading}
-        dataSource={data}
+        dataSource={data?.device}
         page={page}
         pageSize={pageSize}
         onPageChange={onPageChange}

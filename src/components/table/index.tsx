@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import { BoxProps, Typography } from '@mui/material'
 import {
   DataGrid,
@@ -5,7 +6,6 @@ import {
   GridCallbackDetails,
   zhCN,
 } from '@mui/x-data-grid'
-import { useCallback } from 'react'
 
 import { DesignedPagination } from './components/table-pagination'
 import { TableWrapper } from './components/table-wrapper'

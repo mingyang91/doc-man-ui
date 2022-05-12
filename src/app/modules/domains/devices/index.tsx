@@ -7,15 +7,15 @@ import {
 import { Button, Stack } from '@mui/material'
 import { RiDeleteBinLine, RiEditLine, RiUploadLine } from 'react-icons/ri'
 
-import { DomainDevice } from 'graphql/type'
 import { fDate } from '@/utils/format-time'
-import { PaginationConfig } from '@app/modules/domains/common'
 import { DataTable } from '@/components/table'
+import { PaginationConfig } from '@/models/common'
+import { DevicesQuery } from '@/generated/graphql'
 
 export interface DevicesListProps extends PaginationConfig {
   title?: string
   isLoading?: boolean
-  dataSource?: DomainDevice[]
+  dataSource?: DevicesQuery['device']
   onPageSizeChange?: (pageSize: number, details: GridCallbackDetails) => void
   onPageChange?: (page: number, details: GridCallbackDetails) => void
   onRemove?: (uuid: string) => void
@@ -76,6 +76,7 @@ export const DevicesList = ({
               variant="outlined"
               color="error"
               startIcon={<RiDeleteBinLine />}
+              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
               onClick={() => onRemove?.(params.value!)}
             >
               删除
@@ -84,6 +85,7 @@ export const DevicesList = ({
               size="small"
               variant="outlined"
               startIcon={<RiEditLine />}
+              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
               onClick={() => onEdit?.(params.value!)}
             >
               编辑
@@ -92,6 +94,7 @@ export const DevicesList = ({
               size="small"
               variant="outlined"
               startIcon={<RiUploadLine />}
+              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
               onClick={() => onUpload?.(params.value!)}
             >
               上传附件
