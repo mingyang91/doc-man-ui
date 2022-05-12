@@ -13,6 +13,7 @@ import Alert from './Alert'
 import Badge from './Badge'
 import Paper from './Paper'
 import Input from './Input'
+import Form from './Form'
 import Radio from './Radio'
 import Drawer from './Drawer'
 import Dialog from './Dialog'
@@ -49,6 +50,7 @@ import LoadingButton from './LoadingButton'
 export default function ComponentsOverrides(theme: Theme) {
   return Object.assign(
     Fab(theme),
+    Form(theme),
     Tabs(theme),
     Chip(theme),
     Card(theme),

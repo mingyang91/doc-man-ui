@@ -6,7 +6,7 @@ import { ComponentInFormikProps } from '../index'
 
 export const FormHeader = (_: ComponentInFormikProps) => {
   return (
-    <>
+    <Grid container spacing={3}>
       <Grid item xs={12} sm={6}>
         <Field
           component={TextField}
@@ -125,6 +125,6 @@ export const FormHeader = (_: ComponentInFormikProps) => {
           fullWidth
         />
       </Grid>
-    </>
+    </Grid>
   )
 }

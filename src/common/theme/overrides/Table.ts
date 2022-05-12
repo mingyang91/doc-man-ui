@@ -1,4 +1,4 @@
-import { Theme } from '@mui/material/styles';
+import { Theme } from '@mui/material/styles'
 
 // ----------------------------------------------------------------------
 
@@ -71,5 +71,20 @@ export default function Table(theme: Theme) {
         },
       },
     },
-  };
+    MuiTable: {
+      styleOverrides: {
+        root: {
+          '&.border': {
+            border: `solid 1px ${theme.palette.divider}`,
+            borderCollapse: 'collapse',
+            '& .MuiTableCell-root': {
+              backgroundImage: 'none',
+              borderBottomRightRadius: 0,
+              border: `solid 1px ${theme.palette.divider}`,
+            },
+          },
+        },
+      },
+    },
+  }
 }

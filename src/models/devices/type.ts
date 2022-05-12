@@ -1,8 +1,13 @@
+export enum Judgement {
+  'Good',
+  'Bad',
+}
+
 interface DetectionField {
-  displayName: string
+  name: string
   requirementAcceptance: string
   requirementState: string
-  judgement?: string
+  judgement?: Judgement
 }
 
 interface Condition {

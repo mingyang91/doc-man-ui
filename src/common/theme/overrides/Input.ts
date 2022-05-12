@@ -1,10 +1,14 @@
-import { Theme } from '@mui/material/styles';
+import { Theme } from '@mui/material/styles'
 
 // ----------------------------------------------------------------------
 
 export default function Input(theme: Theme) {
   return {
     MuiInputBase: {
+      defaultProps: {
+        margin: 'dense',
+        size: 'small',
+      },
       styleOverrides: {
         root: {
           '&.Mui-disabled': {
@@ -20,6 +24,10 @@ export default function Input(theme: Theme) {
       },
     },
     MuiInput: {
+      defaultProps: {
+        margin: 'dense',
+        size: 'small',
+      },
       styleOverrides: {
         underline: {
           '&:before': {
@@ -29,6 +37,10 @@ export default function Input(theme: Theme) {
       },
     },
     MuiFilledInput: {
+      defaultProps: {
+        margin: 'dense',
+        size: 'small',
+      },
       styleOverrides: {
         root: {
           backgroundColor: theme.palette.grey[500_12],
@@ -50,6 +62,10 @@ export default function Input(theme: Theme) {
       },
     },
     MuiOutlinedInput: {
+      defaultProps: {
+        margin: 'dense',
+        size: 'small',
+      },
       styleOverrides: {
         root: {
           '& .MuiOutlinedInput-notchedOutline': {
@@ -63,5 +79,16 @@ export default function Input(theme: Theme) {
         },
       },
     },
-  };
+    MuiInputLabel: {
+      defaultProps: {
+        margin: 'dense',
+      },
+    },
+    MuiTextField: {
+      defaultProps: {
+        margin: 'dense',
+        size: 'small',
+      },
+    },
+  }
 }
