@@ -4,7 +4,8 @@ import { Cache, SessionStorageCacheStorage } from '@utils/cache'
 
 import { LS_KEY_PREFIX, SESSION_KEY } from './const'
 
-const baseUrl = import.meta.env.VITE_API_BASE
+const baseUrl =
+  import.meta.env.VITE_API_BASE || `${location.protocol}//${location.host}`
 
 const authTokenStore = new Cache<string>({
   keyPrefix: LS_KEY_PREFIX,

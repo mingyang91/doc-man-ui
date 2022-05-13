@@ -3,5 +3,5 @@
 **/node_modules/
 .github
 .husky
-env
+env/*
 !.eslintrc.js
