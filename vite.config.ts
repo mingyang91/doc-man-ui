@@ -1,6 +1,8 @@
 import { resolve } from 'path'
 
 import { defineConfig, loadEnv, Plugin, PluginOption } from 'vite'
+import { chunkSplitPlugin } from 'vite-plugin-chunk-split'
+import { viteCommonjs } from '@originjs/vite-plugin-commonjs'
 import { viteMockServe } from 'vite-plugin-mock'
 import react from '@vitejs/plugin-react'
 import legacy from '@vitejs/plugin-legacy'
@@ -49,6 +51,10 @@ export default defineConfig(({ mode, command }) => {
         },
       },
     }),
+    viteCommonjs(),
+    chunkSplitPlugin({
+      strategy: 'default',
+    }),
   ]
 
   if (command === 'serve' && isMock) {
@@ -91,30 +97,7 @@ export default defineConfig(({ mode, command }) => {
       },
     },
     build: {
-      sourcemap: true,
-      rollupOptions: {
-        // preserveEntrySignatures: 'allow-extension',
-        // preserveModules: true,
-        output: {
-          manualChunks(id) {
-            let match = /vite\/|commonjsHelpers|@babel\//.exec(id)
-            if (match) return 'vendor/runtime'
-
-            match =
-              /(\/(react|react-dom|react-router(-dom?)|history|scheduler|react\/jsx-runtime)(\/|@?))|(?:@vanilla-extract\/)([\w-]+)/.exec(
-                id
-              )
-            if (match) return 'vendor/core'
-            match = /(?:react-icons\/)([\w-]+)/.exec(id)
-            if (match && match[1]) return `icons/${match[1]}`
-            match = /dayjs/.exec(id)
-            if (match) return 'dayjs'
-            match = /(?:node_modules\/)([\w\d-_]+)/.exec(id)
-            if (match && match[1]) return `vendor/${match[1]}`
-            return null
-          },
-        },
-      },
+      sourcemap: isDevelopment,
     },
     server: {
       port: PORT,
