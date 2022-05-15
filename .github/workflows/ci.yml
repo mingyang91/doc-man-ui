@@ -4,7 +4,9 @@ on: [pull_request]
 permissions:
   checks: write
   contents: write
-
+env:
+  CI: true
+  PNPM_CACHE_FOLDER: .pnpm-store
 jobs:
   test:
     name: Test on node ${{ matrix.node_version }} and ${{ matrix.os }}
@@ -17,17 +19,27 @@ jobs:
         os: [ubuntu-latest]
 
     steps:
-      - uses: actions/checkout@v1
+       - uses: actions/checkout@v2
 
-      - name: Use Node.js ${{ matrix.node_version }}
-        uses: actions/setup-node@v1
+      # Cache the dependencies
+      - name: Cache npm_modules
+        uses: actions/cache@v2
         with:
-          node-version: ${{ matrix.node_version }}
+          path: |
+            ${{ env.PNPM_CACHE_FOLDER }}
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.node-version }}-node_modules-
 
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile --ignore-engines
-        env:
-          CI: true
+      # Install dependencies
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2.0.1
+        id: setup-pnpm
+        with:
+          version: 6.30.0
+          run_install: true
 
       - name: Run linters
         uses: wearerequired/lint-action@v1
@@ -40,4 +52,4 @@ jobs:
           # commit_message: 'fix(styles): fix code style issues with ${linter}'
 
       - name: Run tests
-        run: yarn tsc && yarn test
+        run: pnpm typecheck && pnpm test
