@@ -1,0 +1,43 @@
+name: Run Tests
+on: [pull_request]
+
+permissions:
+  checks: write
+  contents: write
+
+jobs:
+  test:
+    name: Test on node ${{ matrix.node_version }} and ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    env:
+      NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN_GITHUB }}
+    strategy:
+      matrix:
+        node_version: [16]
+        os: [ubuntu-latest]
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Use Node.js ${{ matrix.node_version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node_version }}
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile --ignore-engines
+        env:
+          CI: true
+
+      - name: Run linters
+        uses: wearerequired/lint-action@v1
+        with:
+          eslint: true
+          eslint_extensions: tsx,ts,js,jsx
+          prettier: true
+          # auto_fix: true
+          # git_email: jarvis@shore.ai
+          # commit_message: 'fix(styles): fix code style issues with ${linter}'
+
+      - name: Run tests
+        run: yarn tsc && yarn test

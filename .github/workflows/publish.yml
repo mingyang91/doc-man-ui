@@ -1,0 +1,101 @@
+name: Build and Publish to Github Package
+
+on:
+  pull_request:
+    branches:
+      - main
+
+env:
+  CI: true
+  PNPM_CACHE_FOLDER: .pnpm-store
+jobs:
+  # job to install
+  install:
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+    strategy:
+      matrix:
+        node-version: [16]
+    steps:
+      - uses: actions/checkout@v2
+
+      # Cache the dependencies
+      - name: Cache npm_modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            ${{ env.PNPM_CACHE_FOLDER }}
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.node-version }}-node_modules-
+
+      # Install dependencies
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2.0.1
+        id: setup-pnpm
+        with:
+          version: 6.30.0
+          run_install: true
+
+  # job to build
+  build:
+    needs: install
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+    strategy:
+      matrix:
+        node-version: [16]
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Load node_modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            ${{ env.PNPM_CACHE_FOLDER }}
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.node-version }}-node_modules-
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6.30.0
+          run_install: true
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+      - name: build from source
+        run: pnpm run build
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.ECR_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.ECR_AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-east-1
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build, tag, and push image to Amazon ECR
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: scene-web
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build  --build-arg NPM_AUTH_TOKEN=${{ secrets.NPM_AUTH_TOKEN_GITHUB }} -f APP-META/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
