@@ -19,7 +19,7 @@ jobs:
         os: [ubuntu-latest]
 
     steps:
-       - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
       # Cache the dependencies
       - name: Cache npm_modules
