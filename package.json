@@ -47,6 +47,11 @@
     "prettier:check": "prettier --check ./",
     "prettier:fix": "prettier --write ./"
   },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "prettier --write  && eslint --quiet --fix"
+    ]
+  },
   "dependencies": {
     "@apollo/client": "^3.5.10",
     "@emotion/cache": "^11.7.1",
