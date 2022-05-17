@@ -49,7 +49,7 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "prettier --write  && eslint --quiet --fix"
+      "prettier --write  && tsc --noEmit && eslint --quiet --fix"
     ]
   },
   "dependencies": {
