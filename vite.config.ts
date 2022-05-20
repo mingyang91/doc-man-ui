@@ -107,6 +107,10 @@ export default defineConfig(({ mode, command }) => {
           target: env.DEV_API_PROXY,
           changeOrigin: true,
         },
+        '/v2/graphql': {
+          target: env.DEV_API_PROXY,
+          changeOrigin: true,
+        },
         '/api/login': {
           target: env.DEV_API_PROXY,
           changeOrigin: true,

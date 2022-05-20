@@ -1,7 +1,6 @@
-export enum Judgement {
-  'Good',
-  'Bad',
-}
+import { Judgement } from '../common'
+
+import { CalculateOffsetReturns } from './calculate'
 
 interface DetectionField {
   name: string
@@ -10,16 +9,18 @@ interface DetectionField {
   judgement?: Judgement
 }
 
-interface Condition {
+export interface PipeVoltageItemCondition {
   loadingFactor: string
   presetValue: string
 }
 
 interface PipeVoltageItem {
-  value?: string
-  condition: Condition
+  value?: CalculateOffsetReturns
+  condition: PipeVoltageItemCondition
 }
 
 export interface PipeVoltage extends DetectionField {
   items: PipeVoltageItem[]
 }
+
+export const unitPipeVoltage = 'kV'

@@ -1,6 +1,6 @@
 import { TableCell, TableHead, TableRow } from '@mui/material'
 
-export const FormDetailHeader = () => {
+export const FormTableHeader = () => {
   return (
     <TableHead>
       <TableRow>

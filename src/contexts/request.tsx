@@ -8,13 +8,11 @@ import {
 } from '@apollo/client'
 import { PropsWithChildren } from 'react'
 
-import { getAuthToken } from '@/common/request'
-
-const baseUrl = import.meta.env.VITE_API_BASE
+import { baseUrl, getAuthToken } from '@/common/request'
 
 const hausraSecret = import.meta.env.VITE_HASURA_ADMIN_SECRET
 
-const httpLink = new HttpLink({ uri: `${baseUrl}v1/graphql` })
+const httpLink = new HttpLink({ uri: `${baseUrl}/v1/graphql` })
 
 const authMiddleware = new ApolloLink((operation, forward) => {
   // add the authorization to the headers

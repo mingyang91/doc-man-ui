@@ -1,3 +1,8 @@
 {
-  "recommendations": ["esbenp.prettier-vscode", "ijs.emotionsnippets"]
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "ijs.emotionsnippets",
+    "rvest.vs-code-prettier-eslint",
+    "dbaeumer.vscode-eslint"
+  ]
 }

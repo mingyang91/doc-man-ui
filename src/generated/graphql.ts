@@ -1,5 +1,7 @@
 import { gql } from '@apollo/client'
 import * as Apollo from '@apollo/client'
+
+import { PipeVoltage } from '@/models/devices/type'
 export type Maybe<T> = T | null
 export type InputMaybe<T> = Maybe<T>
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -95,7 +97,7 @@ export interface Device {
   modelNo?: Maybe<Scalars['String']>
   name?: Maybe<Scalars['String']>
   ownerid?: Maybe<Scalars['Int']>
-  pipeVoltage?: Maybe<Scalars['jsonb']>
+  pipeVoltage?: Maybe<PipeVoltage>
   place?: Maybe<Scalars['String']>
   radiationOutput?: Maybe<Scalars['jsonb']>
   rangingError?: Maybe<Scalars['jsonb']>
@@ -226,7 +228,7 @@ export type DeviceAppendInput = {
   highContrastResolution?: InputMaybe<Scalars['jsonb']>
   lightFieldOffset?: InputMaybe<Scalars['jsonb']>
   lowContrastResolution?: InputMaybe<Scalars['jsonb']>
-  pipeVoltage?: InputMaybe<Scalars['jsonb']>
+  pipeVoltage?: InputMaybe<PipeVoltage>
   radiationOutput?: InputMaybe<Scalars['jsonb']>
   rangingError?: InputMaybe<Scalars['jsonb']>
   responseUniformity?: InputMaybe<Scalars['jsonb']>
@@ -371,7 +373,7 @@ export type DeviceInsertInput = {
   modelNo?: InputMaybe<Scalars['String']>
   name?: InputMaybe<Scalars['String']>
   ownerid?: InputMaybe<Scalars['Int']>
-  pipeVoltage?: InputMaybe<Scalars['jsonb']>
+  pipeVoltage?: InputMaybe<PipeVoltage>
   place?: InputMaybe<Scalars['String']>
   radiationOutput?: InputMaybe<Scalars['jsonb']>
   rangingError?: InputMaybe<Scalars['jsonb']>
@@ -491,7 +493,7 @@ export type DevicePrependInput = {
   highContrastResolution?: InputMaybe<Scalars['jsonb']>
   lightFieldOffset?: InputMaybe<Scalars['jsonb']>
   lowContrastResolution?: InputMaybe<Scalars['jsonb']>
-  pipeVoltage?: InputMaybe<Scalars['jsonb']>
+  pipeVoltage?: InputMaybe<PipeVoltage>
   radiationOutput?: InputMaybe<Scalars['jsonb']>
   rangingError?: InputMaybe<Scalars['jsonb']>
   responseUniformity?: InputMaybe<Scalars['jsonb']>
@@ -590,7 +592,7 @@ export type DeviceSetInput = {
   modelNo?: InputMaybe<Scalars['String']>
   name?: InputMaybe<Scalars['String']>
   ownerid?: InputMaybe<Scalars['Int']>
-  pipeVoltage?: InputMaybe<Scalars['jsonb']>
+  pipeVoltage?: InputMaybe<PipeVoltage>
   place?: InputMaybe<Scalars['String']>
   radiationOutput?: InputMaybe<Scalars['jsonb']>
   rangingError?: InputMaybe<Scalars['jsonb']>
@@ -1743,7 +1745,7 @@ export type AppendDeviceFieldsFragment = {
   highContrastResolution?: unknown | null
   lightFieldOffset?: unknown | null
   lowContrastResolution?: unknown | null
-  pipeVoltage?: unknown | null
+  pipeVoltage?: PipeVoltage | null
   radiationOutput?: unknown | null
   rangingError?: unknown | null
   responseUniformity?: unknown | null
@@ -1804,7 +1806,7 @@ export type DeviceByIdQuery = {
     highContrastResolution?: unknown | null
     lightFieldOffset?: unknown | null
     lowContrastResolution?: unknown | null
-    pipeVoltage?: unknown | null
+    pipeVoltage?: PipeVoltage | null
     radiationOutput?: unknown | null
     rangingError?: unknown | null
     responseUniformity?: unknown | null
@@ -1842,7 +1844,7 @@ export type InsertDeviceMutation = {
     highContrastResolution?: unknown | null
     lightFieldOffset?: unknown | null
     lowContrastResolution?: unknown | null
-    pipeVoltage?: unknown | null
+    pipeVoltage?: PipeVoltage | null
     radiationOutput?: unknown | null
     rangingError?: unknown | null
     responseUniformity?: unknown | null
@@ -1881,7 +1883,7 @@ export type UpdateDeviceMutation = {
     highContrastResolution?: unknown | null
     lightFieldOffset?: unknown | null
     lowContrastResolution?: unknown | null
-    pipeVoltage?: unknown | null
+    pipeVoltage?: PipeVoltage | null
     radiationOutput?: unknown | null
     rangingError?: unknown | null
     responseUniformity?: unknown | null

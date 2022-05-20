@@ -3,12 +3,13 @@ import { Params, useRoutes } from 'react-router-dom'
 import { IconType } from 'react-icons'
 import { useAtomValue } from 'jotai'
 
+import type { MenuConfig, MenuGroupTitle } from './create-menus'
+
 import { LayoutType } from '@app/modules/layouts/index'
 
 import { routesAtom } from './context'
 import { routeRegister } from './route-register'
 
-import type { MenuConfig, MenuGroupTitle } from './create-menus'
 
 export type GroupTitle = {
   title: string
@@ -24,6 +25,7 @@ export type GroupTitle = {
 
 export type RouteView =
   | {
+      id: string
       path: string
       params?: Params
       isRequireAuth?: boolean
