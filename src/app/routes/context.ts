@@ -9,7 +9,6 @@ import { PageDeviceReports } from '@/app/views/device-reports'
 
 import { PageCreateDeviceReport } from '../views/device-reports/create'
 
-
 export const routes: RouteView[] = [
   {
     id: 'signin',

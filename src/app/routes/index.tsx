@@ -10,7 +10,6 @@ import { LayoutType } from '@app/modules/layouts/index'
 import { routesAtom } from './context'
 import { routeRegister } from './route-register'
 
-
 export type GroupTitle = {
   title: string
   icon?: IconType
