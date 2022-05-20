@@ -1,26 +1,26 @@
 // @types
-import { BackgroundType } from '../type';
+import { BackgroundType } from '../type'
 
 // ----------------------------------------------------------------------
 
 export const varBgColor = (props?: BackgroundType) => {
-  const colors = props?.colors || ['#19dcea', '#b22cff'];
-  const duration = props?.duration || 5;
-  const ease = props?.ease || 'linear';
+  const colors = props?.colors || ['#19dcea', '#b22cff']
+  const duration = props?.duration || 5
+  const ease = props?.ease || 'linear'
 
   return {
     animate: {
       background: colors,
       transition: { duration, ease },
     },
-  };
-};
+  }
+}
 
 // ----------------------------------------------------------------------
 
 export const varBgKenburns = (props?: BackgroundType) => {
-  const duration = props?.duration || 5;
-  const ease = props?.ease || 'easeOut';
+  const duration = props?.duration || 5
+  const ease = props?.ease || 'easeOut'
 
   return {
     top: {
@@ -57,17 +57,17 @@ export const varBgKenburns = (props?: BackgroundType) => {
         transition: { duration, ease },
       },
     },
-  };
-};
+  }
+}
 
 // ----------------------------------------------------------------------
 
 export const varBgPan = (props?: BackgroundType) => {
-  const colors = props?.colors || ['#ee7752', '#e73c7e', '#23a6d5', '#23d5ab'];
-  const duration = props?.duration || 5;
-  const ease = props?.ease || 'linear';
+  const colors = props?.colors || ['#ee7752', '#e73c7e', '#23a6d5', '#23d5ab']
+  const duration = props?.duration || 5
+  const ease = props?.ease || 'linear'
 
-  const gradient = (deg: number) => `linear-gradient(${deg}deg, ${colors})`;
+  const gradient = (deg: number) => `linear-gradient(${deg}deg, ${colors})`
 
   return {
     top: {
@@ -102,5 +102,5 @@ export const varBgPan = (props?: BackgroundType) => {
         transition: { duration, ease },
       },
     },
-  };
-};
+  }
+}

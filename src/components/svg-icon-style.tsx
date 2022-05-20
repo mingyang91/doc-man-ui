@@ -1,9 +1,9 @@
-import { Box, BoxProps } from '@mui/material';
+import { Box, BoxProps } from '@mui/material'
 
 // ----------------------------------------------------------------------
 
 interface Props extends BoxProps {
-  src: string;
+  src: string
 }
 
 export default function SvgIconStyle({ src, sx }: Props) {
@@ -20,5 +20,5 @@ export default function SvgIconStyle({ src, sx }: Props) {
         ...sx,
       }}
     />
-  );
+  )
 }

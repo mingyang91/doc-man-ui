@@ -4,9 +4,7 @@ module.exports = {
   testEnvironment: 'jsdom',
   coverageDirectory: 'coverage',
   coverageProvider: 'v8',
-  setupFilesAfterEnv: [
-    '@testing-library/jest-dom/extend-expect',
-  ],
+  setupFilesAfterEnv: ['@testing-library/jest-dom/extend-expect'],
   snapshotSerializers: ['@emotion/jest/serializer'],
   extensionsToTreatAsEsm: ['.ts', '.tsx'],
   moduleDirectories: ['node_modules', './src'],
