@@ -33,6 +33,9 @@ export const FieldPipeVoltageCondition = ({
             endAdornment: (
               <InputAdornment position="end">{unitPipeVoltage}</InputAdornment>
             ),
+            inputProps: {
+              displayType: 'input',
+            },
           }}
         />
       </Box>

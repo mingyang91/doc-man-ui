@@ -1,5 +1,6 @@
 import { Field } from 'formik'
 import { TextField } from 'formik-mui'
+import { DatePicker } from 'formik-mui-lab'
 import { Grid } from '@mui/material'
 
 import { ComponentInFormikProps } from '../index'
@@ -11,7 +12,7 @@ export const FormHeader = (_: ComponentInFormikProps) => {
         <Field
           component={TextField}
           name="requester"
-          label="报告编号"
+          label="委托单位"
           type="text"
           fullWidth
         />
@@ -118,10 +119,12 @@ export const FormHeader = (_: ComponentInFormikProps) => {
       </Grid>
       <Grid item xs={12} sm={6}>
         <Field
-          component={TextField}
+          component={DatePicker}
           name="item"
-          label="检测项目"
+          label="检测日期"
           type="text"
+          mask="____-__-__"
+          inputFormat="YYYY-MM-DD"
           fullWidth
         />
       </Grid>

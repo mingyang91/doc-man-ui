@@ -1,28 +1,36 @@
-import { TableCell, TableHead, TableRow } from '@mui/material'
+import { memo } from 'react'
+import { styled, TableCell, TableHead, TableRow } from '@mui/material'
+
+const Th = memo(
+  styled(TableCell)({
+    position: 'relative',
+    zIndex: 6,
+  })
+)
 
 export const FormTableHeader = () => {
   return (
     <TableHead>
       <TableRow>
-        <TableCell rowSpan={2} align="center">
+        <Th rowSpan={2} align="center">
           检测项目
-        </TableCell>
-        <TableCell rowSpan={2} align="center">
+        </Th>
+        <Th rowSpan={2} align="center">
           检测条件
-        </TableCell>
-        <TableCell rowSpan={2} align="center">
+        </Th>
+        <Th rowSpan={2} align="center">
           检测结果
-        </TableCell>
-        <TableCell colSpan={2} align="center">
+        </Th>
+        <Th colSpan={2} align="center">
           检测指标要求
-        </TableCell>
-        <TableCell rowSpan={2} align="center">
+        </Th>
+        <Th rowSpan={2} align="center">
           结论
-        </TableCell>
+        </Th>
       </TableRow>
       <TableRow>
-        <TableCell align="center">验收检测</TableCell>
-        <TableCell align="center">状态检测</TableCell>
+        <Th align="center">验收检测</Th>
+        <Th align="center">状态检测</Th>
       </TableRow>
     </TableHead>
   )

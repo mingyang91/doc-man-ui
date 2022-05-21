@@ -5,10 +5,17 @@ import {
   Chip,
   SxProps,
   Theme,
+  styled,
 } from '@mui/material'
-import { ReactNode, useMemo } from 'react'
+import { memo, ReactNode, useMemo } from 'react'
 
 import { Judgement } from '@/models/common'
+
+const Td = memo(
+  styled(TableCell)({
+    position: 'relative',
+  })
+)
 
 export interface Column {
   id:
@@ -27,8 +34,8 @@ interface FormDetailRowProps {
   name: ReactNode
   isItem?: boolean
   rowSpan?: number
-  conditionRender: () => JSX.Element
-  resultRender: () => JSX.Element
+  conditionElement: JSX.Element
+  resultElement: JSX.Element
   requirementAcceptance?: string
   requirementState?: string
   requirementAcceptanceRender?: (text?: string) => JSX.Element
@@ -54,53 +61,47 @@ export const FormDetailRow = ({
   name,
   rowSpan = 1,
   isItem = false,
-  conditionRender,
-  resultRender,
+  conditionElement,
+  resultElement,
   requirementAcceptance,
   requirementState,
   requirementAcceptanceRender = defaultRequirementRender,
   requirementStateRender = defaultRequirementRender,
   judgement = Judgement.Unknown,
 }: FormDetailRowProps) => {
-  const conditionElement = useMemo(() => conditionRender(), [conditionRender])
-  const resultElement = useMemo(() => resultRender(), [resultRender])
-
-  const firstCellSx: SxProps<Theme> = useMemo(
-    () => ({
-      position: 'relative',
-    }),
-    []
-  )
-
   return isItem ? (
     <TableRow>
-      <TableCell align="center" sx={firstCellSx}>
-        {conditionElement}
-      </TableCell>
-      <TableCell align="center" sx={firstCellSx}>
-        {resultElement}
-      </TableCell>
+      <Td align="center">{conditionElement}</Td>
+      <Td align="center">{resultElement}</Td>
     </TableRow>
   ) : (
     <TableRow>
-      <TableCell align="center" rowSpan={rowSpan} sx={firstCellSx}>
+      <Td align="center" rowSpan={rowSpan}>
         {name}
-      </TableCell>
-      <TableCell align="center" sx={firstCellSx}>
-        {conditionElement}
-      </TableCell>
-      <TableCell align="center" sx={firstCellSx}>
-        {resultElement}
-      </TableCell>
-      <TableCell align="center" rowSpan={rowSpan} sx={firstCellSx}>
+      </Td>
+      <Td align="center">{conditionElement}</Td>
+      <Td align="center">{resultElement}</Td>
+      <Td align="center" rowSpan={rowSpan}>
         {requirementAcceptanceRender(requirementAcceptance)}
-      </TableCell>
-      <TableCell align="center" rowSpan={rowSpan} sx={firstCellSx}>
+      </Td>
+      <Td align="center" rowSpan={rowSpan}>
         {requirementStateRender(requirementState)}
-      </TableCell>
-      <TableCell align="center" rowSpan={rowSpan} sx={firstCellSx}>
+      </Td>
+      <Td align="center" rowSpan={rowSpan}>
         {JudgementViews[judgement]}
-      </TableCell>
+      </Td>
     </TableRow>
   )
 }
+
+interface FormDetailRowSubProps {
+  children?: ReactNode
+}
+
+export const FormDetailRowSub = ({ children }: FormDetailRowSubProps) => (
+  <TableRow>
+    <Td align="center" colSpan={2}>
+      {children}
+    </Td>
+  </TableRow>
+)

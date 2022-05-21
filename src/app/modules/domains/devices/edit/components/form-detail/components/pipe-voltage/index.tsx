@@ -1,12 +1,23 @@
 import { FieldArray, useField } from 'formik'
-import { Typography, IconButton, SxProps, Theme, useTheme } from '@mui/material'
+import {
+  Typography,
+  IconButton,
+  SxProps,
+  Theme,
+  useTheme,
+  Button,
+} from '@mui/material'
 import { last } from 'lodash-es'
 import { RiAddFill, RiDeleteBinFill } from 'react-icons/ri'
 import { useCreation } from 'ahooks'
 import { useMemo, useCallback } from 'react'
 import Big from 'big.js'
 
-import { FormDetailRow } from '@/app/components/form-table/row'
+import {
+  FormDetailRow,
+  FormDetailRowSub,
+} from '@/app/components/form-table/components/row'
+import { RowTitle } from '@/app/components/form-table/components/row/row-title'
 import { DeviceSetInput } from '@/generated/graphql'
 import { judgePipeVoltageOffset } from '@/models/devices/calculate'
 
@@ -73,22 +84,10 @@ export const FieldPipeVoltage = () => {
             <FormDetailRow
               key={`${condition.loadingFactor}-${condition.presetValue}-${i}`}
               rowSpan={rowSpan}
-              name={
-                <>
-                  <Typography align="center">{value?.name}</Typography>
-                  <IconButton
-                    aria-label="添加一项"
-                    color="primary"
-                    sx={buttonSx}
-                    onClick={() => addItem(push)}
-                  >
-                    <RiAddFill />
-                  </IconButton>
-                </>
-              }
+              name={<RowTitle>{value?.name}</RowTitle>}
               isItem={!!i}
-              conditionRender={() => <FieldPipeVoltageCondition index={i} />}
-              resultRender={() => (
+              conditionElement={<FieldPipeVoltageCondition index={i} />}
+              resultElement={
                 <>
                   <IconButton
                     aria-label="删除此项"
@@ -100,7 +99,7 @@ export const FieldPipeVoltage = () => {
                   </IconButton>
                   <FieldPipeVoltageResult index={i} />
                 </>
-              )}
+              }
               requirementAcceptance={value?.requirementAcceptance}
               requirementState={value?.requirementState}
               judgement={judgement}
@@ -110,29 +109,25 @@ export const FieldPipeVoltage = () => {
             <FormDetailRow
               rowSpan={rowSpan}
               isItem={!!items.length}
-              name={
-                <>
-                  <Typography align="center">{value?.name}</Typography>
-                  <IconButton
-                    aria-label="添加一项"
-                    color="primary"
-                    sx={buttonSx}
-                    onClick={() => addItem(push)}
-                  >
-                    <RiAddFill />
-                  </IconButton>
-                </>
-              }
-              conditionRender={() => (
+              name={<RowTitle>{value?.name}</RowTitle>}
+              conditionElement={
                 <FieldPipeVoltageCondition index={items.length} />
-              )}
-              resultRender={() => (
-                <FieldPipeVoltageResult index={items.length} />
-              )}
+              }
+              resultElement={<FieldPipeVoltageResult index={items.length} />}
               requirementAcceptance={value?.requirementAcceptance}
               requirementState={value?.requirementState}
             />
           )}
+          <FormDetailRowSub>
+            <Button
+              variant="contained"
+              color="secondary"
+              startIcon={<RiAddFill />}
+              onClick={() => addItem(push)}
+            >
+              添加一项
+            </Button>
+          </FormDetailRowSub>
         </>
       )}
     </FieldArray>

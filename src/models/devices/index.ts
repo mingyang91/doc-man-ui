@@ -9,7 +9,6 @@ export const initDeviceInput: (
     {
       requester: '',
       address: '',
-      reportNo: '',
       modelNo: '',
       deviceNo: '',
       vendor: '',
@@ -29,7 +28,7 @@ export const initDeviceInput: (
               loadingFactor: '100 mA,0.125s',
               presetValue: '60',
             },
-            value: '',
+            value: undefined,
           },
         ],
       },

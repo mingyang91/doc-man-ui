@@ -34,15 +34,15 @@ export const FieldPipeVoltageResult = ({
 
   const isConditionValid = !isNaN(Number(condition?.presetValue))
 
-  const [{ value }, , { setValue }] = useField<CalculateOffsetReturns>(
-    `pipeVoltage.items.${index}.value`
-  )
+  const [{ value }, , { setValue }] = useField<
+    CalculateOffsetReturns | undefined
+  >(`pipeVoltage.items.${index}.value`)
 
   const valueStringify = useCreation(
     () =>
-      isNil(value.offset)
+      isNil(value?.offset)
         ? ''
-        : `${value.offset}${unitPipeVoltage}(${value.offsetRateStringify})`,
+        : `${value?.offset}${unitPipeVoltage}(${value?.offsetRateStringify})`,
     [value]
   )
 

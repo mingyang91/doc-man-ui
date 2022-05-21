@@ -16,7 +16,7 @@ import { FormTableHeader } from './components/header'
 export const FormTable = ({ children }: FormTableProps) => {
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-      <TableContainer sx={{ maxHeight: 480 }}>
+      <TableContainer>
         <Table className="border" stickyHeader aria-label="检测结果">
           <FormTableHeader />
           <TableBody>{children}</TableBody>
