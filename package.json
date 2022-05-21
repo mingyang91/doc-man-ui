@@ -47,11 +47,6 @@
     "prettier:check": "prettier --check ./",
     "prettier:fix": "prettier --write ./"
   },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "pnpm run lint:fix"
-    ]
-  },
   "dependencies": {
     "@apollo/client": "^3.5.10",
     "@date-io/dayjs": "^2.14.0",
