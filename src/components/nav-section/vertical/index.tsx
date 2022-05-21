@@ -3,7 +3,7 @@ import { styled } from '@mui/material/styles'
 import { List, Box, ListSubheader, ListSubheaderProps } from '@mui/material'
 import { JSXElementConstructor } from 'react'
 
-import { assertGroupTitle } from '@app/routes'
+import { assertGroupTitle } from '@@/routes'
 
 import { NavSectionProps } from '../type'
 

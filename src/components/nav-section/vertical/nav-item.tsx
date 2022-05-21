@@ -4,7 +4,7 @@ import { Box, Link, ListItemText, Typography, Tooltip } from '@mui/material'
 import { RiArrowDownFill, RiArrowGoForwardFill } from 'react-icons/ri'
 
 import Iconify from '@components/iconify'
-import { assertHasSubViews, assertGroupTitle } from '@app/routes/index'
+import { assertHasSubViews, assertGroupTitle } from '@@/routes/index'
 
 import { NavItemProps } from '../type'
 //

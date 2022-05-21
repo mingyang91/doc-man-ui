@@ -1,14 +1,15 @@
 import Big from 'big.js'
 import { percentage } from 'number-magic'
 
-import { calcAverage, calcStandardDeviation } from '@/utils/math'
+import { calcAverage } from '@utils/math'
+import { hasEmpty } from '@/utils/helper'
 
-import { Judgement } from '../common'
+import { isSamplesAvailable, Judgement } from '../common'
 
-/* ======== 管电压指示偏离 ======== */
+import { DetectionField } from './type'
 
 /**
- * 偏离率
+ * 管电压指示偏离率
  * @param {Array<number>} values 观测值
  * @param {string | number} presetValue 预设值
  * @param {string | number} calibrationFactor 校准因子
@@ -54,19 +55,44 @@ export const judgePipeVoltageOffset = (
         Big(result.offsetRate).minus(0.05).abs().lte(0.05))
     )
   }
-  return results?.length
+  return isSamplesAvailable(results)
     ? results.every(check)
       ? Judgement.Good
       : Judgement.Bad
     : Judgement.Unknown
 }
 
-/* ======== 辐射输出量重复性 ======== */
-
-export const calculateRadiationOutput = (outputs: (string | number)[]) => {
-  const standardDeviation = calcStandardDeviation(outputs)
-  return {
-    scalar: standardDeviation.toFixed(3),
-    percentage: percentage(standardDeviation.toNumber(), 3),
-  }
+export interface PipeVoltageItemCondition {
+  loadingFactor: string
+  presetValue: string
 }
+
+export interface PipeVoltageItem {
+  value?: CalculateOffsetReturns
+  condition: PipeVoltageItemCondition
+}
+
+export interface PipeVoltage extends DetectionField {
+  items: PipeVoltageItem[]
+}
+
+export const unitPipeVoltage = 'kV'
+
+/**
+ * 新建这个字段时的初始值
+ * @returns
+ */
+export const initPipeVoltage: () => PipeVoltage = () => ({
+  name: '管电压指示偏离',
+  requirementAcceptance: '±5.0%或±5.0 kV内,以较大者控制',
+  requirementState: '±5.0%或±5.0 kV内,以较大者控制',
+  items: [
+    {
+      condition: {
+        loadingFactor: '100 mA,0.125s',
+        presetValue: '60',
+      },
+      value: undefined,
+    },
+  ],
+})

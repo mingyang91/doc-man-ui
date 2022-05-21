@@ -3,8 +3,8 @@ import { useLocation } from 'react-router-dom'
 import { useCreation } from 'ahooks'
 import { useState } from 'react'
 
-import { routesAtom } from '@app/routes/context'
-import { createMenus, getActiveMenuPath } from '@app/routes/create-menus'
+import { routesAtom } from '@@/routes/context'
+import { createMenus, getActiveMenuPath } from '@@/routes/create-menus'
 import { createContainer } from '@utils/create-container'
 
 const MenuAndRoutesContainer = createContainer(

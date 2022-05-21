@@ -1,7 +1,10 @@
 import { gql } from '@apollo/client'
+import { UUID } from 'short-uuid'
 import * as Apollo from '@apollo/client'
 
-import { PipeVoltage } from '@/models/devices/type'
+import { PipeVoltage } from '@models/devices/pipe-voltage'
+import { RadiationOutput } from '@models/devices/radiation-output'
+
 export type Maybe<T> = T | null
 export type InputMaybe<T> = Maybe<T>
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -16,7 +19,7 @@ export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
 const defaultOptions = {} as const
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: string
+  ID: UUID
   String: string
   Boolean: boolean
   Int: number
@@ -25,7 +28,7 @@ export type Scalars = {
   jsonb: unknown
   role: unknown
   timestamp: unknown
-  uuid: unknown
+  uuid: UUID
 }
 
 /** Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'. */
@@ -99,7 +102,7 @@ export interface Device {
   ownerid?: Maybe<Scalars['Int']>
   pipeVoltage?: Maybe<PipeVoltage>
   place?: Maybe<Scalars['String']>
-  radiationOutput?: Maybe<Scalars['jsonb']>
+  radiationOutput?: Maybe<RadiationOutput>
   rangingError?: Maybe<Scalars['jsonb']>
   requester?: Maybe<Scalars['String']>
   responseUniformity?: Maybe<Scalars['jsonb']>
@@ -229,7 +232,7 @@ export type DeviceAppendInput = {
   lightFieldOffset?: InputMaybe<Scalars['jsonb']>
   lowContrastResolution?: InputMaybe<Scalars['jsonb']>
   pipeVoltage?: InputMaybe<PipeVoltage>
-  radiationOutput?: InputMaybe<Scalars['jsonb']>
+  radiationOutput?: InputMaybe<RadiationOutput>
   rangingError?: InputMaybe<Scalars['jsonb']>
   responseUniformity?: InputMaybe<Scalars['jsonb']>
   stp?: InputMaybe<Scalars['jsonb']>
@@ -375,7 +378,7 @@ export type DeviceInsertInput = {
   ownerid?: InputMaybe<Scalars['Int']>
   pipeVoltage?: InputMaybe<PipeVoltage>
   place?: InputMaybe<Scalars['String']>
-  radiationOutput?: InputMaybe<Scalars['jsonb']>
+  radiationOutput?: InputMaybe<RadiationOutput>
   rangingError?: InputMaybe<Scalars['jsonb']>
   requester?: InputMaybe<Scalars['String']>
   responseUniformity?: InputMaybe<Scalars['jsonb']>
@@ -494,7 +497,7 @@ export type DevicePrependInput = {
   lightFieldOffset?: InputMaybe<Scalars['jsonb']>
   lowContrastResolution?: InputMaybe<Scalars['jsonb']>
   pipeVoltage?: InputMaybe<PipeVoltage>
-  radiationOutput?: InputMaybe<Scalars['jsonb']>
+  radiationOutput?: InputMaybe<RadiationOutput>
   rangingError?: InputMaybe<Scalars['jsonb']>
   responseUniformity?: InputMaybe<Scalars['jsonb']>
   stp?: InputMaybe<Scalars['jsonb']>
@@ -594,7 +597,7 @@ export type DeviceSetInput = {
   ownerid?: InputMaybe<Scalars['Int']>
   pipeVoltage?: InputMaybe<PipeVoltage>
   place?: InputMaybe<Scalars['String']>
-  radiationOutput?: InputMaybe<Scalars['jsonb']>
+  radiationOutput?: InputMaybe<RadiationOutput>
   rangingError?: InputMaybe<Scalars['jsonb']>
   requester?: InputMaybe<Scalars['String']>
   responseUniformity?: InputMaybe<Scalars['jsonb']>
@@ -1746,7 +1749,7 @@ export type AppendDeviceFieldsFragment = {
   lightFieldOffset?: unknown | null
   lowContrastResolution?: unknown | null
   pipeVoltage?: PipeVoltage | null
-  radiationOutput?: unknown | null
+  radiationOutput?: RadiationOutput | null
   rangingError?: unknown | null
   responseUniformity?: unknown | null
   stp?: unknown | null
@@ -1807,7 +1810,7 @@ export type DeviceByIdQuery = {
     lightFieldOffset?: unknown | null
     lowContrastResolution?: unknown | null
     pipeVoltage?: PipeVoltage | null
-    radiationOutput?: unknown | null
+    radiationOutput?: RadiationOutput | null
     rangingError?: unknown | null
     responseUniformity?: unknown | null
     stp?: unknown | null
@@ -1845,7 +1848,7 @@ export type InsertDeviceMutation = {
     lightFieldOffset?: unknown | null
     lowContrastResolution?: unknown | null
     pipeVoltage?: PipeVoltage | null
-    radiationOutput?: unknown | null
+    radiationOutput?: RadiationOutput | null
     rangingError?: unknown | null
     responseUniformity?: unknown | null
     stp?: unknown | null
@@ -1884,7 +1887,7 @@ export type UpdateDeviceMutation = {
     lightFieldOffset?: unknown | null
     lowContrastResolution?: unknown | null
     pipeVoltage?: PipeVoltage | null
-    radiationOutput?: unknown | null
+    radiationOutput?: RadiationOutput | null
     rangingError?: unknown | null
     responseUniformity?: unknown | null
     stp?: unknown | null

@@ -2,11 +2,12 @@ import { useNavigate } from 'react-router-dom'
 import { ReactNode, useCallback } from 'react'
 import { useSnackbar, VariantType } from 'notistack'
 
-import { DeviceEdit } from '@app/modules/domains/devices/edit'
+import { DeviceEdit } from '@@/modules/domains/devices/edit'
 import {
   useInsertDeviceMutation,
   InsertDeviceMutationVariables,
 } from '@/generated/graphql'
+import { nanoid } from '@/utils/uuid'
 
 export const PageCreateDeviceReport = () => {
   const navigate = useNavigate()
@@ -25,17 +26,16 @@ export const PageCreateDeviceReport = () => {
 
   const onSubmit = useCallback(
     async (input: InsertDeviceMutationVariables['input']) => {
-      if (!loading) {
-        await insertDeviceMutation({
-          variables: {
-            input,
-          },
-        })
-        console.log('data:', data)
-        navigate('/device')
-      }
+      console.log(input, loading)
+      input.id = nanoid.uuid()
+      await insertDeviceMutation({
+        variables: {
+          input,
+        },
+      })
+      // navigate(`device/${input.id}`)
     },
-    [loading, insertDeviceMutation, data, navigate]
+    [loading, insertDeviceMutation]
   )
 
   if (error) {

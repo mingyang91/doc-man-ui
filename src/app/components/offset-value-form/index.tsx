@@ -15,7 +15,7 @@ import { useDeepCompareEffect } from 'ahooks'
 import {
   calculateOffset,
   CalculateOffsetReturns,
-} from '@/models/devices/calculate'
+} from '@/models/devices/pipe-voltage'
 
 interface OffsetValueFormProps {
   unit: string // 值的单位

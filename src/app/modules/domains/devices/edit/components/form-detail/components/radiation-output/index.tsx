@@ -1,10 +1,8 @@
 import { useCallback } from 'react'
 import { FieldArray, useField } from 'formik'
 import { Button } from '@mui/material'
-import { last } from 'lodash-es'
 import { RiAddFill, RiDeleteBinFill } from 'react-icons/ri'
 import { useCreation } from 'ahooks'
-import Big from 'big.js'
 
 import {
   FormDetailRow,
@@ -12,19 +10,20 @@ import {
 } from '@/app/components/form-table/components/row'
 import { RowTitle } from '@/app/components/form-table/components/row/row-title'
 import { DeviceSetInput } from '@/generated/graphql'
-import { judgePipeVoltageOffset } from '@models/devices/pipe-voltage'
+import { judgeRadiationOutput } from '@models/devices/radiation-output'
 import { CellSideButton } from '@/app/components/form-table/components/row/cell-side-button'
 
-import { FieldPipeVoltageCondition } from './components/condition'
+import { FieldRadiationOutputItemCondition } from './components/condition'
 import { FieldPipeVoltageResult } from './components/result'
 
-export const FieldPipeVoltage = () => {
-  const [{ value }] = useField<DeviceSetInput['pipeVoltage']>('pipeVoltage')
+export const FieldRadiationOutput = () => {
+  const [{ value }] =
+    useField<DeviceSetInput['radiationOutput']>('radiationOutput')
 
   const items = useCreation(() => value?.items ?? [], [value?.items])
 
   const judgement = useCreation(
-    () => judgePipeVoltageOffset(value?.items.map(item => item.value)),
+    () => judgeRadiationOutput(value?.items.map(({ value }) => value)),
     [value?.items]
   )
 
@@ -33,28 +32,23 @@ export const FieldPipeVoltage = () => {
     [value?.items]
   )
 
-  const lastItem = useCreation(() => {
-    return last(value?.items ?? [])
-  }, [value?.items])
-
   const addItem = useCallback(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (push: (obj: any) => void) => {
-      const lastPresetValue = lastItem?.condition?.presetValue ?? '60'
-
       push({
         condition: {
-          loadingFactor: lastItem?.condition?.loadingFactor,
-          presetValue: `${Big(lastPresetValue).plus(20).toString()}`,
+          timeProduce: '',
+          voltage: '',
+          current: '',
         },
-        value: '',
+        value: undefined,
       })
     },
-    [lastItem?.condition]
+    []
   )
 
   return (
-    <FieldArray name="pipeVoltage.items" validateOnChange={false}>
+    <FieldArray name="radiationOutput.items" validateOnChange={false}>
       {({ push, remove }) => (
         <>
           {items.map((_, i) => (
@@ -63,7 +57,7 @@ export const FieldPipeVoltage = () => {
               rowSpan={rowSpan}
               name={<RowTitle>{value?.name}</RowTitle>}
               isItem={!!i}
-              conditionElement={<FieldPipeVoltageCondition index={i} />}
+              conditionElement={<FieldRadiationOutputItemCondition index={i} />}
               resultElement={
                 <>
                   <CellSideButton
@@ -87,7 +81,7 @@ export const FieldPipeVoltage = () => {
               isItem={!!items.length}
               name={<RowTitle>{value?.name}</RowTitle>}
               conditionElement={
-                <FieldPipeVoltageCondition index={items.length} />
+                <FieldRadiationOutputItemCondition index={items.length} />
               }
               resultElement={<FieldPipeVoltageResult index={items.length} />}
               requirementAcceptance={value?.requirementAcceptance}

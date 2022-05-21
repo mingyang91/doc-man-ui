@@ -9,9 +9,8 @@ export default function Accordion(theme: Theme) {
         root: {
           border: `1px solid ${theme.palette.divider}`,
           borderRadius: theme.shape.borderRadius,
-          '&:not(:last-child)': {
-            borderBottom: 0,
-          },
+          marginBottom: theme.spacing(2),
+
           '&.Mui-expanded': {
             boxShadow: theme.customShadows.z8,
           },

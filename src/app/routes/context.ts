@@ -3,8 +3,8 @@ import { RiArtboard2Fill, RiFile2Fill, RiHomeSmile2Fill } from 'react-icons/ri'
 
 import type { RouteView } from './index'
 
-import { Dashboard } from '@app/views/dashboard'
-import { SignIn } from '@app/views/sign-in/index'
+import { Dashboard } from '@@/views/dashboard'
+import { SignIn } from '@@/views/sign-in/index'
 import { PageDeviceReports } from '@/app/views/device-reports'
 
 import { PageCreateDeviceReport } from '../views/device-reports/create'

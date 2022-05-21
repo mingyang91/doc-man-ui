@@ -5,7 +5,7 @@ import { useAtomValue } from 'jotai'
 
 import type { MenuConfig, MenuGroupTitle } from './create-menus'
 
-import { LayoutType } from '@app/modules/layouts/index'
+import { LayoutType } from '@@/modules/layouts/index'
 
 import { routesAtom } from './context'
 import { routeRegister } from './route-register'

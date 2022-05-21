@@ -99,15 +99,6 @@ export const FormHeader = (_: ComponentInFormikProps) => {
           fullWidth
         />
       </Grid>
-      <Grid item xs={12}>
-        <Field
-          component={TextField}
-          name="equipment"
-          label="检测仪器"
-          type="text"
-          fullWidth
-        />
-      </Grid>
       <Grid item xs={12} sm={6}>
         <Field
           component={TextField}

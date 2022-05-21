@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
 import { useLocation } from 'react-router-dom'
 
-import { assertHasSubViews } from '@app/routes'
-import { getActive } from '@app/routes/create-menus'
+import { assertHasSubViews } from '@@/routes'
+import { getActive } from '@@/routes/create-menus'
 
 import { NavListProps } from '../type'
 

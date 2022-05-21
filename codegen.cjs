@@ -22,7 +22,7 @@ module.exports = {
   documents: ['src/graphql/**/*.graphql'],
   overwrite: true,
   generates: {
-    './src/generated/graphql.ts': {
+    './src/generated/graphql-origin.ts': {
       plugins: [
         'typescript',
         'named-operations-object',

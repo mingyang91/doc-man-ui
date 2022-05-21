@@ -1,6 +1,6 @@
 import { Breadcrumbs, Typography, Link } from '@mui/material'
 
-import { assertGroupTitle } from '@app/routes/index'
+import { assertGroupTitle } from '@@/routes/index'
 
 import { useMenuAndRoutes } from '../../menu-and-routes/contexts/index'
 

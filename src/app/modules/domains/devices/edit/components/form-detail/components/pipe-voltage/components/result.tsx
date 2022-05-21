@@ -12,8 +12,8 @@ import { isNil } from 'lodash-es'
 import {
   PipeVoltageItemCondition,
   unitPipeVoltage,
-} from '@/models/devices/type'
-import { CalculateOffsetReturns } from '@/models/devices/calculate'
+  CalculateOffsetReturns,
+} from '@models/devices/pipe-voltage'
 import { OffsetValueForm } from '@/app/components/offset-value-form'
 
 export type FieldPipeVoltageConditionProps = {
