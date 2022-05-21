@@ -41,9 +41,9 @@
     "generate": "NODE_ENV='development' graphql-codegen --config codegen.cjs",
     "test": "jest",
     "typecheck": "tsc --noEmit",
-    "format-check": "eslint --cache --ext .tsx,.ts && pnpm exec prettier --check",
-    "lint": "eslint --cache --ext .tsx,.ts ./src",
-    "lint:fix": "pnpm exec prettier --write ./ && pnpm exec eslint --cache --ext .tsx,.ts ./src --fix",
+    "lint-staged": "pnpm exec eslint --cache --ext .tsx,.ts && pnpm exec prettier --check",
+    "lint": "pnpm exec eslint --cache --ext .tsx,.ts ./src",
+    "lint:fix": "pnpm exec eslint --cache --ext .tsx,.ts ./src --fix",
     "prettier:check": "prettier --check ./",
     "prettier:fix": "prettier --write ./"
   },

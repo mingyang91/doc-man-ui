@@ -1,2 +1,2 @@
 '*.{js,jsx,ts,tsx}':
-  - pnpm run format-check
+  - pnpm run lint-staged
