@@ -29,15 +29,9 @@ export const CellSideButton = styled(IconButton, {
             backgroundColor: theme.palette.grey[300],
           },
         }
-      case 'default':
-        return {
-          backgroundColor: theme.palette.grey[200],
-          ':hover': {
-            backgroundColor: theme.palette.grey[300],
-          },
-        }
       case 'primary':
         return {
+          color: theme.palette.grey[0],
           backgroundColor: theme.palette.primary.main,
           ':hover': {
             backgroundColor: theme.palette.primary.dark,
@@ -45,6 +39,7 @@ export const CellSideButton = styled(IconButton, {
         }
       case 'secondary':
         return {
+          color: theme.palette.grey[0],
           backgroundColor: theme.palette.secondary.main,
           ':hover': {
             backgroundColor: theme.palette.secondary.dark,
@@ -52,6 +47,7 @@ export const CellSideButton = styled(IconButton, {
         }
       case 'error':
         return {
+          color: theme.palette.grey[0],
           backgroundColor: theme.palette.error.main,
           ':hover': {
             backgroundColor: theme.palette.error.dark,
@@ -59,6 +55,7 @@ export const CellSideButton = styled(IconButton, {
         }
       case 'info':
         return {
+          color: theme.palette.grey[0],
           backgroundColor: theme.palette.info.main,
           ':hover': {
             backgroundColor: theme.palette.info.dark,
@@ -66,6 +63,7 @@ export const CellSideButton = styled(IconButton, {
         }
       case 'success':
         return {
+          color: theme.palette.grey[0],
           backgroundColor: theme.palette.success.main,
           ':hover': {
             backgroundColor: theme.palette.success.dark,
@@ -73,11 +71,13 @@ export const CellSideButton = styled(IconButton, {
         }
       case 'warning':
         return {
+          color: theme.palette.grey[0],
           backgroundColor: theme.palette.warning.main,
           ':hover': {
             backgroundColor: theme.palette.warning.dark,
           },
         }
+      case 'default':
       default:
         return {
           backgroundColor: theme.palette.grey[200],

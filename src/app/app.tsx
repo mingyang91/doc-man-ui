@@ -1,3 +1,5 @@
+import { SnackbarProvider } from 'notistack'
+
 import { ThemeProvider } from '@common/theme'
 import { ProgressBarStyle } from '@components/progress-bar'
 import { ThemeSettings } from '@components/settings'
@@ -11,20 +13,22 @@ import { AppRouter } from './routes'
 
 export const App = () => {
   return (
-    <MotionLazyContainer>
-      <ThemeProvider>
-        <ThemeSettings>
-          <DesktopOrMobileProvider>
-            <ProgressBarStyle />
-            <ScrollToTop />
-            <AuthProvider>
-              <UserProvider>
-                <AppRouter />
-              </UserProvider>
-            </AuthProvider>
-          </DesktopOrMobileProvider>
-        </ThemeSettings>
-      </ThemeProvider>
-    </MotionLazyContainer>
+    <SnackbarProvider maxSnack={3}>
+      <MotionLazyContainer>
+        <ThemeProvider>
+          <ThemeSettings>
+            <DesktopOrMobileProvider>
+              <ProgressBarStyle />
+              <ScrollToTop />
+              <AuthProvider>
+                <UserProvider>
+                  <AppRouter />
+                </UserProvider>
+              </AuthProvider>
+            </DesktopOrMobileProvider>
+          </ThemeSettings>
+        </ThemeProvider>
+      </MotionLazyContainer>
+    </SnackbarProvider>
   )
 }

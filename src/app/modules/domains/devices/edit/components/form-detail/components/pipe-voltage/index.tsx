@@ -1,16 +1,9 @@
+import { useCallback } from 'react'
 import { FieldArray, useField } from 'formik'
-import {
-  Typography,
-  IconButton,
-  SxProps,
-  Theme,
-  useTheme,
-  Button,
-} from '@mui/material'
+import { Button } from '@mui/material'
 import { last } from 'lodash-es'
 import { RiAddFill, RiDeleteBinFill } from 'react-icons/ri'
 import { useCreation } from 'ahooks'
-import { useMemo, useCallback } from 'react'
 import Big from 'big.js'
 
 import {
@@ -20,14 +13,13 @@ import {
 import { RowTitle } from '@/app/components/form-table/components/row/row-title'
 import { DeviceSetInput } from '@/generated/graphql'
 import { judgePipeVoltageOffset } from '@/models/devices/calculate'
+import { CellSideButton } from '@/app/components/form-table/components/row/cell-side-button'
 
 import { FieldPipeVoltageCondition } from './components/condition'
 import { FieldPipeVoltageResult } from './components/result'
 
 export const FieldPipeVoltage = () => {
   const [{ value }] = useField<DeviceSetInput['pipeVoltage']>('pipeVoltage')
-
-  const theme = useTheme()
 
   const items = useCreation(() => value?.items ?? [], [value?.items])
 
@@ -44,21 +36,6 @@ export const FieldPipeVoltage = () => {
   const lastItem = useCreation(() => {
     return last(value?.items ?? [])
   }, [value?.items])
-
-  const buttonSx: SxProps<Theme> = useMemo(
-    () => ({
-      position: 'absolute',
-      right: '0px',
-      top: '50%',
-      transform: 'translate(50%, -50%)',
-      zIndex: 5,
-      backgroundColor: theme.palette.grey[200],
-      ':hover': {
-        backgroundColor: theme.palette.grey[300],
-      },
-    }),
-    [theme]
-  )
 
   const addItem = useCallback(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -80,23 +57,22 @@ export const FieldPipeVoltage = () => {
     <FieldArray name="pipeVoltage.items" validateOnChange={false}>
       {({ push, remove }) => (
         <>
-          {items.map(({ condition }, i) => (
+          {items.map((_, i) => (
             <FormDetailRow
-              key={`${condition.loadingFactor}-${condition.presetValue}-${i}`}
+              key={`loading-factor-${i}`}
               rowSpan={rowSpan}
               name={<RowTitle>{value?.name}</RowTitle>}
               isItem={!!i}
               conditionElement={<FieldPipeVoltageCondition index={i} />}
               resultElement={
                 <>
-                  <IconButton
+                  <CellSideButton
                     aria-label="删除此项"
-                    sx={buttonSx}
                     color="error"
                     onClick={() => remove(i)}
                   >
                     <RiDeleteBinFill />
-                  </IconButton>
+                  </CellSideButton>
                   <FieldPipeVoltageResult index={i} />
                 </>
               }

@@ -3,7 +3,10 @@ import { FormTable } from '@/app/components/form-table'
 import { ComponentInFormikProps } from '../../index'
 
 import { FieldPipeVoltage } from './components/pipe-voltage'
-
+/**
+ * 设备检验检测报告检测结果项目
+ * @param _ Formik props
+ */
 export const FormDetail = (_: ComponentInFormikProps) => {
   return (
     <FormTable>

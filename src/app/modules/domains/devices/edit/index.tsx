@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { Formik, FormikHelpers } from 'formik'
 import {
   Typography,
@@ -8,8 +9,6 @@ import {
   AccordionDetails,
 } from '@mui/material'
 import { RiMore2Fill } from 'react-icons/ri'
-import { merge } from 'lodash-es'
-import { useMemo } from 'react'
 
 import { DeviceInsertInput } from '@/generated/graphql'
 import { initDeviceInput } from '@/models/devices'
