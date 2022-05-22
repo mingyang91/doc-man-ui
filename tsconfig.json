@@ -29,7 +29,7 @@
       "@/*": [
         "./*"
       ],
-      "@app/*": [
+      "@@/*": [
         "app/*"
       ],
       "@contexts/*": [
@@ -49,6 +49,9 @@
       ],
       "@common/*": [
         "common/*"
+      ],
+      "@graphql": [
+        "generated/graphql.ts"
       ],
       "@utils/*": [
         "utils/*"

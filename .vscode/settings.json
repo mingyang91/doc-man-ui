@@ -15,11 +15,13 @@
     "formik",
     "HASURA",
     "iconify",
+    "notistack",
     "prestart",
     "primeflex",
     "primeicons",
     "primereact",
     "rememberme",
+    "simplebar",
     "Topbar"
   ]
 }

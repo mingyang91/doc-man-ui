@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { Formik, FormikHelpers } from 'formik'
 import {
   Typography,
@@ -8,9 +9,9 @@ import {
   AccordionDetails,
 } from '@mui/material'
 import { RiMore2Fill } from 'react-icons/ri'
-import { merge } from 'lodash-es'
 
 import { DeviceInsertInput } from '@/generated/graphql'
+import { initDeviceInput } from '@/models/devices'
 
 import { FormHeader } from './components/form-header'
 import { FormDetail } from './components/form-detail'
@@ -37,22 +38,9 @@ export const DeviceEdit = ({
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   onSubmit = () => new Promise(() => {}),
 }: DeviceEditProps) => {
-  const _initialValues = merge(
-    {
-      requester: '',
-      address: '',
-      reportNo: '',
-      modelNo: '',
-      deviceNo: '',
-      vendor: '',
-      place: '',
-      accordingTo: '',
-      equipment: '',
-      name: '',
-      sampleNo: '',
-      item: '',
-    } as DeviceInsertInput,
-    initialValues
+  const _initialValues = useMemo(
+    () => initDeviceInput(initialValues),
+    [initialValues]
   )
 
   return (

@@ -1,13 +1,13 @@
-import dayjs from 'dayjs'
+import dayjs, { locale, extend } from 'dayjs'
 import zhCN from 'dayjs/locale/zh-cn'
 import utc from 'dayjs/plugin/utc'
 import advancedFormat from 'dayjs/plugin/advancedFormat'
 import relativeTime from 'dayjs/plugin/relativeTime'
 
-dayjs.locale(zhCN)
-dayjs.extend(relativeTime)
-dayjs.extend(advancedFormat)
-dayjs.extend(utc)
+locale(zhCN)
+extend(relativeTime)
+extend(advancedFormat)
+extend(utc)
 // ----------------------------------------------------------------------
 
 export function fDate(date: Date | string | number) {

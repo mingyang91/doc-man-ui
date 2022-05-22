@@ -76,7 +76,7 @@ function getMenuPath(menus: MenuConfig[], routePath = '*') {
     node: MenuConfig,
     targetPath: MenuConfig[] = []
   ): MenuConfig[] | false {
-    if (node.path && matchPath({ path: routePath, end: true }, node.path)) {
+    if (node.path && matchPath({ path: node.path, end: true }, routePath)) {
       return targetPath.concat([omit(node, 'submodule') as MenuConfig])
     }
     if (node.submodule) {
@@ -85,11 +85,8 @@ function getMenuPath(menus: MenuConfig[], routePath = '*') {
         const sub = node.submodule[i]
         path = traverse(sub, targetPath)
         if (path) {
-          break
+          return [omit(node, 'submodule') as MenuConfig].concat(path)
         }
-      }
-      if (path) {
-        return [omit(node, 'submodule') as MenuConfig].concat(path)
       }
       return false
     }

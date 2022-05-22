@@ -4,7 +4,7 @@ import { Cache, SessionStorageCacheStorage } from '@utils/cache'
 
 import { LS_KEY_PREFIX, SESSION_KEY } from './const'
 
-const baseUrl =
+export const baseUrl =
   import.meta.env.VITE_API_BASE || `${location.protocol}//${location.host}`
 
 const authTokenStore = new Cache<string>({
@@ -37,7 +37,6 @@ request.interceptors.request.use(config => {
   const { headers = {} } = config
   const accessToken = authTokenStore.getItem(SESSION_KEY)
   accessToken && (headers.Authorization = accessToken)
-  headers['x-hasura-admin-secret'] = import.meta.env.VITE_HASURA_ADMIN_SECRET
   config.headers = headers
   return config
 })

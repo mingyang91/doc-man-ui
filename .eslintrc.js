@@ -12,13 +12,15 @@ module.exports = {
       jsx: true,
     },
   },
-  plugins: ['@typescript-eslint', 'react', 'react-hooks', 'import', '@emotion'],
+  plugins: ['@typescript-eslint', 'react', 'react-hooks', '@emotion', 'import'],
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
     'plugin:react/jsx-runtime',
+    'plugin:import/recommended',
+    'plugin:import/typescript',
     'prettier',
   ],
   rules: {
@@ -27,6 +29,7 @@ module.exports = {
     'react/display-name': 'off',
     'multiline-ternary': 'off',
     'no-unused-vars': 'off',
+    'sort-imports': 'off',
     '@typescript-eslint/no-unused-vars': [
       'warn',
       {
@@ -74,14 +77,15 @@ module.exports = {
         groups: [
           'builtin',
           'external',
+          'type',
           'internal',
           'parent',
           'sibling',
           'index',
           'object',
-          'type',
         ],
         'newlines-between': 'always',
+        pathGroupsExcludedImportTypes: ['react'],
       },
     ],
   },
@@ -109,6 +113,8 @@ module.exports = {
       env: {
         jest: true,
       },
+      plugins: ['jest'],
+      extends: ['plugin:jest/recommended'],
     },
     {
       files: ['*.graphql'],
@@ -123,12 +129,17 @@ module.exports = {
     react: {
       version: 'detect',
     },
+    jest: {
+      version: 'detect',
+    },
     'import/parsers': {
       '@typescript-eslint/parser': ['.ts', '.tsx'],
     },
     'import/core-modules': ['styled-jsx/css'],
     'import/resolver': {
-      typescript: {},
+      typescript: {
+        project: './tsconfig.json',
+      },
     },
   },
 }

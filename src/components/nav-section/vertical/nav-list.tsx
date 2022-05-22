@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom'
 import { List, Collapse } from '@mui/material'
 
 import { assertHasSubViews } from '@/app/routes'
-import { getActive } from '@app/routes/create-menus'
+import { getActive } from '@@/routes/create-menus'
 
 import { NavListProps } from '../type'
 

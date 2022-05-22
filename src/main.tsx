@@ -1,10 +1,10 @@
 import { createRoot } from 'react-dom/client'
-import { HelmetProvider } from 'react-helmet-async'
 import { BrowserRouter } from 'react-router-dom'
+import { HelmetProvider } from 'react-helmet-async'
+import React from 'react'
 
 import 'simplebar/src/simplebar.css'
 
-// lazy image
 import 'react-lazy-load-image-component/src/effects/blur.css'
 import 'react-lazy-load-image-component/src/effects/opacity.css'
 import 'react-lazy-load-image-component/src/effects/black-and-white.css'
@@ -19,17 +19,19 @@ function bootstrap() {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const root = createRoot(document.getElementById('root')!)
   root.render(
-    <HelmetProvider>
-      <RequestProvider>
-        <SettingsProvider>
-          <CollapseDrawerProvider>
-            <BrowserRouter>
-              <App />
-            </BrowserRouter>
-          </CollapseDrawerProvider>
-        </SettingsProvider>
-      </RequestProvider>
-    </HelmetProvider>
+    <React.StrictMode>
+      <HelmetProvider>
+        <RequestProvider>
+          <SettingsProvider>
+            <CollapseDrawerProvider>
+              <BrowserRouter>
+                <App />
+              </BrowserRouter>
+            </CollapseDrawerProvider>
+          </SettingsProvider>
+        </RequestProvider>
+      </HelmetProvider>
+    </React.StrictMode>
   )
 }
 

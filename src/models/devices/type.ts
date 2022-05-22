@@ -1,25 +1,13 @@
-export enum Judgement {
-  'Good',
-  'Bad',
-}
+import { Judgement } from '../common'
 
-interface DetectionField {
+/**
+ * 一个检测项必备属性
+ */
+export interface DetectionField {
   name: string
   requirementAcceptance: string
   requirementState: string
   judgement?: Judgement
 }
 
-interface Condition {
-  loadingFactor: string
-  presetValue: string
-}
-
-interface PipeVoltageItem {
-  value?: string
-  condition: Condition
-}
-
-export interface PipeVoltage extends DetectionField {
-  items: PipeVoltageItem[]
-}
+export const unitCurrent = 'mA'
