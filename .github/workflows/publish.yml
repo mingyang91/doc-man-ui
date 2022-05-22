@@ -39,7 +39,7 @@ jobs:
         uses: pnpm/action-setup@v2.0.1
         id: setup-pnpm
         with:
-          version: 6.30.0
+          version: 7.1.2
           run_install: true
 
   # job to build
@@ -69,7 +69,7 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v2.0.1
         with:
-          version: 6.30.0
+          version: 7.1.2
           run_install: true
 
       - name: Use Node.js ${{ matrix.node-version }}
