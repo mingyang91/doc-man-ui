@@ -77,12 +77,13 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v1
 
       # 8. Build from source, Login to Amazon ECR
-      - name: 8. Build from source, Login to Amazon ECR
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: docman-ui
-          IMAGE_TAG: ${{ github.sha }}
-        run: |
-          pnpm run build
-          docker build  -f APP-META/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+      - name: 8. Build from source
+        run: pnpm run build
+      - name: 9. Build docker image, push to AWS ECR
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: ./APP-META/Dockerfile
+          platforms: linux/amd64,linux/arm64,linux/ppc64le
+          push: true
+          tags: ${{ steps.login-ecr.outputs.registry }}/docman-ui:${{ github.sha }}
