@@ -4,6 +4,9 @@ on:
   pull_request:
     branches:
       - main
+  push:
+    branches:
+      - main
 
 env:
   CI: true
@@ -19,7 +22,6 @@ jobs:
       matrix:
         node-version: [16]
         pnpm-version: [7.1.2]
-    outputs:
 
     steps:
       - name: Checkout
@@ -58,10 +60,11 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       # 5. build from source
-      - name: build from source
+      - name: 5. build from source
         run: pnpm run build
 
-      - name: Configure AWS credentials
+      # 6. Configure AWS credentials
+      - name: 6. Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.ECR_AWS_ACCESS_KEY_ID }}
@@ -72,11 +75,13 @@ jobs:
             node_modules
             dist
 
-      - name: Login to Amazon ECR
+      # 7. Login to Amazon ECR
+      - name: 7. Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
-      - name: Build, tag, and push image to Amazon ECR
+      # 8. Login to Amazon ECR
+      - name: push image to Amazon ECR
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: scene-web
