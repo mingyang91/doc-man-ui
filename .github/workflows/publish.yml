@@ -86,8 +86,3 @@ jobs:
           pnpm run build
           docker build  --build-arg NPM_AUTH_TOKEN=${{ secrets.NPM_AUTH_TOKEN_GITHUB }} -f APP-META/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-        with:
-          path: |
-            ${{ env.PNPM_CACHE_FOLDER }}
-            node_modules
-            dist
