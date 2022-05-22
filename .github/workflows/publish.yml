@@ -80,9 +80,9 @@ jobs:
       - name: 8. Build from source, Login to Amazon ECR
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: scene-web
+          ECR_REPOSITORY: docman-ui
           IMAGE_TAG: ${{ github.sha }}
         run: |
           pnpm run build
-          docker build  --build-arg NPM_AUTH_TOKEN=${{ secrets.NPM_AUTH_TOKEN_GITHUB }} -f APP-META/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker build  -f APP-META/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
