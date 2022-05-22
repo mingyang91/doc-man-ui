@@ -9,53 +9,39 @@ env:
   CI: true
   PNPM_CACHE_FOLDER: .pnpm-store
 jobs:
-  # job to install
-  install:
+  # job to install, build
+  cache-and-install:
     timeout-minutes: 15
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      packages: write
     strategy:
       matrix:
         node-version: [16]
+        pnpm-version: [7.1.2]
+    outputs:
+
     steps:
+      - name: Checkout
       - uses: actions/checkout@v2
 
-      # Cache the dependencies
-      - name: Cache npm_modules
-        uses: actions/cache@v2
+      # 1. Install Node.js
+      - name: 1. Install Node.js
+        uses: actions/setup-node@v3
         with:
-          path: |
-            ${{ env.PNPM_CACHE_FOLDER }}
-            node_modules
-            */*/node_modules
-          key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-${{ matrix.node-version }}-node_modules-
+          node-version: ${{ matrix.node-version }}
 
-      # Install dependencies
-      - name: Setup pnpm
+      # 2. Setup pnpm
+      - name: 2. Setup pnpm
         uses: pnpm/action-setup@v2.0.1
         id: setup-pnpm
         with:
-          version: 7.1.2
-          run_install: true
+          version: ${{ matrix.pnpm-version }}
+          dest: ${{ env.PNPM_CACHE_FOLDER }}
+          run_install: false
 
-  # job to build
-  build:
-    needs: install
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      packages: write
-    strategy:
-      matrix:
-        node-version: [16]
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Load node_modules
+      # 3. Setup pnpm cache
+      - name: 3. Setup pnpm cache
         uses: actions/cache@v2
         with:
           path: |
@@ -66,17 +52,12 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-${{ matrix.node-version }}-node_modules-
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2.0.1
-        with:
-          version: 7.1.2
-          run_install: true
+      # 4. Install dependencies
+      - name: 4. Install dependencies
+        id: install-dependencies
+        run: pnpm install --frozen-lockfile
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'pnpm'
+      # 5. build from source
       - name: build from source
         run: pnpm run build
 
@@ -86,6 +67,10 @@ jobs:
           aws-access-key-id: ${{ secrets.ECR_AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.ECR_AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-east-1
+          path: |
+            ${{ env.PNPM_CACHE_FOLDER }}
+            node_modules
+            dist
 
       - name: Login to Amazon ECR
         id: login-ecr
