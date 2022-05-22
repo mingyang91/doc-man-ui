@@ -59,9 +59,9 @@ jobs:
         id: install-dependencies
         run: pnpm install --frozen-lockfile
 
-      # 5. build from source
-      - name: 5. build from source
-        run: pnpm run build
+      # # 5. build from source
+      # - name: 5. build from source
+      #   run: pnpm run build
 
       # 6. Configure AWS credentials
       - name: 6. Configure AWS credentials
@@ -70,23 +70,20 @@ jobs:
           aws-access-key-id: ${{ secrets.ECR_AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.ECR_AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-east-1
-          path: |
-            ${{ env.PNPM_CACHE_FOLDER }}
-            node_modules
-            dist
 
       # 7. Login to Amazon ECR
       - name: 7. Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
-      # 8. Login to Amazon ECR
-      - name: push image to Amazon ECR
+      # 8. Build from source, Login to Amazon ECR
+      - name: 8. Build from source, Login to Amazon ECR
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: scene-web
           IMAGE_TAG: ${{ github.sha }}
         run: |
+          pnpm run build
           docker build  --build-arg NPM_AUTH_TOKEN=${{ secrets.NPM_AUTH_TOKEN_GITHUB }} -f APP-META/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         with:
