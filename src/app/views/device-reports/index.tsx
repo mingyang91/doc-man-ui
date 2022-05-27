@@ -1,5 +1,5 @@
 import { useSearchParams, NavLink } from 'react-router-dom'
-import { useCallback } from 'react'
+import { useCallback, MouseEvent, ChangeEventHandler, useMemo } from 'react'
 import { useCreation } from 'ahooks'
 import { Button, Stack } from '@mui/material'
 import { RiFileAddLine } from 'react-icons/ri'
@@ -11,9 +11,9 @@ export const PageDeviceReports = () => {
   const [searchParams, setSearchParams] = useSearchParams()
 
   const { page, offset, pageSize } = useCreation(() => {
-    const page = Number(searchParams.get('page')) || 1
+    const page = Number(searchParams.get('page')) || 0
     const pageSize = Number(searchParams.get('pageSize')) || 10
-    const offset = (page - 1) * pageSize
+    const offset = page * pageSize
 
     return {
       page,
@@ -27,24 +27,26 @@ export const PageDeviceReports = () => {
       offset,
       limit: pageSize,
     },
+    fetchPolicy: 'network-only',
   })
 
   const onPageChange = useCallback(
-    (page: number) => {
-      console.log(page)
+    (_: MouseEvent<HTMLButtonElement> | null, page: number) => {
       setSearchParams({
-        page: page.toString(),
+        page: (page - 1).toString(),
         pageSize: pageSize.toString(),
       })
     },
     [setSearchParams, pageSize]
   )
 
-  const onPageSizeChange = useCallback(
-    (pageSize: number) => {
+  const onPageSizeChange = useCallback<
+    ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>
+  >(
+    ({ currentTarget }) => {
       setSearchParams({
         page: '1',
-        pageSize: pageSize.toString(),
+        pageSize: currentTarget.value,
       })
     },
     [setSearchParams]
@@ -52,7 +54,7 @@ export const PageDeviceReports = () => {
 
   return (
     <>
-      <Stack direction="row" spacing={2}>
+      <Stack direction="row" spacing={2} sx={{ marginBottom: 3 }}>
         <Button
           variant="contained"
           color="primary"

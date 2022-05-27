@@ -1,7 +1,7 @@
 import { SnackbarProvider } from 'notistack'
 
 import { ThemeProvider } from '@common/theme'
-import { ProgressBarStyle } from '@components/progress-bar'
+import { ScreenProgressBarContainer } from '@/components/screen-progress-bar'
 import { ThemeSettings } from '@components/settings'
 import { ScrollToTop } from '@components/scroll-to-top'
 import { AuthProvider } from '@contexts/auth'
@@ -18,13 +18,14 @@ export const App = () => {
         <ThemeProvider>
           <ThemeSettings>
             <DesktopOrMobileProvider>
-              <ProgressBarStyle />
-              <ScrollToTop />
-              <AuthProvider>
-                <UserProvider>
-                  <AppRouter />
-                </UserProvider>
-              </AuthProvider>
+              <ScreenProgressBarContainer>
+                <ScrollToTop />
+                <AuthProvider>
+                  <UserProvider>
+                    <AppRouter />
+                  </UserProvider>
+                </AuthProvider>
+              </ScreenProgressBarContainer>
             </DesktopOrMobileProvider>
           </ThemeSettings>
         </ThemeProvider>

@@ -22,7 +22,6 @@ specifiers:
   '@mui/lab': 5.0.0-alpha.82
   '@mui/material': ^5.6.2
   '@mui/system': ^5.6.2
-  '@mui/x-data-grid': ^5.9.0
   '@originjs/vite-plugin-commonjs': ^1.0.3
   '@rollup/plugin-inject': ^4.0.4
   '@testing-library/jest-dom': ^5.16.4
@@ -80,6 +79,7 @@ specifiers:
   postcss: ^8.4.12
   postcss-preset-env: ^7.4.3
   prettier: ^2.6.2
+  prop-types: ^15.8.1
   qs: ^6.10.3
   rc-upload: ^4.3.3
   react: ^18.0.0
@@ -92,6 +92,7 @@ specifiers:
   react-test-renderer: ^18.1.0
   react-transition-group: ^4.4.2
   rollup: ^2.70.1
+  rsuite-table: ^5.5.0
   short-uuid: ^4.2.0
   simplebar: ^5.3.6
   simplebar-react: ^2.3.7
@@ -120,7 +121,6 @@ dependencies:
   '@mui/lab': 5.0.0-alpha.82_7pmtlvr2yb3pjt6xdks5nzv3cq
   '@mui/material': 5.6.2_uayx53krc4wywt5hk6br2rv37y
   '@mui/system': 5.6.2_s432wkav2otqybgm57epunikm4
-  '@mui/x-data-grid': 5.9.0_minlhnturuqb7ck2enfltjtofe
   '@types/lodash-es': 4.17.6
   '@types/node': 17.0.24
   '@types/nprogress': 0.2.0
@@ -147,6 +147,7 @@ dependencies:
   notistack: 2.0.5_gtdccjshiun4f5mkik32psireu
   nprogress: 0.2.0
   number-magic: 1.3.2
+  prop-types: 15.8.1
   qs: 6.10.3
   rc-upload: 4.3.3_zpnidt7m3osuk7shl3s4oenomq
   react: 18.0.0
@@ -157,6 +158,7 @@ dependencies:
   react-number-format: 4.9.3_zpnidt7m3osuk7shl3s4oenomq
   react-router-dom: 6.3.0_zpnidt7m3osuk7shl3s4oenomq
   react-transition-group: 4.4.2_zpnidt7m3osuk7shl3s4oenomq
+  rsuite-table: 5.5.0_xw2k5ke7c4fkuho3lbp7joprty
   short-uuid: 4.2.0
   simplebar: 5.3.6
   simplebar-react: 2.3.7_zpnidt7m3osuk7shl3s4oenomq
@@ -2664,23 +2666,6 @@ packages:
       react-is: 17.0.2
     dev: false
 
-  /@mui/x-data-grid/5.9.0_minlhnturuqb7ck2enfltjtofe:
-    resolution: {integrity: sha512-RTRGtj5N/Y6Oe41mhcdQM93PtDves2wwMPfabRlstvCSB3m6608JikepeP7txDMV50x7yEYDHgDVSY3cQul0xQ==}
-    engines: {node: '>=12.0.0'}
-    peerDependencies:
-      '@mui/material': ^5.2.8
-      '@mui/system': ^5.2.8
-      react: ^17.0.2 || ^18.0.0 || ^17.0.0
-    dependencies:
-      '@mui/material': 5.6.2_uayx53krc4wywt5hk6br2rv37y
-      '@mui/system': 5.6.2_s432wkav2otqybgm57epunikm4
-      '@mui/utils': 5.6.1_react@18.0.0
-      clsx: 1.1.1
-      prop-types: 15.8.1
-      react: 18.0.0
-      reselect: 4.1.5
-    dev: false
-
   /@mui/x-date-pickers/5.0.0-alpha.0_esikblwfalixvfaq4fl7mcoyf4:
     resolution: {integrity: sha512-JTzTaNSWbxNi8KDUJjHCH6im0YlIEv88gPoKhGm7s6xCGT1q6FtMp/oQ40nhfwrJ73nkM5G1JXRIzI/yfsHXQQ==}
     engines: {node: '>=12.0.0'}
@@ -2807,6 +2792,24 @@ packages:
       estree-walker: 2.0.2
       picomatch: 2.3.1
     dev: true
+
+  /@rsuite/icon-font/4.0.0:
+    resolution: {integrity: sha512-rZTgpTH3H3HLczCA2rnkWfoMKm0ZXoRzsrkVujfP/FfslnKUMvO6w56pa8pCvhWGpNEPUsLS2ULnFGpTEcup/Q==}
+    dev: false
+
+  /@rsuite/icons/1.0.2_zpnidt7m3osuk7shl3s4oenomq:
+    resolution: {integrity: sha512-Y7vJNDQpJnFlyYSUXQ2iQ9Meg7+ZKcrIenhpYDdM3c7vYDE/L7pml+hrK28jk6QfV/QkVv5B504D+l7aM6AAJQ==}
+    peerDependencies:
+      react: '>=16.8.0 || ^17.0.0 || ^18.0.0'
+      react-dom: '>=16.8.0 || ^17.0.0 || ^18.0.0'
+    dependencies:
+      '@rsuite/icon-font': 4.0.0
+      classnames: 2.3.1
+      insert-css: 2.0.0
+      lodash: 4.17.21
+      react: 18.0.0
+      react-dom: 18.0.0_react@18.0.0
+    dev: false
 
   /@samverschueren/stream-to-observable/0.3.1_rxjs@6.6.7:
     resolution: {integrity: sha512-c/qwwcHyafOQuVQJj0IlBjf5yYgBI7YPJ77k4fOJYesb41jio65eaJODRUmfYKhTOFBrIZ66kgvGPlNbjuoRdQ==}
@@ -4640,6 +4643,12 @@ packages:
       csstype: 3.0.11
     dev: false
 
+  /dom-lib/3.1.2:
+    resolution: {integrity: sha512-FKw/w51guhTwiSnyCQKTxEwglnZG7Q1qJO62asKwedcqCCHwrwQP8DnMPBTXL9y3JTePFDaPS95GLha/Q9nd/w==}
+    dependencies:
+      '@babel/runtime': 7.17.9
+    dev: false
+
   /dom-serializer/1.4.1:
     resolution: {integrity: sha512-VHwB3KfrcOOkelEG2ZOfxqLZdfkil8PtJi4P8N2MMXucZq2yLp75ClViUlOVwyoHEDjYU433Aq+5zWP61+RGag==}
     dependencies:
@@ -4822,7 +4831,6 @@ packages:
     cpu: [x64]
     os: [android]
     requiresBuild: true
-    dev: true
     optional: true
 
   /esbuild-android-arm64/0.14.36:
@@ -4831,7 +4839,6 @@ packages:
     cpu: [arm64]
     os: [android]
     requiresBuild: true
-    dev: true
     optional: true
 
   /esbuild-darwin-64/0.14.36:
@@ -4840,7 +4847,6 @@ packages:
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
-    dev: true
     optional: true
 
   /esbuild-darwin-arm64/0.14.36:
@@ -4849,7 +4855,6 @@ packages:
     cpu: [arm64]
     os: [darwin]
     requiresBuild: true
-    dev: true
     optional: true
 
   /esbuild-freebsd-64/0.14.36:
@@ -4858,7 +4863,6 @@ packages:
     cpu: [x64]
     os: [freebsd]
     requiresBuild: true
-    dev: true
     optional: true
 
   /esbuild-freebsd-arm64/0.14.36:
@@ -4867,7 +4871,6 @@ packages:
     cpu: [arm64]
     os: [freebsd]
     requiresBuild: true
-    dev: true
     optional: true
 
   /esbuild-linux-32/0.14.36:
@@ -4876,7 +4879,6 @@ packages:
     cpu: [ia32]
     os: [linux]
     requiresBuild: true
-    dev: true
     optional: true
 
   /esbuild-linux-64/0.14.36:
@@ -4885,7 +4887,6 @@ packages:
     cpu: [x64]
     os: [linux]
     requiresBuild: true
-    dev: true
     optional: true
 
   /esbuild-linux-arm/0.14.36:
@@ -4894,7 +4895,6 @@ packages:
     cpu: [arm]
     os: [linux]
     requiresBuild: true
-    dev: true
     optional: true
 
   /esbuild-linux-arm64/0.14.36:
@@ -4903,7 +4903,6 @@ packages:
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
-    dev: true
     optional: true
 
   /esbuild-linux-mips64le/0.14.36:
@@ -4912,7 +4911,6 @@ packages:
     cpu: [mips64el]
     os: [linux]
     requiresBuild: true
-    dev: true
     optional: true
 
   /esbuild-linux-ppc64le/0.14.36:
@@ -4921,7 +4919,6 @@ packages:
     cpu: [ppc64]
     os: [linux]
     requiresBuild: true
-    dev: true
     optional: true
 
   /esbuild-linux-riscv64/0.14.36:
@@ -4930,7 +4927,6 @@ packages:
     cpu: [riscv64]
     os: [linux]
     requiresBuild: true
-    dev: true
     optional: true
 
   /esbuild-linux-s390x/0.14.36:
@@ -4939,7 +4935,6 @@ packages:
     cpu: [s390x]
     os: [linux]
     requiresBuild: true
-    dev: true
     optional: true
 
   /esbuild-netbsd-64/0.14.36:
@@ -4948,7 +4943,6 @@ packages:
     cpu: [x64]
     os: [netbsd]
     requiresBuild: true
-    dev: true
     optional: true
 
   /esbuild-openbsd-64/0.14.36:
@@ -4957,7 +4951,6 @@ packages:
     cpu: [x64]
     os: [openbsd]
     requiresBuild: true
-    dev: true
     optional: true
 
   /esbuild-sunos-64/0.14.36:
@@ -4966,7 +4959,6 @@ packages:
     cpu: [x64]
     os: [sunos]
     requiresBuild: true
-    dev: true
     optional: true
 
   /esbuild-windows-32/0.14.36:
@@ -4975,7 +4967,6 @@ packages:
     cpu: [ia32]
     os: [win32]
     requiresBuild: true
-    dev: true
     optional: true
 
   /esbuild-windows-64/0.14.36:
@@ -4984,7 +4975,6 @@ packages:
     cpu: [x64]
     os: [win32]
     requiresBuild: true
-    dev: true
     optional: true
 
   /esbuild-windows-arm64/0.14.36:
@@ -4993,7 +4983,6 @@ packages:
     cpu: [arm64]
     os: [win32]
     requiresBuild: true
-    dev: true
     optional: true
 
   /esbuild/0.11.3:
@@ -5028,7 +5017,6 @@ packages:
       esbuild-windows-32: 0.14.36
       esbuild-windows-64: 0.14.36
       esbuild-windows-arm64: 0.14.36
-    dev: true
 
   /escalade/3.1.1:
     resolution: {integrity: sha512-k0er2gUkLf8O0zKJiAhmkTnJlTvINGv7ygDNPbeIsX/TJjGJZHuh9B2UxbsaEkmlEo9MfhrSzmhIlhRlI2GXnw==}
@@ -5700,7 +5688,6 @@ packages:
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     os: [darwin]
     requiresBuild: true
-    dev: true
     optional: true
 
   /function-bind/1.1.1:
@@ -5946,7 +5933,6 @@ packages:
   /graphql/16.3.0:
     resolution: {integrity: sha512-xm+ANmA16BzCT5pLjuXySbQVFwH3oJctUVdy81w1sV0vBU0KgDdBGtxQOUd5zqOBk/JayAFeG8Dlmeq74rjm/A==}
     engines: {node: ^12.22.0 || ^14.16.0 || >=16.0.0}
-    dev: false
 
   /hard-rejection/2.1.0:
     resolution: {integrity: sha512-VIZB+ibDhx7ObhAe7OVtoEbuP4h/MuOTHJ+J8h/eBXotJYl0fBgR72xDFCKgIh22OJZIOVNxBMWuhAr10r8HdA==}
@@ -6207,6 +6193,10 @@ packages:
       through: 2.3.8
       wrap-ansi: 7.0.0
     dev: true
+
+  /insert-css/2.0.0:
+    resolution: {integrity: sha1-610Ql7dUL0x56jBg067gfQU4gPQ=}
+    dev: false
 
   /internal-slot/1.0.3:
     resolution: {integrity: sha512-O0DB1JC/sPyZl7cIo78n5dR7eUSwwpYPiXRhTzNxZVAMUuB8vlnRFyLxdrVToks6XPLVnFfbzaVd5WLjhgg+vA==}
@@ -7708,7 +7698,6 @@ packages:
     resolution: {integrity: sha512-CuHBogktKwpm5g2sRgv83jEy2ijFzBwMoYA60orPDR7ynsLijJDqgsi4RDGj3OJpy3Ieb+LYwiRmIOGyytgITA==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
-    dev: true
 
   /natural-compare/1.4.0:
     resolution: {integrity: sha1-Sr6/7tdUHywnrPspvbvRXI1bpPc=}
@@ -8520,7 +8509,6 @@ packages:
       nanoid: 3.3.2
       picocolors: 1.0.0
       source-map-js: 1.0.2
-    dev: true
 
   /prelude-ls/1.1.2:
     resolution: {integrity: sha1-IZMqVJ9eUv/ZqCf1cOBL5iqX2lQ=}
@@ -8669,7 +8657,6 @@ packages:
       loose-envify: 1.4.0
       react: 18.0.0
       scheduler: 0.21.0
-    dev: false
 
   /react-fast-compare/2.0.4:
     resolution: {integrity: sha512-suNP+J1VU1MWFKcyt7RtjiSWUjvidmQSlqu+eHslq+342xCbGTYmC0mEhPCOHxlW0CywylOC1u2DFAT+bv4dBw==}
@@ -8801,7 +8788,6 @@ packages:
     engines: {node: '>=0.10.0'}
     dependencies:
       loose-envify: 1.4.0
-    dev: false
 
   /read-pkg-up/7.0.1:
     resolution: {integrity: sha512-zK0TB7Xd6JpCLmlLmufqykGE+/TlOePD6qKClNW7hHDKFh/J7/7gCWGR7joEQEW1bKq3a3yUZSObOoWLFQ4ohg==}
@@ -8956,10 +8942,6 @@ packages:
   /require-main-filename/2.0.0:
     resolution: {integrity: sha512-NKN5kMDylKuldxYLSUfrbo5Tuzh4hd+2E8NPPX02mZtn1VuREQToYe/ZdlJy+J3uCpfaiGF05e7B8W0iXbQHmg==}
 
-  /reselect/4.1.5:
-    resolution: {integrity: sha512-uVdlz8J7OO+ASpBYoz1Zypgx0KasCY20H+N8JD13oUMtPvSHQuscrHop4KbXrbsBcdB9Ds7lVK7eRkBIfO43vQ==}
-    dev: false
-
   /resize-observer-polyfill/1.5.1:
     resolution: {integrity: sha512-LwZrotdHOo12nQuZlHEmtuXdqGoOD0OhaxopaNFxWzInpEgaLWoVuAMbTzixuosCx2nEG58ngzW3vxdWoxIgdg==}
     dev: false
@@ -9059,7 +9041,25 @@ packages:
     hasBin: true
     optionalDependencies:
       fsevents: 2.3.2
-    dev: true
+
+  /rsuite-table/5.5.0_xw2k5ke7c4fkuho3lbp7joprty:
+    resolution: {integrity: sha512-Bh4VUWsN8Q8q1oTvBx+Q4N05OpScsL7nEBi82M9ryY0gss7V0W8jaqBlJdvbxMZhZow3yfka0BLcbzeZfNADCA==}
+    peerDependencies:
+      prop-types: ^15.7.2
+      react: ^0.14.9 || >=15.3.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^0.14.9 || >=15.3.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      '@babel/runtime': 7.17.9
+      '@juggle/resize-observer': 3.3.1
+      '@rsuite/icons': 1.0.2_zpnidt7m3osuk7shl3s4oenomq
+      classnames: 2.3.1
+      dom-lib: 3.1.2
+      lodash: 4.17.21
+      prop-types: 15.8.1
+      react: 18.0.0
+      react-dom: 18.0.0_react@18.0.0
+      react-is: 17.0.2
+    dev: false
 
   /run-async/2.4.1:
     resolution: {integrity: sha512-tvVnVv01b8c1RrA6Ep7JkStj85Guv/YrMcwqYQnwjsAS2cTmmPGBBjAjpCW7RrSodNSoE2/qg9O4bceNvUuDgQ==}
@@ -9107,7 +9107,6 @@ packages:
     resolution: {integrity: sha512-1r87x5fz9MXqswA2ERLo0EbOAU74DpIUO090gIasYTqlVoJeMcl+Z1Rg7WHz+qtPujhS/hGIt9kxZOYBV3faRQ==}
     dependencies:
       loose-envify: 1.4.0
-    dev: false
 
   /scheduler/0.22.0:
     resolution: {integrity: sha512-6QAm1BgQI88NPYymgGQLCZgvep4FyePDWFpXVK+zNSUgHwlqpJy8VEh8Et0KxTACS4VWwMousBElAZOH9nkkoQ==}
@@ -9273,7 +9272,6 @@ packages:
   /source-map-js/1.0.2:
     resolution: {integrity: sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==}
     engines: {node: '>=0.10.0'}
-    dev: true
 
   /source-map-resolve/0.6.0:
     resolution: {integrity: sha512-KXBr9d/fO/bWo97NXsPIAW1bFSBOuCnjbNTBMO7N59hsv5i9yzRDfcYwwt0l04+VqnKC+EwzvJZIP/qkuMgR/w==}
@@ -10134,7 +10132,6 @@ packages:
       rollup: 2.70.1
     optionalDependencies:
       fsevents: 2.3.2
-    dev: true
 
   /w3c-hr-time/1.0.2:
     resolution: {integrity: sha512-z8P5DvDNjKDoFIHK7q8r8lackT6l+jo/Ye3HOle7l9nICP9lf1Ci25fy9vHd0JOWewkIFzXIEig3TdKT7JQ5fQ==}

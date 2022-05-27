@@ -1,5 +1,7 @@
 fragment headerDeviceFields on device {
   id
+  reportId
+  reportNo
   accordingTo
   address
   createTime

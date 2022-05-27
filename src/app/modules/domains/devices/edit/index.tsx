@@ -28,6 +28,7 @@ export type ComponentInFormikProps = {
 
 export type DeviceEditProps = {
   isEdit?: boolean
+  isLoading?: boolean
   initialValues?: DeviceInsertInput
   onSubmit?: FnSubmitDevice
 }

@@ -94,6 +94,7 @@ export interface Device {
   falseShadows?: Maybe<Scalars['jsonb']>
   highContrastResolution?: Maybe<Scalars['jsonb']>
   id: Scalars['uuid']
+  reportId?: Maybe<Scalars['uuid']>
   item?: Maybe<Scalars['String']>
   lightFieldOffset?: Maybe<Scalars['jsonb']>
   lowContrastResolution?: Maybe<Scalars['jsonb']>
@@ -111,6 +112,7 @@ export interface Device {
   updateTime: Scalars['timestamp']
   usefulHarnessVerticalityOffset?: Maybe<Scalars['jsonb']>
   vendor?: Maybe<Scalars['String']>
+  reportNo?: Maybe<Scalars['String']>
 }
 
 /** columns and relationships of "device" */
@@ -281,6 +283,7 @@ export type DeviceBoolExp = {
   updateTime?: InputMaybe<TimestampComparisonExp>
   usefulHarnessVerticalityOffset?: InputMaybe<JsonbComparisonExp>
   vendor?: InputMaybe<StringComparisonExp>
+  reportNo?: InputMaybe<StringComparisonExp>
 }
 
 /** unique or primary key constraints on table "device" */
@@ -387,6 +390,7 @@ export type DeviceInsertInput = {
   updateTime?: InputMaybe<Scalars['timestamp']>
   usefulHarnessVerticalityOffset?: InputMaybe<Scalars['jsonb']>
   vendor?: InputMaybe<Scalars['String']>
+  reportNo?: InputMaybe<Scalars['String']>
 }
 
 /** aggregate max on columns */
@@ -478,6 +482,7 @@ export type DeviceOrderBy = {
   updateTime?: InputMaybe<OrderBy>
   usefulHarnessVerticalityOffset?: InputMaybe<OrderBy>
   vendor?: InputMaybe<OrderBy>
+  reportNo?: InputMaybe<OrderBy>
 }
 
 /** primary key columns input for table: device */
@@ -570,6 +575,10 @@ export enum DeviceSelectColumn {
   USEFULHARNESSVERTICALITYOFFSET = 'usefulHarnessVerticalityOffset',
   /** column name */
   VENDOR = 'vendor',
+  /** column name */
+  REPORTNO = 'reportNo',
+  /** column name */
+  REPORTID = 'reportId',
 }
 
 /** input type for updating data in table "device" */
@@ -589,6 +598,7 @@ export type DeviceSetInput = {
   falseShadows?: InputMaybe<Scalars['jsonb']>
   highContrastResolution?: InputMaybe<Scalars['jsonb']>
   id?: InputMaybe<Scalars['uuid']>
+  reportId?: InputMaybe<Scalars['uuid']>
   item?: InputMaybe<Scalars['String']>
   lightFieldOffset?: InputMaybe<Scalars['jsonb']>
   lowContrastResolution?: InputMaybe<Scalars['jsonb']>
@@ -606,6 +616,7 @@ export type DeviceSetInput = {
   updateTime?: InputMaybe<Scalars['timestamp']>
   usefulHarnessVerticalityOffset?: InputMaybe<Scalars['jsonb']>
   vendor?: InputMaybe<Scalars['String']>
+  reportNo?: InputMaybe<Scalars['String']>
 }
 
 /** aggregate stddev on columns */
@@ -694,6 +705,10 @@ export enum DeviceUpdateColumn {
   USEFULHARNESSVERTICALITYOFFSET = 'usefulHarnessVerticalityOffset',
   /** column name */
   VENDOR = 'vendor',
+  /** column name */
+  REPORTNO = 'reportNo',
+  /** column name */
+  REPORTID = 'reportId',
 }
 
 /** aggregate var_pop on columns */
@@ -1722,20 +1737,21 @@ export const namedOperations = {
   },
 }
 export type HeaderDeviceFieldsFragment = {
-  id: unknown
-  accordingTo?: string | null
-  address?: string | null
+  id: Maybe<Scalars['uuid']>
+  reportId?: Maybe<Scalars['uuid']>
+  accordingTo?: Maybe<string>
+  address?: Maybe<string>
   createTime: unknown
-  deviceNo?: string | null
-  equipment?: string | null
-  item?: string | null
-  modelNo?: string | null
-  name?: string | null
-  place?: string | null
-  requester?: string | null
-  sampleNo?: string | null
+  deviceNo?: Maybe<string>
+  equipment?: Maybe<string>
+  item?: Maybe<string>
+  modelNo?: Maybe<string>
+  name?: Maybe<string>
+  place?: Maybe<string>
+  requester?: Maybe<string>
+  sampleNo?: Maybe<string>
   updateTime: unknown
-  vendor?: string | null
+  vendor?: Maybe<string>
 }
 
 export type AppendDeviceFieldsFragment = {
@@ -1763,7 +1779,9 @@ export type DevicesQueryVariables = Exact<{
 
 export type DevicesQuery = {
   device: Array<{
-    id: unknown
+    id: Scalars['ID']
+    reportId: Scalars['ID']
+    reportNo: string | null
     accordingTo?: string | null
     address?: string | null
     createTime: unknown
@@ -1781,12 +1799,14 @@ export type DevicesQuery = {
 }
 
 export type DeviceByIdQueryVariables = Exact<{
-  id: Scalars['uuid']
+  id: Scalars['ID']
 }>
 
 export type DeviceByIdQuery = {
   device_by_pk?: {
     id: unknown
+    reportId: Scalars['ID']
+    reportNo: string | null
     accordingTo?: string | null
     address?: string | null
     createTime: unknown
@@ -1825,6 +1845,8 @@ export type InsertDeviceMutationVariables = Exact<{
 export type InsertDeviceMutation = {
   insert_device_one?: {
     id: unknown
+    reportId: Scalars['uuid']
+    reportNo: string | null
     accordingTo?: string | null
     address?: string | null
     createTime: unknown
@@ -1857,13 +1879,15 @@ export type InsertDeviceMutation = {
 }
 
 export type UpdateDeviceMutationVariables = Exact<{
-  id: Scalars['uuid']
+  id: Scalars['ID']
   input?: InputMaybe<DeviceSetInput>
 }>
 
 export type UpdateDeviceMutation = {
   update_device_by_pk?: {
-    id: unknown
+    id: Scalars['ID']
+    reportId: Scalars['ID']
+    reportNo: string | null
     accordingTo?: string | null
     address?: string | null
     createTime: unknown
@@ -1898,6 +1922,8 @@ export type UpdateDeviceMutation = {
 export const HeaderDeviceFieldsFragmentDoc = gql`
   fragment headerDeviceFields on device {
     id
+    reportId
+    reportNo
     accordingTo
     address
     createTime

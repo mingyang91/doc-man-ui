@@ -1,7 +1,11 @@
 import { Link as RouterLink } from 'react-router-dom'
-import { Box, BoxProps, Typography } from '@mui/material'
+import { Box, BoxProps, styled, Typography } from '@mui/material'
 
 // ----------------------------------------------------------------------
+
+const StyledRouterLink = styled(RouterLink)`
+  text-decoration: none;
+`
 
 interface Props extends BoxProps {
   disabledLink?: boolean
@@ -37,5 +41,5 @@ export default function Logo({
     return <>{logo}</>
   }
 
-  return <RouterLink to="/">{logo}</RouterLink>
+  return <StyledRouterLink to="/">{logo}</StyledRouterLink>
 }
