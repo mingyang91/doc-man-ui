@@ -29,7 +29,7 @@ export const Table = styled(TablePrimitive, {
   name: 'Table',
   slot: 'Root',
   shouldForwardProp: prop => !['isCompact'].includes(prop as string),
-})<StyledTableProps>(({ theme }) => [
+})<StyledTableProps>(() => [
   ({ theme }) => ({
     borderCollapse: 'collapse',
     borderSpacing: 0,
