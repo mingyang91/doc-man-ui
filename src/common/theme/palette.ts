@@ -1,4 +1,4 @@
-import { alpha } from '@mui/material/styles'
+import { alpha, Theme as MuiTheme } from '@mui/material/styles'
 
 // ----------------------------------------------------------------------
 
@@ -43,11 +43,11 @@ declare module '@mui/material/styles/createPalette' {
     darker: string
   }
   interface Palette {
-    gradients: GradientsPaletteOptions
+    gradients?: GradientsPaletteOptions
     chart: ChartPaletteOptions
   }
   interface PaletteOptions {
-    gradients: GradientsPaletteOptions
+    gradients?: GradientsPaletteOptions
     chart: ChartPaletteOptions
   }
 }
@@ -66,13 +66,22 @@ declare module '@mui/material' {
   }
 }
 
+declare module '@mui/material/styles' {
+  interface Theme {
+    vars: Omit<
+      MuiTheme,
+      'typography' | 'mixins' | 'breakpoints' | 'direction' | 'transitions'
+    >
+  }
+}
+
 // SETUP COLORS
 const PRIMARY = {
-  lighter: '#C8FACD',
-  light: '#5BE584',
-  main: '#00AB55',
-  dark: '#007B55',
-  darker: '#005249',
+  lighter: '#9ad2ff',
+  light: '#229aff',
+  main: '#007aff',
+  dark: '#006edd',
+  darker: '#00339d',
 }
 const SECONDARY = {
   lighter: '#D6E4FF',

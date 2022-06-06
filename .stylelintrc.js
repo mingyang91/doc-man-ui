@@ -5,6 +5,7 @@ module.exports = {
     'stylelint-config-prettier',
   ],
   rules: {
+    'no-duplicate-selectors': false,
     'font-family-name-quotes': null,
     'font-family-no-missing-generic-family-keyword': null,
     'string-quotes': 'single',

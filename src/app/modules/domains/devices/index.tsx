@@ -50,20 +50,20 @@ export const DevicesList = ({
       {
         field: 'name',
         header: '设备名',
-        minWidth: 150,
+        width: 150,
         flexGrow: 1,
         fixed: true,
       },
       {
         field: 'requester',
         header: '委托单位',
-        minWidth: 200,
+        width: 200,
         flexGrow: 1,
       },
       {
         field: 'createTime',
         header: '创建时间',
-        minWidth: 140,
+        width: 140,
         flexGrow: 1,
         sortable: true,
         render: rowData => fDate(rowData.createTime),
@@ -71,7 +71,7 @@ export const DevicesList = ({
       {
         field: 'updateTime',
         header: '更新时间',
-        minWidth: 140,
+        width: 140,
         flexGrow: 1,
         sortable: true,
         render: rowData => fDate(rowData.updateTime),
@@ -80,7 +80,7 @@ export const DevicesList = ({
         field: 'reportNo',
         header: '报告阶段',
         align: 'center',
-        minWidth: 140,
+        width: 140,
         flexGrow: 2,
         render: ({ reportNo, reportId }) => {
           return reportId ? (
@@ -114,6 +114,7 @@ export const DevicesList = ({
         field: 'uuid',
         header: '操作',
         flexGrow: 2,
+        width: 380,
         fixed: true,
         render: ({ rowData }) => {
           return (

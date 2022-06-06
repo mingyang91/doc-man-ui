@@ -10,6 +10,8 @@ export const DataTable = <D extends {} = {}>({
   bordered = true,
   cellBordered = true,
   fillHeight = false,
+  rowHeight = 54,
+  headerHeight = 60,
   columns,
   dataSource,
   ...restProps
@@ -19,6 +21,8 @@ export const DataTable = <D extends {} = {}>({
   return (
     <Table
       {...restProps}
+      headerHeight={headerHeight}
+      rowHeight={rowHeight}
       affixHeader={affixHeader}
       autoHeight={autoHeight}
       bordered={bordered}

@@ -5,9 +5,10 @@ import {
   HeaderCell as HeaderCellPrimitive,
 } from 'rsuite-table'
 
-import 'rsuite-table/dist/css/rsuite-table.css'
+// import 'rsuite-table/dist/css/rsuite-table.min.css'
+import './rsuite-table.css'
 
-export const Cell = styled(CellPrimitive)(({ isHeaderCell, theme }) =>
+export const Cell = styled(CellPrimitive)(({ isHeaderCell, align, theme }) =>
   isHeaderCell
     ? {
         backgroundColor: theme.palette.secondary.lighter,
