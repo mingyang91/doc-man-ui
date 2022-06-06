@@ -2,11 +2,10 @@ import Big from 'big.js'
 import { percentage } from 'number-magic'
 
 import { calcAverage } from '@utils/math'
-import { hasEmpty } from '@/utils/helper'
-
-import { isSamplesAvailable, Judgement } from '../common'
-
+import { isSamplesAvailable, Conclusions } from '../common'
 import { DetectionField } from './type'
+
+import { hasEmpty } from '@/utils/helper'
 
 /**
  * 管电压指示偏离率
@@ -57,9 +56,9 @@ export const judgePipeVoltageOffset = (
   }
   return isSamplesAvailable(results)
     ? results.every(check)
-      ? Judgement.Good
-      : Judgement.Bad
-    : Judgement.Unknown
+      ? Conclusions.Good
+      : Conclusions.Bad
+    : Conclusions.Unknown
 }
 
 export interface PipeVoltageItemCondition {
@@ -84,8 +83,8 @@ export const unitPipeVoltage = 'kV'
  */
 export const initPipeVoltage: () => PipeVoltage = () => ({
   name: '管电压指示偏离',
-  requirementAcceptance: '±5.0%或±5.0 kV内,以较大者控制',
-  requirementState: '±5.0%或±5.0 kV内,以较大者控制',
+  acceptanceRequire: '±5.0%或±5.0 kV内,以较大者控制',
+  stateRequire: '±5.0%或±5.0 kV内,以较大者控制',
   items: [
     {
       condition: {

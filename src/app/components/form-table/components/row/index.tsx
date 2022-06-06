@@ -9,7 +9,7 @@ import {
 } from '@mui/material'
 import { memo, ReactNode, useMemo } from 'react'
 
-import { Judgement } from '@/models/common'
+import { Conclusions } from '@/models/common'
 
 const Td = memo(
   styled(TableCell)({
@@ -22,9 +22,9 @@ export interface Column {
     | 'name'
     | 'checkCondition'
     | 'checkResult'
-    | 'requirementAcceptance'
-    | 'requirementState'
-    | 'judgement'
+    | 'acceptanceRequire'
+    | 'stateRequire'
+    | 'conclusion'
   label: string
   minWidth?: number
   align?: 'right' | 'left' | 'center'
@@ -36,19 +36,19 @@ interface FormDetailRowProps {
   rowSpan?: number
   conditionElement: JSX.Element
   resultElement: JSX.Element
-  requirementAcceptance?: string
-  requirementState?: string
-  requirementAcceptanceRender?: (text?: string) => JSX.Element
-  requirementStateRender?: (text?: string) => JSX.Element
-  judgement?: Judgement
+  acceptanceRequire?: string
+  stateRequire?: string
+  acceptanceRequireRender?: (text?: string) => JSX.Element
+  stateRequireRender?: (text?: string) => JSX.Element
+  conclusion?: Conclusions
 }
 
-const JudgementViews: {
-  [key in Judgement]: JSX.Element
+const ConclusionsViews: {
+  [key in Conclusions]: JSX.Element
 } = {
-  [Judgement.Good]: <Chip label="合格" color="success" />,
-  [Judgement.Bad]: <Chip label="不合格" color="error" />,
-  [Judgement.Unknown]: <Chip label="未知" color="default" />,
+  [Conclusions.Good]: <Chip label="合格" color="success" />,
+  [Conclusions.Bad]: <Chip label="不合格" color="error" />,
+  [Conclusions.Unknown]: <Chip label="未知" color="default" />,
 }
 
 const defaultRequirementRender = (text?: string) => (
@@ -63,11 +63,11 @@ export const FormDetailRow = ({
   isItem = false,
   conditionElement,
   resultElement,
-  requirementAcceptance,
-  requirementState,
-  requirementAcceptanceRender = defaultRequirementRender,
-  requirementStateRender = defaultRequirementRender,
-  judgement = Judgement.Unknown,
+  acceptanceRequire,
+  stateRequire,
+  acceptanceRequireRender = defaultRequirementRender,
+  stateRequireRender = defaultRequirementRender,
+  conclusion = Conclusions.Unknown,
 }: FormDetailRowProps) => {
   return isItem ? (
     <TableRow>
@@ -82,13 +82,13 @@ export const FormDetailRow = ({
       <Td align="center">{conditionElement}</Td>
       <Td align="center">{resultElement}</Td>
       <Td align="center" rowSpan={rowSpan}>
-        {requirementAcceptanceRender(requirementAcceptance)}
+        {acceptanceRequireRender(acceptanceRequire)}
       </Td>
       <Td align="center" rowSpan={rowSpan}>
-        {requirementStateRender(requirementState)}
+        {stateRequireRender(stateRequire)}
       </Td>
       <Td align="center" rowSpan={rowSpan}>
-        {JudgementViews[judgement]}
+        {ConclusionsViews[conclusion]}
       </Td>
     </TableRow>
   )

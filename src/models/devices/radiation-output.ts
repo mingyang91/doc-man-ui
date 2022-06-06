@@ -1,11 +1,11 @@
 import { percentage } from 'number-magic'
 import Big from 'big.js'
 
-import { calcStandardDeviation, calcAverage } from '@/utils/math'
-
-import { isSamplesAvailable, Judgement } from '../common'
+import { isSamplesAvailable, Conclusions } from '../common'
 
 import { DetectionField } from './type'
+
+import { calcStandardDeviation, calcAverage } from '@/utils/math'
 
 /**
  * 计算辐射输量重复性 = StandardDeviation(辐射输量) / 辐射输量平均值
@@ -40,9 +40,9 @@ export const judgeRadiationOutput = (
   }
   return isSamplesAvailable(results)
     ? results.every(check)
-      ? Judgement.Good
-      : Judgement.Bad
-    : Judgement.Unknown
+      ? Conclusions.Good
+      : Conclusions.Bad
+    : Conclusions.Unknown
 }
 
 /**
@@ -71,8 +71,8 @@ export const unitTimeProduce = 'mAs' // 时间积单位
  */
 export const initFieldRadiationOutput: () => RadiationOutput = () => ({
   name: '辐射输出量重复性',
-  requirementAcceptance: '≤10.0%',
-  requirementState: '≤10.0%',
+  acceptanceRequire: '≤10.0%',
+  stateRequire: '≤10.0%',
   items: [
     {
       condition: {

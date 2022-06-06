@@ -23,7 +23,7 @@ export const FieldPipeVoltage = () => {
 
   const items = useCreation(() => value?.items ?? [], [value?.items])
 
-  const judgement = useCreation(
+  const conclusion = useCreation(
     () => judgePipeVoltageOffset(value?.items.map(item => item.value)),
     [value?.items]
   )
@@ -76,9 +76,9 @@ export const FieldPipeVoltage = () => {
                   <FieldPipeVoltageResult index={i} />
                 </>
               }
-              requirementAcceptance={value?.requirementAcceptance}
-              requirementState={value?.requirementState}
-              judgement={judgement}
+              acceptanceRequire={value?.acceptanceRequire}
+              stateRequire={value?.stateRequire}
+              conclusion={conclusion}
             />
           ))}
           {!items.length && (
@@ -90,8 +90,8 @@ export const FieldPipeVoltage = () => {
                 <FieldPipeVoltageCondition index={items.length} />
               }
               resultElement={<FieldPipeVoltageResult index={items.length} />}
-              requirementAcceptance={value?.requirementAcceptance}
-              requirementState={value?.requirementState}
+              acceptanceRequire={value?.acceptanceRequire}
+              stateRequire={value?.stateRequire}
             />
           )}
           <FormDetailRowSub>

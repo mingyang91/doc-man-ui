@@ -12,7 +12,7 @@ module.exports = {
       jsx: true,
     },
   },
-  plugins: ['@typescript-eslint', 'react', 'react-hooks', '@emotion', 'import'],
+  plugins: ['@typescript-eslint', 'react', 'react-hooks', '@emotion'],
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
@@ -71,23 +71,7 @@ module.exports = {
       'warn',
       { fixToUnknown: false, ignoreRestArgs: true },
     ],
-    'import/order': [
-      'warn',
-      {
-        groups: [
-          'builtin',
-          'external',
-          'type',
-          'internal',
-          'parent',
-          'sibling',
-          'index',
-          'object',
-        ],
-        'newlines-between': 'always',
-        pathGroupsExcludedImportTypes: ['react'],
-      },
-    ],
+    // 'import/order': ['warn'],
   },
   overrides: [
     {
@@ -138,6 +122,7 @@ module.exports = {
     'import/core-modules': ['styled-jsx/css'],
     'import/resolver': {
       typescript: {
+        alwaysTryTypes: true,
         project: './tsconfig.json',
       },
     },
