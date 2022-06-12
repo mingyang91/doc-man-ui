@@ -1,20 +1,22 @@
 // @mui
-import { styled } from '@mui/material/styles'
-import { Box, Stack, AppBar, Toolbar } from '@mui/material'
 import { RiMenuFill } from 'react-icons/ri'
+import { styled } from '@mui/material/styles'
+import { Stack, AppBar, Toolbar } from '@mui/material'
+
+import { HEADER, NAVBAR } from '@/config'
 
 import useOffSetTop from '@hooks/use-offset-top'
 import useResponsive from '@hooks/use-responsive'
+
 import cssStyles from '@utils/css-styles'
-import { HEADER, NAVBAR } from '@/config'
-// components
+
 import Logo from '@components/logo'
 import Iconify from '@components/iconify'
 import { IconButtonAnimate } from '@components/animate'
 
-import { SearchBar } from './components/search-bar'
 import { AccountPopover } from './components/account-popover'
-import { NavBreadcrumb } from './components/nav-breadcrumb'
+import { SearchBar } from './components/search-bar'
+// components
 
 // ----------------------------------------------------------------------
 
@@ -79,6 +81,7 @@ export const DashboardHeader = ({
       <Toolbar
         sx={{
           minHeight: '100% !important',
+          justifyContent: 'space-between',
           px: { lg: 5 },
         }}
       >
@@ -94,9 +97,6 @@ export const DashboardHeader = ({
         )}
 
         <SearchBar />
-        <Box sx={{ flexGrow: 1, marginInlineStart: '20px' }}>
-          <NavBreadcrumb />
-        </Box>
 
         <Stack
           direction="row"

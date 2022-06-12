@@ -5,7 +5,6 @@ import { assertHasSubViews } from '@@/routes'
 import { getActive } from '@@/routes/create-menus'
 
 import { NavListProps } from '../type'
-
 import { NavItemRoot, NavItemSub } from './nav-item'
 import { PaperStyle } from './style'
 

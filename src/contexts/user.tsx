@@ -1,7 +1,10 @@
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useMemoizedFn } from 'ahooks'
 
+import { ROUTES } from '@/app/routes/context'
+
 import { createContainer } from '@utils/create-container'
+
 import { request } from '@common/request'
 
 import { useAuth } from './auth'
@@ -34,8 +37,7 @@ const UserContainer = createContainer(function useUserContainer() {
 
   const logout = useMemoizedFn(async () => {
     await request.post('/api/logout')
-    // clearAuth()
-    navigate('/signin')
+    navigate(ROUTES.signIn)
   })
 
   return {

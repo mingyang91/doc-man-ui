@@ -1,32 +1,30 @@
-import { useAtomValue } from 'jotai'
-import { useLocation } from 'react-router-dom'
 import { useCreation } from 'ahooks'
-import { useState } from 'react'
+import { useLocation } from 'react-router-dom'
+import { useContext } from 'react'
 
-import { routesAtom } from '@@/routes/context'
-import { createMenus, getActiveMenuPath } from '@@/routes/create-menus'
+import { RouteMenuConfig } from '@/app/routes'
+import { RoutesContext } from '@/app/routes/context'
+
+import { createMenus, getActiveRouteConfig } from '@@/routes/create-menus'
+
 import { createContainer } from '@utils/create-container'
 
 const MenuAndRoutesContainer = createContainer(
   function useMenuAndRoutesContainer() {
-    const location = useLocation()
-    const routes = useAtomValue(routesAtom)
-    const menus = createMenus(routes, location)
+    const { pathname } = useLocation()
 
-    const activeMenus = useCreation(
-      () => getActiveMenuPath(menus, location),
-      [menus]
-    )
+    const routes = useContext(RoutesContext)
 
-    const [viewTitle, setViewTitle] = useState(
-      activeMenus.length > 0 ? activeMenus[activeMenus.length - 1].title : ''
+    const menus = createMenus(routes)
+
+    const activeRouteConfig = useCreation(
+      () => getActiveRouteConfig(routes, pathname) || ({} as RouteMenuConfig),
+      [routes, pathname]
     )
 
     return {
       menus,
-      activeMenus,
-      viewTitle,
-      setViewTitle,
+      activeRouteConfig,
     }
   }
 )

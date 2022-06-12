@@ -4,8 +4,6 @@ import { Stack } from '@mui/material'
 
 // type
 import { NavSectionProps } from '../type'
-
-//
 import { NavListRoot } from './nav-list'
 
 // ----------------------------------------------------------------------

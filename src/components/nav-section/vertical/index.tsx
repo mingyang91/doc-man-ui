@@ -6,8 +6,6 @@ import { JSXElementConstructor } from 'react'
 import { assertGroupTitle } from '@@/routes'
 
 import { NavSectionProps } from '../type'
-
-//
 import { NavListRoot } from './nav-list'
 
 // ----------------------------------------------------------------------
@@ -19,8 +17,9 @@ export const ListSubheaderStyle = styled<
     ...theme.typography.overline,
     paddingTop: theme.spacing(3),
     paddingLeft: theme.spacing(2),
-    paddingBottom: theme.spacing(1),
-    color: theme.palette.text.primary,
+    paddingBottom: theme.spacing(2),
+    color: theme.palette.text.secondary,
+    fontSize: '16px',
     transition: theme.transitions.create('opacity', {
       duration: theme.transitions.duration.shorter,
     }),

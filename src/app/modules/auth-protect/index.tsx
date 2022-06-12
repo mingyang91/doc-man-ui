@@ -1,8 +1,11 @@
 import { useLocation, Navigate, useNavigate } from 'react-router-dom'
 import { PropsWithChildren } from 'react'
 
+import { ROUTES } from '@/app/routes/context'
+
 import { useAuth } from '@contexts/auth'
-import { useMount } from 'ahooks'
+
+import { useMount } from '@utils/react-utils'
 
 export const AuthProtectModule = ({
   children,
@@ -13,7 +16,7 @@ export const AuthProtectModule = ({
 
   useMount(() => {
     initSession(() => {
-      navigate('/signin', { replace: true })
+      navigate(ROUTES.signIn, { replace: true })
     })
   })
 

@@ -1,20 +1,31 @@
 import { useNavigate } from 'react-router-dom'
 import { ReactNode, useCallback } from 'react'
 import { useSnackbar, VariantType } from 'notistack'
+import { Portal } from '@mui/material'
 
-import { DeviceEdit } from '@@/modules/domains/devices/edit'
 import {
   useInsertDeviceMutation,
   InsertDeviceMutationVariables,
 } from '@/generated/graphql'
+import LoadingScreen from '@/components/loading-screen'
+import Page from '@/components/page'
+import HeaderBreadcrumbs from '@/components/header-breadcrumbs'
+
+import { DeviceEdit } from '@@/modules/domains/devices/edit'
+import { useMenuAndRoutes } from '@@/modules/layouts/admin/components/menu-and-routes'
+
+const TITLE = '检验检测报告 - 新增'
 
 const PageCreateDeviceReport = () => {
   const navigate = useNavigate()
 
+  const { activeRouteConfig } = useMenuAndRoutes()
+
   const { enqueueSnackbar } = useSnackbar()
 
-  const [insertDeviceMutation, { data, loading, error }] =
-    useInsertDeviceMutation()
+  const [insertDeviceMutation, { loading, error }] = useInsertDeviceMutation({
+    refetchQueries: ['devices'],
+  })
 
   const handleMessage = useCallback(
     (variant: VariantType, content: ReactNode | string) => {
@@ -33,16 +44,32 @@ const PageCreateDeviceReport = () => {
         },
       })
       handleMessage('success', '创建成功。')
-      // navigate(`device/${input.id}`)
+      navigate(`device/${input.id}`)
     },
-    [handleMessage, insertDeviceMutation]
+    [handleMessage, insertDeviceMutation, navigate]
   )
+
+  if (loading) {
+    return (
+      <Portal>
+        <LoadingScreen />
+      </Portal>
+    )
+  }
 
   if (error) {
     handleMessage('error', error.message || '创建失败，请检查。')
   }
 
-  return <DeviceEdit isEdit={false} onSubmit={onSubmit} />
+  return (
+    <Page title={TITLE}>
+      <HeaderBreadcrumbs
+        heading={activeRouteConfig.title}
+        links={activeRouteConfig.breadcrumbs}
+      />
+      <DeviceEdit onSubmit={onSubmit} />
+    </Page>
+  )
 }
 
-export { PageCreateDeviceReport as default }
+export default PageCreateDeviceReport

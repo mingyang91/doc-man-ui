@@ -1,15 +1,22 @@
-import { ComponentType, ReactElement, Suspense } from 'react'
+import { ComponentType, ReactElement, Suspense, useContext } from 'react'
 import { Params, useRoutes } from 'react-router-dom'
 import { IconType } from 'react-icons'
-import { useAtomValue } from 'jotai'
 
-import type { MenuConfig, MenuGroupTitle } from './create-menus'
-
-import { LayoutType } from '@@/modules/layouts/index'
 import LoadingScreen from '@/components/loading-screen'
 
-import { routesAtom } from './context'
+import { LayoutType } from '@@/modules/layouts/index'
+
+import type { MenuConfig, MenuGroupTitle } from './create-menus'
+import { RoutesContext } from './context'
 import { routeRegister } from './route-register'
+
+export * from './context'
+
+export type BreadcrumbConfig = {
+  href?: string
+  name: string
+  icon?: ReactElement
+}
 
 export type GroupTitle = {
   title: string
@@ -23,27 +30,28 @@ export type GroupTitle = {
   submodule?: RouteView[]
 }
 
-export type RouteView =
-  | {
-      id: string
-      path: string
-      params?: Params
-      isRequireAuth?: boolean
-      isMenu?: boolean
-      isDisabled?: boolean
-      roles?: string[]
-      info?: ReactElement
-      caption?: string
-      title?: string
-      icon?: IconType
-      redirect?: string
-      Component: ComponentType<Record<string, unknown>>
-      props?: Record<string, unknown>
-      layout: LayoutType
-      state?: unknown
-      submodule?: RouteView[]
-    }
-  | GroupTitle
+export type RouteMenuConfig = {
+  id: string
+  path: string
+  params?: Params
+  isRequireAuth?: boolean
+  isMenu?: boolean
+  isDisabled?: boolean
+  roles?: string[]
+  info?: ReactElement
+  caption?: string
+  title?: string
+  icon?: IconType
+  redirect?: string
+  Component: ComponentType<Record<string, unknown>>
+  props?: Record<string, unknown>
+  layout: LayoutType
+  state?: unknown
+  submodule?: RouteView[]
+  breadcrumbs?: BreadcrumbConfig[]
+}
+
+export type RouteView = RouteMenuConfig | GroupTitle
 
 export const assertGroupTitle = <T extends MenuGroupTitle | GroupTitle>(
   route: RouteView | MenuConfig
@@ -56,9 +64,9 @@ export const assertHasSubViews = (route: RouteView | MenuConfig) => {
 }
 
 export const AppRouter = () => {
-  const routesConfig = useAtomValue(routesAtom)
-  const routes = routeRegister(routesConfig)
-  const route = useRoutes(routes)
+  const routes = useContext(RoutesContext)
+  const routeConfig = routeRegister(routes)
+  const routeView = useRoutes(routeConfig)
 
-  return <Suspense fallback={<LoadingScreen />}>{route}</Suspense>
+  return <Suspense fallback={<LoadingScreen />}>{routeView}</Suspense>
 }

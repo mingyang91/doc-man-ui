@@ -3,13 +3,12 @@ import { NavLink as RouterLink } from 'react-router-dom'
 import { Box, Link, ListItemText, Typography, Tooltip } from '@mui/material'
 import { RiArrowDownFill, RiArrowGoForwardFill } from 'react-icons/ri'
 
-import Iconify from '@components/iconify'
 import { assertHasSubViews, assertGroupTitle } from '@@/routes/index'
 
-import { NavItemProps } from '../type'
-//
-import { isExternalLink } from '..'
+import Iconify from '@components/iconify'
 
+import { NavItemProps } from '../type'
+import { isExternalLink } from '..'
 import {
   ListItemStyle as ListItem,
   ListItemTextStyle,

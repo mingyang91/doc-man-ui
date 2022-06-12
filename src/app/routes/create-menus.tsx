@@ -1,9 +1,13 @@
-import { omit } from 'lodash-es'
 import { ReactElement } from 'react'
 import { IconType } from 'react-icons'
-import { Location, generatePath, matchPath } from 'react-router-dom'
+import { generatePath, matchPath } from 'react-router-dom'
 
-import { RouteView, assertGroupTitle } from '.'
+import {
+  RouteView,
+  assertGroupTitle,
+  BreadcrumbConfig,
+  RouteMenuConfig,
+} from '.'
 
 export type MenuGroupTitle = {
   icon?: IconType
@@ -17,6 +21,7 @@ export type MenuGroupTitle = {
 }
 
 export type MenuRouteConfig = {
+  id: string
   icon?: IconType
   isGroupTitle?: boolean
   isDisabled?: boolean
@@ -28,20 +33,19 @@ export type MenuRouteConfig = {
   redirect?: string
   title: string
   submodule?: MenuConfig[]
+  breadcrumbs?: BreadcrumbConfig[]
 }
 
 export type MenuConfig = MenuRouteConfig | MenuGroupTitle
 
 export const createMenus = (
   routes: RouteView[],
-  location: Location,
   parentPath = '/'
 ): MenuConfig[] => {
   return routes
     .filter(route => !!route.isMenu)
     .map(route => {
-      const submodule =
-        route.submodule && createMenus(route.submodule, location)
+      const submodule = route.submodule && createMenus(route.submodule)
       if (assertGroupTitle(route)) {
         return {
           isGroupTitle: true,
@@ -57,6 +61,7 @@ export const createMenus = (
       const routePath = fullPath ? generatePath(fullPath, route.params) : ''
 
       return {
+        id: route.id,
         title: route.title as string, // title has to be string
         icon: route.icon,
         path: routePath,
@@ -67,47 +72,42 @@ export const createMenus = (
         info: route.info,
         caption: route.caption,
         submodule,
+        breadcrumbs: route.breadcrumbs,
       }
     })
 }
 
-function getMenuPath(menus: MenuConfig[], routePath = '*') {
-  function traverse(
-    node: MenuConfig,
-    targetPath: MenuConfig[] = []
-  ): MenuConfig[] | false {
-    if (node.path && matchPath({ path: node.path, end: true }, routePath)) {
-      return targetPath.concat([omit(node, 'submodule') as MenuConfig])
-    }
-    if (node.submodule) {
-      let path: MenuConfig[] | false = false
-      for (let i = 0; i < node.submodule.length; i++) {
-        const sub = node.submodule[i]
-        path = traverse(sub, targetPath)
-        if (path) {
-          return [omit(node, 'submodule') as MenuConfig].concat(path)
-        }
-      }
-      return false
-    }
-    return false
-  }
-
-  for (let i = 0; i < menus.length; i++) {
-    const menu = menus[i]
-    const path = traverse(menu)
-    if (path) {
-      return path
-    }
-  }
-
-  return []
-}
-
-export const getActiveMenuPath = (menus: MenuConfig[], location: Location) => {
-  return getMenuPath(menus, location.pathname)
-}
-
 export const getActive = (path: string, pathname: string) => {
-  return path ? !!matchPath({ path: path, end: false }, pathname) : false
+  return !!matchPath({ path: path, end: true }, pathname)
+}
+
+export const getActiveRouteConfig = (
+  routes: RouteView[],
+  pathname: string
+): RouteMenuConfig | undefined => {
+  for (let i = 0; i < routes.length; i++) {
+    const route = routes[i]
+    if (assertGroupTitle(route)) {
+      const subResult =
+        route.submodule && getActiveRouteConfig(route.submodule, pathname)
+      if (subResult) {
+        return subResult
+      } else {
+        continue
+      }
+    }
+
+    const isActive = getActive(route.path, pathname)
+
+    if (isActive) {
+      return route
+    } else if (route.submodule && route.submodule.length) {
+      const subResult = getActiveRouteConfig(route.submodule, pathname)
+      if (subResult) {
+        return subResult
+      }
+    }
+  }
+
+  return undefined
 }

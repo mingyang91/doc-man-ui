@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react'
 import { useMemoizedFn } from 'ahooks'
 
 import { createContainer } from '@utils/create-container'
+
 import { request } from '@common/request'
 
 type AuthState = {
@@ -61,20 +62,6 @@ const SessionContainer = createContainer(function useSessionContainer() {
     () => status === 'authenticated' && !!authState,
     [status, authState]
   )
-
-  // useMount(() => {
-  //   const initSession = async () => {
-  //     try {
-  //       // const newToken = await refreshToken()
-  //       await authorize()
-  //     } catch {
-  //       navigate('/signin', { replace: true })
-  //     } finally {
-  //       setLoading(false)
-  //     }
-  //   }
-  //   initSession()
-  // })
 
   const initSession = useMemoizedFn(async (catchFn?: () => void) => {
     try {

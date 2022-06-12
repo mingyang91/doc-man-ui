@@ -71,7 +71,63 @@ module.exports = {
       'warn',
       { fixToUnknown: false, ignoreRestArgs: true },
     ],
-    // 'import/order': ['warn'],
+    'import/order': [
+      'warn',
+      {
+        pathGroups: [
+          {
+            pattern: '^react',
+            group: 'external',
+          },
+          {
+            pattern: '@/**',
+            group: 'external',
+            position: 'after',
+          },
+          {
+            pattern: '@@/**',
+            group: 'external',
+            position: 'after',
+          },
+          {
+            pattern: '@hooks/**',
+            group: 'external',
+            position: 'after',
+          },
+          {
+            pattern: '@contexts/**',
+            group: 'external',
+            position: 'after',
+          },
+          {
+            pattern: '@utils/**',
+            group: 'external',
+            position: 'after',
+          },
+          {
+            pattern: '@components/**',
+            group: 'external',
+            position: 'after',
+          },
+          {
+            pattern: '@common/**',
+            group: 'external',
+            position: 'after',
+          },
+          {
+            pattern: '@generated/graphql',
+            group: 'external',
+            position: 'after',
+          },
+          {
+            pattern: './**',
+            group: 'parent',
+          },
+        ],
+        pathGroupsExcludedImportTypes: ['react', 'builtin'],
+        'newlines-between': 'always',
+      },
+    ],
   },
   overrides: [
     {
@@ -119,12 +175,15 @@ module.exports = {
     'import/parsers': {
       '@typescript-eslint/parser': ['.ts', '.tsx'],
     },
-    'import/core-modules': ['styled-jsx/css'],
+    'import/core-modules': ['styled-jsx/css', '^react'],
     'import/resolver': {
       typescript: {
-        alwaysTryTypes: true,
         project: './tsconfig.json',
       },
+    },
+    'import/ignore': ['\\.(com|css|less|sass|scss|json)$'],
+    'import/cache': {
+      lifetime: 0,
     },
   },
 }

@@ -1,8 +1,9 @@
 import { RouteObject, Navigate, generatePath } from 'react-router-dom'
 import { Fragment } from 'react'
 
-import { Layout } from '@@/modules/layouts'
 import { AuthProtectModule } from '@/app/modules/auth-protect'
+
+import { Layout } from '@@/modules/layouts'
 
 import { RouteView, assertGroupTitle } from '.'
 

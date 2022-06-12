@@ -1804,7 +1804,7 @@ export type DeviceByIdQueryVariables = Exact<{
 
 export type DeviceByIdQuery = {
   device_by_pk?: {
-    id: unknown
+    id: Scalars['ID']
     reportId: Scalars['ID']
     reportNo: string | null
     accordingTo?: string | null

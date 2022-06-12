@@ -1,4 +1,11 @@
-import { isValidElement, Children, ReactElement, ReactNode } from 'react'
+import {
+  isValidElement,
+  Children,
+  ReactElement,
+  ReactNode,
+  useRef,
+} from 'react'
+import { useMount as useAhooksMount } from 'ahooks'
 
 export function getValidChildren(children: ReactNode) {
   return Children.toArray(children).filter(child =>
@@ -23,4 +30,17 @@ export function callAllHandlers<T extends (event: unknown) => void>(
       return event?.defaultPrevented
     })
   }
+}
+
+type MountFn = () => void
+
+export const useMount = (fn: MountFn) => {
+  const isMounted = useRef(false)
+
+  useAhooksMount(() => {
+    if (!isMounted.current) {
+      isMounted.current = true
+      return fn()
+    }
+  })
 }

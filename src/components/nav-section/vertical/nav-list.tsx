@@ -4,10 +4,10 @@ import { useLocation } from 'react-router-dom'
 import { List, Collapse } from '@mui/material'
 
 import { assertHasSubViews } from '@/app/routes'
+
 import { getActive } from '@@/routes/create-menus'
 
 import { NavListProps } from '../type'
-
 import { NavItemRoot, NavItemSub } from './nav-item'
 
 // ----------------------------------------------------------------------

@@ -27,14 +27,12 @@ export type ComponentInFormikProps = {
 }
 
 export type DeviceEditProps = {
-  isEdit?: boolean
   isLoading?: boolean
   initialValues?: DeviceInsertInput
   onSubmit?: FnSubmitDevice
 }
 
 export const DeviceEdit = ({
-  isEdit = false,
   initialValues,
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   onSubmit = () => new Promise(() => {}),
@@ -46,9 +44,6 @@ export const DeviceEdit = ({
 
   return (
     <>
-      <Typography variant="h4" gutterBottom>
-        {isEdit ? '编辑' : '新增'} 设备检验检测报告
-      </Typography>
       <Formik initialValues={_initialValues} onSubmit={onSubmit}>
         {({ submitForm, isSubmitting }) => (
           <>

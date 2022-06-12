@@ -1,12 +1,12 @@
 import { useMemo, ReactNode } from 'react'
-
 import { zhCN } from '@mui/material/locale'
 import {
   CssBaseline,
   createTheme,
   ThemeOptions,
-  ThemeProvider as MUIThemeProvider,
   GlobalStyles,
+  ThemeProvider as MUIThemeProvider,
+  StyledEngineProvider,
 } from '@mui/material'
 
 // hooks
@@ -18,7 +18,6 @@ import typography from './typography'
 import breakpoints from './breakpoints'
 import componentsOverride from './overrides'
 import shadows, { customShadows } from './shadows'
-
 import { createCSSVars } from './util'
 
 // ----------------------------------------------------------------------
@@ -54,10 +53,12 @@ export function ThemeProvider({ children }: Props) {
   const cssVarsStyle = useMemo(() => createCSSVars(theme), [theme])
 
   return (
-    <MUIThemeProvider theme={theme}>
-      <CssBaseline />
-      <GlobalStyles styles={cssVarsStyle} />
-      {children}
-    </MUIThemeProvider>
+    <StyledEngineProvider injectFirst>
+      <MUIThemeProvider theme={theme}>
+        <CssBaseline />
+        <GlobalStyles styles={cssVarsStyle} />
+        {children}
+      </MUIThemeProvider>
+    </StyledEngineProvider>
   )
 }

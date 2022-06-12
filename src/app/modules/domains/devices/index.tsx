@@ -1,12 +1,6 @@
-import {
-  Button,
-  Stack,
-  Chip,
-  Link,
-  Paper,
-  Typography,
-  TablePagination,
-} from '@mui/material'
+import { useMemo, MouseEvent, ChangeEventHandler } from 'react'
+import { Link as RouteLink, generatePath } from 'react-router-dom'
+import { Button, Stack, Chip, Link, TablePagination } from '@mui/material'
 import {
   RiDeleteBinLine,
   RiEditLine,
@@ -14,12 +8,13 @@ import {
   RiCheckFill,
   RiInformationFill,
 } from 'react-icons/ri'
-import { useMemo, MouseEvent, ChangeEventHandler } from 'react'
 
 import { DataTable, ColumnProps } from '@/components/data-table'
 import { fDate } from '@/utils/format-time'
 import { PaginationConfig } from '@/models/common'
 import { DevicesQuery, HeaderDeviceFieldsFragment } from '@/generated/graphql'
+
+import { ROUTES } from '@@/routes'
 
 export interface DevicesListProps extends PaginationConfig {
   isLoading?: boolean
@@ -54,6 +49,17 @@ export const DevicesList = ({
         minWidth: 150,
         flexGrow: 1,
         fixed: 'left',
+        render: ({ name, id }) => {
+          const path = generatePath('/' + ROUTES.deviceDetail, {
+            id,
+          })
+
+          return (
+            <Link component={RouteLink} to={path}>
+              {name}
+            </Link>
+          )
+        },
       },
       {
         field: 'requester',
@@ -128,7 +134,7 @@ export const DevicesList = ({
                 variant="outlined"
                 color="error"
                 startIcon={<RiDeleteBinLine />}
-                onClick={() => onRemove?.(rowData.uuid)}
+                onClick={() => onRemove?.(rowData.id)}
               >
                 删除
               </Button>
@@ -136,7 +142,7 @@ export const DevicesList = ({
                 size="small"
                 variant="outlined"
                 startIcon={<RiEditLine />}
-                onClick={() => onEdit?.(rowData.uuid)}
+                onClick={() => onEdit?.(rowData.id)}
               >
                 编辑
               </Button>
@@ -144,7 +150,7 @@ export const DevicesList = ({
                 size="small"
                 variant="outlined"
                 startIcon={<RiUploadLine />}
-                onClick={() => onUpload?.(rowData.uuid)}
+                onClick={() => onUpload?.(rowData.id)}
               >
                 上传附件
               </Button>
@@ -157,8 +163,7 @@ export const DevicesList = ({
   )
 
   return (
-    <Paper>
-      <Typography variant="h5">设备报告列表</Typography>
+    <>
       <DataTable
         columns={columns}
         dataSource={dataSource}
@@ -183,6 +188,6 @@ export const DevicesList = ({
         rowsPerPage={pageSize}
         onRowsPerPageChange={onPageSizeChange}
       />
-    </Paper>
+    </>
   )
 }

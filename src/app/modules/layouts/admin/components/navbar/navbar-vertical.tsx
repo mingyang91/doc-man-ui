@@ -5,18 +5,20 @@ import { styled, useTheme } from '@mui/material/styles'
 import { Box, Stack, Drawer } from '@mui/material'
 
 // hooks
-import ScrollBar from '@components/scrollbar'
+import { NAVBAR } from '@/config'
+
 import useResponsive from '@hooks/use-responsive'
 import useCollapseDrawer from '@hooks/use-collapse-drawer'
+
 // utils
 import cssStyles from '@utils/css-styles'
-import { NAVBAR } from '@/config'
+
+import ScrollBar from '@components/scrollbar'
 // components
 import Logo from '@components/logo'
 import { NavSectionVertical } from '@components/nav-section'
 
 import { useMenuAndRoutes } from '../menu-and-routes'
-
 import NavbarAccount from './navbar-account'
 import CollapseButton from './collapse-button'
 
