@@ -2,7 +2,7 @@
 import { styled } from '@mui/material/styles'
 import { Box, Link, Typography, Avatar } from '@mui/material'
 
-import { useAuth } from '../../../../../../contexts/auth'
+import { useAuth } from '@contexts/auth'
 
 // ----------------------------------------------------------------------
 

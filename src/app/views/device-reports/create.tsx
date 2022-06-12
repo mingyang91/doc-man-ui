@@ -7,9 +7,8 @@ import {
   useInsertDeviceMutation,
   InsertDeviceMutationVariables,
 } from '@/generated/graphql'
-import { nanoid } from '@/utils/uuid'
 
-export const PageCreateDeviceReport = () => {
+const PageCreateDeviceReport = () => {
   const navigate = useNavigate()
 
   const { enqueueSnackbar } = useSnackbar()
@@ -17,30 +16,33 @@ export const PageCreateDeviceReport = () => {
   const [insertDeviceMutation, { data, loading, error }] =
     useInsertDeviceMutation()
 
-  const handleError = useCallback(
+  const handleMessage = useCallback(
     (variant: VariantType, content: ReactNode | string) => {
-      enqueueSnackbar(content, { variant })
+      enqueueSnackbar(content, {
+        variant,
+      })
     },
     [enqueueSnackbar]
   )
 
   const onSubmit = useCallback(
     async (input: InsertDeviceMutationVariables['input']) => {
-      console.log(input, loading)
-      input.id = nanoid.uuid()
       await insertDeviceMutation({
         variables: {
           input,
         },
       })
+      handleMessage('success', '创建成功。')
       // navigate(`device/${input.id}`)
     },
-    [loading, insertDeviceMutation]
+    [handleMessage, insertDeviceMutation]
   )
 
   if (error) {
-    handleError('error', error.message || '创建失败，请检查。')
+    handleMessage('error', error.message || '创建失败，请检查。')
   }
 
   return <DeviceEdit isEdit={false} onSubmit={onSubmit} />
 }
+
+export { PageCreateDeviceReport as default }

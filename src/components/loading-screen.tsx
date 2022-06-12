@@ -38,7 +38,7 @@ export default function LoadingScreen() {
           repeat: Infinity,
         }}
       >
-        <Logo disabledLink sx={{ width: 64, height: 64 }} />
+        <Logo disabledLink isCollapse sx={{ width: 64, height: 64 }} />
       </m.div>
 
       <Box
@@ -47,13 +47,12 @@ export default function LoadingScreen() {
           scale: [1.2, 1, 1, 1.2, 1.2],
           rotate: [270, 0, 0, 270, 270],
           opacity: [0.25, 1, 1, 1, 0.25],
-          borderRadius: ['25%', '25%', '50%', '50%', '25%'],
         }}
         transition={{ ease: 'linear', duration: 3.2, repeat: Infinity }}
         sx={{
           width: 100,
           height: 100,
-          borderRadius: '25%',
+          borderRadius: '50px',
           position: 'absolute',
           border: theme =>
             `solid 3px ${alpha(theme.palette.primary.dark, 0.24)}`,
@@ -66,7 +65,6 @@ export default function LoadingScreen() {
           scale: [1, 1.2, 1.2, 1, 1],
           rotate: [0, 270, 270, 0, 0],
           opacity: [1, 0.25, 0.25, 0.25, 1],
-          borderRadius: ['25%', '25%', '50%', '50%', '25%'],
         }}
         transition={{
           ease: 'linear',
@@ -76,7 +74,7 @@ export default function LoadingScreen() {
         sx={{
           width: 120,
           height: 120,
-          borderRadius: '25%',
+          borderRadius: '60px',
           position: 'absolute',
           border: theme =>
             `solid 8px ${alpha(theme.palette.primary.dark, 0.24)}`,

@@ -14,6 +14,10 @@ export const DataTable = <D extends {} = {}>({
   headerHeight = 60,
   columns,
   dataSource,
+  locale = {
+    emptyMessage: '暂无数据',
+    loading: '加载中...',
+  },
   ...restProps
 }: DataTableProps<D>) => {
   const elements = useCreation(() => renderColumns(columns), [columns])
@@ -21,6 +25,7 @@ export const DataTable = <D extends {} = {}>({
   return (
     <Table
       {...restProps}
+      locale={locale}
       headerHeight={headerHeight}
       rowHeight={rowHeight}
       affixHeader={affixHeader}

@@ -1,6 +1,5 @@
 import { useState, useMemo } from 'react'
-import { useMemoizedFn, useMount } from 'ahooks'
-import { useNavigate } from 'react-router-dom'
+import { useMemoizedFn } from 'ahooks'
 
 import { createContainer } from '@utils/create-container'
 import { request } from '@common/request'
@@ -16,7 +15,6 @@ type AuthState = {
 type SessionStatus = 'loading' | 'authenticated' | 'unauthenticated'
 
 const SessionContainer = createContainer(function useSessionContainer() {
-  const navigate = useNavigate()
   const [loading, setLoading] = useState(true)
   const [authState, setAuthState] = useState<AuthState>()
 
@@ -64,18 +62,29 @@ const SessionContainer = createContainer(function useSessionContainer() {
     [status, authState]
   )
 
-  useMount(() => {
-    const initSession = async () => {
-      try {
-        // const newToken = await refreshToken()
-        await authorize()
-      } catch {
-        navigate('/signin', { replace: true })
-      } finally {
-        setLoading(false)
-      }
+  // useMount(() => {
+  //   const initSession = async () => {
+  //     try {
+  //       // const newToken = await refreshToken()
+  //       await authorize()
+  //     } catch {
+  //       navigate('/signin', { replace: true })
+  //     } finally {
+  //       setLoading(false)
+  //     }
+  //   }
+  //   initSession()
+  // })
+
+  const initSession = useMemoizedFn(async (catchFn?: () => void) => {
+    try {
+      // const newToken = await refreshToken()
+      await authorize()
+    } catch {
+      catchFn?.()
+    } finally {
+      setLoading(false)
     }
-    initSession()
   })
 
   return {
@@ -83,6 +92,7 @@ const SessionContainer = createContainer(function useSessionContainer() {
     status,
     userInfo: authState,
     authorize,
+    initSession,
     // clearAuth,
   }
 })

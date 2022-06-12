@@ -1,5 +1,5 @@
 import { useSearchParams, NavLink } from 'react-router-dom'
-import { useCallback, MouseEvent, ChangeEventHandler, useMemo } from 'react'
+import { useCallback, MouseEvent, ChangeEventHandler } from 'react'
 import { useCreation } from 'ahooks'
 import { Button, Stack } from '@mui/material'
 import { RiFileAddLine } from 'react-icons/ri'
@@ -7,15 +7,17 @@ import { RiFileAddLine } from 'react-icons/ri'
 import { DevicesList } from '@/app/modules/domains/devices'
 import { useDevicesQuery } from '@/generated/graphql'
 
-export const PageDeviceReports = () => {
+const PageDeviceReports = () => {
   const [searchParams, setSearchParams] = useSearchParams()
 
   const { page, offset, pageSize } = useCreation(() => {
-    const page = Number(searchParams.get('page')) || 0
+    const searchPage = Number(searchParams.get('page')) || 1
+    const page = searchPage - 1
     const pageSize = Number(searchParams.get('pageSize')) || 10
     const offset = page * pageSize
 
     return {
+      searchPage,
       page,
       offset,
       pageSize,
@@ -33,8 +35,8 @@ export const PageDeviceReports = () => {
   const onPageChange = useCallback(
     (_: MouseEvent<HTMLButtonElement> | null, page: number) => {
       setSearchParams({
-        page: (page - 1).toString(),
-        pageSize: pageSize.toString(),
+        page: `${page}`,
+        pageSize: `${pageSize}`,
       })
     },
     [setSearchParams, pageSize]
@@ -43,10 +45,10 @@ export const PageDeviceReports = () => {
   const onPageSizeChange = useCallback<
     ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>
   >(
-    ({ currentTarget }) => {
+    e => {
       setSearchParams({
         page: '1',
-        pageSize: currentTarget.value,
+        pageSize: e.target.value,
       })
     },
     [setSearchParams]
@@ -76,3 +78,5 @@ export const PageDeviceReports = () => {
     </>
   )
 }
+
+export { PageDeviceReports as default }

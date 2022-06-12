@@ -51,14 +51,17 @@ export const DevicesList = ({
         field: 'name',
         header: '设备名',
         width: 150,
+        minWidth: 150,
         flexGrow: 1,
-        fixed: true,
+        fixed: 'left',
       },
       {
         field: 'requester',
         header: '委托单位',
         width: 200,
+        minWidth: 150,
         flexGrow: 1,
+        fixed: 'left',
       },
       {
         field: 'createTime',
@@ -115,7 +118,8 @@ export const DevicesList = ({
         header: '操作',
         flexGrow: 2,
         width: 380,
-        fixed: true,
+        minWidth: 380,
+        fixed: 'right',
         render: ({ rowData }) => {
           return (
             <Stack spacing={2} direction="row">
@@ -164,6 +168,15 @@ export const DevicesList = ({
         component="div"
         showFirstButton
         showLastButton
+        labelRowsPerPage="每页显示"
+        rowsPerPageOptions={[
+          { label: '10条', value: 10 },
+          { label: '20条', value: 20 },
+          { label: '50条', value: 50 },
+        ]}
+        labelDisplayedRows={({ from, to, count }) =>
+          `共 ${count} 条，当前第 ${from} 至 ${to} 条数据。`
+        }
         count={dataSource.length}
         page={page}
         onPageChange={onPageChange}

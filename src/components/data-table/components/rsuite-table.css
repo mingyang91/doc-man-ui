@@ -33,11 +33,11 @@
 }
 
 .rs-table-hover .rs-table-row:hover .rs-table-cell-group {
-  background: rgba(var(--md-palette-secondary-lightChannel) / 4%);
+  background: #def;
 }
 
 .rs-table-hover .rs-table-row:hover .rs-table-cell {
-  background: rgba(var(--md-palette-secondary-lightChannel) / 4%);
+  background: #def;
 }
 
 .rs-table-row-header {

@@ -1,4 +1,4 @@
-import { ComponentType, ReactElement } from 'react'
+import { ComponentType, ReactElement, Suspense } from 'react'
 import { Params, useRoutes } from 'react-router-dom'
 import { IconType } from 'react-icons'
 import { useAtomValue } from 'jotai'
@@ -6,6 +6,7 @@ import { useAtomValue } from 'jotai'
 import type { MenuConfig, MenuGroupTitle } from './create-menus'
 
 import { LayoutType } from '@@/modules/layouts/index'
+import LoadingScreen from '@/components/loading-screen'
 
 import { routesAtom } from './context'
 import { routeRegister } from './route-register'
@@ -57,5 +58,7 @@ export const assertHasSubViews = (route: RouteView | MenuConfig) => {
 export const AppRouter = () => {
   const routesConfig = useAtomValue(routesAtom)
   const routes = routeRegister(routesConfig)
-  return useRoutes(routes)
+  const route = useRoutes(routes)
+
+  return <Suspense fallback={<LoadingScreen />}>{route}</Suspense>
 }

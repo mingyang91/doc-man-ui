@@ -1,4 +1,5 @@
 import { SnackbarProvider } from 'notistack'
+import { Slide } from '@mui/material'
 
 import { ThemeProvider } from '@common/theme'
 import { ScreenProgressBarContainer } from '@/components/screen-progress-bar'
@@ -13,7 +14,14 @@ import { AppRouter } from './routes'
 
 export const App = () => {
   return (
-    <SnackbarProvider maxSnack={3}>
+    <SnackbarProvider
+      maxSnack={3}
+      anchorOrigin={{
+        vertical: 'top',
+        horizontal: 'center',
+      }}
+      TransitionComponent={Slide}
+    >
       <MotionLazyContainer>
         <ThemeProvider>
           <ThemeSettings>

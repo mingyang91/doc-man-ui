@@ -1,15 +1,21 @@
+import { lazy } from 'react'
 import { atom } from 'jotai'
+
 import { RiArtboard2Fill, RiFile2Fill, RiHomeSmile2Fill } from 'react-icons/ri'
 
 import type { RouteView } from './index'
 
-import { Dashboard } from '@@/views/dashboard'
 import { SignIn } from '@@/views/sign-in/index'
-import { PageDeviceReports } from '@/app/views/device-reports'
-
-import { PageCreateDeviceReport } from '../views/device-reports/create'
+import { Demo } from '@@/views/demo/index'
 
 export const routes: RouteView[] = [
+  {
+    id: 'demo',
+    path: '/demo',
+    isRequireAuth: false,
+    Component: Demo,
+    layout: 'sign',
+  },
   {
     id: 'signin',
     path: 'signin',
@@ -30,7 +36,7 @@ export const routes: RouteView[] = [
         title: '首页',
         icon: RiHomeSmile2Fill,
         isMenu: true,
-        Component: Dashboard,
+        Component: lazy(() => import('@@/views/dashboard')),
         layout: 'admin',
       },
     ],
@@ -49,7 +55,7 @@ export const routes: RouteView[] = [
         title: '检验检测报告',
         icon: RiFile2Fill,
         isMenu: true,
-        Component: PageDeviceReports,
+        Component: lazy(() => import('@@/views/device-reports')),
         layout: 'admin',
       },
       {
@@ -58,7 +64,7 @@ export const routes: RouteView[] = [
         isRequireAuth: true,
         title: '检验检测报告 - 新建',
         icon: RiFile2Fill,
-        Component: PageCreateDeviceReport,
+        Component: lazy(() => import('@@/views/device-reports/create')),
         layout: 'admin',
       },
     ],
