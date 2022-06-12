@@ -6,6 +6,7 @@ import {
   createTheme,
   ThemeOptions,
   ThemeProvider as MUIThemeProvider,
+  GlobalStyles,
 } from '@mui/material'
 
 // hooks
@@ -17,6 +18,8 @@ import typography from './typography'
 import breakpoints from './breakpoints'
 import componentsOverride from './overrides'
 import shadows, { customShadows } from './shadows'
+
+import { createCSSVars } from './util'
 
 // ----------------------------------------------------------------------
 
@@ -48,9 +51,12 @@ export function ThemeProvider({ children }: Props) {
 
   theme.components = componentsOverride(theme)
 
+  const cssVarsStyle = useMemo(() => createCSSVars(theme), [theme])
+
   return (
     <MUIThemeProvider theme={theme}>
       <CssBaseline />
+      <GlobalStyles styles={cssVarsStyle} />
       {children}
     </MUIThemeProvider>
   )
