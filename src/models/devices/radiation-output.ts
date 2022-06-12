@@ -1,11 +1,11 @@
 import { percentage } from 'number-magic'
 import Big from 'big.js'
 
-import { isSamplesAvailable, Conclusions } from '../common'
+import { calcStandardDeviation, calcAverage } from '@/utils/math'
 
+import { isSamplesAvailable, Conclusions } from '../common'
 import { DetectionField } from './type'
 
-import { calcStandardDeviation, calcAverage } from '@/utils/math'
 
 /**
  * 计算辐射输量重复性 = StandardDeviation(辐射输量) / 辐射输量平均值

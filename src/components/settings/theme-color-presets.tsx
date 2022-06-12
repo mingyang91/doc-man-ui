@@ -8,8 +8,9 @@ import {
 } from '@mui/material/styles'
 
 // hooks
-import componentsOverride from '@common/theme/overrides'
 import { useSettings } from '@contexts/settings'
+
+import componentsOverride from '@common/theme/overrides'
 //
 
 // ----------------------------------------------------------------------

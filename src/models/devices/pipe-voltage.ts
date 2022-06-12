@@ -1,11 +1,13 @@
 import Big from 'big.js'
 import { percentage } from 'number-magic'
 
+import { hasEmpty } from '@/utils/helper'
+
 import { calcAverage } from '@utils/math'
+
 import { isSamplesAvailable, Conclusions } from '../common'
 import { DetectionField } from './type'
 
-import { hasEmpty } from '@/utils/helper'
 
 /**
  * 管电压指示偏离率

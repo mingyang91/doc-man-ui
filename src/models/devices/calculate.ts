@@ -1,9 +1,10 @@
 import Big from 'big.js'
 import { percentage } from 'number-magic'
 
+import { calcAverage, calcStandardDeviation } from '@/utils/math'
+
 import { Conclusions } from '../common'
 
-import { calcAverage, calcStandardDeviation } from '@/utils/math'
 
 /* ======== 管电压指示偏离 ======== */
 

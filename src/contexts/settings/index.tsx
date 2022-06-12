@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import { useLocalStorageState } from 'ahooks'
 
 import { createContainer } from '@utils/create-container'
+
 import {
   ThemeMode,
   ThemeLayout,
@@ -12,10 +13,12 @@ import {
   SettingsContextProps,
   SettingsValueProps,
 } from '@components/settings/type'
+
+import getColorPresets, { colorPresets, defaultPreset } from './color-presets'
+
 import { defaultSettings } from 'config'
 // @type
 
-import getColorPresets, { colorPresets, defaultPreset } from './color-presets'
 
 // ----------------------------------------------------------------------
 

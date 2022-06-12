@@ -40,7 +40,7 @@
     "build:dev": "vite build --mode development",
     "generate": "NODE_ENV='development' graphql-codegen --config codegen.cjs",
     "test": "jest",
-    "typecheck": "tsc --noEmit --project tsconfig.json",
+    "typecheck": "tsc --noEmit --incremental --project tsconfig.json",
     "lint-staged": "pnpm exec eslint --cache --ext .tsx,.ts && pnpm exec prettier --check",
     "lint": "pnpm exec eslint --cache --ext .tsx,.ts ./src",
     "lint:fix": "pnpm exec eslint --cache --ext .tsx,.ts ./src --fix",

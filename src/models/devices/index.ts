@@ -1,9 +1,10 @@
 import { merge } from 'lodash-es'
 
+import { DeviceInsertInput } from '@/generated/graphql'
+
 import { initPipeVoltage } from './pipe-voltage'
 import { initFieldRadiationOutput } from './radiation-output'
 
-import { DeviceInsertInput } from '@/generated/graphql'
 
 export const initDeviceInput: (
   value?: Partial<DeviceInsertInput>

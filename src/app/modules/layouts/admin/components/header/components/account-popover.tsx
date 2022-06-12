@@ -9,10 +9,11 @@ import {
   Avatar,
 } from '@mui/material'
 
-import MenuPopover from '@components/menu-popover'
-import { IconButtonAnimate } from '@components/animate'
 import { useAuth } from '@contexts/auth'
 import { useUser } from '@contexts/user'
+
+import MenuPopover from '@components/menu-popover'
+import { IconButtonAnimate } from '@components/animate'
 
 // ----------------------------------------------------------------------
 

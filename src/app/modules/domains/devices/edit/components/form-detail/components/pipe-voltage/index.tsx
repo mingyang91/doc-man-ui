@@ -12,11 +12,12 @@ import {
 } from '@/app/components/form-table/components/row'
 import { RowTitle } from '@/app/components/form-table/components/row/row-title'
 import { DeviceSetInput } from '@/generated/graphql'
-import { judgePipeVoltageOffset } from '@models/devices/pipe-voltage'
 import { CellSideButton } from '@/app/components/form-table/components/row/cell-side-button'
 
 import { FieldPipeVoltageCondition } from './components/condition'
 import { FieldPipeVoltageResult } from './components/result'
+
+import { judgePipeVoltageOffset } from '@models/devices/pipe-voltage'
 
 export const FieldPipeVoltage = () => {
   const [{ value }] = useField<DeviceSetInput['pipeVoltage']>('pipeVoltage')
