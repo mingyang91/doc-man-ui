@@ -1,4 +1,11 @@
-import { createContext, lazy, PropsWithChildren, useRef } from 'react'
+import {
+  createContext,
+  lazy,
+  PropsWithChildren,
+  useContext,
+  useRef,
+} from 'react'
+import { Navigate } from 'react-router-dom'
 import { RiArtboard2Fill, RiFile2Fill, RiHomeSmile2Fill } from 'react-icons/ri'
 
 import { SignIn } from '@@/views/sign-in/index'
@@ -30,6 +37,13 @@ export const routes: RouteView[] = [
     isRequireAuth: false,
     Component: SignIn,
     layout: 'sign',
+  },
+  {
+    id: 'default',
+    path: '/',
+    isRequireAuth: true,
+    layout: 'none',
+    Component: () => <Navigate to={ROUTES.dashboard} replace />,
   },
   {
     id: 'dashboard-root',
@@ -102,6 +116,10 @@ export const routes: RouteView[] = [
 ]
 
 export const RoutesContext = createContext([] as RouteView[])
+
+RoutesContext.displayName = 'RoutesContext'
+
+export const useRoutesContext = () => useContext(RoutesContext)
 
 export const RoutesProvider = ({
   children,

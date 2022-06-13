@@ -27,7 +27,7 @@ export type Scalars = {
   json: unknown
   jsonb: unknown
   role: unknown
-  timestamp: unknown
+  timestamp: string
   uuid: UUID
 }
 
@@ -85,7 +85,7 @@ export interface Device {
   UsefulHarnessHalfValue?: Maybe<Scalars['jsonb']>
   accordingTo?: Maybe<Scalars['String']>
   address?: Maybe<Scalars['String']>
-  checkDate?: Maybe<Scalars['timestamp']>
+  checkDate?: Maybe<Scalars['String']>
   createTime: Scalars['timestamp']
   ddi?: Maybe<Scalars['json']>
   deviceNo?: Maybe<Scalars['String']>
@@ -397,7 +397,7 @@ export type DeviceInsertInput = {
 export interface DeviceMaxFields {
   accordingTo?: Maybe<Scalars['String']>
   address?: Maybe<Scalars['String']>
-  checkDate?: Maybe<Scalars['timestamp']>
+  checkDate?: Maybe<Scalars['String']>
   createTime?: Maybe<Scalars['timestamp']>
   deviceNo?: Maybe<Scalars['String']>
   equipment?: Maybe<Scalars['String']>
@@ -417,7 +417,7 @@ export interface DeviceMaxFields {
 export interface DeviceMinFields {
   accordingTo?: Maybe<Scalars['String']>
   address?: Maybe<Scalars['String']>
-  checkDate?: Maybe<Scalars['timestamp']>
+  checkDate?: Maybe<Scalars['String']>
   createTime?: Maybe<Scalars['timestamp']>
   deviceNo?: Maybe<Scalars['String']>
   equipment?: Maybe<Scalars['String']>
@@ -1741,7 +1741,7 @@ export type HeaderDeviceFieldsFragment = {
   reportId?: Maybe<Scalars['uuid']>
   accordingTo?: Maybe<string>
   address?: Maybe<string>
-  createTime: unknown
+  createTime: Maybe<Scalars['timestamp']>
   deviceNo?: Maybe<string>
   equipment?: Maybe<string>
   item?: Maybe<string>
@@ -1750,7 +1750,8 @@ export type HeaderDeviceFieldsFragment = {
   place?: Maybe<string>
   requester?: Maybe<string>
   sampleNo?: Maybe<string>
-  updateTime: unknown
+  updateTime: Maybe<Scalars['timestamp']>
+  checkDate?: Maybe<Scalars['String']>
   vendor?: Maybe<string>
 }
 
@@ -1784,7 +1785,7 @@ export type DevicesQuery = {
     reportNo: string | null
     accordingTo?: string | null
     address?: string | null
-    createTime: unknown
+    createTime: Maybe<Scalars['timestamp']>
     deviceNo?: string | null
     equipment?: string | null
     item?: string | null
@@ -1793,7 +1794,7 @@ export type DevicesQuery = {
     place?: string | null
     requester?: string | null
     sampleNo?: string | null
-    updateTime: unknown
+    updateTime: Maybe<Scalars['timestamp']>
     vendor?: string | null
   }>
 }
@@ -1809,7 +1810,7 @@ export type DeviceByIdQuery = {
     reportNo: string | null
     accordingTo?: string | null
     address?: string | null
-    createTime: unknown
+    createTime: Maybe<Scalars['timestamp']>
     deviceNo?: string | null
     equipment?: string | null
     item?: string | null
@@ -1818,7 +1819,8 @@ export type DeviceByIdQuery = {
     place?: string | null
     requester?: string | null
     sampleNo?: string | null
-    updateTime: unknown
+    updateTime: Maybe<Scalars['timestamp']>
+    checkDate?: Maybe<Scalars['String']>
     vendor?: string | null
     AECC2CConsistency?: unknown | null
     AECRepeatability?: unknown | null
@@ -1849,7 +1851,7 @@ export type InsertDeviceMutation = {
     reportNo: string | null
     accordingTo?: string | null
     address?: string | null
-    createTime: unknown
+    createTime: Maybe<Scalars['timestamp']>
     deviceNo?: string | null
     equipment?: string | null
     item?: string | null
@@ -1858,7 +1860,8 @@ export type InsertDeviceMutation = {
     place?: string | null
     requester?: string | null
     sampleNo?: string | null
-    updateTime: unknown
+    updateTime: Maybe<Scalars['timestamp']>
+    checkDate?: Maybe<Scalars['String']>
     vendor?: string | null
     AECC2CConsistency?: unknown | null
     AECRepeatability?: unknown | null
@@ -1890,7 +1893,7 @@ export type UpdateDeviceMutation = {
     reportNo: string | null
     accordingTo?: string | null
     address?: string | null
-    createTime: unknown
+    createTime: Maybe<Scalars['timestamp']>
     deviceNo?: string | null
     equipment?: string | null
     item?: string | null
@@ -1899,7 +1902,8 @@ export type UpdateDeviceMutation = {
     place?: string | null
     requester?: string | null
     sampleNo?: string | null
-    updateTime: unknown
+    updateTime: Maybe<Scalars['timestamp']>
+    checkDate?: Maybe<Scalars['String']>
     vendor?: string | null
     AECC2CConsistency?: unknown | null
     AECRepeatability?: unknown | null
@@ -1936,6 +1940,7 @@ export const HeaderDeviceFieldsFragmentDoc = gql`
     requester
     sampleNo
     updateTime
+    checkDate
     vendor
   }
 `

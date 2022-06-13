@@ -1,4 +1,4 @@
-import { ComponentType, ReactElement, Suspense, useContext } from 'react'
+import { ComponentType, ReactElement, Suspense } from 'react'
 import { Params, useRoutes } from 'react-router-dom'
 import { IconType } from 'react-icons'
 
@@ -7,7 +7,7 @@ import LoadingScreen from '@/components/loading-screen'
 import { LayoutType } from '@@/modules/layouts/index'
 
 import type { MenuConfig, MenuGroupTitle } from './create-menus'
-import { RoutesContext } from './context'
+import { useRoutesContext } from './context'
 import { routeRegister } from './route-register'
 
 export * from './context'
@@ -64,7 +64,7 @@ export const assertHasSubViews = (route: RouteView | MenuConfig) => {
 }
 
 export const AppRouter = () => {
-  const routes = useContext(RoutesContext)
+  const routes = useRoutesContext()
   const routeConfig = routeRegister(routes)
   const routeView = useRoutes(routeConfig)
 

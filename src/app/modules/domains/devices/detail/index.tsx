@@ -1,10 +1,11 @@
-import { DeviceByIdQuery } from '@generated/graphql'
+import { Card } from '@mui/material'
 
-interface DeviceDetailProps {
-  dataSource?: DeviceByIdQuery['device_by_pk']
-}
+import { DetailHeader } from './components/detail-header'
 
-export const DeviceDetail = ({ dataSource }: DeviceDetailProps) => {
-  console.log(dataSource)
-  return <></>
+export const DeviceDetail = () => {
+  return (
+    <Card elevation={1}>
+      <DetailHeader />
+    </Card>
+  )
 }

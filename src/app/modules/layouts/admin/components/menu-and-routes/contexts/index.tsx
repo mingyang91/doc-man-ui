@@ -1,9 +1,7 @@
 import { useCreation } from 'ahooks'
 import { useLocation } from 'react-router-dom'
-import { useContext } from 'react'
 
-import { RouteMenuConfig } from '@/app/routes'
-import { RoutesContext } from '@/app/routes/context'
+import { RouteMenuConfig, useRoutesContext } from '@/app/routes'
 
 import { createMenus, getActiveRouteConfig } from '@@/routes/create-menus'
 
@@ -13,7 +11,7 @@ const MenuAndRoutesContainer = createContainer(
   function useMenuAndRoutesContainer() {
     const { pathname } = useLocation()
 
-    const routes = useContext(RoutesContext)
+    const routes = useRoutesContext()
 
     const menus = createMenus(routes)
 

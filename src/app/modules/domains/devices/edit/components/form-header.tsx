@@ -111,7 +111,7 @@ export const FormHeader = (_: ComponentInFormikProps) => {
       <Grid item xs={12} sm={6}>
         <Field
           component={DatePicker}
-          name="item"
+          name="checkDate"
           label="检测日期"
           type="text"
           mask="____-__-__"

@@ -76,7 +76,7 @@ module.exports = {
       {
         pathGroups: [
           {
-            pattern: '^react',
+            pattern: 'react|react-dom|react-router-dom|react-helmet-async',
             group: 'external',
           },
           {
@@ -86,6 +86,16 @@ module.exports = {
           },
           {
             pattern: '@@/**',
+            group: 'external',
+            position: 'after',
+          },
+          {
+            pattern: '@@modules/**',
+            group: 'external',
+            position: 'after',
+          },
+          {
+            pattern: '@@routes/**',
             group: 'external',
             position: 'after',
           },
@@ -111,6 +121,11 @@ module.exports = {
           },
           {
             pattern: '@common/**',
+            group: 'external',
+            position: 'after',
+          },
+          {
+            pattern: '@models/**',
             group: 'external',
             position: 'after',
           },

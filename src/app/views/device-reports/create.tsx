@@ -14,7 +14,9 @@ import HeaderBreadcrumbs from '@/components/header-breadcrumbs'
 import { DeviceEdit } from '@@/modules/domains/devices/edit'
 import { useMenuAndRoutes } from '@@/modules/layouts/admin/components/menu-and-routes'
 
-const TITLE = '检验检测报告 - 新增'
+import { DeviceReportTitle } from '@models/devices'
+
+const TITLE = `${DeviceReportTitle} - 新增`
 
 const PageCreateDeviceReport = () => {
   const navigate = useNavigate()

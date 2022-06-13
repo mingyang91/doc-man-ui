@@ -4,14 +4,16 @@ import { useCreation } from 'ahooks'
 import { Card, Button, Stack } from '@mui/material'
 import { RiFileAddLine } from 'react-icons/ri'
 
-import { DevicesList } from '@/app/modules/domains/devices'
 import { useDevicesQuery } from '@/generated/graphql'
 import Page from '@/components/page'
 import HeaderBreadcrumbs from '@/components/header-breadcrumbs'
 
-import { useMenuAndRoutes } from '@@/modules/layouts/admin/components/menu-and-routes/contexts'
+import { DevicesList } from '@@modules/domains/devices'
+import { useMenuAndRoutes } from '@@modules/layouts/admin/components/menu-and-routes'
 
-const TITLE = '检验检测报告 - 列表'
+import { DeviceReportTitle } from '@models/devices'
+
+const TITLE = `${DeviceReportTitle} - 列表`
 
 const PageDeviceReports = () => {
   const [searchParams, setSearchParams] = useSearchParams()

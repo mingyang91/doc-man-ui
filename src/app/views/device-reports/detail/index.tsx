@@ -1,20 +1,52 @@
-import { ReactNode, useCallback } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useMemo } from 'react'
+import { useParams } from 'react-router-dom'
 import { UUID } from 'short-uuid'
-import { Alert, AlertTitle, Portal } from '@mui/material'
+import { Alert, AlertTitle, Paper, Portal } from '@mui/material'
 
-import { useDeviceByIdQuery } from '@/generated/graphql'
+import { DeviceByIdQuery, useDeviceByIdQuery } from '@/generated/graphql'
 import { DeviceDetail } from '@/app/modules/domains/devices/detail'
 import LoadingScreen from '@/components/loading-screen'
+import HeaderBreadcrumbs from '@/components/header-breadcrumbs'
+import { useMenuAndRoutes } from '@/app/modules/layouts/admin/components/menu-and-routes'
+
+import { createContainer } from '@utils/create-container'
+
+import { DeviceReportTitle } from '@models/devices'
+
+import { DetailToolbar } from './components/detail-toolbar'
+
+const DeviceDetailContainer = createContainer(function useDeviceDetail(
+  value: DeviceByIdQuery['device_by_pk'] = {} as DeviceByIdQuery['device_by_pk']
+) {
+  return {
+    ...value,
+  }
+})
+
+export const useDeviceDetail = DeviceDetailContainer.useContainer
+
+export const DeviceDetailProvider = DeviceDetailContainer.Provider
 
 export const PageDetailDeviceReport = () => {
   const { id } = useParams()
+
+  const { activeRouteConfig } = useMenuAndRoutes()
 
   const { data, loading, error } = useDeviceByIdQuery({
     variables: {
       id: id as UUID,
     },
   })
+
+  const deviceDetail = useMemo(
+    () => data?.device_by_pk || ({} as DeviceByIdQuery['device_by_pk']),
+    [data?.device_by_pk]
+  )
+
+  const title = useMemo(
+    () => `${DeviceReportTitle} - ${deviceDetail?.name}`,
+    [deviceDetail?.name]
+  )
 
   if (loading) {
     return (
@@ -33,7 +65,18 @@ export const PageDetailDeviceReport = () => {
     )
   }
 
-  return <DeviceDetail dataSource={data?.device_by_pk} />
+  return (
+    <Paper>
+      <HeaderBreadcrumbs
+        heading={title}
+        links={activeRouteConfig.breadcrumbs}
+      />
+      <DeviceDetailProvider initialState={deviceDetail}>
+        <DetailToolbar />
+        <DeviceDetail />
+      </DeviceDetailProvider>
+    </Paper>
+  )
 }
 
 export default PageDetailDeviceReport

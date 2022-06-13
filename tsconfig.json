@@ -32,6 +32,12 @@
       "@@/*": [
         "app/*"
       ],
+      "@@modules/*": [
+        "app/modules/*"
+      ],
+      "@@routes/*": [
+        "app/routes/*"
+      ],
       "@contexts/*": [
         "contexts/*"
       ],
