@@ -12,10 +12,11 @@ import { RowTitle } from '@/app/components/form-table/components/row/row-title'
 import { DeviceSetInput } from '@/generated/graphql'
 import { CellSideButton } from '@/app/components/form-table/components/row/cell-side-button'
 
+import { judgeRadiationOutput } from '@models/devices/radiation-output'
+
 import { FieldRadiationOutputItemCondition } from './components/condition'
 import { FieldPipeVoltageResult } from './components/result'
 
-import { judgeRadiationOutput } from '@models/devices/radiation-output'
 
 export const FieldRadiationOutput = () => {
   const [{ value }] =
