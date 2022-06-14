@@ -1,6 +1,6 @@
 import { merge } from 'lodash-es'
 
-import { DeviceInsertInput } from '@/generated/graphql'
+import { DeviceSetInput, DeviceInsertInput, Device } from '@/generated/graphql'
 
 import { initPipeVoltage } from './pipe-voltage'
 import { initFieldRadiationOutput } from './radiation-output'
@@ -8,8 +8,8 @@ import { initFieldRadiationOutput } from './radiation-output'
 export const DeviceReportTitle = '检验检测报告'
 
 export const initDeviceInput: (
-  value?: Partial<DeviceInsertInput>
-) => DeviceInsertInput = input => {
+  value?: Partial<Device | DeviceInsertInput>
+) => DeviceSetInput = input => {
   return merge(
     {
       requester: '',
@@ -25,7 +25,7 @@ export const initDeviceInput: (
       item: '',
       pipeVoltage: initPipeVoltage(),
       radiationOutput: initFieldRadiationOutput(),
-    } as DeviceInsertInput,
+    } as DeviceSetInput,
     input
   )
 }

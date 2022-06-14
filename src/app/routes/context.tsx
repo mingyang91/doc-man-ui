@@ -14,13 +14,14 @@ import { Demo } from '@@/views/demo/index'
 import type { RouteView } from './index'
 
 export const ROUTES = {
-  demo: 'demo',
-  signIn: 'sign-in',
-  dashboard: 'dashboard',
-  deviceList: 'device',
-  deviceDetail: 'device/detail/:id',
-  deviceEdit: 'device/edit/:id',
-  deviceCreate: 'device/create',
+  default: '/',
+  demo: '/demo',
+  signIn: '/sign-in',
+  dashboard: '/dashboard',
+  deviceList: '/device',
+  deviceDetail: '/device/detail/:id',
+  deviceEdit: '/device/edit/:id',
+  deviceCreate: '/device/create',
 }
 
 export const routes: RouteView[] = [
@@ -40,7 +41,7 @@ export const routes: RouteView[] = [
   },
   {
     id: 'default',
-    path: '/',
+    path: ROUTES.default,
     isRequireAuth: true,
     layout: 'none',
     Component: () => <Navigate to={ROUTES.dashboard} replace />,
@@ -57,6 +58,7 @@ export const routes: RouteView[] = [
         isRequireAuth: true,
         title: '首页',
         icon: RiHomeSmile2Fill,
+        activePaths: [ROUTES.default],
         isMenu: true,
         Component: lazy(() => import('@@/views/dashboard')),
         layout: 'admin',
@@ -78,6 +80,11 @@ export const routes: RouteView[] = [
         title: '检验检测报告',
         icon: RiFile2Fill,
         isMenu: true,
+        activePaths: [
+          ROUTES.deviceDetail,
+          ROUTES.deviceEdit,
+          ROUTES.deviceCreate,
+        ],
         Component: lazy(() => import('@@/views/device-reports')),
         layout: 'admin',
         breadcrumbs: [
@@ -109,6 +116,20 @@ export const routes: RouteView[] = [
           { name: '文档管理' },
           { name: '检验检测报告', href: ROUTES.deviceList },
           { name: '新增' },
+        ],
+      },
+      {
+        id: 'device-edit',
+        path: ROUTES.deviceEdit,
+        isRequireAuth: true,
+        title: '检验检测报告 - 编辑',
+        icon: RiFile2Fill,
+        Component: lazy(() => import('@@/views/device-reports/edit')),
+        layout: 'admin',
+        breadcrumbs: [
+          { name: '文档管理' },
+          { name: '检验检测报告', href: ROUTES.deviceList },
+          { name: '编辑' },
         ],
       },
     ],

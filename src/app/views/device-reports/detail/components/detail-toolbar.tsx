@@ -88,7 +88,7 @@ export const DetailToolbar = () => {
   const value = useDeviceDetail()
 
   const handleEdit = useCallback(() => {
-    navigate('/' + generatePath(ROUTES.deviceEdit, { id: value.id }))
+    navigate(generatePath(ROUTES.deviceEdit, { id: value.id }))
   }, [navigate, value.id])
 
   return (

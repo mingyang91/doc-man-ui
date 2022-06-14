@@ -1,20 +1,19 @@
-import { useMemo } from 'react'
 import { Formik, FormikHelpers } from 'formik'
 import {
   Typography,
   Grid,
-  Button,
   Accordion,
   AccordionSummary,
   AccordionDetails,
 } from '@mui/material'
 import { RiMore2Fill } from 'react-icons/ri'
+import { LoadingButton } from '@mui/lab'
 
 import { DeviceInsertInput } from '@/generated/graphql'
-import { initDeviceInput } from '@/models/devices'
 
 import { FormHeader } from './components/form-header'
 import { FormDetail } from './components/form-detail'
+import { InitialDeviceProvider, useInitialDevice } from './providers/initial'
 
 export type FnSubmitDevice = (
   values: DeviceInsertInput,
@@ -26,72 +25,80 @@ export type ComponentInFormikProps = {
   submitForm?: FnSubmitDevice
 }
 
-export type DeviceEditProps = {
+export type DeviceEditInnerProps = {
   isLoading?: boolean
-  initialValues?: DeviceInsertInput
   onSubmit?: FnSubmitDevice
 }
 
-export const DeviceEdit = ({
-  initialValues,
+const DeviceEditInner = ({
+  isLoading,
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   onSubmit = () => new Promise(() => {}),
-}: DeviceEditProps) => {
-  const _initialValues = useMemo(
-    () => initDeviceInput(initialValues),
-    [initialValues]
-  )
+}: DeviceEditInnerProps) => {
+  const { data, loading } = useInitialDevice()
 
-  return (
-    <>
-      <Formik initialValues={_initialValues} onSubmit={onSubmit}>
-        {({ submitForm, isSubmitting }) => (
-          <>
-            <Accordion defaultExpanded>
-              <AccordionSummary
-                expandIcon={<RiMore2Fill />}
-                aria-controls="basic-details"
-              >
-                <Typography variant="h6">基本信息</Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                <FormHeader isSubmitting={isSubmitting} />
-              </AccordionDetails>
-            </Accordion>
-            <Accordion>
-              <AccordionSummary
-                expandIcon={<RiMore2Fill />}
-                aria-controls="detect-details"
-              >
-                <Typography variant="h6">检测结果</Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                <FormDetail isSubmitting={isSubmitting} />
-              </AccordionDetails>
-            </Accordion>
-            <Grid
-              container
-              spacing={3}
-              sx={{
-                marginTop: '1rem',
-              }}
+  return loading ? null : (
+    <Formik initialValues={data} onSubmit={onSubmit}>
+      {({ submitForm, isSubmitting }) => (
+        <>
+          <Accordion defaultExpanded>
+            <AccordionSummary
+              expandIcon={<RiMore2Fill />}
+              aria-controls="basic-details"
             >
-              <Grid item xs={4}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  size="large"
-                  fullWidth
-                  disabled={isSubmitting}
-                  onClick={submitForm}
-                >
-                  保存
-                </Button>
-              </Grid>
+              <Typography variant="h6">基本信息</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <FormHeader isSubmitting={isSubmitting} />
+            </AccordionDetails>
+          </Accordion>
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<RiMore2Fill />}
+              aria-controls="detect-details"
+            >
+              <Typography variant="h6">检测结果</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <FormDetail isSubmitting={isSubmitting} />
+            </AccordionDetails>
+          </Accordion>
+          <Grid
+            container
+            spacing={3}
+            sx={{
+              marginTop: '1rem',
+            }}
+          >
+            <Grid item xs={4}>
+              <LoadingButton
+                variant="contained"
+                color="primary"
+                size="large"
+                fullWidth
+                loading={isSubmitting || isLoading}
+                onClick={submitForm}
+              >
+                保存
+              </LoadingButton>
             </Grid>
-          </>
-        )}
-      </Formik>
-    </>
+          </Grid>
+        </>
+      )}
+    </Formik>
+  )
+}
+
+export type DeviceEditProps = {
+  isLoading?: boolean
+  id?: DeviceInsertInput['id']
+  onSubmit?: FnSubmitDevice
+}
+
+export const DeviceEdit = ({ id, isLoading, onSubmit }: DeviceEditProps) => {
+  return (
+    <InitialDeviceProvider id={id}>
+      <DeviceEditInner isLoading={isLoading} onSubmit={onSubmit} />
+    </InitialDeviceProvider>
   )
 }

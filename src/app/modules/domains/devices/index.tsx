@@ -50,7 +50,7 @@ export const DevicesList = ({
         flexGrow: 1,
         fixed: 'left',
         render: ({ name, id }) => {
-          const path = generatePath('/' + ROUTES.deviceDetail, {
+          const path = generatePath(ROUTES.deviceDetail, {
             id,
           })
 

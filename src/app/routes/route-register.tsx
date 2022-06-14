@@ -7,16 +7,16 @@ import { Layout } from '@@/modules/layouts'
 
 import { RouteView, assertGroupTitle } from '.'
 
-const routeWalk = (routes: RouteView[], parentPath = '/'): RouteObject[] => {
+const routeWalk = (routes: RouteView[]): RouteObject[] => {
   return routes.reduce<RouteObject[]>((acc, route) => {
-    const fullPath = `${parentPath}${route.path || ''}`
+    const fullPath = route.path
 
     if (
       assertGroupTitle(route) &&
       route.submodule &&
       route.submodule.length > 0
     ) {
-      return acc.concat(routeWalk(route.submodule, fullPath))
+      return acc.concat(routeWalk(route.submodule))
     }
 
     if (!assertGroupTitle(route)) {
@@ -43,7 +43,7 @@ const routeWalk = (routes: RouteView[], parentPath = '/'): RouteObject[] => {
         }
 
         if (route.submodule && route.submodule.length > 0) {
-          routeObject.children = routeWalk(route.submodule, fullPath)
+          routeObject.children = routeWalk(route.submodule)
         }
 
         acc.push(routeObject)

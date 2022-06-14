@@ -1,9 +1,12 @@
 import { useMemo } from 'react'
 import { useParams } from 'react-router-dom'
-import { UUID } from 'short-uuid'
 import { Alert, AlertTitle, Paper, Portal } from '@mui/material'
 
-import { DeviceByIdQuery, useDeviceByIdQuery } from '@/generated/graphql'
+import {
+  Device,
+  DeviceByIdQuery,
+  useDeviceByIdQuery,
+} from '@/generated/graphql'
 import { DeviceDetail } from '@/app/modules/domains/devices/detail'
 import LoadingScreen from '@/components/loading-screen'
 import HeaderBreadcrumbs from '@/components/header-breadcrumbs'
@@ -34,7 +37,7 @@ export const PageDetailDeviceReport = () => {
 
   const { data, loading, error } = useDeviceByIdQuery({
     variables: {
-      id: id as UUID,
+      id: id as Device['id'],
     },
   })
 
@@ -48,7 +51,7 @@ export const PageDetailDeviceReport = () => {
     [deviceDetail?.name]
   )
 
-  if (loading) {
+  if (loading || !deviceDetail) {
     return (
       <Portal>
         <LoadingScreen />

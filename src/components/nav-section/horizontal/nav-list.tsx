@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useMemo } from 'react'
 import { useLocation } from 'react-router-dom'
 
 import { assertHasSubViews } from '@@/routes'
@@ -86,7 +86,13 @@ function NavListSub({ list }: NavListSubProps) {
 
   const [open, setOpen] = useState(false)
 
-  const isActive = list.path ? getActive(list.path, pathname) : false
+  const isActive = useMemo(() => {
+    let isActive = list.path && getActive(list.path, pathname)
+    if (!isActive && 'activePaths' in list && list.activePaths?.length) {
+      isActive = list.activePaths.some(path => getActive(path, pathname))
+    }
+    return !!isActive
+  }, [list, pathname])
 
   const handleOpen = () => {
     setOpen(true)

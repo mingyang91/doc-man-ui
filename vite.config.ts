@@ -34,6 +34,7 @@ export default defineConfig(({ mode, command }) => {
 
   const plugins: (Plugin | PluginOption[])[] = [
     react({
+      fastRefresh: true,
       babel: {
         plugins: [emotionBabel, jotaiDebugLabel, jotaiReactRefresh],
       },

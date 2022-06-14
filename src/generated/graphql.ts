@@ -391,6 +391,7 @@ export type DeviceInsertInput = {
   usefulHarnessVerticalityOffset?: InputMaybe<Scalars['jsonb']>
   vendor?: InputMaybe<Scalars['String']>
   reportNo?: InputMaybe<Scalars['String']>
+  reportId?: Maybe<Scalars['uuid']>
 }
 
 /** aggregate max on columns */

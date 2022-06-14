@@ -26,6 +26,7 @@ export type MenuRouteConfig = {
   isGroupTitle?: boolean
   isDisabled?: boolean
   roles?: string[]
+  activePaths?: string[]
   info?: ReactElement
   caption?: string
   path: string
@@ -38,10 +39,7 @@ export type MenuRouteConfig = {
 
 export type MenuConfig = MenuRouteConfig | MenuGroupTitle
 
-export const createMenus = (
-  routes: RouteView[],
-  parentPath = '/'
-): MenuConfig[] => {
+export const createMenus = (routes: RouteView[]): MenuConfig[] => {
   return routes
     .filter(route => !!route.isMenu)
     .map(route => {
@@ -57,7 +55,7 @@ export const createMenus = (
           submodule,
         }
       }
-      const fullPath = `${parentPath}${route.path}`
+      const fullPath = route.path
       const routePath = fullPath ? generatePath(fullPath, route.params) : ''
 
       return {
@@ -71,6 +69,7 @@ export const createMenus = (
         isDisabled: route.isDisabled,
         info: route.info,
         caption: route.caption,
+        activePaths: route.activePaths,
         submodule,
         breadcrumbs: route.breadcrumbs,
       }

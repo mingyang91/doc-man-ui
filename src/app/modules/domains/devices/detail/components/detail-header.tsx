@@ -8,8 +8,6 @@ import { useDeviceDetail } from '@@/views/device-reports/detail'
 export const DetailHeader = () => {
   const value = useDeviceDetail()
 
-  console.log(value)
-
   return (
     <Card variant="elevation" sx={{ pt: 5, px: 5 }}>
       <Grid container spacing={3}>

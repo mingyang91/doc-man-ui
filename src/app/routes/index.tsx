@@ -36,6 +36,7 @@ export type RouteMenuConfig = {
   params?: Params
   isRequireAuth?: boolean
   isMenu?: boolean
+  activePaths?: string[]
   isDisabled?: boolean
   roles?: string[]
   info?: ReactElement

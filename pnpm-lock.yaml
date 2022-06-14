@@ -89,6 +89,7 @@ specifiers:
   react-icons: ^4.3.1
   react-lazy-load-image-component: ^1.5.4
   react-number-format: ^4.9.3
+  react-refresh: ^0.13.0
   react-router-dom: ^6.3.0
   react-test-renderer: ^18.1.0
   react-transition-group: ^4.4.2
@@ -162,6 +163,7 @@ dependencies:
   react-icons: 4.3.1_react@18.0.0
   react-lazy-load-image-component: 1.5.4_zpnidt7m3osuk7shl3s4oenomq
   react-number-format: 4.9.3_zpnidt7m3osuk7shl3s4oenomq
+  react-refresh: 0.13.0
   react-router-dom: 6.3.0_zpnidt7m3osuk7shl3s4oenomq
   react-transition-group: 4.4.2_zpnidt7m3osuk7shl3s4oenomq
   rsuite-table: 5.5.0_xw2k5ke7c4fkuho3lbp7joprty
@@ -8830,6 +8832,11 @@ packages:
     resolution: {integrity: sha512-suLIhrU2IHKL5JEKR/fAwJv7bbeq4kJ+pJopf77jHwuR+HmJS/HbrPIGsTBUVfw7tXPOmYv7UJ7PCaN49e8x4A==}
     engines: {node: '>=0.10.0'}
     dev: true
+
+  /react-refresh/0.13.0:
+    resolution: {integrity: sha512-XP8A9BT0CpRBD+NYLLeIhld/RqG9+gktUjW1FkE+Vm7OCinbG1SshcK5tb9ls4kzvjZr9mOQc7HYgBngEyPAXg==}
+    engines: {node: '>=0.10.0'}
+    dev: false
 
   /react-router-dom/6.3.0_zpnidt7m3osuk7shl3s4oenomq:
     resolution: {integrity: sha512-uaJj7LKytRxZNQV8+RbzJWnJ8K2nPsOOEuX7aQstlMZKQT0164C+X2w6bnkqU3sjtLvpd5ojrezAyfZ1+0sStw==}
