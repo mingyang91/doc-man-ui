@@ -1,3 +1,5 @@
+import { HeaderDeviceFieldsFragment } from '@/generated/graphql'
+
 import { Conclusions } from '../common'
 
 /**
@@ -22,3 +24,42 @@ export interface DetectionFieldInDoc {
 }
 
 export const unitCurrent = 'mA'
+
+/**
+ * 创建文档所需的API格式
+ */
+
+export interface DeviceReportItem {
+  name: string
+  conditionFactor?: string
+  acceptanceRequire?: string
+  stateRequire?: string
+  conclusion?: string
+  result?: string
+}
+
+type BaseDeviceReportTemplate = {
+  device: {
+    accordingTo?: string
+    address?: string
+    deviceNo?: string
+    equipment?: string
+    item?: string
+    modelNo?: string
+    name?: string
+    place?: string
+    requester?: string
+    sampleNo?: string
+    checkDate?: string
+    vendor?: string
+  }
+  info?: {
+    reportNo?: string
+    checkDate?: string
+  }
+}
+
+export interface DeviceReportTemplate extends BaseDeviceReportTemplate {
+  items1?: DeviceReportItem[]
+  items2?: DeviceReportItem[]
+}

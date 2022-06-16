@@ -2,10 +2,10 @@ import { percentage } from 'number-magic'
 import Big from 'big.js'
 
 import { calcStandardDeviation, calcAverage } from '@/utils/math'
+import { Device } from '@/generated/graphql'
 
 import { isSamplesAvailable, Conclusions } from '../common'
-import { DetectionField } from './type'
-
+import { DetectionField, DeviceReportItem } from './type'
 
 /**
  * 计算辐射输量重复性 = StandardDeviation(辐射输量) / 辐射输量平均值
@@ -84,3 +84,30 @@ export const initFieldRadiationOutput: () => RadiationOutput = () => ({
     },
   ],
 })
+
+export const convertRadiationOutputTemplate = (
+  device: Device
+): DeviceReportItem[] => {
+  const input = device.radiationOutput
+
+  if (!input) {
+    return []
+  }
+
+  const baseAttrs = {
+    name: input.name,
+    acceptanceRequire: input.acceptanceRequire,
+    stateRequire: input.stateRequire,
+  }
+  return input.items.map(item => {
+    const { condition, value } = item
+
+    return {
+      ...baseAttrs,
+      conditionFactor: condition
+        ? `${condition.current}mA, ${condition.voltage}kV, ${condition.timeProduce}mAs`
+        : '',
+      value: value ? `${value.scalar}(${value.percentage})` : '',
+    }
+  })
+}

@@ -17,6 +17,9 @@ import { isNil } from 'lodash-es'
 import { useBoolean } from 'ahooks'
 
 import { ROUTES } from '@/app/routes'
+import { convertDeviceToReport } from '@/models/devices'
+import { useRenderDevice } from '@/models/devices/render'
+import { Device } from '@/generated/graphql'
 
 import { useDeviceDetail } from '../index'
 
@@ -91,6 +94,12 @@ export const DetailToolbar = () => {
     navigate(generatePath(ROUTES.deviceEdit, { id: value.id }))
   }, [navigate, value.id])
 
+  const [createRenderDevice] = useRenderDevice()
+
+  const handleRenderDevice = useCallback(async () => {
+    createRenderDevice(convertDeviceToReport(value as Device))
+  }, [createRenderDevice, value])
+
   return (
     <>
       <Stack
@@ -107,7 +116,10 @@ export const DetailToolbar = () => {
             </IconButton>
           </Tooltip>
           <Tooltip title="生成Word格式报告">
-            <IconButton aria-label="生成Word格式报告" onClick={handleEdit}>
+            <IconButton
+              aria-label="生成Word格式报告"
+              onClick={handleRenderDevice}
+            >
               <RiFileWordFill />
             </IconButton>
           </Tooltip>

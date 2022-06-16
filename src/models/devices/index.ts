@@ -1,9 +1,16 @@
-import { merge } from 'lodash-es'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { isFunction, merge } from 'lodash-es'
 
 import { DeviceSetInput, DeviceInsertInput, Device } from '@/generated/graphql'
 
-import { initPipeVoltage } from './pipe-voltage'
-import { initFieldRadiationOutput } from './radiation-output'
+import { initPipeVoltage, convertPipeVoltageTemplate } from './pipe-voltage'
+import {
+  convertRadiationOutputTemplate,
+  initFieldRadiationOutput,
+} from './radiation-output'
+import { DeviceReportTemplate } from './type'
+
+export * from './type'
 
 export const DeviceReportTitle = '检验检测报告'
 
@@ -28,4 +35,29 @@ export const initDeviceInput: (
     } as DeviceSetInput,
     input
   )
+}
+
+export const convertDeviceToReport = (input: Device): DeviceReportTemplate => {
+  return {
+    device: {
+      accordingTo: input.accordingTo ?? '',
+      address: input.address ?? '',
+      deviceNo: input.deviceNo ?? '',
+      equipment: input.equipment ?? '',
+      item: input.item ?? '',
+      modelNo: input.modelNo ?? '',
+      name: input.name ?? '',
+      place: input.place ?? '',
+      requester: input.requester ?? '',
+      sampleNo: input.sampleNo ?? '',
+      checkDate: input.checkDate ?? '',
+      vendor: input.vendor ?? '',
+    },
+    info: {
+      reportNo: input.reportNo ?? '',
+      checkDate: input.checkDate ?? '',
+    },
+    items1: convertPipeVoltageTemplate(input),
+    items2: convertRadiationOutputTemplate(input),
+  }
 }

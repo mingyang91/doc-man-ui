@@ -1805,40 +1805,7 @@ export type DeviceByIdQueryVariables = Exact<{
 }>
 
 export type DeviceByIdQuery = {
-  device_by_pk?: {
-    id: Scalars['ID']
-    reportId: Scalars['ID']
-    reportNo: string | null
-    accordingTo?: string | null
-    address?: string | null
-    createTime: Maybe<Scalars['timestamp']>
-    deviceNo?: string | null
-    equipment?: string | null
-    item?: string | null
-    modelNo?: string | null
-    name?: string | null
-    place?: string | null
-    requester?: string | null
-    sampleNo?: string | null
-    updateTime: Maybe<Scalars['timestamp']>
-    checkDate?: Maybe<Scalars['String']>
-    vendor?: string | null
-    AECC2CConsistency?: unknown | null
-    AECRepeatability?: unknown | null
-    AECResponse?: unknown | null
-    exposureTimeOffset?: unknown | null
-    UsefulHarnessHalfValue?: unknown | null
-    falseShadows?: unknown | null
-    highContrastResolution?: unknown | null
-    lightFieldOffset?: unknown | null
-    lowContrastResolution?: unknown | null
-    pipeVoltage?: PipeVoltage | null
-    radiationOutput?: RadiationOutput | null
-    rangingError?: unknown | null
-    responseUniformity?: unknown | null
-    stp?: unknown | null
-    usefulHarnessVerticalityOffset?: unknown | null
-  } | null
+  device_by_pk?: Device | null
 }
 
 export type InsertDeviceMutationVariables = Exact<{
@@ -1846,40 +1813,7 @@ export type InsertDeviceMutationVariables = Exact<{
 }>
 
 export type InsertDeviceMutation = {
-  insert_device_one?: {
-    id: unknown
-    reportId: Scalars['uuid']
-    reportNo: string | null
-    accordingTo?: string | null
-    address?: string | null
-    createTime: Maybe<Scalars['timestamp']>
-    deviceNo?: string | null
-    equipment?: string | null
-    item?: string | null
-    modelNo?: string | null
-    name?: string | null
-    place?: string | null
-    requester?: string | null
-    sampleNo?: string | null
-    updateTime: Maybe<Scalars['timestamp']>
-    checkDate?: Maybe<Scalars['String']>
-    vendor?: string | null
-    AECC2CConsistency?: unknown | null
-    AECRepeatability?: unknown | null
-    AECResponse?: unknown | null
-    exposureTimeOffset?: unknown | null
-    UsefulHarnessHalfValue?: unknown | null
-    falseShadows?: unknown | null
-    highContrastResolution?: unknown | null
-    lightFieldOffset?: unknown | null
-    lowContrastResolution?: unknown | null
-    pipeVoltage?: PipeVoltage | null
-    radiationOutput?: RadiationOutput | null
-    rangingError?: unknown | null
-    responseUniformity?: unknown | null
-    stp?: unknown | null
-    usefulHarnessVerticalityOffset?: unknown | null
-  } | null
+  insert_device_one?: Device | null
 }
 
 export type UpdateDeviceMutationVariables = Exact<{
@@ -1888,40 +1822,7 @@ export type UpdateDeviceMutationVariables = Exact<{
 }>
 
 export type UpdateDeviceMutation = {
-  update_device_by_pk?: {
-    id: Scalars['ID']
-    reportId: Scalars['ID']
-    reportNo: string | null
-    accordingTo?: string | null
-    address?: string | null
-    createTime: Maybe<Scalars['timestamp']>
-    deviceNo?: string | null
-    equipment?: string | null
-    item?: string | null
-    modelNo?: string | null
-    name?: string | null
-    place?: string | null
-    requester?: string | null
-    sampleNo?: string | null
-    updateTime: Maybe<Scalars['timestamp']>
-    checkDate?: Maybe<Scalars['String']>
-    vendor?: string | null
-    AECC2CConsistency?: unknown | null
-    AECRepeatability?: unknown | null
-    AECResponse?: unknown | null
-    exposureTimeOffset?: unknown | null
-    UsefulHarnessHalfValue?: unknown | null
-    falseShadows?: unknown | null
-    highContrastResolution?: unknown | null
-    lightFieldOffset?: unknown | null
-    lowContrastResolution?: unknown | null
-    pipeVoltage?: PipeVoltage | null
-    radiationOutput?: RadiationOutput | null
-    rangingError?: unknown | null
-    responseUniformity?: unknown | null
-    stp?: unknown | null
-    usefulHarnessVerticalityOffset?: unknown | null
-  } | null
+  update_device_by_pk?: Device | null
 }
 
 export const HeaderDeviceFieldsFragmentDoc = gql`

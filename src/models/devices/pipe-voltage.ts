@@ -1,13 +1,12 @@
 import Big from 'big.js'
 import { percentage } from 'number-magic'
 
-import { hasEmpty } from '@/utils/helper'
+import { Device } from '@/generated/graphql'
 
 import { calcAverage } from '@utils/math'
 
 import { isSamplesAvailable, Conclusions } from '../common'
-import { DetectionField } from './type'
-
+import { DetectionField, DeviceReportItem } from './type'
 
 /**
  * 管电压指示偏离率
@@ -97,3 +96,29 @@ export const initPipeVoltage: () => PipeVoltage = () => ({
     },
   ],
 })
+
+export const convertPipeVoltageTemplate = (
+  device: Device
+): DeviceReportItem[] => {
+  const input = device.pipeVoltage
+
+  if (!input) {
+    return []
+  }
+
+  const baseAttrs = {
+    name: input.name,
+    acceptanceRequire: input.acceptanceRequire,
+    stateRequire: input.stateRequire,
+  }
+  return input.items.map(item => {
+    const { condition, value } = item
+    const { loadingFactor, presetValue } = condition
+
+    return {
+      ...baseAttrs,
+      conditionFactor: `${presetValue}, ${loadingFactor}`,
+      value: value ? `${value.offset}(${value.offsetRateStringify})` : '',
+    }
+  })
+}

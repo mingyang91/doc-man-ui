@@ -112,6 +112,10 @@ export default defineConfig(({ mode, command }) => {
           target: env.DEV_API_PROXY,
           changeOrigin: true,
         },
+        '/api/render': {
+          target: env.DEV_API_PROXY,
+          changeOrigin: true,
+        },
         '/api/login': {
           target: env.DEV_API_PROXY,
           changeOrigin: true,
