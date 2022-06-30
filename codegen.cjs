@@ -11,7 +11,7 @@ const env = loadEnv(
 module.exports = {
   schema: [
     {
-      'http://ec2-18-162-62-84.ap-east-1.compute.amazonaws.com:9000/v1/graphql':
+      'http://ec2-18-162-155-77.ap-east-1.compute.amazonaws.com:9000/v1/graphql':
         {
           headers: {
             'x-hasura-admin-secret': env.VITE_HASURA_ADMIN_SECRET,
@@ -19,37 +19,56 @@ module.exports = {
         },
     },
   ],
-  documents: ['src/graphql/**/*.graphql'],
+  documents: ['./src/graphql/**/*.graphql'],
   overwrite: true,
   generates: {
-    './src/generated/graphql-origin.ts': {
+    './src/generated/types.ts': {
       plugins: [
         'typescript',
         'named-operations-object',
         'typescript-operations',
-        'typescript-react-apollo',
+        {
+          add: {
+            content: '/* eslint-disable @typescript-eslint/no-explicit-any */',
+          },
+        },
       ],
       config: {
         namingConvention: {
           typeNames: 'change-case-all#pascalCase',
           enumValues: 'change-case-all#upperCase',
         },
-        // maybeValue:
-        //   'T extends PromiseLike<infer U> ? Promise<U | null> : T | null',
-        skipTypename: true,
-        withHooks: true,
-        withHOC: false,
-        withComponent: false,
-        defaultScalarType: 'unknown',
+        defaultScalarType: 'any',
         useImplementingTypes: true,
-        nonOptionalTypename: true,
         declarationKind: {
           type: 'interface',
         },
       },
     },
-    './src/generated/graphql.schema.json': {
-      plugins: ['introspection'],
+    './src/generated/public.ts': {
+      preset: 'import-types',
+      presetConfig: {
+        typesPath: './types',
+      },
+      plugins: [
+        'typescript-react-apollo',
+        {
+          add: {
+            content: '/* eslint-disable @typescript-eslint/no-explicit-any */',
+          },
+        },
+      ],
+      config: {
+        namingConvention: {
+          typeNames: 'change-case-all#pascalCase',
+          enumValues: 'change-case-all#upperCase',
+        },
+        avoidOptionals: true,
+        skipTypename: true,
+        withHooks: true,
+        withHOC: false,
+        withComponent: false,
+      },
     },
   },
   afterAllFileWrite: ['pnpm exec eslint --fix  ./src/generated/graphql.ts'],

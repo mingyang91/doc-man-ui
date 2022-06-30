@@ -1,7 +1,6 @@
 import { FormTable } from '@/app/components/form-table'
 
 import { ComponentInFormikProps } from '../../index'
-
 import { FieldPipeVoltage } from './components/pipe-voltage'
 import { FieldRadiationOutput } from './components/radiation-output'
 

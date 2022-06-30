@@ -8,7 +8,6 @@ import { useSettings } from '@contexts/settings'
 
 //
 import Iconify from '../../iconify'
-
 import BoxMask from './box-mask'
 
 // ----------------------------------------------------------------------

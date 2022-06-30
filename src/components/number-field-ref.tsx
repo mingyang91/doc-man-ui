@@ -1,6 +1,5 @@
 import NumberFormat from 'react-number-format'
 import { forwardRef } from 'react'
-
 import type { NumberFormatProps } from 'react-number-format'
 
 export interface NumberFieldRefProps extends NumberFormatProps {

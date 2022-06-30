@@ -8,8 +8,9 @@ import {
 } from '@mui/material/styles'
 
 // hooks
-import componentsOverride from '@common/theme/overrides'
 import { useSettings } from '@contexts/settings'
+
+import componentsOverride from '@common/theme/overrides'
 //
 
 // ----------------------------------------------------------------------
@@ -32,7 +33,7 @@ export default function ThemeColorPresets({ children }: Props) {
       },
       customShadows: {
         ...defaultTheme.customShadows,
-        primary: `0 8px 16px 0 ${alpha(setColor.main, 0.24)}`,
+        primary: `0 0 1px 0 ${alpha(setColor.main, 0.5)}`,
       },
     }),
     [setColor, defaultTheme]

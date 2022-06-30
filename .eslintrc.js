@@ -12,7 +12,7 @@ module.exports = {
       jsx: true,
     },
   },
-  plugins: ['@typescript-eslint', 'react', 'react-hooks', '@emotion', 'import'],
+  plugins: ['@typescript-eslint', 'react', 'react-hooks', '@emotion'],
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
@@ -74,18 +74,73 @@ module.exports = {
     'import/order': [
       'warn',
       {
-        groups: [
-          'builtin',
-          'external',
-          'type',
-          'internal',
-          'parent',
-          'sibling',
-          'index',
-          'object',
+        pathGroups: [
+          {
+            pattern: 'react|react-dom|react-router-dom|react-helmet-async',
+            group: 'external',
+          },
+          {
+            pattern: '@/**',
+            group: 'external',
+            position: 'after',
+          },
+          {
+            pattern: '@@/**',
+            group: 'external',
+            position: 'after',
+          },
+          {
+            pattern: '@@modules/**',
+            group: 'external',
+            position: 'after',
+          },
+          {
+            pattern: '@@routes/**',
+            group: 'external',
+            position: 'after',
+          },
+          {
+            pattern: '@hooks/**',
+            group: 'external',
+            position: 'after',
+          },
+          {
+            pattern: '@contexts/**',
+            group: 'external',
+            position: 'after',
+          },
+          {
+            pattern: '@utils/**',
+            group: 'external',
+            position: 'after',
+          },
+          {
+            pattern: '@components/**',
+            group: 'external',
+            position: 'after',
+          },
+          {
+            pattern: '@common/**',
+            group: 'external',
+            position: 'after',
+          },
+          {
+            pattern: '@models/**',
+            group: 'external',
+            position: 'after',
+          },
+          {
+            pattern: '@generated/graphql',
+            group: 'external',
+            position: 'after',
+          },
+          {
+            pattern: './**',
+            group: 'parent',
+          },
         ],
+        pathGroupsExcludedImportTypes: ['react', 'builtin'],
         'newlines-between': 'always',
-        pathGroupsExcludedImportTypes: ['react'],
       },
     ],
   },
@@ -135,11 +190,15 @@ module.exports = {
     'import/parsers': {
       '@typescript-eslint/parser': ['.ts', '.tsx'],
     },
-    'import/core-modules': ['styled-jsx/css'],
+    'import/core-modules': ['styled-jsx/css', '^react'],
     'import/resolver': {
       typescript: {
         project: './tsconfig.json',
       },
+    },
+    'import/ignore': ['\\.(com|css|less|sass|scss|json)$'],
+    'import/cache': {
+      lifetime: 0,
     },
   },
 }

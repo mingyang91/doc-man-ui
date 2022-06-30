@@ -3,9 +3,9 @@ export interface Column {
     | 'name'
     | 'checkCondition'
     | 'checkResult'
-    | 'requirementAcceptance'
-    | 'requirementState'
-    | 'judgement'
+    | 'acceptanceRequire'
+    | 'stateRequire'
+    | 'conclusion'
   label: string
   minWidth?: number
   align?: 'right' | 'left' | 'center'

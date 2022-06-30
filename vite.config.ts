@@ -34,6 +34,7 @@ export default defineConfig(({ mode, command }) => {
 
   const plugins: (Plugin | PluginOption[])[] = [
     react({
+      fastRefresh: true,
       babel: {
         plugins: [emotionBabel, jotaiDebugLabel, jotaiReactRefresh],
       },
@@ -108,6 +109,10 @@ export default defineConfig(({ mode, command }) => {
           changeOrigin: true,
         },
         '/v2/graphql': {
+          target: env.DEV_API_PROXY,
+          changeOrigin: true,
+        },
+        '/api/render': {
           target: env.DEV_API_PROXY,
           changeOrigin: true,
         },

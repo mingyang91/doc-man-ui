@@ -1,9 +1,10 @@
 import { Link as RouterLink } from 'react-router-dom'
 import { Container, Link, Typography } from '@mui/material'
 
+import useResponsive from '@hooks/use-responsive'
+
 import Page from '@components/page'
 import Logo from '@components/logo'
-import useResponsive from '@hooks/use-responsive'
 
 import {
   ContentStyle,

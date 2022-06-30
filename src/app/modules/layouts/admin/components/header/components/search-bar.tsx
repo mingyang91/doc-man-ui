@@ -10,6 +10,7 @@ import {
 import { RiSearchLine } from 'react-icons/ri'
 
 import cssStyles from '@/utils/css-styles'
+
 import Iconify from '@components/iconify'
 import { IconButtonAnimate } from '@components/animate'
 

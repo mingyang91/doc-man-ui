@@ -1,17 +1,21 @@
 fragment headerDeviceFields on device {
   id
+  reportId
+  reportNo
   accordingTo
   address
   createTime
   deviceNo
   equipment
-  item
-  modelNo
-  name
+  testItem
+  model
+  sampleName
+  deviceName
   place
   requester
   sampleNo
   updateTime
+  checkDate
   vendor
 }
 

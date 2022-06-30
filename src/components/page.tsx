@@ -8,14 +8,14 @@ import { Box, BoxProps } from '@mui/material'
 interface Props extends BoxProps {
   children: ReactNode
   meta?: ReactNode
-  title: string
+  title?: string
 }
 
 const Page = forwardRef<HTMLDivElement, Props>(
   ({ children, title = '', meta, ...other }, ref) => (
     <>
       <Helmet>
-        <title>{`${title} | Minimal-UI`}</title>
+        <title>Doc Man | {title || 'Yours'}</title>
         {meta}
       </Helmet>
 

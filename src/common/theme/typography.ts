@@ -2,7 +2,9 @@ import { pxToRem, responsiveFontSizes } from '@utils/get-font-value'
 
 // ----------------------------------------------------------------------
 
-const FONT_PRIMARY = 'Public Sans, sans-serif' // Google Font
+const FONT_PRIMARY =
+  'SF Pro SC,SF Pro Text, SF Pro Icons,PingFang SC,Helvetica Neue,"Helvetica","Arial", Hiragino Sans GB, WenQuanYi Micro Hei, sans-serif, sans-serif'
+
 // const FONT_SECONDARY = 'CircularStd, sans-serif'; // Local Font
 
 const typography = {

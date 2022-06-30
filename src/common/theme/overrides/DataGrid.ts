@@ -4,6 +4,15 @@ import { Theme } from '@mui/material/styles'
 
 export default function DataGrid(theme: Theme) {
   return {
+    MuiTablePagination: {
+      styleOverrides: {
+        root: {
+          '& .MuiTablePagination-select': {
+            padding: '5px 24px 5px 5px',
+          },
+        },
+      },
+    },
     MuiDataGrid: {
       styleOverrides: {
         root: {

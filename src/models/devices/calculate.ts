@@ -3,7 +3,8 @@ import { percentage } from 'number-magic'
 
 import { calcAverage, calcStandardDeviation } from '@/utils/math'
 
-import { Judgement } from '../common'
+import { Conclusions } from '../common'
+
 
 /* ======== 管电压指示偏离 ======== */
 
@@ -56,9 +57,9 @@ export const judgePipeVoltageOffset = (
   }
   return results?.length
     ? results.every(check)
-      ? Judgement.Good
-      : Judgement.Bad
-    : Judgement.Unknown
+      ? Conclusions.Good
+      : Conclusions.Bad
+    : Conclusions.Unknown
 }
 
 /* ======== 辐射输出量重复性 ======== */

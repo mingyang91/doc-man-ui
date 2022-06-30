@@ -25,6 +25,8 @@ const initialState: CollapseDrawerContextProps = {
 
 const CollapseDrawerContext = createContext(initialState)
 
+CollapseDrawerContext.displayName = 'CollapseDrawerContext'
+
 type CollapseDrawerProviderProps = {
   children: ReactNode
 }

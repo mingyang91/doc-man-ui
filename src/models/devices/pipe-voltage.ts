@@ -1,12 +1,12 @@
 import Big from 'big.js'
 import { percentage } from 'number-magic'
 
+import { Device } from '@/generated/types'
+
 import { calcAverage } from '@utils/math'
-import { hasEmpty } from '@/utils/helper'
 
-import { isSamplesAvailable, Judgement } from '../common'
-
-import { DetectionField } from './type'
+import { isSamplesAvailable, Conclusions } from '../common'
+import { DetectionField, DeviceReportItem } from './type'
 
 /**
  * 管电压指示偏离率
@@ -57,9 +57,9 @@ export const judgePipeVoltageOffset = (
   }
   return isSamplesAvailable(results)
     ? results.every(check)
-      ? Judgement.Good
-      : Judgement.Bad
-    : Judgement.Unknown
+      ? Conclusions.Good
+      : Conclusions.Bad
+    : Conclusions.Unknown
 }
 
 export interface PipeVoltageItemCondition {
@@ -84,8 +84,8 @@ export const unitPipeVoltage = 'kV'
  */
 export const initPipeVoltage: () => PipeVoltage = () => ({
   name: '管电压指示偏离',
-  requirementAcceptance: '±5.0%或±5.0 kV内,以较大者控制',
-  requirementState: '±5.0%或±5.0 kV内,以较大者控制',
+  acceptanceRequire: '±5.0%或±5.0 kV内,以较大者控制',
+  stateRequire: '±5.0%或±5.0 kV内,以较大者控制',
   items: [
     {
       condition: {
@@ -96,3 +96,33 @@ export const initPipeVoltage: () => PipeVoltage = () => ({
     },
   ],
 })
+
+export const convertPipeVoltageTemplate = (
+  device: Device
+): DeviceReportItem[] => {
+  const input = device.pipeVoltage as PipeVoltage
+
+  if (!input) {
+    return []
+  }
+
+  const baseAttrs = {
+    name: input.name,
+    acceptanceRequire: input.acceptanceRequire || '',
+    stateRequire: input.stateRequire || '',
+    conclusion: input.conclusion === Conclusions.Good ? '合格' : '不合格',
+  }
+  return input.items.map(item => {
+    const { condition, value } = item
+    const { loadingFactor, presetValue } = condition
+
+    return {
+      ...baseAttrs,
+      conditionFactor: `${presetValue}, ${loadingFactor}`,
+      result: value ? `${value.offset}(${value.offsetRateStringify})` : '',
+      defaultValue: value
+        ? `${value.offset}(${value.offsetRateStringify})`
+        : '',
+    }
+  })
+}

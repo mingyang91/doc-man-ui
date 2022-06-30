@@ -9,20 +9,22 @@ import {
   FormDetailRowSub,
 } from '@/app/components/form-table/components/row'
 import { RowTitle } from '@/app/components/form-table/components/row/row-title'
-import { DeviceSetInput } from '@/generated/graphql'
-import { judgeRadiationOutput } from '@models/devices/radiation-output'
 import { CellSideButton } from '@/app/components/form-table/components/row/cell-side-button'
+
+import {
+  RadiationOutput,
+  judgeRadiationOutput,
+} from '@models/devices/radiation-output'
 
 import { FieldRadiationOutputItemCondition } from './components/condition'
 import { FieldPipeVoltageResult } from './components/result'
 
 export const FieldRadiationOutput = () => {
-  const [{ value }] =
-    useField<DeviceSetInput['radiationOutput']>('radiationOutput')
+  const [{ value }] = useField<RadiationOutput>('radiationOutput')
 
   const items = useCreation(() => value?.items ?? [], [value?.items])
 
-  const judgement = useCreation(
+  const conclusion = useCreation(
     () => judgeRadiationOutput(value?.items.map(({ value }) => value)),
     [value?.items]
   )
@@ -70,9 +72,9 @@ export const FieldRadiationOutput = () => {
                   <FieldPipeVoltageResult index={i} />
                 </>
               }
-              requirementAcceptance={value?.requirementAcceptance}
-              requirementState={value?.requirementState}
-              judgement={judgement}
+              acceptanceRequire={value?.acceptanceRequire}
+              stateRequire={value?.stateRequire}
+              conclusion={conclusion}
             />
           ))}
           {!items.length && (
@@ -84,8 +86,8 @@ export const FieldRadiationOutput = () => {
                 <FieldRadiationOutputItemCondition index={items.length} />
               }
               resultElement={<FieldPipeVoltageResult index={items.length} />}
-              requirementAcceptance={value?.requirementAcceptance}
-              requirementState={value?.requirementState}
+              acceptanceRequire={value?.acceptanceRequire}
+              stateRequire={value?.stateRequire}
             />
           )}
           <FormDetailRowSub>

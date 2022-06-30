@@ -1,5 +1,6 @@
 // theme
 import { ThemeColorPresets } from '@components/settings/type'
+
 import palette from '@common/theme/palette'
 // @type
 

@@ -2,10 +2,10 @@ import { percentage } from 'number-magic'
 import Big from 'big.js'
 
 import { calcStandardDeviation, calcAverage } from '@/utils/math'
+import { Device } from '@/generated/types'
 
-import { isSamplesAvailable, Judgement } from '../common'
-
-import { DetectionField } from './type'
+import { isSamplesAvailable, Conclusions } from '../common'
+import { DetectionField, DeviceReportItem } from './type'
 
 /**
  * 计算辐射输量重复性 = StandardDeviation(辐射输量) / 辐射输量平均值
@@ -40,9 +40,9 @@ export const judgeRadiationOutput = (
   }
   return isSamplesAvailable(results)
     ? results.every(check)
-      ? Judgement.Good
-      : Judgement.Bad
-    : Judgement.Unknown
+      ? Conclusions.Good
+      : Conclusions.Bad
+    : Conclusions.Unknown
 }
 
 /**
@@ -71,8 +71,8 @@ export const unitTimeProduce = 'mAs' // 时间积单位
  */
 export const initFieldRadiationOutput: () => RadiationOutput = () => ({
   name: '辐射输出量重复性',
-  requirementAcceptance: '≤10.0%',
-  requirementState: '≤10.0%',
+  acceptanceRequire: '≤10.0%',
+  stateRequire: '≤10.0%',
   items: [
     {
       condition: {
@@ -84,3 +84,32 @@ export const initFieldRadiationOutput: () => RadiationOutput = () => ({
     },
   ],
 })
+
+export const convertRadiationOutputTemplate = (
+  device: Device
+): DeviceReportItem[] => {
+  const input = device.radiationOutput as RadiationOutput
+
+  if (!input) {
+    return []
+  }
+
+  const baseAttrs = {
+    name: input.name,
+    acceptanceRequire: input.acceptanceRequire || '',
+    stateRequire: input.stateRequire || '',
+    conclusion: input.conclusion === Conclusions.Good ? '合格' : '不合格',
+  }
+  return input.items.map(item => {
+    const { condition, value } = item
+
+    return {
+      ...baseAttrs,
+      conditionFactor: condition
+        ? `${condition.current}mA, ${condition.voltage}kV, ${condition.timeProduce}mAs`
+        : '',
+      result: value ? `${value.scalar}(${value.percentage})` : '',
+      defaultValue: value ? `${value.scalar}(${value.percentage})` : '',
+    }
+  })
+}

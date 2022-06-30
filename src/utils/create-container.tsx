@@ -2,11 +2,15 @@
 /**
  * enhanced unstated-next
  */
-import { createContext, useMemo, useContext } from 'react'
+import { createContext, useContext, useRef, useEffect, memo } from 'react'
+import type { ReactNode } from 'react'
 
-import type { PropsWithChildren, ReactNode } from 'react'
+export type ProviderProps<Props extends Record<string, any>> = {
+  initialState?: Props
+  children?: ReactNode
+}
 
-export type UseHook<Value, Props extends { [key: string]: any }> =
+export type UseHook<Value, Props extends Record<string, any>> =
   | ((props: Props) => Value)
   | (() => Value)
 
@@ -18,29 +22,40 @@ const EMPTY: unique symbol = Symbol()
 
 type EmptyType = typeof EMPTY
 
-export function createContainer<Value, Props extends { [key: string]: any }>(
-  useHook: UseHook<Value, Props>,
+export function createContainer<Value, Props extends Record<string, any>>(
+  createFn: UseHook<Value, Props>,
   defaultValue: Value | EmptyType = EMPTY
 ) {
   const Context = createContext<Value | EmptyType>(defaultValue)
-  const hookName = useHook.name || 'useHook'
+  const hookName = createFn.name || 'useHook'
   Context.displayName = `${hookName}Context`
 
-  function Provider({ initialState, children }: PropsWithChildren<Props>) {
-    const value = useHook(initialState)
-    return useMemo(
-      () => <Context.Provider value={value}>{children}</Context.Provider>,
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      [value]
+  function Provider({ initialState, children }: ProviderProps<Props>) {
+    const value = createFn(initialState || ({} as Props))
+    return (
+      <Context.Provider value={value || defaultValue}>
+        {children}
+      </Context.Provider>
     )
   }
 
-  function useContainer(): Value {
+  function useContainer() {
+    const isMounted = useRef(0)
     const value = useContext(Context)
-    if (value === EMPTY) {
-      throw new Error('Component must be wrapped with <Container.Provider>')
-    }
-    return value
+
+    useEffect(() => {
+      if (value === EMPTY) {
+        if (isMounted.current > 1) {
+          throw new Error(
+            `${hookName} You should pass a default value when create the provider.`
+          )
+        }
+        isMounted.current = isMounted.current + 1
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+    return value as Value
   }
 
   function Consumer({ children }: ContainerConsumerProps<Value>) {
@@ -59,7 +74,7 @@ export function createContainer<Value, Props extends { [key: string]: any }>(
   }
 
   return {
-    Provider,
+    Provider: memo(Provider),
     Consumer,
     useContainer,
   }

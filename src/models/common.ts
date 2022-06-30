@@ -5,7 +5,7 @@ export type PaginationConfig = {
   page: number
 }
 
-export enum Judgement {
+export enum Conclusions {
   'Good',
   'Bad',
   'Unknown',

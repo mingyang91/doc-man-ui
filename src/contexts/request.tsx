@@ -1,18 +1,24 @@
+import { PropsWithChildren } from 'react'
 import {
   ApolloClient,
   ApolloProvider,
   HttpLink,
   ApolloLink,
   InMemoryCache,
-  concat,
 } from '@apollo/client'
-import { PropsWithChildren } from 'react'
+// import { RestLink } from 'apollo-link-rest'
 
 import { baseUrl, getAuthToken } from '@/common/request'
 
 const hausraSecret = import.meta.env.VITE_HASURA_ADMIN_SECRET
 
 const httpLink = new HttpLink({ uri: `${baseUrl}/v1/graphql` })
+
+// const restUrlBase = `${baseUrl}/api`
+
+// const renderLink = new RestLink({
+//   uri: restUrlBase,
+// })
 
 const authMiddleware = new ApolloLink((operation, forward) => {
   // add the authorization to the headers
@@ -29,7 +35,7 @@ const authMiddleware = new ApolloLink((operation, forward) => {
 
 export const graphQLClient = new ApolloClient({
   cache: new InMemoryCache(),
-  link: concat(authMiddleware, httpLink),
+  link: ApolloLink.from([authMiddleware, httpLink]),
 })
 
 export const RequestProvider = ({

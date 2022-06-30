@@ -1,13 +1,13 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 // @mui
 import { List, Collapse } from '@mui/material'
 
 import { assertHasSubViews } from '@/app/routes'
+
 import { getActive } from '@@/routes/create-menus'
 
 import { NavListProps } from '../type'
-
 import { NavItemRoot, NavItemSub } from './nav-item'
 
 // ----------------------------------------------------------------------
@@ -22,7 +22,13 @@ export function NavListRoot({ list, isCollapse }: NavListRootProps) {
 
   const hasChildren = assertHasSubViews(list)
 
-  const isActive = list.path ? getActive(list.path, pathname) : false
+  const isActive = useMemo(() => {
+    let isActive = list.path && getActive(list.path, pathname)
+    if (!isActive && 'activePaths' in list && list.activePaths?.length) {
+      isActive = list.activePaths.some(path => getActive(path, pathname))
+    }
+    return !!isActive
+  }, [list, pathname])
 
   const [open, setOpen] = useState(isActive)
 

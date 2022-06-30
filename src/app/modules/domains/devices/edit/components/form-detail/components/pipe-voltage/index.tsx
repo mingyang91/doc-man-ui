@@ -11,19 +11,22 @@ import {
   FormDetailRowSub,
 } from '@/app/components/form-table/components/row'
 import { RowTitle } from '@/app/components/form-table/components/row/row-title'
-import { DeviceSetInput } from '@/generated/graphql'
-import { judgePipeVoltageOffset } from '@models/devices/pipe-voltage'
 import { CellSideButton } from '@/app/components/form-table/components/row/cell-side-button'
+
+import {
+  PipeVoltage,
+  judgePipeVoltageOffset,
+} from '@models/devices/pipe-voltage'
 
 import { FieldPipeVoltageCondition } from './components/condition'
 import { FieldPipeVoltageResult } from './components/result'
 
 export const FieldPipeVoltage = () => {
-  const [{ value }] = useField<DeviceSetInput['pipeVoltage']>('pipeVoltage')
+  const [{ value }] = useField<PipeVoltage>('pipeVoltage')
 
   const items = useCreation(() => value?.items ?? [], [value?.items])
 
-  const judgement = useCreation(
+  const conclusion = useCreation(
     () => judgePipeVoltageOffset(value?.items.map(item => item.value)),
     [value?.items]
   )
@@ -76,9 +79,9 @@ export const FieldPipeVoltage = () => {
                   <FieldPipeVoltageResult index={i} />
                 </>
               }
-              requirementAcceptance={value?.requirementAcceptance}
-              requirementState={value?.requirementState}
-              judgement={judgement}
+              acceptanceRequire={value?.acceptanceRequire}
+              stateRequire={value?.stateRequire}
+              conclusion={conclusion}
             />
           ))}
           {!items.length && (
@@ -90,8 +93,8 @@ export const FieldPipeVoltage = () => {
                 <FieldPipeVoltageCondition index={items.length} />
               }
               resultElement={<FieldPipeVoltageResult index={items.length} />}
-              requirementAcceptance={value?.requirementAcceptance}
-              requirementState={value?.requirementState}
+              acceptanceRequire={value?.acceptanceRequire}
+              stateRequire={value?.stateRequire}
             />
           )}
           <FormDetailRowSub>

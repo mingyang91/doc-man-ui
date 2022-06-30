@@ -4,14 +4,14 @@ import { Box, Link } from '@mui/material'
 import { FiChevronDown, FiChevronRight } from 'react-icons/fi'
 import { IconType } from 'react-icons'
 
-import Iconify from '@components/iconify'
 import { ICON } from '@/config'
 import { assertGroupTitle } from '@/app/routes'
 import { MenuConfig, MenuGroupTitle } from '@/app/routes/create-menus'
 
+import Iconify from '@components/iconify'
+
 import { NavItemProps } from '../type'
 import { isExternalLink } from '..'
-
 import { ListItemStyle as ListItem } from './style'
 
 // ----------------------------------------------------------------------

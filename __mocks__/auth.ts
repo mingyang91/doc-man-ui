@@ -2,7 +2,7 @@ import { MockMethod } from 'vite-plugin-mock'
 
 const mocks: MockMethod[] = [
   {
-    url: '/api/user/signin',
+    url: '/api/user/sign-in',
     method: 'post',
     response: ({ body }) => {
       const { username, password } = body as {

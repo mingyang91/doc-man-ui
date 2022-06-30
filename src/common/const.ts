@@ -7,3 +7,8 @@ export const LS_KEY_PREFIX =
     : import.meta.env.VITE_APP_NAME
 
 export const SESSION_KEY = 'session'
+
+export const isDevelopment = import.meta.env.MODE === 'development'
+
+export const isDom =
+  typeof window !== 'undefined' && typeof document !== 'undefined'
