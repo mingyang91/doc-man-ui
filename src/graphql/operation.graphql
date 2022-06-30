@@ -7,9 +7,10 @@ fragment headerDeviceFields on device {
   createTime
   deviceNo
   equipment
-  item
-  modelNo
-  name
+  testItem
+  model
+  sampleName
+  deviceName
   place
   requester
   sampleNo

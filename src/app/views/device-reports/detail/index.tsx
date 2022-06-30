@@ -2,11 +2,8 @@ import { useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 import { Alert, AlertTitle, Paper, Portal } from '@mui/material'
 
-import {
-  Device,
-  DeviceByIdQuery,
-  useDeviceByIdQuery,
-} from '@/generated/graphql'
+import { Device, DeviceByIdQuery } from '@/generated/types'
+import { useDeviceByIdQuery } from '@/generated/public'
 import { DeviceDetail } from '@/app/modules/domains/devices/detail'
 import LoadingScreen from '@/components/loading-screen'
 import HeaderBreadcrumbs from '@/components/header-breadcrumbs'
@@ -47,8 +44,8 @@ export const PageDetailDeviceReport = () => {
   )
 
   const title = useMemo(
-    () => `${DeviceReportTitle} - ${deviceDetail?.name}`,
-    [deviceDetail?.name]
+    () => `${DeviceReportTitle} - ${deviceDetail?.sampleName}`,
+    [deviceDetail?.sampleName]
   )
 
   if (loading || !deviceDetail) {

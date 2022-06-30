@@ -3,10 +3,8 @@ import { ReactNode, useCallback } from 'react'
 import { useSnackbar, VariantType } from 'notistack'
 import { Portal } from '@mui/material'
 
-import {
-  useInsertDeviceMutation,
-  InsertDeviceMutationVariables,
-} from '@/generated/graphql'
+import { useInsertDeviceMutation } from '@/generated/public'
+import { InsertDeviceMutationVariables } from '@/generated/types'
 import LoadingScreen from '@/components/loading-screen'
 import Page from '@/components/page'
 import HeaderBreadcrumbs from '@/components/header-breadcrumbs'

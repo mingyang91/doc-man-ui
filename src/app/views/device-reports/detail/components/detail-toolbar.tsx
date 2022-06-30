@@ -19,7 +19,7 @@ import { useBoolean } from 'ahooks'
 import { ROUTES } from '@/app/routes'
 import { convertDeviceToReport } from '@/models/devices'
 import { useRenderDevice } from '@/models/devices/render'
-import { Device } from '@/generated/graphql'
+import { Device } from '@/generated/types'
 
 import { useDeviceDetail } from '../index'
 

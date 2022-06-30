@@ -9,18 +9,18 @@ import {
   FormDetailRowSub,
 } from '@/app/components/form-table/components/row'
 import { RowTitle } from '@/app/components/form-table/components/row/row-title'
-import { DeviceSetInput } from '@/generated/graphql'
 import { CellSideButton } from '@/app/components/form-table/components/row/cell-side-button'
 
-import { judgeRadiationOutput } from '@models/devices/radiation-output'
+import {
+  RadiationOutput,
+  judgeRadiationOutput,
+} from '@models/devices/radiation-output'
 
 import { FieldRadiationOutputItemCondition } from './components/condition'
 import { FieldPipeVoltageResult } from './components/result'
 
-
 export const FieldRadiationOutput = () => {
-  const [{ value }] =
-    useField<DeviceSetInput['radiationOutput']>('radiationOutput')
+  const [{ value }] = useField<RadiationOutput>('radiationOutput')
 
   const items = useCreation(() => value?.items ?? [], [value?.items])
 

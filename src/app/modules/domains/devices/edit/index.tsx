@@ -9,7 +9,7 @@ import {
 import { RiMore2Fill } from 'react-icons/ri'
 import { LoadingButton } from '@mui/lab'
 
-import { DeviceInsertInput } from '@/generated/graphql'
+import { DeviceInsertInput } from '@/generated/types'
 
 import { FormHeader } from './components/form-header'
 import { FormDetail } from './components/form-detail'

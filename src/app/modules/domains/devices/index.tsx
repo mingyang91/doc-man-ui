@@ -12,7 +12,7 @@ import {
 import { DataTable, ColumnProps } from '@/components/data-table'
 import { fDate } from '@/utils/format-time'
 import { PaginationConfig } from '@/models/common'
-import { DevicesQuery, HeaderDeviceFieldsFragment } from '@/generated/graphql'
+import { DevicesQuery, HeaderDeviceFieldsFragment } from '@/generated/types'
 
 import { ROUTES } from '@@/routes'
 
@@ -43,20 +43,20 @@ export const DevicesList = ({
   const columns: ColumnProps<HeaderDeviceFieldsFragment>[] = useMemo(
     () => [
       {
-        field: 'name',
+        field: 'deviceName',
         header: '设备名',
         width: 150,
         minWidth: 150,
         flexGrow: 1,
         fixed: 'left',
-        render: ({ name, id }) => {
+        render: ({ deviceName, id }) => {
           const path = generatePath(ROUTES.deviceDetail, {
             id,
           })
 
           return (
             <Link component={RouteLink} to={path}>
-              {name}
+              {deviceName}
             </Link>
           )
         },

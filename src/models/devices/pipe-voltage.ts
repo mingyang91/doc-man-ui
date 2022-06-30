@@ -1,7 +1,7 @@
 import Big from 'big.js'
 import { percentage } from 'number-magic'
 
-import { Device } from '@/generated/graphql'
+import { Device } from '@/generated/types'
 
 import { calcAverage } from '@utils/math'
 
@@ -100,7 +100,7 @@ export const initPipeVoltage: () => PipeVoltage = () => ({
 export const convertPipeVoltageTemplate = (
   device: Device
 ): DeviceReportItem[] => {
-  const input = device.pipeVoltage
+  const input = device.pipeVoltage as PipeVoltage
 
   if (!input) {
     return []

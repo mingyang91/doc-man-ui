@@ -26,7 +26,7 @@ export const DetailHeader = () => {
         <Grid item xs={12} sm={6}>
           <FieldLine>
             <FieldHeader>设备名称</FieldHeader>
-            <FieldContent>{value?.name}</FieldContent>
+            <FieldContent>{value?.deviceName}</FieldContent>
           </FieldLine>
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -38,7 +38,7 @@ export const DetailHeader = () => {
         <Grid item xs={12} sm={6}>
           <FieldLine>
             <FieldHeader>设备型号</FieldHeader>
-            <FieldContent>{value?.modelNo}</FieldContent>
+            <FieldContent>{value?.model}</FieldContent>
           </FieldLine>
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -74,7 +74,7 @@ export const DetailHeader = () => {
         <Grid item xs={12} sm={6}>
           <FieldLine>
             <FieldHeader>检测项目</FieldHeader>
-            <FieldContent>{value?.item}</FieldContent>
+            <FieldContent>{value?.testItem}</FieldContent>
           </FieldLine>
         </Grid>
         <Grid item xs={12} sm={6}>

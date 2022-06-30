@@ -1,12 +1,8 @@
 import { useMemo, createContext, ReactNode, useContext } from 'react'
 import { ApolloError } from '@apollo/client'
 
-import {
-  Device,
-  DeviceSetInput,
-  InputMaybe,
-  useDeviceByIdQuery,
-} from '@/generated/graphql'
+import { useDeviceByIdQuery } from '@/generated/public'
+import { Device, DeviceSetInput, InputMaybe } from '@/generated/types'
 import { initDeviceInput } from '@/models/devices'
 
 interface DeviceDetailContextValue {

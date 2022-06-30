@@ -2,7 +2,7 @@ import { percentage } from 'number-magic'
 import Big from 'big.js'
 
 import { calcStandardDeviation, calcAverage } from '@/utils/math'
-import { Device } from '@/generated/graphql'
+import { Device } from '@/generated/types'
 
 import { isSamplesAvailable, Conclusions } from '../common'
 import { DetectionField, DeviceReportItem } from './type'
@@ -88,7 +88,7 @@ export const initFieldRadiationOutput: () => RadiationOutput = () => ({
 export const convertRadiationOutputTemplate = (
   device: Device
 ): DeviceReportItem[] => {
-  const input = device.radiationOutput
+  const input = device.radiationOutput as RadiationOutput
 
   if (!input) {
     return []

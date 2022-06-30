@@ -1,5 +1,3 @@
-import { HeaderDeviceFieldsFragment } from '@/generated/graphql'
-
 import { Conclusions } from '../common'
 
 /**
@@ -44,13 +42,13 @@ type BaseDeviceReportTemplate = {
     address?: string
     deviceNo?: string
     equipment?: string
-    item?: string
-    modelNo?: string
-    name?: string
+    testItem?: string
+    model?: string
+    deviceName?: string
+    sampleName?: string
     place?: string
     requester?: string
     sampleNo?: string
-    checkDate?: string
     vendor?: string
   }
   info?: {

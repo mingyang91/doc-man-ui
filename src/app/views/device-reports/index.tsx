@@ -4,7 +4,7 @@ import { useCreation } from 'ahooks'
 import { Card, Button, Stack } from '@mui/material'
 import { RiFileAddLine } from 'react-icons/ri'
 
-import { useDevicesQuery } from '@/generated/graphql'
+import { useDevicesQuery } from '@/generated/public'
 import Page from '@/components/page'
 import HeaderBreadcrumbs from '@/components/header-breadcrumbs'
 

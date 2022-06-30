@@ -11,17 +11,18 @@ import {
   FormDetailRowSub,
 } from '@/app/components/form-table/components/row'
 import { RowTitle } from '@/app/components/form-table/components/row/row-title'
-import { DeviceSetInput } from '@/generated/graphql'
 import { CellSideButton } from '@/app/components/form-table/components/row/cell-side-button'
 
-import { judgePipeVoltageOffset } from '@models/devices/pipe-voltage'
+import {
+  PipeVoltage,
+  judgePipeVoltageOffset,
+} from '@models/devices/pipe-voltage'
 
 import { FieldPipeVoltageCondition } from './components/condition'
 import { FieldPipeVoltageResult } from './components/result'
 
-
 export const FieldPipeVoltage = () => {
-  const [{ value }] = useField<DeviceSetInput['pipeVoltage']>('pipeVoltage')
+  const [{ value }] = useField<PipeVoltage>('pipeVoltage')
 
   const items = useCreation(() => value?.items ?? [], [value?.items])
 

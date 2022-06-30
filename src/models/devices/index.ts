@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { isFunction, merge } from 'lodash-es'
+import { merge } from 'lodash-es'
 
-import { DeviceSetInput, DeviceInsertInput, Device } from '@/generated/graphql'
+import { DeviceSetInput, DeviceInsertInput, Device } from '@/generated/types'
 
 import { initPipeVoltage, convertPipeVoltageTemplate } from './pipe-voltage'
 import {
@@ -16,7 +16,7 @@ export const DeviceReportTitle = '检验检测报告'
 
 export const initDeviceInput: (
   value?: Partial<Device | DeviceInsertInput>
-) => DeviceSetInput = input => {
+) => DeviceInsertInput = input => {
   return merge(
     {
       requester: '',
@@ -44,13 +44,13 @@ export const convertDeviceToReport = (input: Device): DeviceReportTemplate => {
       address: input.address ?? '',
       deviceNo: input.deviceNo ?? '',
       equipment: input.equipment ?? '',
-      item: input.item ?? '',
-      modelNo: input.modelNo ?? '',
-      name: input.name ?? '',
+      testItem: input.testItem ?? '',
+      model: input.model ?? '',
+      sampleName: input.sampleName ?? '',
+      deviceName: input.deviceName ?? '',
       place: input.place ?? '',
       requester: input.requester ?? '',
       sampleNo: input.sampleNo ?? '',
-      checkDate: input.checkDate ?? '',
       vendor: input.vendor ?? '',
     },
     info: {
