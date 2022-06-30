@@ -55,7 +55,7 @@ export const convertDeviceToReport = (input: Device): DeviceReportTemplate => {
     },
     info: {
       reportNo: input.reportNo ?? '',
-      checkDate: input.checkDate ?? '',
+      date: input.checkDate ?? '',
     },
     items1: convertPipeVoltageTemplate(input),
     items2: convertRadiationOutputTemplate(input),

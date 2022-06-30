@@ -108,8 +108,9 @@ export const convertPipeVoltageTemplate = (
 
   const baseAttrs = {
     name: input.name,
-    acceptanceRequire: input.acceptanceRequire,
-    stateRequire: input.stateRequire,
+    acceptanceRequire: input.acceptanceRequire || '',
+    stateRequire: input.stateRequire || '',
+    conclusion: input.conclusion === Conclusions.Good ? '合格' : '不合格',
   }
   return input.items.map(item => {
     const { condition, value } = item
@@ -118,7 +119,10 @@ export const convertPipeVoltageTemplate = (
     return {
       ...baseAttrs,
       conditionFactor: `${presetValue}, ${loadingFactor}`,
-      value: value ? `${value.offset}(${value.offsetRateStringify})` : '',
+      result: value ? `${value.offset}(${value.offsetRateStringify})` : '',
+      defaultValue: value
+        ? `${value.offset}(${value.offsetRateStringify})`
+        : '',
     }
   })
 }

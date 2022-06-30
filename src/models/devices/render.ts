@@ -7,7 +7,6 @@ export const useRenderDevice = (): [
   Dispatch<any>,
   {
     loading: boolean
-    data: any
   }
 ] => {
   const [param, setParam] = useState({} as any)
@@ -23,10 +22,16 @@ export const useRenderDevice = (): [
         url: '/api/render?template=1',
         method: 'POST',
         data: param,
+        responseType: 'blob',
       })
 
-      setResult(data)
       setFalse()
+      const blob = new Blob([data], {
+        type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      })
+
+      const url = window.URL.createObjectURL(blob)
+      window.open(url, '_blank')
     }
     render()
   }, [param])
@@ -35,7 +40,6 @@ export const useRenderDevice = (): [
     setParam,
     {
       loading,
-      data: result,
     },
   ]
 }

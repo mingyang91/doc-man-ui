@@ -34,6 +34,7 @@ export interface DeviceReportItem {
   stateRequire?: string
   conclusion?: string
   result?: string
+  defaultValue?: string
 }
 
 type BaseDeviceReportTemplate = {
@@ -53,7 +54,7 @@ type BaseDeviceReportTemplate = {
   }
   info?: {
     reportNo?: string
-    checkDate?: string
+    date?: string
   }
 }
 

@@ -96,8 +96,9 @@ export const convertRadiationOutputTemplate = (
 
   const baseAttrs = {
     name: input.name,
-    acceptanceRequire: input.acceptanceRequire,
-    stateRequire: input.stateRequire,
+    acceptanceRequire: input.acceptanceRequire || '',
+    stateRequire: input.stateRequire || '',
+    conclusion: input.conclusion === Conclusions.Good ? '合格' : '不合格',
   }
   return input.items.map(item => {
     const { condition, value } = item
@@ -107,7 +108,8 @@ export const convertRadiationOutputTemplate = (
       conditionFactor: condition
         ? `${condition.current}mA, ${condition.voltage}kV, ${condition.timeProduce}mAs`
         : '',
-      value: value ? `${value.scalar}(${value.percentage})` : '',
+      result: value ? `${value.scalar}(${value.percentage})` : '',
+      defaultValue: value ? `${value.scalar}(${value.percentage})` : '',
     }
   })
 }
