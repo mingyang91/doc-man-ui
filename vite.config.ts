@@ -34,6 +34,7 @@ export default defineConfig(({ mode, command }) => {
 
   const plugins: (Plugin | PluginOption[])[] = [
     react({
+      jsxRuntime: 'automatic',
       fastRefresh: true,
       babel: {
         plugins: [emotionBabel, jotaiDebugLabel, jotaiReactRefresh],
@@ -54,7 +55,7 @@ export default defineConfig(({ mode, command }) => {
     }),
     viteCommonjs(),
     chunkSplitPlugin({
-      strategy: 'default',
+      strategy: 'unbundle',
     }),
   ]
 
@@ -78,6 +79,15 @@ export default defineConfig(({ mode, command }) => {
         {
           find: /store2\/src\/(.*)/,
           replacement: resolve(__dirname, 'node_modules/store2/src/$1.js'),
+        },
+        {
+          find: 'react/jsx-runtime',
+          replacement: resolve(
+            __dirname,
+            isDevelopment
+              ? 'node_modules/react/cjs/react-jsx-runtime.development.js'
+              : 'node_modules/react/cjs/react-jsx-runtime.production.min.js'
+          ),
         },
       ],
     },
