@@ -21,18 +21,18 @@ export const initDeviceInput: (
     {
       requester: '',
       address: '',
-      modelNo: '',
+      model: '',
       deviceNo: '',
       vendor: '',
       place: '',
       accordingTo: '',
       equipment: '',
-      name: '',
-      sampleNo: '',
-      item: '',
+      deviceName: '',
+      sampleName: '',
+      testItem: '',
       pipeVoltage: initPipeVoltage(),
       radiationOutput: initFieldRadiationOutput(),
-    } as DeviceSetInput,
+    },
     input
   )
 }

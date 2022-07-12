@@ -29,7 +29,7 @@ export const FormHeader = (_: ComponentInFormikProps) => {
       <Grid item xs={12} sm={6}>
         <Field
           component={TextField}
-          name="name"
+          name="deviceName"
           label="设备名称"
           type="text"
           fullWidth
@@ -38,7 +38,7 @@ export const FormHeader = (_: ComponentInFormikProps) => {
       <Grid item xs={12} sm={6}>
         <Field
           component={TextField}
-          name="sampleNo"
+          name="sampleName"
           label="样品标识"
           type="text"
           fullWidth
@@ -47,7 +47,7 @@ export const FormHeader = (_: ComponentInFormikProps) => {
       <Grid item xs={12} sm={6}>
         <Field
           component={TextField}
-          name="modelNo"
+          name="model"
           label="设备型号"
           type="text"
           fullWidth
@@ -102,7 +102,7 @@ export const FormHeader = (_: ComponentInFormikProps) => {
       <Grid item xs={12} sm={6}>
         <Field
           component={TextField}
-          name="item"
+          name="testItem"
           label="检测项目"
           type="text"
           fullWidth

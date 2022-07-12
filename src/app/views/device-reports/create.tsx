@@ -38,13 +38,18 @@ const PageCreateDeviceReport = () => {
 
   const onSubmit = useCallback(
     async (input: InsertDeviceMutationVariables['input']) => {
-      await insertDeviceMutation({
+      const { data, errors } = await insertDeviceMutation({
         variables: {
           input,
         },
       })
-      handleMessage('success', '创建成功。')
-      navigate(`device/${input.id}`)
+      if (!errors) {
+        handleMessage('success', '创建成功。')
+        data?.insert_device_one?.id &&
+          navigate(`/device/detail/${data.insert_device_one.id}`)
+      } else {
+        handleMessage('error', errors[0].message || '创建失败，请检查。')
+      }
     },
     [handleMessage, insertDeviceMutation, navigate]
   )

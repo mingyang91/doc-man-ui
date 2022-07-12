@@ -47,7 +47,7 @@ export const FieldPipeVoltage = () => {
 
       push({
         condition: {
-          loadingFactor: lastItem?.condition?.loadingFactor,
+          loadingFactor: lastItem?.condition?.loadingFactor || '',
           presetValue: `${Big(lastPresetValue).plus(20).toString()}`,
         },
         value: '',
