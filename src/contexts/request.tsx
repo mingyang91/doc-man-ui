@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { PropsWithChildren } from 'react'
 import {
   ApolloClient,
@@ -22,13 +23,20 @@ const httpLink = new HttpLink({ uri: `${baseUrl}/v1/graphql` })
 
 const authMiddleware = new ApolloLink((operation, forward) => {
   // add the authorization to the headers
-  operation.setContext(({ headers = {} }) => ({
-    headers: {
-      ...headers,
-      'x-hasura-admin-secret': hausraSecret,
-      authorization: getAuthToken(),
-    },
-  }))
+  operation.setContext(({ headers = {} }) => {
+    const ret = {
+      headers: {
+        ...headers,
+        authorization: getAuthToken(),
+      },
+    } as Record<string, any>
+
+    if (hausraSecret) {
+      ret.headers['x-hasura-admin-secret'] = hausraSecret
+    }
+
+    return ret;
+  })
 
   return forward(operation)
 })
