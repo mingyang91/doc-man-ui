@@ -63,3 +63,9 @@ mutation updateDevice($id: uuid!, $input: device_set_input) {
     ...appendDeviceFields
   }
 }
+
+mutation deleteDevice($id: uuid!) {
+  delete_device_by_pk(id: $id) {
+    deviceName
+  }
+}
