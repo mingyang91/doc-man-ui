@@ -39,7 +39,7 @@ const RepeatabilityFormPrimitive = ({
     [condition]
   )
 
-  const [samples, setSamples] = useImmer(Array(length).fill(''))
+  const [samples, setSamples] = useImmer(() => Array(length).fill(''))
 
   const [result, setResult] = useState<RadiationOutputReturns | null>(null)
 

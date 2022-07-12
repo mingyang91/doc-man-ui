@@ -43,7 +43,7 @@ export const FieldRadiationOutput = () => {
           voltage: '',
           current: '',
         },
-        value: undefined,
+        value: '',
       })
     },
     []

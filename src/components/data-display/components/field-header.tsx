@@ -37,8 +37,6 @@ export const FieldHeader = forwardRef<HTMLElement, FieldHeaderProps>(
       [align, direction, headerWidth, sx]
     )
 
-    console.log('FieldHeader', children)
-
     return (
       <Typography
         paragraph
