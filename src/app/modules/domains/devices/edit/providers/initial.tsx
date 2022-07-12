@@ -27,14 +27,15 @@ const DeviceWithId = ({ id, children }: InitialDeviceProviderProps) => {
     },
   })
 
-  const value = useMemo(
-    () => ({
-      data: data?.device_by_pk || ({} as DeviceSetInput),
+  const value = useMemo(() => {
+    const result = data?.device_by_pk || ({} as DeviceSetInput)
+
+    return {
+      data: result,
       error,
       loading,
-    }),
-    [data?.device_by_pk, error, loading]
-  )
+    }
+  }, [data?.device_by_pk, error, loading])
 
   return (
     <DeviceDetailContext.Provider value={value}>

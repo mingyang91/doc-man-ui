@@ -3338,7 +3338,8 @@ export const namedOperations = {
   },
   Mutation: {
     insertDevice: 'insertDevice',
-    updateDevice: 'updateDevice'
+    updateDevice: 'updateDevice',
+    deleteDevice: 'deleteDevice'
   },
   Fragment: {
     headerDeviceFields: 'headerDeviceFields',
@@ -3378,3 +3379,10 @@ export type UpdateDeviceMutationVariables = Exact<{
 
 
 export type UpdateDeviceMutation = { __typename?: 'mutation_root', update_device_by_pk?: { __typename?: 'device', id: any, reportId?: any | null, reportNo?: string | null, accordingTo?: string | null, address?: string | null, createTime: any, deviceNo?: string | null, equipment?: string | null, testItem?: string | null, model?: string | null, sampleName?: string | null, deviceName?: string | null, place?: string | null, requester?: string | null, sampleNo?: string | null, updateTime: any, checkDate?: any | null, vendor?: string | null, AECC2CConsistency?: any | null, AECRepeatability?: any | null, AECResponse?: any | null, exposureTimeOffset?: any | null, UsefulHarnessHalfValue?: any | null, falseShadows?: any | null, highContrastResolution?: any | null, lightFieldOffset?: any | null, lowContrastResolution?: any | null, pipeVoltage?: any | null, radiationOutput?: any | null, rangingError?: any | null, responseUniformity?: any | null, stp?: any | null, usefulHarnessVerticalityOffset?: any | null } | null };
+
+export type DeleteDeviceMutationVariables = Exact<{
+  id: Scalars['uuid'];
+}>;
+
+
+export type DeleteDeviceMutation = { __typename?: 'mutation_root', delete_device_by_pk?: { __typename?: 'device', deviceName?: string | null } | null };

@@ -126,7 +126,7 @@ export const DevicesList = ({
         width: 380,
         minWidth: 380,
         fixed: 'right',
-        render: ({ rowData }) => {
+        render: ({ id }) => {
           return (
             <Stack spacing={2} direction="row">
               <Button
@@ -134,7 +134,7 @@ export const DevicesList = ({
                 variant="outlined"
                 color="error"
                 startIcon={<RiDeleteBinLine />}
-                onClick={() => onRemove?.(rowData.id)}
+                onClick={() => onRemove?.(id)}
               >
                 删除
               </Button>
@@ -142,7 +142,7 @@ export const DevicesList = ({
                 size="small"
                 variant="outlined"
                 startIcon={<RiEditLine />}
-                onClick={() => onEdit?.(rowData.id)}
+                onClick={() => onEdit?.(id)}
               >
                 编辑
               </Button>
@@ -150,7 +150,7 @@ export const DevicesList = ({
                 size="small"
                 variant="outlined"
                 startIcon={<RiUploadLine />}
-                onClick={() => onUpload?.(rowData.id)}
+                onClick={() => onUpload?.(id)}
               >
                 上传附件
               </Button>

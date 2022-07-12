@@ -1,10 +1,16 @@
-import { useSearchParams, NavLink } from 'react-router-dom'
-import { useCallback, MouseEvent, ChangeEventHandler } from 'react'
+import { useSearchParams, NavLink, useNavigate } from 'react-router-dom'
+import { useCallback, MouseEvent, ChangeEventHandler, ReactNode } from 'react'
 import { useCreation } from 'ahooks'
+import { useSnackbar, VariantType } from 'notistack'
 import { Card, Button, Stack } from '@mui/material'
 import { RiFileAddLine } from 'react-icons/ri'
 
-import { useDevicesQuery } from '@/generated/public'
+import {
+  useDevicesQuery,
+  useDeleteDeviceMutation,
+  DevicesDocument,
+} from '@/generated/public'
+import { DevicesQuery } from '@/generated/types'
 import Page from '@/components/page'
 import HeaderBreadcrumbs from '@/components/header-breadcrumbs'
 
@@ -16,7 +22,20 @@ import { DeviceReportTitle } from '@models/devices'
 const TITLE = `${DeviceReportTitle} - 列表`
 
 const PageDeviceReports = () => {
+  const navigate = useNavigate()
+
   const [searchParams, setSearchParams] = useSearchParams()
+
+  const { enqueueSnackbar } = useSnackbar()
+
+  const handleMessage = useCallback(
+    (variant: VariantType, content: ReactNode | string) => {
+      enqueueSnackbar(content, {
+        variant,
+      })
+    },
+    [enqueueSnackbar]
+  )
 
   const { activeRouteConfig } = useMenuAndRoutes()
 
@@ -39,8 +58,9 @@ const PageDeviceReports = () => {
       offset,
       limit: pageSize,
     },
-    fetchPolicy: 'network-only',
   })
+
+  const [deleteDeviceMutation] = useDeleteDeviceMutation()
 
   const onPageChange = useCallback(
     (_: MouseEvent<HTMLButtonElement> | null, page: number) => {
@@ -62,6 +82,39 @@ const PageDeviceReports = () => {
       })
     },
     [setSearchParams]
+  )
+
+  const onEdit = useCallback<(uuid: string) => void>(
+    uuid => {
+      navigate(`/device/edit/${uuid}`)
+    },
+    [navigate]
+  )
+
+  const onRemove = useCallback<(uuid: string) => void>(
+    async uuid => {
+      const { errors } = await deleteDeviceMutation({
+        variables: {
+          id: uuid,
+        },
+        refetchQueries: [{ query: DevicesDocument }],
+        update(cache) {
+          cache.modify({
+            fields: {
+              device: (devices: DevicesQuery['device'] = []) => {
+                return devices.filter(device => device.id !== uuid)
+              },
+            },
+          })
+        },
+      })
+      if (errors) {
+        handleMessage('error', errors[0].message)
+      } else {
+        handleMessage('success', `${uuid} 已删除`)
+      }
+    },
+    [deleteDeviceMutation, handleMessage]
   )
 
   return (
@@ -89,6 +142,8 @@ const PageDeviceReports = () => {
           pageSize={pageSize}
           onPageChange={onPageChange}
           onPageSizeChange={onPageSizeChange}
+          onEdit={onEdit}
+          onRemove={onRemove}
         />
       </Card>
     </Page>

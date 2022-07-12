@@ -2,8 +2,9 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { ReactNode, useCallback } from 'react'
 import { useSnackbar, VariantType } from 'notistack'
 import { Portal } from '@mui/material'
+import { omit } from 'lodash-es'
 
-import { useInsertDeviceMutation } from '@/generated/public'
+import { useUpdateDeviceMutation } from '@/generated/public'
 import {
   InsertDeviceMutationVariables,
   DeviceInsertInput,
@@ -28,7 +29,7 @@ const PageEditDeviceReport = () => {
 
   const { enqueueSnackbar } = useSnackbar()
 
-  const [insertDeviceMutation, { loading, error }] = useInsertDeviceMutation({
+  const [updateDeviceMutation, { loading, error }] = useUpdateDeviceMutation({
     refetchQueries: ['devices'],
   })
 
@@ -43,15 +44,22 @@ const PageEditDeviceReport = () => {
 
   const onSubmit = useCallback(
     async (input: InsertDeviceMutationVariables['input']) => {
-      await insertDeviceMutation({
+      const _input = omit(input, ['id', '__typename'])
+
+      const { errors } = await updateDeviceMutation({
         variables: {
-          input,
+          id,
+          input: _input,
         },
       })
-      handleMessage('success', '创建成功。')
-      navigate(`device/${input.id}`)
+      if (errors) {
+        handleMessage('error', errors[0].message)
+      } else {
+        handleMessage('success', '更新成功。')
+        navigate(`/device/detail/${input.id}`)
+      }
     },
-    [handleMessage, insertDeviceMutation, navigate]
+    [updateDeviceMutation, id, handleMessage, navigate]
   )
 
   if (loading) {
@@ -63,7 +71,7 @@ const PageEditDeviceReport = () => {
   }
 
   if (error) {
-    handleMessage('error', error.message || '创建失败，请检查。')
+    handleMessage('error', error.message || '更新失败，请检查。')
   }
 
   return (
