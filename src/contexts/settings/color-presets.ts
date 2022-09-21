@@ -1,7 +1,7 @@
 // theme
-import { ThemeColorPresets } from '@components/settings/type'
+import { ThemeColorPresets } from 'd/components/settings/type'
+import palette from 'd/theme/palette'
 
-import palette from '@common/theme/palette'
 // @type
 
 // ----------------------------------------------------------------------

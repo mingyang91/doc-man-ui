@@ -1,27 +1,24 @@
-import { useLocation, Navigate, useNavigate } from 'react-router-dom'
 import { PropsWithChildren } from 'react'
+import { Navigate, useLocation } from 'react-router-dom'
 
-import { ROUTES } from '@/app/routes/context'
+import { useAuth } from '@/providers/auth'
+import { ROUTES } from '@/routes/context'
 
-import { useAuth } from '@contexts/auth'
-
-import { useMount } from '@utils/react-utils'
+import LoadingScreen from 'd/components/loading-screen'
 
 export const AuthProtectModule = ({
   children,
 }: PropsWithChildren<Record<never, never>>) => {
-  const navigate = useNavigate()
   const location = useLocation()
-  const { status, initSession } = useAuth()
+  const { isLogin, checkState } = useAuth()
 
-  useMount(() => {
-    initSession(() => {
-      navigate(ROUTES.signIn, { replace: true })
-    })
-  })
-
-  if (status === 'unauthenticated') {
-    return <Navigate to="/sign-in" state={{ from: location }} replace />
+  if (isLogin) {
+    return <>{children}</>
   }
-  return <>{children}</>
+
+  if (checkState.isLoading) {
+    return <LoadingScreen />
+  }
+
+  return <Navigate to={ROUTES.signIn} state={{ from: location }} replace />
 }

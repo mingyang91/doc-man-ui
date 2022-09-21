@@ -2,7 +2,8 @@
   "recommendations": [
     "esbenp.prettier-vscode",
     "ijs.emotionsnippets",
-    "rvest.vs-code-prettier-eslint",
-    "dbaeumer.vscode-eslint"
+    "dbaeumer.vscode-eslint",
+    "kumar-harsh.graphql-for-vscode",
+    "rohit-gohri.format-code-action"
   ]
 }

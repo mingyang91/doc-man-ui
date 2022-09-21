@@ -1,9 +1,9 @@
 // @mui
-import { useTheme } from '@mui/material/styles'
+import { Breakpoint, useTheme } from '@mui/material/styles'
 import { Variant } from '@mui/material/styles/createTypography'
 
 // hooks
-import useResponsive from '@hooks/use-responsive'
+import useResponsive from 'h/use-responsive'
 
 // ----------------------------------------------------------------------
 
@@ -72,11 +72,10 @@ function useWidth() {
   const theme = useTheme()
   const keys = [...theme.breakpoints.keys].reverse()
   return (
-    // @ts-ignore not sure what is this
     keys.reduce((output, key) => {
       // eslint-disable-next-line react-hooks/rules-of-hooks
       const matches = useResponsive('up', key)
       return !output && matches ? key : output
-    }, null) || 'xs'
+    }, null as Breakpoint | null) || 'xs'
   )
 }

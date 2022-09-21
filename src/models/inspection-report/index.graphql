@@ -1,0 +1,112 @@
+#import '../public.graphql'
+
+fragment InspectionItem on inspection_report_item {
+  id
+  name
+  displayName
+  requirementState
+  requirementAcceptance
+  condition
+  conclusion
+  result
+  inputValues
+}
+
+fragment InspectionReportHeader on inspection_report {
+  id
+  equipmentCode
+  inspectionAddress
+  equipmentRequester
+  equipmentName
+  inspectionBasis
+  inspectionInstrument
+  inspectionItem
+  equipmentManufacturer
+  equipmentModel
+  equipmentSampleId
+  equipmentSite
+  createAt
+  updatedAt
+  serialNumber
+  creator {
+    ...UserInfo
+  }
+}
+
+fragment InspectionReport on inspection_report {
+  ...InspectionReportHeader
+  items {
+    ...InspectionItem
+  }
+}
+
+query InspectionReportList(
+  $limit: Int = 10
+  $offset: Int = 10
+  $order_by: [inspection_report_order_by!] = {}
+  $where: inspection_report_bool_exp = {}
+) {
+  list: inspection_report(
+    limit: $limit
+    offset: $offset
+    order_by: $order_by
+    where: $where
+  ) {
+    ...InspectionReport
+  }
+  total: inspection_report_aggregate {
+    aggregate {
+      count
+    }
+  }
+}
+
+query InspectionReportById($id: uuid = "") {
+  detail: inspection_report_by_pk(id: $id) {
+    ...InspectionReport
+  }
+}
+
+mutation CreateInspectionReport($data: inspection_report_insert_input = {}) {
+  insert_inspection_report_one(
+    object: $data
+    on_conflict: { constraint: equipment_inspection_reports_id_key }
+  ) {
+    ...InspectionReport
+  }
+}
+
+mutation UpdateInspectionReportById(
+  $id: uuid = ""
+  $data: inspection_report_set_input = {}
+  $items: [inspection_report_item_insert_input!] = {}
+) {
+  update_inspection_report_by_pk(pk_columns: { id: $id }, _set: $data) {
+    ...InspectionReport
+  }
+  insert_inspection_report_item(
+    objects: $items
+    on_conflict: {
+      constraint: inspection_items_id_key
+      update_columns: [
+        condition
+        conclusion
+        requirementAcceptance
+        requirementState
+        result
+        inputValues
+      ]
+    }
+  ) {
+    affected_rows
+    returning {
+      ...InspectionItem
+    }
+  }
+}
+
+mutation DeleteInspectionReportById($id: uuid = "") {
+  delete_inspection_report_by_pk(id: $id) {
+    ...InspectionReport
+  }
+}

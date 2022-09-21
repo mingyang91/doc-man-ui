@@ -3,168 +3,172 @@ module.exports = {
     browser: true,
     es6: true,
     node: true,
+    jest: true,
   },
-  parser: '@typescript-eslint/parser',
   parserOptions: {
-    ecmaVersion: 2021,
-    sourceType: 'module',
+    ecmaVersion: 'latest',
     ecmaFeatures: {
       jsx: true,
     },
   },
-  plugins: ['@typescript-eslint', 'react', 'react-hooks', '@emotion'],
+  plugins: ['@emotion', 'react', 'react-hooks'],
   extends: [
-    'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
+    'plugin:import/recommended',
+    'plugin:jsx-a11y/recommended',
+    'plugin:react/jsx-runtime',
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
-    'plugin:react/jsx-runtime',
-    'plugin:import/recommended',
-    'plugin:import/typescript',
     'prettier',
   ],
   rules: {
     'comma-dangle': 'off',
     'react/prop-types': 'off',
     'react/display-name': 'off',
+    'react/react-in-jsx-scope': 'off',
     'multiline-ternary': 'off',
     'no-unused-vars': 'off',
     'sort-imports': 'off',
-    '@typescript-eslint/no-unused-vars': [
-      'warn',
-      {
-        args: 'all',
-        argsIgnorePattern: '^_',
-        ignoreRestSiblings: true,
-      },
-    ],
-    '@typescript-eslint/ban-ts-comment': [
-      'warn',
-      {
-        'ts-expect-error': 'allow-with-description',
-        'ts-ignore': 'allow-with-description',
-        'ts-nocheck': 'allow-with-description',
-        'ts-check': 'allow-with-description',
-      },
-    ],
     'no-use-before-define': 'off',
-    '@typescript-eslint/no-use-before-define': [
-      'warn',
-      {
-        functions: false,
-        classes: false,
-        variables: false,
-        typedefs: false,
-      },
-    ],
     'space-before-function-paren': 'off',
-    '@typescript-eslint/space-before-function-paren': [
-      'warn',
-      {
-        anonymous: 'always',
-        named: 'never',
-        asyncArrow: 'always',
-      },
-    ],
     '@typescript-eslint/ban-types': 'warn',
     '@typescript-eslint/no-explicit-any': [
       'warn',
-      { fixToUnknown: false, ignoreRestArgs: true },
-    ],
-    'import/order': [
-      'warn',
       {
-        pathGroups: [
-          {
-            pattern: 'react|react-dom|react-router-dom|react-helmet-async',
-            group: 'external',
-          },
-          {
-            pattern: '@/**',
-            group: 'external',
-            position: 'after',
-          },
-          {
-            pattern: '@@/**',
-            group: 'external',
-            position: 'after',
-          },
-          {
-            pattern: '@@modules/**',
-            group: 'external',
-            position: 'after',
-          },
-          {
-            pattern: '@@routes/**',
-            group: 'external',
-            position: 'after',
-          },
-          {
-            pattern: '@hooks/**',
-            group: 'external',
-            position: 'after',
-          },
-          {
-            pattern: '@contexts/**',
-            group: 'external',
-            position: 'after',
-          },
-          {
-            pattern: '@utils/**',
-            group: 'external',
-            position: 'after',
-          },
-          {
-            pattern: '@components/**',
-            group: 'external',
-            position: 'after',
-          },
-          {
-            pattern: '@common/**',
-            group: 'external',
-            position: 'after',
-          },
-          {
-            pattern: '@models/**',
-            group: 'external',
-            position: 'after',
-          },
-          {
-            pattern: '@generated/graphql',
-            group: 'external',
-            position: 'after',
-          },
-          {
-            pattern: './**',
-            group: 'parent',
-          },
-        ],
-        pathGroupsExcludedImportTypes: ['react', 'builtin'],
-        'newlines-between': 'always',
+        fixToUnknown: false,
+        ignoreRestArgs: true,
       },
     ],
   },
   overrides: [
     {
-      files: ['src/**/*.tsx', 'src/**/*.ts'],
+      files: ['src/**/*.ts?(x)'],
+      parser: '@typescript-eslint/parser',
+      parserOptions: {
+        sourceType: 'module',
+        ecmaVersion: 'latest',
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+      plugins: ['@typescript-eslint'],
+      extends: [
+        'plugin:@typescript-eslint/recommended',
+        'prettier',
+        'plugin:import/typescript',
+      ],
       rules: {
+        'default-case': 'off',
+        'no-dupe-class-members': 'off',
+        'no-undef': 'off',
+        '@typescript-eslint/consistent-type-assertions': 'warn',
+        'no-array-constructor': 'off',
+        'no-redeclare': 'off',
+        'no-use-before-define': 'off',
+        '@typescript-eslint/no-use-before-define': [
+          'warn',
+          {
+            functions: false,
+            classes: false,
+            variables: false,
+            typedefs: false,
+          },
+        ],
+        'no-unused-expressions': 'off',
+        '@typescript-eslint/no-unused-expressions': [
+          'error',
+          {
+            allowShortCircuit: true,
+            allowTernary: true,
+            allowTaggedTemplates: true,
+          },
+        ],
+        '@typescript-eslint/no-unused-vars': [
+          'warn',
+          {
+            args: 'none',
+            ignoreRestSiblings: true,
+          },
+        ],
+        'no-useless-constructor': 'off',
+        '@typescript-eslint/no-useless-constructor': 'warn',
         'import/no-extraneous-dependencies': [
           'error',
-          { devDependencies: ['**/__tests__/**'] },
+          {
+            devDependencies: ['**/__tests__/**', '**/*.test.*'],
+          },
+        ],
+        'import/order': [
+          'warn',
+          {
+            pathGroups: [
+              {
+                pattern: 'react|react-dom|react-router-dom|react-helmet-async',
+                group: 'builtin',
+                position: 'before',
+              },
+              {
+                pattern:
+                  'notistack|formik|(formik-*)|(@tanstack/react-query)|nprogress|ahooks',
+                group: 'external',
+                position: 'before',
+              },
+              {
+                pattern: '(@mui/*)|(@tanstack/react-query)',
+                group: 'builtin',
+                position: 'after',
+              },
+              {
+                pattern: '@/**',
+                position: 'after',
+                group: 'external',
+              },
+              {
+                pattern: 'd/**',
+                group: 'external',
+                position: 'after',
+              },
+              {
+                pattern: 'com/**',
+                group: 'external',
+                position: 'after',
+              },
+              {
+                pattern: 'ctx/**',
+                group: 'external',
+                position: 'after',
+              },
+              {
+                pattern: 'u/**',
+                group: 'external',
+                position: 'after',
+              },
+              {
+                pattern: 'h/**',
+                group: 'external',
+                position: 'after',
+              },
+              {
+                pattern: 'm/**',
+                group: 'external',
+                position: 'after',
+              },
+              {
+                pattern: './**',
+                group: 'parent',
+              },
+              {
+                pattern: '../**',
+                group: 'parent',
+              },
+            ],
+            pathGroupsExcludedImportTypes: ['react'],
+            'newlines-between': 'always',
+          },
         ],
       },
     },
     {
-      files: ['*.cjs'],
-      env: {
-        commonjs: true,
-      },
-      rules: {
-        '@typescript-eslint/no-var-requires': 'off',
-      },
-    },
-    {
-      files: ['**/__tests__/**'],
+      files: ['*.test.ts(x)?', '__test__/**/*.ts?(x)'],
       env: {
         jest: true,
       },
@@ -172,8 +176,17 @@ module.exports = {
       extends: ['plugin:jest/recommended'],
     },
     {
+      files: ['*.cjs', '*.cts', 'craco.config.js', 'commitlint.config.js'],
+      env: {
+        commonjs: true,
+      },
+    },
+    {
       files: ['*.graphql'],
       parser: '@graphql-eslint/eslint-plugin',
+      parserOptions: {
+        operations: './src/graphql/**/*.graphql',
+      },
       plugins: ['@graphql-eslint'],
       rules: {
         '@graphql-eslint/known-type-names': 'error',
@@ -184,21 +197,21 @@ module.exports = {
     react: {
       version: 'detect',
     },
-    jest: {
-      version: 'detect',
-    },
     'import/parsers': {
       '@typescript-eslint/parser': ['.ts', '.tsx'],
     },
     'import/core-modules': ['styled-jsx/css', '^react'],
     'import/resolver': {
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      },
       typescript: {
         project: './tsconfig.json',
       },
     },
     'import/ignore': ['\\.(com|css|less|sass|scss|json)$'],
     'import/cache': {
-      lifetime: 0,
+      lifetime: 1000,
     },
   },
 }

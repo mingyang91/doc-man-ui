@@ -1,16 +1,17 @@
+/* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /**
  * enhanced unstated-next
  */
-import { createContext, useContext, useRef, useEffect, memo } from 'react'
 import type { ReactNode } from 'react'
+import { createContext, memo, useContext, useEffect, useRef } from 'react'
 
-export type ProviderProps<Props extends Record<string, any>> = {
+export type ProviderProps<Props extends {}> = {
   initialState?: Props
   children?: ReactNode
 }
 
-export type UseHook<Value, Props extends Record<string, any>> =
+export type UseHook<Value, Props extends {}> =
   | ((props: Props) => Value)
   | (() => Value)
 
@@ -22,7 +23,7 @@ const EMPTY: unique symbol = Symbol()
 
 type EmptyType = typeof EMPTY
 
-export function createContainer<Value, Props extends Record<string, any>>(
+export function createContainer<Value, Props extends {}>(
   createFn: UseHook<Value, Props>,
   defaultValue: Value | EmptyType = EMPTY
 ) {

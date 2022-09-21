@@ -1,0 +1,364 @@
+/* stylelint-disable custom-property-pattern */
+@keyframes loader-spin {
+  from {
+    transform: rotate(0);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.rs-table {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--md-palette-divider);
+}
+
+.rs-table-column-resizing {
+  cursor: ew-resize;
+  user-select: none;
+}
+
+.rs-table-row {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 36px;
+  overflow: hidden;
+}
+
+.rs-table-cell {
+  position: absolute;
+  display: block;
+  height: 36px;
+  overflow: hidden;
+  white-space: normal;
+  background: #fff;
+  border-bottom: 1px solid var(--md-palette-divider);
+}
+
+.rs-table-row-header .rs-table-cell {
+  font-weight: 700;
+  color: #2065D1;
+  background: var(--md-palette-grey-200);
+}
+
+.rs-table-row-header {
+  background: var(--md-palette-grey-200);
+}
+
+.rs-table-cell-group-shadow,
+.rs-table-cell-group-right-shadow {
+  box-shadow: -3px 0 5px rgb(9 9 9 / 8%);
+}
+
+.rs-table-row-header .rs-table-cell-group-shadow {
+  z-index: 5;
+  box-shadow: 0 2px 3px rgb(0 0 0 / 28%);
+}
+
+.rs-table-hover .rs-table-body-row-wrapper .rs-table-row:hover .rs-table-cell {
+  background: #def;
+}
+
+.rs-table-header-row-wrapper {
+  position: relative;
+  z-index: 2;
+}
+
+.rs-table-affix-header {
+  z-index: 3;
+  visibility: hidden;
+}
+
+.rs-table-affix-header.fixed {
+  visibility: visible;
+}
+
+.rs-table-body-row-wrapper {
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.rs-table-body-info {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  margin-top: -20px;
+  line-height: 40px;
+  text-align: center;
+}
+
+.rs-table-body-info .icon {
+  margin: 0 10px;
+}
+
+.rs-table-body-info-wheel-area {
+  width: 100%;
+}
+
+.rs-table-cell.first {
+  border-left-width: 0;
+}
+
+.rs-table-cell-wrap1 {
+  display: table;
+}
+
+.rs-table-cell-wrap2 {
+  display: table-row;
+}
+
+.rs-table-cell-wrap3 {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.rs-table-cell-content {
+  display: table-cell;
+  width: 100%;
+  padding: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+
+.rs-table-cell-header-sortable {
+  cursor: pointer;
+}
+
+.rs-table-cell-header-sort-wrapper {
+  display: inline-block;
+}
+
+.rs-table-column-resize-spanner {
+  position: absolute;
+  z-index: 3;
+  width: 6px;
+  height: 36px;
+  cursor: ew-resize !important;
+  outline: none;
+}
+
+.rs-table-column-resize-spanner:hover {
+  background: #34c3ff;
+}
+
+.rs-table-cell-group-fixed-left {
+  position: absolute;
+  z-index: 4;
+  background: #fff;
+}
+
+.rs-table-cell-group-fixed-right {
+  position: absolute;
+  z-index: 4;
+  background: #fff;
+}
+
+.rs-table-cell-group-left-shadow {
+  box-shadow: 3px 0 5px rgb(9 9 9 / 8%);
+}
+
+.rs-table-mouse-area {
+  position: absolute;
+  top: 0;
+  left: -1px;
+  z-index: 6;
+  display: none;
+  width: 1px;
+  background: #34c3ff;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.rs-table-cell-bordered .rs-table-cell {
+  border-right: 1px solid var(--md-palette-divider);
+}
+
+.rs-table-word-wrap .rs-table-cell-content {
+  word-break: break-all;
+  word-wrap: break-word;
+  white-space: unset;
+}
+
+.rs-table-row-expanded {
+  position: absolute;
+  bottom: 0;
+  z-index: 4;
+  width: 100%;
+  height: 46px;
+  padding: 10px;
+  background: rgba(var(--md-palette-secondary-lightChannel) / 24%);
+  border-top: 1px solid var(--md-palette-divider);
+}
+
+.rs-table-loader-wrapper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  visibility: hidden;
+  background-color: rgb(255 255 255 / 90%);
+}
+
+.rs-table-loader {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  margin-top: -20px;
+  line-height: 40px;
+  text-align: center;
+}
+
+.rs-table-loader-icon {
+  position: relative;
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  padding-top: 3px;
+  margin-right: 12px;
+}
+
+.rs-table-loader-icon::before,
+.rs-table-loader-icon::after {
+  width: 18px;
+  height: 18px;
+}
+
+/* stylelint-disable-next-line no-duplicate-selectors */
+.rs-table-loader-icon::before,
+.rs-table-loader-icon::after {
+  position: absolute;
+  right: 0;
+  left: 0;
+  display: block;
+  content: '';
+  border-radius: 50%;
+}
+
+.rs-table-loader-icon::before {
+  border: 3px solid rgb(247 247 250 / 80%);
+}
+
+.rs-table-loader-icon::after {
+  border-color: #a6a6a6 transparent transparent;
+  border-style: solid;
+  border-width: 3px;
+  animation: loader-spin 0.6s infinite linear;
+}
+
+.rs-table-loading .rs-table-loader-wrapper {
+  visibility: visible;
+}
+
+.rs-table-cell-expand-icon {
+  cursor: pointer;
+  outline: none;
+}
+
+.rs-table-cell-expand-wrapper {
+  display: inline-block;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.rs-table-scrollbar {
+  position: absolute;
+  background: rgb(45 45 45 / 5%);
+}
+
+.rs-table-scrollbar-active {
+  background: rgb(45 45 45 / 10%);
+}
+
+.rs-table-scrollbar-hide {
+  display: none;
+}
+
+.rs-table-scrollbar-handle {
+  position: absolute;
+  background: var(--md-palette-grey-50048);
+  border-radius: 4px;
+}
+
+.rs-table-scrollbar-horizontal {
+  bottom: 2px;
+  width: 100%;
+  height: 10px;
+}
+
+.rs-table-scrollbar-horizontal.fixed {
+  position: fixed;
+}
+
+.rs-table-scrollbar-horizontal .rs-table-scrollbar-handle {
+  top: 1px;
+  left: 0;
+  height: 8px;
+}
+
+.rs-table-scrollbar-horizontal .rs-table-scrollbar-pressed,
+.rs-table-scrollbar-horizontal:hover {
+  height: 14px;
+  box-shadow: 1px 1px 2px #ddd inset;
+}
+
+.rs-table-scrollbar-horizontal .rs-table-scrollbar-pressed .rs-table-scrollbar-handle,
+.rs-table-scrollbar-horizontal:hover .rs-table-scrollbar-handle {
+  top: 2px;
+  height: 10px;
+}
+
+.rs-table-scrollbar-vertical {
+  top: 0;
+  right: 0;
+  bottom: 2px;
+  width: 10px;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.rs-table-scrollbar-vertical .rs-table-scrollbar-handle {
+  top: 0;
+  left: 1px;
+  width: 8px;
+  min-height: 20px;
+}
+
+.rs-table-scrollbar-vertical .rs-table-scrollbar-pressed,
+.rs-table-scrollbar-vertical:hover {
+  width: 14px;
+  box-shadow: 1px 1px 2px #ddd inset;
+}
+
+.rs-table-scrollbar-vertical .rs-table-scrollbar-pressed .rs-table-scrollbar-handle,
+.rs-table-scrollbar-vertical:hover .rs-table-scrollbar-handle {
+  left: 2px;
+  width: 10px;
+}
+
+.rs-table-column-group {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
+}
+
+.rs-table-column-group-header {
+  position: absolute;
+  width: 100%;
+  border-bottom: 1px solid var(--md-palette-divider);
+}
+
+.rs-table-column-group-header-content {
+  display: table-cell;
+  padding: 8px;
+}
+
+.rs-table-column-group-cell {
+  position: absolute;
+  border-right: 1px solid var(--md-palette-divider);
+}

@@ -1,0 +1,107 @@
+#import '../public.graphql'
+
+query ProvinceList {
+  list: meta_area_cn_province(order_by: { code: asc_nulls_first }) {
+    code
+    label: name
+    value: code
+  }
+}
+
+query CityList($provinceCode: Int!) {
+  list: meta_area_cn_city(
+    order_by: { code: asc_nulls_first }
+    where: { provinceCode: { _eq: $provinceCode } }
+  ) {
+    code
+    label: name
+    value: code
+  }
+}
+
+query CountyList($cityCode: Int!) {
+  list: meta_area_cn_county(
+    order_by: { code: asc_nulls_first }
+    where: { cityCode: { _eq: $cityCode } }
+  ) {
+    code
+    label: name
+    value: code
+  }
+}
+
+query TownList($countyCode: Int!) {
+  list: meta_area_cn_town(
+    order_by: { code: asc_nulls_first }
+    where: { countyCode: { _eq: $countyCode } }
+  ) {
+    code
+    label: name
+    value: code
+  }
+}
+
+query ProvinceListSearch($keyword: String!) {
+  provinces: meta_area_cn_province(
+    order_by: {}
+    where: { name: { _like: $keyword } }
+  ) {
+    code
+    label: name
+    value: code
+  }
+}
+
+query CityListSearch($provinceCode: Int!, $keyword: String!) {
+  cities: meta_area_cn_city(
+    order_by: {}
+    where: {
+      _and: { provinceCode: { _eq: $provinceCode }, name: { _like: $keyword } }
+    }
+  ) {
+    code
+    label: name
+    value: code
+  }
+}
+
+query CountyListSearch($cityCode: Int!, $keyword: String!) {
+  counties: meta_area_cn_county(
+    order_by: {}
+    where: { _and: { cityCode: { _eq: $cityCode }, name: { _like: $keyword } } }
+  ) {
+    code
+    label: name
+    value: code
+  }
+}
+
+query TownListSearch($countyCode: Int!, $keyword: String!) {
+  towns: meta_area_cn_town(
+    order_by: {}
+    where: {
+      _and: { countyCode: { _eq: $countyCode }, name: { _like: $keyword } }
+    }
+  ) {
+    province {
+      code
+      label: name
+      value: code
+    }
+    city {
+      code
+      label: name
+      value: code
+    }
+    county {
+      code
+      label: name
+      value: code
+    }
+    ... on meta_area_cn_town {
+      code
+      label: name
+      value: code
+    }
+  }
+}

@@ -1,23 +1,22 @@
-import { Link as RouterLink } from 'react-router-dom'
 import { Container, Link, Typography } from '@mui/material'
+import { Link as RouterLink } from 'react-router-dom'
 
-import useResponsive from '@hooks/use-responsive'
+import { useAuth } from '@/providers/auth'
 
-import Page from '@components/page'
-import Logo from '@components/logo'
+import Logo from 'd/components/logo'
+import Page from 'd/components/page'
 
-import {
-  ContentStyle,
-  HeaderStyle,
-  RootStyle,
-  SectionStyle,
-} from './components/styled'
-import LoginForm from './components/login-form'
+import useResponsive from 'h/use-responsive'
+
+import { Info } from './components/info'
+import { Login } from './components/login'
+import { HeaderStyle, RootStyle, SectionStyle } from './components/styled'
 
 export const SignIn = () => {
   const smUp = useResponsive('up', 'sm')
-
   const mdUp = useResponsive('up', 'md')
+
+  const { isLogin } = useAuth()
 
   return (
     <Page title="Login">
@@ -48,26 +47,7 @@ export const SignIn = () => {
         )}
 
         <Container maxWidth="sm">
-          <ContentStyle>
-            <Typography variant="h4" gutterBottom>
-              Sign in to Minimal
-            </Typography>
-
-            <Typography sx={{ color: 'text.secondary', mb: 5 }}>
-              Enter your details below.
-            </Typography>
-
-            <LoginForm />
-
-            {!smUp && (
-              <Typography variant="body2" align="center" sx={{ mt: 3 }}>
-                没有账号？{' '}
-                <Link variant="subtitle2" component={RouterLink} to="/register">
-                  注册一个
-                </Link>
-              </Typography>
-            )}
-          </ContentStyle>
+          {isLogin ? <Info /> : <Login shouldShowTail={!smUp} />}
         </Container>
       </RootStyle>
     </Page>

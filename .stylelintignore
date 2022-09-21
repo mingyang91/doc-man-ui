@@ -1,4 +1,9 @@
-*.js
-*.ts
-*.jsx
-*.tsx
+/build/
+/dist/
+/public/
+/test-config/
+.vscode
+node_modules
+APP-META/helm
+/package.json
+/yarn.lock

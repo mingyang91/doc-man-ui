@@ -1,11 +1,12 @@
+import { useMount as useAhooksMount } from 'ahooks'
+import { isFunction } from 'lodash-es'
 import {
-  isValidElement,
   Children,
+  isValidElement,
   ReactElement,
   ReactNode,
   useRef,
 } from 'react'
-import { useMount as useAhooksMount } from 'ahooks'
 
 export function getValidChildren(children: ReactNode) {
   return Children.toArray(children).filter(child =>
@@ -43,4 +44,11 @@ export const useMount = (fn: MountFn) => {
       return fn()
     }
   })
+}
+
+export function runIfFn<T, U>(
+  valueOrFn: T | ((...fnArgs: U[]) => T),
+  ...args: U[]
+): T {
+  return isFunction(valueOrFn) ? valueOrFn(...args) : valueOrFn
 }
