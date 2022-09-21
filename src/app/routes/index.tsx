@@ -1,13 +1,13 @@
 import { ComponentType, ReactElement, Suspense } from 'react'
-import { Params, useRoutes } from 'react-router-dom'
 import { IconType } from 'react-icons'
+import { Params, useRoutes } from 'react-router-dom'
 
-import LoadingScreen from '@/components/loading-screen'
+import { LayoutType } from '@/layouts'
 
-import { LayoutType } from '@@/modules/layouts/index'
+import LoadingScreen from 'd/components/loading-screen'
 
-import type { MenuConfig, MenuGroupTitle } from './create-menus'
 import { useRoutesContext } from './context'
+import type { MenuConfig, MenuGroupTitle } from './create-menus'
 import { routeRegister } from './route-register'
 
 export * from './context'

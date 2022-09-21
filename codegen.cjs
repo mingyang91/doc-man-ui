@@ -1,12 +1,32 @@
 const path = require('path')
 
-const { loadEnv } = require('vite')
+const getClientEnvironment = require('react-scripts/config/env')
 
-const env = loadEnv(
-  process.env.NODE_ENV === 'development' ? 'development' : 'production',
-  path.resolve(__dirname, './env'),
-  ['VITE']
-)
+const env = getClientEnvironment('/')
+
+const commonConfig = {
+  skipTypename: true,
+  namingConvention: {
+    typeNames: 'change-case-all#pascalCase',
+    enumValues: 'change-case-all#upperCase',
+  },
+  dedupeFragments: true,
+  declarationKind: 'interface',
+  defaultScalarType: 'any',
+  useImplementingTypes: true,
+  exportFragmentSpreadSubTypes: true,
+  experimentalFragmentVariables: true,
+  mergeFragmentTypes: true,
+  scalars: {
+    json: 'ScalarJson',
+    jsonb: 'ScalarJson',
+    timestamptz: 'ScalarTz',
+    timestamp: 'ScalarTz',
+    uuid: 'UUIDV4',
+    numeric: 'ScalarNumeric',
+    inspectiontype: 'InspectionTypeEnum',
+  },
+}
 
 module.exports = {
   schema: [
@@ -14,62 +34,73 @@ module.exports = {
       'http://ec2-18-162-155-77.ap-east-1.compute.amazonaws.com:9000/v1/graphql':
         {
           headers: {
-            'x-hasura-admin-secret': env.VITE_HASURA_ADMIN_SECRET,
+            'x-hasura-admin-secret': env.raw.REACT_APP_HASURA_ADMIN_SECRET,
           },
         },
     },
   ],
-  documents: ['./src/graphql/**/*.graphql'],
+  documents: ['./src/models/**/*.graphql'],
   overwrite: true,
   generates: {
-    './src/generated/types.ts': {
+    './src/models/types.ts': {
       plugins: [
         'typescript',
         'named-operations-object',
-        'typescript-operations',
         {
           add: {
             content: '/* eslint-disable @typescript-eslint/no-explicit-any */',
           },
         },
+        {
+          add: {
+            content:
+              "import type { ScalarJson, ScalarTz, ScalarNumeric, UUIDV4, InspectionTypeEnum } from 'm/presets';",
+          },
+        },
       ],
       config: {
-        namingConvention: {
-          typeNames: 'change-case-all#pascalCase',
-          enumValues: 'change-case-all#upperCase',
-        },
-        defaultScalarType: 'any',
-        useImplementingTypes: true,
-        declarationKind: {
-          type: 'interface',
-        },
+        ...commonConfig,
       },
     },
-    './src/generated/public.ts': {
-      preset: 'import-types',
+    './src/models/': {
+      preset: 'near-operation-file',
       presetConfig: {
-        typesPath: './types',
+        extension: '.generated.tsx',
+        baseTypesPath: 'types',
       },
       plugins: [
-        'typescript-react-apollo',
+        'typescript-operations',
+        'typescript-react-query',
         {
           add: {
             content: '/* eslint-disable @typescript-eslint/no-explicit-any */',
           },
         },
+        {
+          add: {
+            content:
+              "import type { ScalarJson, ScalarTz, ScalarNumeric, UUIDV4, InspectionTypeEnum } from 'm/presets';",
+          },
+        },
       ],
       config: {
-        namingConvention: {
-          typeNames: 'change-case-all#pascalCase',
-          enumValues: 'change-case-all#upperCase',
+        ...commonConfig,
+        avoidOptionals: {
+          field: false,
+          inputValue: false,
+          object: true,
+          defaultValue: true,
         },
-        avoidOptionals: true,
-        skipTypename: true,
-        withHooks: true,
-        withHOC: false,
-        withComponent: false,
+        fetcher: {
+          func: 'ctx/fetcher#useFetch',
+          isReactHook: true,
+        },
       },
     },
   },
-  afterAllFileWrite: ['pnpm exec eslint --fix  ./src/generated/graphql.ts'],
+  hooks: {
+    afterAllFileWrite: [
+      'pnpm exec prettier --write "src/models/" && pnpm exec eslint --fix --ext .tsx,.ts  "./src/models/"',
+    ],
+  },
 }

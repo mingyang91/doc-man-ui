@@ -2,11 +2,7 @@
   "compilerOptions": {
     "target": "ESNext",
     "useDefineForClassFields": true,
-    "lib": [
-      "DOM",
-      "DOM.Iterable",
-      "ESNext"
-    ],
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strictNullChecks": true,
@@ -26,50 +22,17 @@
     "sourceMap": true,
     "baseUrl": "./src",
     "paths": {
-      "@/*": [
-        "./*"
-      ],
-      "@@/*": [
-        "app/*"
-      ],
-      "@@modules/*": [
-        "app/modules/*"
-      ],
-      "@@routes/*": [
-        "app/routes/*"
-      ],
-      "@contexts/*": [
-        "contexts/*"
-      ],
-      "@components/*": [
-        "components/*"
-      ],
-      "@models/*": [
-        "models/*"
-      ],
-      "@graphql/*": [
-        "graphql/*"
-      ],
-      "@hooks/*": [
-        "hooks/*"
-      ],
-      "@common/*": [
-        "common/*"
-      ],
-      "@generated/graphql": [
-        "generated/graphql.ts"
-      ],
-      "@utils/*": [
-        "utils/*"
-      ]
+      "@/*": ["app/*"],
+      "d/*": ["designs/*"],
+      "domains/*": ["domains/*"],
+      "ctx/*": ["contexts/*"],
+      "com/*": ["common/*"],
+      "@@/*": ["components/*"],
+      "h/*": ["hooks/*"],
+      "u/*": ["utils/*"],
+      "m/*": ["models/*"]
     }
   },
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    "node_modules",
-    "./node_modules",
-    "./node_modules/*"
-  ]
+  "include": ["src"],
+  "exclude": ["node_modules", "./node_modules", "./node_modules/*"]
 }

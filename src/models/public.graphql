@@ -1,0 +1,57 @@
+fragment UserInfo on user {
+  id
+  username
+  avatar
+  displayname
+  role
+}
+
+fragment UserView on user_view {
+  id
+  username
+  avatar
+  displayname
+  role
+}
+
+# 委托单位
+
+fragment ClientsDetail on clients {
+  id
+  name
+  createdAt
+  updatedAt
+  comment
+  address
+}
+
+fragment DeviceDetail on device {
+  id
+  inspectionInstrument
+  createTime
+  updateTime
+  address
+  equipmentCode
+  equipmentManufacturer
+  equipmentName
+  equipmentSampleId
+  equipmentSite
+  equipmentModel
+  comment
+  client {
+    id
+    name
+  }
+}
+
+query CurrentUser {
+  data: user_view(order_by: { id: asc }, limit: 1) {
+    ...UserView
+  }
+}
+
+mutation updateUserPassword($id: Int!, $password: String!) {
+  update_user_by_pk(pk_columns: { id: $id }, _set: { password: $password }) {
+    id
+  }
+}

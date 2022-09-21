@@ -1,32 +1,41 @@
-import * as Yup from 'yup'
+import { Form, FormikProvider, useFormik } from 'formik'
 import { useState } from 'react'
-import { Link as RouterLink, useNavigate } from 'react-router-dom'
-import { useFormik, Form, FormikProvider } from 'formik'
+import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom'
+import * as Yup from 'yup'
 // material
+import { LoadingButton } from '@mui/lab'
 import {
-  Link,
-  Stack,
   Checkbox,
-  TextField,
+  FormControlLabel,
   IconButton,
   InputAdornment,
-  FormControlLabel,
+  Link,
+  Stack,
+  TextField,
 } from '@mui/material'
-import { LoadingButton } from '@mui/lab'
 import { RiEyeFill, RiEyeOffFill } from 'react-icons/ri'
 
-import { useUser } from '@contexts/user'
+import { useAuth } from '@/providers/auth'
 
-import Iconify from '@components/iconify'
+import Iconify from 'd/components/iconify'
+
+function assertLocationState(state: unknown): state is { from: Location } {
+  if (typeof state === 'object' && state !== null) {
+    return 'from' in state
+  }
+  return false
+}
 
 // ----------------------------------------------------------------------
 
 export default function LoginForm() {
   // 登录成功后跳转
   const navigate = useNavigate()
+  const location = useLocation()
+
   const [showPassword, setShowPassword] = useState(false)
 
-  const { signIn } = useUser()
+  const { signIn } = useAuth()
 
   // 登录表单校验
   const LoginSchema = Yup.object().shape({
@@ -42,9 +51,14 @@ export default function LoginForm() {
     },
     validationSchema: LoginSchema,
     onSubmit: async ({ username, password }, { setSubmitting }) => {
-      await signIn(username, password)
+      await signIn(username, password, () => {
+        const from = assertLocationState(location.state)
+          ? location.state.from
+          : '/'
+
+        navigate(from, { replace: true })
+      })
       setSubmitting(false)
-      navigate('/dashboard', { replace: true })
     },
   })
 

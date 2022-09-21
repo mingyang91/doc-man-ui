@@ -1,0 +1,58 @@
+#import '../public.graphql'
+
+query ClientsDetailList(
+  $limit: Int = 10
+  $offset: Int = 0
+  $order_by: [clients_order_by!] = {}
+  $where: clients_bool_exp = {}
+) {
+  list: clients(
+    limit: $limit
+    offset: $offset
+    order_by: $order_by
+    where: $where
+  ) {
+    ...ClientsDetail
+  }
+  total: clients_aggregate {
+    aggregate {
+      count
+    }
+  }
+}
+
+query ClientsById($id: uuid = "") {
+  detail: clients_by_pk(id: $id) {
+    ...ClientsDetail
+  }
+}
+
+mutation CreateClients($data: clients_insert_input = {}) {
+  data: insert_clients_one(
+    object: $data
+    on_conflict: { constraint: clients_pkey }
+  ) {
+    ...ClientsDetail
+  }
+}
+
+mutation UpdateClientsById($id: uuid = "", $data: clients_set_input = {}) {
+  data: update_clients_by_pk(pk_columns: { id: $id }, _set: $data) {
+    ...ClientsDetail
+  }
+}
+
+mutation DeleteClientsById($id: uuid = "") {
+  data: delete_clients_by_pk(id: $id) {
+    ...ClientsDetail
+  }
+}
+
+mutation DeleteClientsBulk($ids: [uuid!]!) {
+  root: delete_clients(where: { id: { _in: $ids } }) {
+    affected_rows
+    returning {
+      id
+    }
+  }
+}

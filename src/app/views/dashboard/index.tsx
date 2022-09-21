@@ -1,7 +1,9 @@
-import { useMenuAndRoutes } from '@/app/modules/layouts/admin/components/menu-and-routes'
-import Page from '@/components/page'
 
-import HeaderBreadcrumbs from '@components/header-breadcrumbs'
+import { useMenuAndRoutes } from '@/layouts/admin/components/menu-and-routes'
+
+import Page from 'd/components/page'
+import HeaderBreadcrumbs from 'd/components/header-breadcrumbs'
+
 
 const TITLE = '仪表盘'
 

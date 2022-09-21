@@ -1,11 +1,10 @@
-import { RouteObject, Navigate, generatePath } from 'react-router-dom'
 import { Fragment } from 'react'
+import { generatePath, Navigate, RouteObject } from 'react-router-dom'
 
-import { AuthProtectModule } from '@/app/modules/auth-protect'
+import { Layout } from '@/layouts'
+import { AuthProtectModule } from '@/modules/auth-protect'
 
-import { Layout } from '@@/modules/layouts'
-
-import { RouteView, assertGroupTitle } from '.'
+import { assertGroupTitle, RouteView } from '.'
 
 const routeWalk = (routes: RouteView[]): RouteObject[] => {
   return routes.reduce<RouteObject[]>((acc, route) => {

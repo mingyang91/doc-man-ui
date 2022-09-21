@@ -4,10 +4,6 @@
 .github
 .husky
 env/*
-.eslintrc.js
-.stylelintrc.js
-.prettierrc.js
 .travis.yml
 .vscode/**
-jest.config.js
 .stylelintignore

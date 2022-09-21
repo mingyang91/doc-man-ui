@@ -4,6 +4,9 @@
 
 ### Report
 
+确定唯一设备：
+委托单位 - 检测地址 - 设备编号
+
 ```bash
 
 curl --location --request POST 'http://localhost:9000/api/render?template=1' \

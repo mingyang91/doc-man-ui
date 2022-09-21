@@ -1,18 +1,16 @@
 {
-  "editor.formatOnSave": true,
-  "editor.defaultFormatter": "esbenp.vs-code-prettier-eslint",
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true,
-    "source.fixAll.stylelint": true
-  },
-  "[svg]": {
-    "editor.defaultFormatter": "jock.svg"
-  },
+  "eslint.packageManager": "pnpm",
+  "npm.packageManager": "pnpm",
+  "editor.formatOnSave": false,
+  "editor.formatOnSaveMode": "file",
   "typescript.tsdk": "node_modules/typescript/lib",
   "cSpell.words": [
     "APPBAR",
     "bgcolor",
     "codegen",
+    "craco",
+    "displayname",
+    "docman",
     "formik",
     "HASURA",
     "iconify",
@@ -25,7 +23,46 @@
     "simplebar",
     "Topbar"
   ],
+  "[svg]": {
+    "editor.defaultFormatter": "jock.svg"
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+      "source.formatDocument": true,
+      "source.fixAll.stylelint": true,
+    }
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true,
+      "source.formatDocument": true,
+      "source.fixAll.eslint": true,
+    }
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true,
+      "source.formatDocument": true,
+      "source.fixAll.eslint": true,
+    }
+  },
   "[typescriptreact]": {
-    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true,
+      "source.formatDocument": true,
+      "source.fixAll.eslint": true,
+    }
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true,
+      "source.formatDocument": true,
+      "source.fixAll.eslint": true,
+    }
   }
 }

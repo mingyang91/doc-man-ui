@@ -1,8 +1,9 @@
-import { hasEmpty } from '@/utils/helper'
+import { hasEmpty } from 'u/helper'
 
 export type PaginationConfig = {
   pageSize: number
   page: number
+  total?: number
 }
 
 export enum Conclusions {

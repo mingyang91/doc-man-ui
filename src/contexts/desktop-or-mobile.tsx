@@ -1,9 +1,10 @@
+import { useMediaQuery, useTheme } from '@mui/material'
+import { LocalizationProvider } from '@mui/x-date-pickers'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import zhCN from 'dayjs/locale/zh-cn'
 import { PropsWithChildren } from 'react'
-import { useTheme, useMediaQuery } from '@mui/material'
-import { LocalizationProvider } from '@mui/lab'
-import AdapterDayjs from '@mui/lab/AdapterDayjs'
 
-import { createContainer } from '@utils/create-container'
+import { createContainer } from 'u/create-container'
 
 const DesktopOrMobileContainer = createContainer(function useDesktopOrMobile() {
   const theme = useTheme()
@@ -19,7 +20,7 @@ export const DesktopOrMobileProvider = ({
 }: PropsWithChildren<Record<never, never>>) => {
   return (
     <DesktopOrMobileContainer.Provider>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={zhCN}>
         {children}
       </LocalizationProvider>
     </DesktopOrMobileContainer.Provider>
