@@ -7,9 +7,11 @@ import { ThemeSettings } from 'd/components/settings'
 import { ThemeProvider } from 'd/theme'
 
 import { DesktopOrMobileProvider } from 'ctx/desktop-or-mobile'
+import { ModalProvider } from 'ctx/modal'
 
 import { MessageProvider } from 'h/use-snackbar-message'
 
+import { EnumDataProvider } from './providers/enum-data'
 import { AppRouter } from './routes'
 import { RoutesProvider } from './routes/context'
 
@@ -25,10 +27,14 @@ export const App = () => {
               <DesktopOrMobileProvider>
                 <ScreenProgressBarContainer>
                   <ConfirmProvider>
-                    <ScrollToTop />
-                    <AuthProvider>
-                      <AppRouter />
-                    </AuthProvider>
+                    <ModalProvider>
+                      <ScrollToTop />
+                      <AuthProvider>
+                        <EnumDataProvider>
+                          <AppRouter />
+                        </EnumDataProvider>
+                      </AuthProvider>
+                    </ModalProvider>
                   </ConfirmProvider>
                 </ScreenProgressBarContainer>
               </DesktopOrMobileProvider>

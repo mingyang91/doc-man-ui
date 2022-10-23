@@ -1,12 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 type CacheItem<T> = {
   data: T
   expires: number
 }
 
-type CacheStorage = {
-  getItem(key: string): string | null
-  setItem(key: string, value: string): void
+type CacheStorage<T = any> = {
+  getItem(key: string): T | null
+  setItem(key: string, value: T): void
   removeItem(key: string): void
+  subscribe?: (key: string, callback: (value: any) => void) => () => void
 }
 
 type CacheConfig = {
@@ -22,7 +24,7 @@ type CacheItemOptions = {
 }
 
 export class InMemoryCacheStorage implements CacheStorage {
-  private cache: { [key: string]: string } = {}
+  private cache: { [key: string]: any } = {}
 
   getItem(key: string): string | null {
     return this.cache[key] ?? null
@@ -49,6 +51,20 @@ export class LocalStorageCacheStorage implements CacheStorage {
   removeItem(key: string): void {
     localStorage.removeItem(key)
   }
+
+  subscribe(key: string, callback: (value: any) => void) {
+    const handler: (ev: StorageEvent) => any = event => {
+      if (event.storageArea === localStorage && event.key === key) {
+        callback(sessionStorage.getItem(key))
+      }
+    }
+
+    window.addEventListener('storage', handler)
+
+    return () => {
+      window.removeEventListener('storage', handler)
+    }
+  }
 }
 
 export class SessionStorageCacheStorage implements CacheStorage {
@@ -62,6 +78,20 @@ export class SessionStorageCacheStorage implements CacheStorage {
 
   removeItem(key: string): void {
     sessionStorage.removeItem(key)
+  }
+
+  subscribe(key: string, callback: (value: any) => void) {
+    const handler: (ev: StorageEvent) => any = event => {
+      if (event.storageArea === sessionStorage && event.key === key) {
+        callback(sessionStorage.getItem(key))
+      }
+    }
+
+    window.addEventListener('storage', handler)
+
+    return () => {
+      window.removeEventListener('storage', handler)
+    }
   }
 }
 

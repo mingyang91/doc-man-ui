@@ -48,7 +48,7 @@ export const Dialog = ({
       <DialogTitle id={ariaLabelledby}>{title}</DialogTitle>
       <DialogContent dividers={dividers} sx={{ mt: 2 }}>
         {customRender ? (
-          customRender?.(ariaDescribedby, content)
+          customRender(ariaDescribedby, content)
         ) : (
           <DialogContentText id={ariaDescribedby}>{content}</DialogContentText>
         )}

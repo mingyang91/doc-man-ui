@@ -30,8 +30,9 @@ export type UserListQuery = {
     id: number
     username: string
     avatar?: string | null
-    displayname?: string | null
     role: any
+    email?: string | null
+    displayName?: string | null
   }>
   total: { aggregate?: { count: number } | null }
 }
@@ -45,8 +46,9 @@ export type AdminCreateAccountMutation = {
     id: number
     username: string
     avatar?: string | null
-    displayname?: string | null
     role: any
+    email?: string | null
+    displayName?: string | null
   } | null
 }
 
@@ -60,8 +62,9 @@ export type AdminUpdateAccountByIdMutation = {
     id: number
     username: string
     avatar?: string | null
-    displayname?: string | null
     role: any
+    email?: string | null
+    displayName?: string | null
   } | null
 }
 
@@ -74,8 +77,9 @@ export type AdminDeleteAccountByIdMutation = {
     id: number
     username: string
     avatar?: string | null
-    displayname?: string | null
     role: any
+    email?: string | null
+    displayName?: string | null
   } | null
 }
 

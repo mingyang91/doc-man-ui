@@ -21,7 +21,7 @@ export const Info = () => {
   return (
     <ContentStyle>
       <Typography variant="h4" gutterBottom>
-        欢迎您，{userInfo.username}
+        欢迎您，{userInfo?.username}
       </Typography>
 
       <Card sx={{ maxWidth: 340 }}>
@@ -35,13 +35,13 @@ export const Info = () => {
         >
           <Avatar
             sx={{ width: 56, height: 56 }}
-            src={userInfo.avatar || ''}
-            label={userInfo.displayName || userInfo.username}
+            src={userInfo?.avatar || ''}
+            label={userInfo?.displayName || userInfo?.username || 'unknown'}
           />
           <Typography variant="h3">
-            {userInfo.displayName || userInfo.username}
+            {userInfo?.displayName || userInfo?.username}
           </Typography>
-          <Typography variant="subtitle2">{userInfo.role}</Typography>
+          <Typography variant="subtitle2">{userInfo?.role}</Typography>
           <Divider
             component="div"
             sx={{ marginTop: 3, width: '100%', height: '1px' }}

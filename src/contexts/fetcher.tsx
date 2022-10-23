@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AxiosError, AxiosRequestHeaders } from 'axios'
 
-import { baseRequest, getAuthToken } from 'com/request'
+import { request } from 'com/request'
 
 interface HasuraError {
   extensions: {
@@ -11,28 +11,27 @@ interface HasuraError {
   message: string
 }
 
+const GRAPHQL_PATH = '/v1/graphql'
+
 const hausraSecret = process.env.REACT_APP_HASURA_ADMIN_SECRET
 
-const client = baseRequest.create({
-  withCredentials: true,
-})
+request.interceptors.request.use(config => {
+  if (config.url?.includes(GRAPHQL_PATH)) {
+    config.headers = {
+      'Content-Type': 'application/json',
+      ...config.headers,
+    }
 
-client.interceptors.request.use(config => {
-  config.headers = {
-    'Content-Type': 'application/json',
-    authorization: getAuthToken(),
-    ...config.headers,
-  }
-
-  if (hausraSecret) {
-    config.headers['x-hasura-admin-secret'] = hausraSecret
+    if (hausraSecret) {
+      config.headers['x-hasura-admin-secret'] = hausraSecret
+    }
   }
 
   return config
 })
 
-client.interceptors.response.use(response => {
-  if (response.data.errors) {
+request.interceptors.response.use(response => {
+  if (response.config.url?.includes(GRAPHQL_PATH) && response.data.errors) {
     for (let i = 0; i < response.data.errors.length; i++) {
       const e = response.data.errors[i] as HasuraError
       if (e.extensions.code === 'access-denied') {
@@ -52,7 +51,7 @@ const fetcher = <TData, TVariables>(
   variables: TVariables,
   options?: AxiosRequestHeaders
 ) => {
-  return client.post(
+  return request.post(
     '/v1/graphql',
     {
       query,

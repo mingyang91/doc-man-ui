@@ -36,6 +36,7 @@ type BaseSelector = AutocompleteProps<
 
 export interface LocationSelectorProps
   extends Omit<FormControlProps, 'value' | 'onChange'> {
+  name?: string
   id?: string
   isError?: boolean
   label?: string
@@ -54,6 +55,7 @@ export interface LocationSelectorProps
 }
 
 export const LocationSelector = ({
+  name,
   id,
   label = '地址',
   value: valueProps,
@@ -137,6 +139,7 @@ export const LocationSelector = ({
 
   const selectorProvince = (
     <SelectorProvince
+      isError={isError}
       value={value.province}
       onChange={handleChangeProvince}
       onFocus={() => handleChangeFocus(0, true)}
@@ -147,6 +150,7 @@ export const LocationSelector = ({
 
   const selectorCity = value.province && (
     <SelectorCity
+      isError={isError}
       value={value.city}
       provinceValue={value.province}
       onChange={handleChangeCity}
@@ -158,6 +162,7 @@ export const LocationSelector = ({
 
   const selectorCounty = value.city && (
     <SelectorCounty
+      isError={isError}
       value={value.county}
       cityValue={value.city}
       onChange={handleChangeCounty}
@@ -169,6 +174,7 @@ export const LocationSelector = ({
 
   const selectorTown = value.county && (
     <SelectorTown
+      isError={isError}
       value={value.town}
       countyValue={value.county}
       onChange={handleChangeTown}
@@ -181,6 +187,7 @@ export const LocationSelector = ({
   if (withDetail) {
     const textfieldDetail = (
       <TextField
+        error={isError}
         placeholder="详细地址"
         fullWidth
         sx={{ '& .MuiInputBase-root': { marginTop: '8px' } }}
@@ -215,28 +222,28 @@ export const LocationSelector = ({
     )
 
     return (
-      <FormControl {...restProps} focused={focusState}>
+      <FormControl {...restProps} error={isError} focused={focusState}>
         <InputLabel htmlFor={id} shrink={!isNil(value.province)}>
           {label}
         </InputLabel>
         {outer}
-        <FormHelperText>{helperText}</FormHelperText>
+        {helperText && <FormHelperText>{helperText}</FormHelperText>}
       </FormControl>
     )
   }
 
   return (
-    <FormControl {...restProps} focused={focusState}>
+    <FormControl {...restProps} error={isError} focused={focusState}>
       <InputLabel htmlFor={id} shrink={!isNil(value.province)}>
         {label}
       </InputLabel>
-      <Stack direction="row" spacing={3}>
+      <Stack direction="row">
         {selectorProvince}
         {selectorCity}
         {selectorCounty}
         {selectorTown}
       </Stack>
-      <FormHelperText>{helperText}</FormHelperText>
+      {helperText && <FormHelperText>{helperText}</FormHelperText>}
     </FormControl>
   )
 }

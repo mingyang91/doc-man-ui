@@ -22,8 +22,9 @@ export type UserInfoFragment = {
   id: number
   username: string
   avatar?: string | null
-  displayname?: string | null
   role: any
+  email?: string | null
+  displayName?: string | null
 }
 
 export type UserInfoFragmentVariables = Types.Exact<{ [key: string]: never }>
@@ -32,8 +33,9 @@ export type UserViewFragment = {
   id?: number | null
   username?: string | null
   avatar?: string | null
-  displayname?: string | null
   role?: any | null
+  email?: string | null
+  displayName?: string | null
 }
 
 export type UserViewFragmentVariables = Types.Exact<{ [key: string]: never }>
@@ -51,12 +53,13 @@ export type ClientsDetailFragmentVariables = Types.Exact<{
   [key: string]: never
 }>
 
-export type DeviceDetailFragment = {
+export type EquipmentDetailFragment = {
   id: UUIDV4
   inspectionInstrument?: string | null
-  createTime: ScalarTz
-  updateTime: ScalarTz
+  createdAt?: ScalarTz | null
+  updatedAt?: ScalarTz | null
   address: ScalarJson
+  equipmentTypeId?: UUIDV4 | null
   equipmentCode?: string | null
   equipmentManufacturer?: string | null
   equipmentName?: string | null
@@ -64,10 +67,16 @@ export type DeviceDetailFragment = {
   equipmentSite?: string | null
   equipmentModel?: string | null
   comment?: string | null
-  client?: { id: UUIDV4; name: string } | null
+  clientId?: UUIDV4 | null
+  client?: { id: UUIDV4; name: string; address: ScalarJson } | null
+  equipmentType?: {
+    id: UUIDV4
+    name: string
+    displayName?: string | null
+  } | null
 }
 
-export type DeviceDetailFragmentVariables = Types.Exact<{
+export type EquipmentDetailFragmentVariables = Types.Exact<{
   [key: string]: never
 }>
 
@@ -78,8 +87,9 @@ export type CurrentUserQuery = {
     id?: number | null
     username?: string | null
     avatar?: string | null
-    displayname?: string | null
     role?: any | null
+    email?: string | null
+    displayName?: string | null
   }>
 }
 
@@ -97,8 +107,9 @@ export const UserInfoFragmentDoc = `
   id
   username
   avatar
-  displayname
+  displayName: displayname
   role
+  email
 }
     `
 export const UserViewFragmentDoc = `
@@ -106,8 +117,9 @@ export const UserViewFragmentDoc = `
   id
   username
   avatar
-  displayname
+  displayName: displayname
   role
+  email
 }
     `
 export const ClientsDetailFragmentDoc = `
@@ -120,13 +132,14 @@ export const ClientsDetailFragmentDoc = `
   address
 }
     `
-export const DeviceDetailFragmentDoc = `
-    fragment DeviceDetail on device {
+export const EquipmentDetailFragmentDoc = `
+    fragment EquipmentDetail on equipment {
   id
   inspectionInstrument
-  createTime
-  updateTime
+  createdAt
+  updatedAt
   address
+  equipmentTypeId
   equipmentCode
   equipmentManufacturer
   equipmentName
@@ -134,9 +147,16 @@ export const DeviceDetailFragmentDoc = `
   equipmentSite
   equipmentModel
   comment
+  clientId
   client {
     id
     name
+    address
+  }
+  equipmentType {
+    id
+    name
+    displayName
   }
 }
     `

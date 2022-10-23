@@ -1,20 +1,17 @@
 import {
   Box,
   Button,
+  IconButton,
   Link,
   Stack,
   TablePagination,
+  Tooltip,
   Typography,
 } from '@mui/material'
 import { useCreation, useMemoizedFn } from 'ahooks'
 import { ChangeEventHandler, MouseEvent, useState } from 'react'
-import {
-  RiDeleteBin2Fill,
-  RiDeleteBinLine,
-  RiEditLine,
-  RiFileAddLine,
-} from 'react-icons/ri'
-import { generatePath, Link as RouteLink, NavLink } from 'react-router-dom'
+import { MdAddCircle, MdDelete, MdEdit } from 'react-icons/md'
+import { generatePath, Link as RouteLink } from 'react-router-dom'
 
 import { ROUTES } from '@/routes'
 
@@ -32,6 +29,7 @@ import { PaginationConfig } from 'm/common'
 import { AddressField } from 'm/presets'
 
 import { useConfirm } from '@@/confirm'
+import { formatLocation } from '@@/location-selector/utils'
 
 export interface ConsumerData
   extends ArrayItem<ClientsDetailListQuery['list']> {
@@ -78,20 +76,9 @@ const columnMaps: {
     minWidth: 100,
     flexGrow: 2,
     render: ({ address }) => {
-      const {
-        provinceName = '',
-        cityName = '',
-        countyName = '',
-        townName = '',
-        detail = '',
-      } = address as AddressField
       return (
         <Typography variant="body1">
-          {provinceName}
-          {cityName}
-          {countyName}
-          {townName}
-          {detail}
+          {formatLocation(address as AddressField, true)}
         </Typography>
       )
     },
@@ -181,30 +168,31 @@ export const ConsumerList = ({
       {
         field: 'id',
         flexGrow: 1,
-        width: 120,
-        minWidth: 120,
+        width: 60,
+        minWidth: 60,
         fixed: 'right',
         title: '操作',
         render: ({ id, name }) => {
           return (
             <Stack spacing={2} direction="row">
-              <Button
-                size="small"
-                variant="outlined"
-                color="error"
-                startIcon={<RiDeleteBinLine />}
-                onClick={() => handleRemove(id, name)}
-              >
-                删除
-              </Button>
-              <Button
-                size="small"
-                variant="outlined"
-                startIcon={<RiEditLine />}
-                onClick={() => onEdit?.(id)}
-              >
-                编辑
-              </Button>
+              <Tooltip title="删除">
+                <IconButton
+                  size="small"
+                  color="error"
+                  onClick={() => handleRemove(id, name)}
+                >
+                  <MdDelete />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="编辑">
+                <IconButton
+                  size="small"
+                  color="primary"
+                  onClick={() => onEdit?.(id)}
+                >
+                  <MdEdit />
+                </IconButton>
+              </Tooltip>
             </Stack>
           )
         },
@@ -237,8 +225,8 @@ export const ConsumerList = ({
             variant="contained"
             color="primary"
             to={ROUTES.consumerCreate}
-            component={NavLink}
-            startIcon={<RiFileAddLine />}
+            component={RouteLink}
+            startIcon={<MdAddCircle />}
           >
             创建
           </Button>
@@ -246,7 +234,7 @@ export const ConsumerList = ({
             <Button
               variant="contained"
               color="error"
-              startIcon={<RiDeleteBin2Fill />}
+              startIcon={<MdDelete />}
               onClick={handleBulkRemove}
             >
               批量删除

@@ -10,49 +10,50 @@ export const filterOptions = createFilterOptions<BaseLocationValue>({
 })
 
 export const initialLocationData = (
-  input?: LocationValue,
+  input?: LocationValue | null,
   withDetail?: boolean
 ): LocationValue =>
   withDetail
     ? merge(
         {
-          provinceName: '',
-          cityName: '',
-          countyName: '',
-          townName: '',
-          province: null,
-          city: null,
+          province: 31,
+          city: 3101,
           county: null,
           town: null,
+          provinceName: '上海市',
+          cityName: '市辖区',
+          countyName: '',
+          townName: '',
         },
         input
       )
     : merge(
         {
-          provinceName: '',
-          cityName: '',
-          countyName: '',
-          townName: '',
-          province: null,
-          city: null,
+          province: 31,
+          city: 3101,
           county: null,
           town: null,
+          provinceName: '上海市',
+          cityName: '市辖区',
+          countyName: '',
+          townName: '',
           detail: '',
         },
         input
       )
 
-export const validateSchema = Yup.object().shape({
-  province: Yup.number().integer(),
-  city: Yup.number().integer(),
-  county: Yup.number().integer(),
-  town: Yup.number().integer(),
-  detail: Yup.string().max(255),
-  provinceName: Yup.string().max(255),
-  cityName: Yup.string().max(255),
-  countyName: Yup.string().max(255),
-  townName: Yup.string().max(255),
-})
+export const createValidateSchema = () =>
+  Yup.object().shape({
+    province: Yup.number().integer().nullable(true),
+    city: Yup.number().integer().nullable(true),
+    county: Yup.number().integer().nullable(true),
+    town: Yup.number().integer().nullable(true),
+    detail: Yup.string().max(255).nullable(true),
+    provinceName: Yup.string().max(255).nullable(true),
+    cityName: Yup.string().max(255).nullable(true),
+    countyName: Yup.string().max(255).nullable(true),
+    townName: Yup.string().max(255).nullable(true),
+  })
 
 export const formatLocation = (
   location?: LocationValue,
@@ -63,10 +64,12 @@ export const formatLocation = (
   }
 
   const district = location.provinceName?.endsWith('市')
-    ? location.cityName
-    : ''
+    ? ''
+    : location.cityName || ''
 
-  const result = `${location.provinceName}${district}${location.countyName}${location.townName}`
+  const result = `${location.provinceName || ''}${district}${
+    location.countyName || ''
+  }${location.townName || ''}`
 
-  return withDetail ? `${result}${location.detail}` : result
+  return withDetail ? `${result}${location.detail || ''}` : result
 }

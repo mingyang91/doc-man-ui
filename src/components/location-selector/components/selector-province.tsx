@@ -6,7 +6,6 @@ import {
   AutocompleteInputChangeReason,
   AutocompleteProps,
   AutocompleteValue,
-  TextField,
 } from '@mui/material'
 import { useMemoizedFn } from 'ahooks'
 import { ElementType, SyntheticEvent, useId, useMemo, useState } from 'react'
@@ -15,6 +14,7 @@ import { useProvinceListQuery } from 'm/location/index.generated'
 
 import { BaseLocationValue, SelectorProps } from '../type'
 import { filterOptions } from '../utils'
+import { SelectTextField } from './base'
 
 export interface SelectorProvinceProps<
   T,
@@ -33,6 +33,7 @@ export interface SelectorProvinceProps<
 }
 
 export const SelectorProvince = ({
+  isError,
   value: valueProp,
   onChange: onChangeProps,
   onFocus,
@@ -99,10 +100,10 @@ export const SelectorProvince = ({
     <Autocomplete
       fullWidth
       {...componentProps}
-      id={id}
+      id={componentProps?.id || id}
       loading={isLoading}
       options={options}
-      renderInput={params => <TextField {...params} />}
+      renderInput={params => <SelectTextField {...params} error={isError} />}
       value={value}
       inputValue={inputValue}
       onInputChange={onInput}

@@ -1,30 +1,19 @@
 #import '../public.graphql'
 
-fragment InspectionItem on inspection_report_item {
-  id
-  name
-  displayName
-  requirementState
-  requirementAcceptance
-  condition
-  conclusion
-  result
-  inputValues
-}
-
 fragment InspectionReportHeader on inspection_report {
   id
   equipmentCode
   inspectionAddress
   equipmentRequester
   equipmentName
-  inspectionBasis
-  inspectionInstrument
-  inspectionItem
+  equipmentType
   equipmentManufacturer
   equipmentModel
   equipmentSampleId
   equipmentSite
+  inspectionBasis
+  inspectionInstrument
+  inspectionItem
   createAt
   updatedAt
   serialNumber
@@ -35,9 +24,7 @@ fragment InspectionReportHeader on inspection_report {
 
 fragment InspectionReport on inspection_report {
   ...InspectionReportHeader
-  items {
-    ...InspectionItem
-  }
+  items
 }
 
 query InspectionReportList(
@@ -68,7 +55,7 @@ query InspectionReportById($id: uuid = "") {
 }
 
 mutation CreateInspectionReport($data: inspection_report_insert_input = {}) {
-  insert_inspection_report_one(
+  returning: insert_inspection_report_one(
     object: $data
     on_conflict: { constraint: equipment_inspection_reports_id_key }
   ) {
@@ -79,34 +66,17 @@ mutation CreateInspectionReport($data: inspection_report_insert_input = {}) {
 mutation UpdateInspectionReportById(
   $id: uuid = ""
   $data: inspection_report_set_input = {}
-  $items: [inspection_report_item_insert_input!] = {}
 ) {
-  update_inspection_report_by_pk(pk_columns: { id: $id }, _set: $data) {
-    ...InspectionReport
-  }
-  insert_inspection_report_item(
-    objects: $items
-    on_conflict: {
-      constraint: inspection_items_id_key
-      update_columns: [
-        condition
-        conclusion
-        requirementAcceptance
-        requirementState
-        result
-        inputValues
-      ]
-    }
+  returning: update_inspection_report_by_pk(
+    pk_columns: { id: $id }
+    _set: $data
   ) {
-    affected_rows
-    returning {
-      ...InspectionItem
-    }
+    ...InspectionReport
   }
 }
 
 mutation DeleteInspectionReportById($id: uuid = "") {
-  delete_inspection_report_by_pk(id: $id) {
-    ...InspectionReport
+  returning: delete_inspection_report_by_pk(id: $id) {
+    id
   }
 }

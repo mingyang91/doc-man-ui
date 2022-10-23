@@ -107,13 +107,12 @@ module.exports = {
                 position: 'before',
               },
               {
-                pattern:
-                  'notistack|formik|(formik-*)|(@tanstack/react-query)|nprogress|ahooks',
+                pattern: 'notistack|(@tanstack/react-query)|nprogress|ahooks',
                 group: 'external',
                 position: 'before',
               },
               {
-                pattern: '(@mui/*)|(@tanstack/react-query)',
+                pattern: '(@mui/*)|mui-rff|react-final-form',
                 group: 'builtin',
                 position: 'after',
               },

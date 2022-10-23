@@ -25,7 +25,6 @@ export interface Scalars {
   Int: number
   Float: number
   jsonb: ScalarJson
-  numeric: ScalarNumeric
   role: any
   timestamp: ScalarTz
   timestamptz: ScalarTz
@@ -132,6 +131,10 @@ export interface ClientsBoolExp {
 
 /** unique or primary key constraints on table "clients" */
 export enum ClientsConstraint {
+  /** unique or primary key constraint */
+  CLIENTS_ID_KEY = 'clients_id_key',
+  /** unique or primary key constraint */
+  CLIENTS_NAME_KEY = 'clients_name_key',
   /** unique or primary key constraint */
   CLIENTS_PKEY = 'clients_pkey',
 }
@@ -263,8 +266,8 @@ export enum ClientsUpdateColumn {
   UPDATEDAT = 'updatedAt',
 }
 
-/** columns and relationships of "device" */
-export interface Device {
+/** columns and relationships of "equipment" */
+export interface Equipment {
   /** 检测地址 */
   address: Scalars['jsonb']
   /** An object relationship */
@@ -273,8 +276,7 @@ export interface Device {
   clientId?: Maybe<Scalars['uuid']>
   /** 备注信息 */
   comment?: Maybe<Scalars['String']>
-  /** 创建时间 */
-  createTime: Scalars['timestamptz']
+  createdAt?: Maybe<Scalars['timestamptz']>
   /** 创建者id */
   createrId?: Maybe<Scalars['Int']>
   /** An object relationship */
@@ -287,150 +289,151 @@ export interface Device {
   equipmentModel?: Maybe<Scalars['String']>
   /** 设备名称 */
   equipmentName?: Maybe<Scalars['String']>
-  /** 委托单位 */
-  equipmentRequester?: Maybe<Scalars['String']>
   /** 样品标识 */
   equipmentSampleId?: Maybe<Scalars['String']>
   /** 设备场所 */
   equipmentSite?: Maybe<Scalars['String']>
+  /** An object relationship */
+  equipmentType?: Maybe<EquipmentTypes>
+  equipmentTypeId?: Maybe<Scalars['uuid']>
   /** 设备ID */
   id: Scalars['uuid']
   /** 检测仪器 */
   inspectionInstrument?: Maybe<Scalars['String']>
-  /** 更新时间 */
-  updateTime: Scalars['timestamptz']
+  updatedAt?: Maybe<Scalars['timestamptz']>
 }
 
-/** columns and relationships of "device" */
-export interface DeviceAddressArgs {
+/** columns and relationships of "equipment" */
+export interface EquipmentAddressArgs {
   path?: InputMaybe<Scalars['String']>
 }
 
-/** aggregated selection of "device" */
-export interface DeviceAggregate {
-  aggregate?: Maybe<DeviceAggregateFields>
-  nodes: Array<Device>
+/** aggregated selection of "equipment" */
+export interface EquipmentAggregate {
+  aggregate?: Maybe<EquipmentAggregateFields>
+  nodes: Array<Equipment>
 }
 
-/** aggregate fields of "device" */
-export interface DeviceAggregateFields {
-  avg?: Maybe<DeviceAvgFields>
+/** aggregate fields of "equipment" */
+export interface EquipmentAggregateFields {
+  avg?: Maybe<EquipmentAvgFields>
   count: Scalars['Int']
-  max?: Maybe<DeviceMaxFields>
-  min?: Maybe<DeviceMinFields>
-  stddev?: Maybe<DeviceStddevFields>
-  stddev_pop?: Maybe<DeviceStddevPopFields>
-  stddev_samp?: Maybe<DeviceStddevSampFields>
-  sum?: Maybe<DeviceSumFields>
-  var_pop?: Maybe<DeviceVarPopFields>
-  var_samp?: Maybe<DeviceVarSampFields>
-  variance?: Maybe<DeviceVarianceFields>
+  max?: Maybe<EquipmentMaxFields>
+  min?: Maybe<EquipmentMinFields>
+  stddev?: Maybe<EquipmentStddevFields>
+  stddev_pop?: Maybe<EquipmentStddevPopFields>
+  stddev_samp?: Maybe<EquipmentStddevSampFields>
+  sum?: Maybe<EquipmentSumFields>
+  var_pop?: Maybe<EquipmentVarPopFields>
+  var_samp?: Maybe<EquipmentVarSampFields>
+  variance?: Maybe<EquipmentVarianceFields>
 }
 
-/** aggregate fields of "device" */
-export interface DeviceAggregateFieldsCountArgs {
-  columns?: InputMaybe<Array<DeviceSelectColumn>>
+/** aggregate fields of "equipment" */
+export interface EquipmentAggregateFieldsCountArgs {
+  columns?: InputMaybe<Array<EquipmentSelectColumn>>
   distinct?: InputMaybe<Scalars['Boolean']>
 }
 
-/** order by aggregate values of table "device" */
-export interface DeviceAggregateOrderBy {
-  avg?: InputMaybe<DeviceAvgOrderBy>
+/** order by aggregate values of table "equipment" */
+export interface EquipmentAggregateOrderBy {
+  avg?: InputMaybe<EquipmentAvgOrderBy>
   count?: InputMaybe<OrderBy>
-  max?: InputMaybe<DeviceMaxOrderBy>
-  min?: InputMaybe<DeviceMinOrderBy>
-  stddev?: InputMaybe<DeviceStddevOrderBy>
-  stddev_pop?: InputMaybe<DeviceStddevPopOrderBy>
-  stddev_samp?: InputMaybe<DeviceStddevSampOrderBy>
-  sum?: InputMaybe<DeviceSumOrderBy>
-  var_pop?: InputMaybe<DeviceVarPopOrderBy>
-  var_samp?: InputMaybe<DeviceVarSampOrderBy>
-  variance?: InputMaybe<DeviceVarianceOrderBy>
+  max?: InputMaybe<EquipmentMaxOrderBy>
+  min?: InputMaybe<EquipmentMinOrderBy>
+  stddev?: InputMaybe<EquipmentStddevOrderBy>
+  stddev_pop?: InputMaybe<EquipmentStddevPopOrderBy>
+  stddev_samp?: InputMaybe<EquipmentStddevSampOrderBy>
+  sum?: InputMaybe<EquipmentSumOrderBy>
+  var_pop?: InputMaybe<EquipmentVarPopOrderBy>
+  var_samp?: InputMaybe<EquipmentVarSampOrderBy>
+  variance?: InputMaybe<EquipmentVarianceOrderBy>
 }
 
 /** append existing jsonb value of filtered columns with new jsonb value */
-export interface DeviceAppendInput {
+export interface EquipmentAppendInput {
   /** 检测地址 */
   address?: InputMaybe<Scalars['jsonb']>
 }
 
-/** input type for inserting array relation for remote table "device" */
-export interface DeviceArrRelInsertInput {
-  data: Array<DeviceInsertInput>
+/** input type for inserting array relation for remote table "equipment" */
+export interface EquipmentArrRelInsertInput {
+  data: Array<EquipmentInsertInput>
   /** upsert condition */
-  on_conflict?: InputMaybe<DeviceOnConflict>
+  on_conflict?: InputMaybe<EquipmentOnConflict>
 }
 
 /** aggregate avg on columns */
-export interface DeviceAvgFields {
+export interface EquipmentAvgFields {
   /** 创建者id */
   createrId?: Maybe<Scalars['Float']>
 }
 
-/** order by avg() on columns of table "device" */
-export interface DeviceAvgOrderBy {
+/** order by avg() on columns of table "equipment" */
+export interface EquipmentAvgOrderBy {
   /** 创建者id */
   createrId?: InputMaybe<OrderBy>
 }
 
-/** Boolean expression to filter rows from the table "device". All fields are combined with a logical 'AND'. */
-export interface DeviceBoolExp {
-  _and?: InputMaybe<Array<DeviceBoolExp>>
-  _not?: InputMaybe<DeviceBoolExp>
-  _or?: InputMaybe<Array<DeviceBoolExp>>
+/** Boolean expression to filter rows from the table "equipment". All fields are combined with a logical 'AND'. */
+export interface EquipmentBoolExp {
+  _and?: InputMaybe<Array<EquipmentBoolExp>>
+  _not?: InputMaybe<EquipmentBoolExp>
+  _or?: InputMaybe<Array<EquipmentBoolExp>>
   address?: InputMaybe<JsonbComparisonExp>
   client?: InputMaybe<ClientsBoolExp>
   clientId?: InputMaybe<UuidComparisonExp>
   comment?: InputMaybe<StringComparisonExp>
-  createTime?: InputMaybe<TimestamptzComparisonExp>
+  createdAt?: InputMaybe<TimestamptzComparisonExp>
   createrId?: InputMaybe<IntComparisonExp>
   creator?: InputMaybe<UserBoolExp>
   equipmentCode?: InputMaybe<StringComparisonExp>
   equipmentManufacturer?: InputMaybe<StringComparisonExp>
   equipmentModel?: InputMaybe<StringComparisonExp>
   equipmentName?: InputMaybe<StringComparisonExp>
-  equipmentRequester?: InputMaybe<StringComparisonExp>
   equipmentSampleId?: InputMaybe<StringComparisonExp>
   equipmentSite?: InputMaybe<StringComparisonExp>
+  equipmentType?: InputMaybe<EquipmentTypesBoolExp>
+  equipmentTypeId?: InputMaybe<UuidComparisonExp>
   id?: InputMaybe<UuidComparisonExp>
   inspectionInstrument?: InputMaybe<StringComparisonExp>
-  updateTime?: InputMaybe<TimestamptzComparisonExp>
+  updatedAt?: InputMaybe<TimestamptzComparisonExp>
 }
 
-/** unique or primary key constraints on table "device" */
-export enum DeviceConstraint {
-  /** unique or primary key constraint */
-  DEVICE_ID_KEY = 'device_id_key',
+/** unique or primary key constraints on table "equipment" */
+export enum EquipmentConstraint {
   /** unique or primary key constraint */
   DEVICE_PKEY = 'device_pkey',
+  /** unique or primary key constraint */
+  EQUIPMENT_ID_KEY = 'equipment_id_key',
 }
 
 /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
-export interface DeviceDeleteAtPathInput {
+export interface EquipmentDeleteAtPathInput {
   /** 检测地址 */
   address?: InputMaybe<Array<Scalars['String']>>
 }
 
 /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
-export interface DeviceDeleteElemInput {
+export interface EquipmentDeleteElemInput {
   /** 检测地址 */
   address?: InputMaybe<Scalars['Int']>
 }
 
 /** delete key/value pair or string element. key/value pairs are matched based on their key value */
-export interface DeviceDeleteKeyInput {
+export interface EquipmentDeleteKeyInput {
   /** 检测地址 */
   address?: InputMaybe<Scalars['String']>
 }
 
-/** input type for incrementing numeric columns in table "device" */
-export interface DeviceIncInput {
+/** input type for incrementing numeric columns in table "equipment" */
+export interface EquipmentIncInput {
   /** 创建者id */
   createrId?: InputMaybe<Scalars['Int']>
 }
 
-/** input type for inserting data into table "device" */
-export interface DeviceInsertInput {
+/** input type for inserting data into table "equipment" */
+export interface EquipmentInsertInput {
   /** 检测地址 */
   address?: InputMaybe<Scalars['jsonb']>
   client?: InputMaybe<ClientsObjRelInsertInput>
@@ -438,8 +441,7 @@ export interface DeviceInsertInput {
   clientId?: InputMaybe<Scalars['uuid']>
   /** 备注信息 */
   comment?: InputMaybe<Scalars['String']>
-  /** 创建时间 */
-  createTime?: InputMaybe<Scalars['timestamptz']>
+  createdAt?: InputMaybe<Scalars['timestamptz']>
   /** 创建者id */
   createrId?: InputMaybe<Scalars['Int']>
   creator?: InputMaybe<UserObjRelInsertInput>
@@ -451,28 +453,26 @@ export interface DeviceInsertInput {
   equipmentModel?: InputMaybe<Scalars['String']>
   /** 设备名称 */
   equipmentName?: InputMaybe<Scalars['String']>
-  /** 委托单位 */
-  equipmentRequester?: InputMaybe<Scalars['String']>
   /** 样品标识 */
   equipmentSampleId?: InputMaybe<Scalars['String']>
   /** 设备场所 */
   equipmentSite?: InputMaybe<Scalars['String']>
+  equipmentType?: InputMaybe<EquipmentTypesObjRelInsertInput>
+  equipmentTypeId?: InputMaybe<Scalars['uuid']>
   /** 设备ID */
   id?: InputMaybe<Scalars['uuid']>
   /** 检测仪器 */
   inspectionInstrument?: InputMaybe<Scalars['String']>
-  /** 更新时间 */
-  updateTime?: InputMaybe<Scalars['timestamptz']>
+  updatedAt?: InputMaybe<Scalars['timestamptz']>
 }
 
 /** aggregate max on columns */
-export interface DeviceMaxFields {
+export interface EquipmentMaxFields {
   /** 委托单位Id */
   clientId?: Maybe<Scalars['uuid']>
   /** 备注信息 */
   comment?: Maybe<Scalars['String']>
-  /** 创建时间 */
-  createTime?: Maybe<Scalars['timestamptz']>
+  createdAt?: Maybe<Scalars['timestamptz']>
   /** 创建者id */
   createrId?: Maybe<Scalars['Int']>
   /** 设备编号 */
@@ -483,28 +483,25 @@ export interface DeviceMaxFields {
   equipmentModel?: Maybe<Scalars['String']>
   /** 设备名称 */
   equipmentName?: Maybe<Scalars['String']>
-  /** 委托单位 */
-  equipmentRequester?: Maybe<Scalars['String']>
   /** 样品标识 */
   equipmentSampleId?: Maybe<Scalars['String']>
   /** 设备场所 */
   equipmentSite?: Maybe<Scalars['String']>
+  equipmentTypeId?: Maybe<Scalars['uuid']>
   /** 设备ID */
   id?: Maybe<Scalars['uuid']>
   /** 检测仪器 */
   inspectionInstrument?: Maybe<Scalars['String']>
-  /** 更新时间 */
-  updateTime?: Maybe<Scalars['timestamptz']>
+  updatedAt?: Maybe<Scalars['timestamptz']>
 }
 
-/** order by max() on columns of table "device" */
-export interface DeviceMaxOrderBy {
+/** order by max() on columns of table "equipment" */
+export interface EquipmentMaxOrderBy {
   /** 委托单位Id */
   clientId?: InputMaybe<OrderBy>
   /** 备注信息 */
   comment?: InputMaybe<OrderBy>
-  /** 创建时间 */
-  createTime?: InputMaybe<OrderBy>
+  createdAt?: InputMaybe<OrderBy>
   /** 创建者id */
   createrId?: InputMaybe<OrderBy>
   /** 设备编号 */
@@ -515,28 +512,25 @@ export interface DeviceMaxOrderBy {
   equipmentModel?: InputMaybe<OrderBy>
   /** 设备名称 */
   equipmentName?: InputMaybe<OrderBy>
-  /** 委托单位 */
-  equipmentRequester?: InputMaybe<OrderBy>
   /** 样品标识 */
   equipmentSampleId?: InputMaybe<OrderBy>
   /** 设备场所 */
   equipmentSite?: InputMaybe<OrderBy>
+  equipmentTypeId?: InputMaybe<OrderBy>
   /** 设备ID */
   id?: InputMaybe<OrderBy>
   /** 检测仪器 */
   inspectionInstrument?: InputMaybe<OrderBy>
-  /** 更新时间 */
-  updateTime?: InputMaybe<OrderBy>
+  updatedAt?: InputMaybe<OrderBy>
 }
 
 /** aggregate min on columns */
-export interface DeviceMinFields {
+export interface EquipmentMinFields {
   /** 委托单位Id */
   clientId?: Maybe<Scalars['uuid']>
   /** 备注信息 */
   comment?: Maybe<Scalars['String']>
-  /** 创建时间 */
-  createTime?: Maybe<Scalars['timestamptz']>
+  createdAt?: Maybe<Scalars['timestamptz']>
   /** 创建者id */
   createrId?: Maybe<Scalars['Int']>
   /** 设备编号 */
@@ -547,28 +541,25 @@ export interface DeviceMinFields {
   equipmentModel?: Maybe<Scalars['String']>
   /** 设备名称 */
   equipmentName?: Maybe<Scalars['String']>
-  /** 委托单位 */
-  equipmentRequester?: Maybe<Scalars['String']>
   /** 样品标识 */
   equipmentSampleId?: Maybe<Scalars['String']>
   /** 设备场所 */
   equipmentSite?: Maybe<Scalars['String']>
+  equipmentTypeId?: Maybe<Scalars['uuid']>
   /** 设备ID */
   id?: Maybe<Scalars['uuid']>
   /** 检测仪器 */
   inspectionInstrument?: Maybe<Scalars['String']>
-  /** 更新时间 */
-  updateTime?: Maybe<Scalars['timestamptz']>
+  updatedAt?: Maybe<Scalars['timestamptz']>
 }
 
-/** order by min() on columns of table "device" */
-export interface DeviceMinOrderBy {
+/** order by min() on columns of table "equipment" */
+export interface EquipmentMinOrderBy {
   /** 委托单位Id */
   clientId?: InputMaybe<OrderBy>
   /** 备注信息 */
   comment?: InputMaybe<OrderBy>
-  /** 创建时间 */
-  createTime?: InputMaybe<OrderBy>
+  createdAt?: InputMaybe<OrderBy>
   /** 创建者id */
   createrId?: InputMaybe<OrderBy>
   /** 设备编号 */
@@ -579,70 +570,69 @@ export interface DeviceMinOrderBy {
   equipmentModel?: InputMaybe<OrderBy>
   /** 设备名称 */
   equipmentName?: InputMaybe<OrderBy>
-  /** 委托单位 */
-  equipmentRequester?: InputMaybe<OrderBy>
   /** 样品标识 */
   equipmentSampleId?: InputMaybe<OrderBy>
   /** 设备场所 */
   equipmentSite?: InputMaybe<OrderBy>
+  equipmentTypeId?: InputMaybe<OrderBy>
   /** 设备ID */
   id?: InputMaybe<OrderBy>
   /** 检测仪器 */
   inspectionInstrument?: InputMaybe<OrderBy>
-  /** 更新时间 */
-  updateTime?: InputMaybe<OrderBy>
+  updatedAt?: InputMaybe<OrderBy>
 }
 
-/** response of any mutation on the table "device" */
-export interface DeviceMutationResponse {
+/** response of any mutation on the table "equipment" */
+export interface EquipmentMutationResponse {
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']
   /** data from the rows affected by the mutation */
-  returning: Array<Device>
+  returning: Array<Equipment>
 }
 
-/** on_conflict condition type for table "device" */
-export interface DeviceOnConflict {
-  constraint: DeviceConstraint
-  update_columns?: Array<DeviceUpdateColumn>
-  where?: InputMaybe<DeviceBoolExp>
+/** on_conflict condition type for table "equipment" */
+export interface EquipmentOnConflict {
+  constraint: EquipmentConstraint
+  update_columns?: Array<EquipmentUpdateColumn>
+  where?: InputMaybe<EquipmentBoolExp>
 }
 
-/** Ordering options when selecting data from "device". */
-export interface DeviceOrderBy {
+/** Ordering options when selecting data from "equipment". */
+export interface EquipmentOrderBy {
   address?: InputMaybe<OrderBy>
   client?: InputMaybe<ClientsOrderBy>
   clientId?: InputMaybe<OrderBy>
   comment?: InputMaybe<OrderBy>
-  createTime?: InputMaybe<OrderBy>
+  createdAt?: InputMaybe<OrderBy>
   createrId?: InputMaybe<OrderBy>
   creator?: InputMaybe<UserOrderBy>
   equipmentCode?: InputMaybe<OrderBy>
   equipmentManufacturer?: InputMaybe<OrderBy>
   equipmentModel?: InputMaybe<OrderBy>
   equipmentName?: InputMaybe<OrderBy>
-  equipmentRequester?: InputMaybe<OrderBy>
   equipmentSampleId?: InputMaybe<OrderBy>
   equipmentSite?: InputMaybe<OrderBy>
+  equipmentType?: InputMaybe<EquipmentTypesOrderBy>
+  equipmentTypeId?: InputMaybe<OrderBy>
   id?: InputMaybe<OrderBy>
   inspectionInstrument?: InputMaybe<OrderBy>
-  updateTime?: InputMaybe<OrderBy>
+  updatedAt?: InputMaybe<OrderBy>
 }
 
-/** primary key columns input for table: device */
-export interface DevicePkColumnsInput {
+/** primary key columns input for table: equipment */
+export interface EquipmentPkColumnsInput {
   /** 设备ID */
   id: Scalars['uuid']
 }
 
 /** prepend existing jsonb value of filtered columns with new jsonb value */
-export interface DevicePrependInput {
+export interface EquipmentPrependInput {
   /** 检测地址 */
   address?: InputMaybe<Scalars['jsonb']>
 }
 
-/** select columns of table "device" */
-export enum DeviceSelectColumn {
+/** select columns of table "equipment" */
+export enum EquipmentSelectColumn {
   /** column name */
   ADDRESS = 'address',
   /** column name */
@@ -650,7 +640,7 @@ export enum DeviceSelectColumn {
   /** column name */
   COMMENT = 'comment',
   /** column name */
-  CREATETIME = 'createTime',
+  CREATEDAT = 'createdAt',
   /** column name */
   CREATERID = 'createrId',
   /** column name */
@@ -662,29 +652,28 @@ export enum DeviceSelectColumn {
   /** column name */
   EQUIPMENTNAME = 'equipmentName',
   /** column name */
-  EQUIPMENTREQUESTER = 'equipmentRequester',
-  /** column name */
   EQUIPMENTSAMPLEID = 'equipmentSampleId',
   /** column name */
   EQUIPMENTSITE = 'equipmentSite',
+  /** column name */
+  EQUIPMENTTYPEID = 'equipmentTypeId',
   /** column name */
   ID = 'id',
   /** column name */
   INSPECTIONINSTRUMENT = 'inspectionInstrument',
   /** column name */
-  UPDATETIME = 'updateTime',
+  UPDATEDAT = 'updatedAt',
 }
 
-/** input type for updating data in table "device" */
-export interface DeviceSetInput {
+/** input type for updating data in table "equipment" */
+export interface EquipmentSetInput {
   /** 检测地址 */
   address?: InputMaybe<Scalars['jsonb']>
   /** 委托单位Id */
   clientId?: InputMaybe<Scalars['uuid']>
   /** 备注信息 */
   comment?: InputMaybe<Scalars['String']>
-  /** 创建时间 */
-  createTime?: InputMaybe<Scalars['timestamptz']>
+  createdAt?: InputMaybe<Scalars['timestamptz']>
   /** 创建者id */
   createrId?: InputMaybe<Scalars['Int']>
   /** 设备编号 */
@@ -695,70 +684,230 @@ export interface DeviceSetInput {
   equipmentModel?: InputMaybe<Scalars['String']>
   /** 设备名称 */
   equipmentName?: InputMaybe<Scalars['String']>
-  /** 委托单位 */
-  equipmentRequester?: InputMaybe<Scalars['String']>
   /** 样品标识 */
   equipmentSampleId?: InputMaybe<Scalars['String']>
   /** 设备场所 */
   equipmentSite?: InputMaybe<Scalars['String']>
+  equipmentTypeId?: InputMaybe<Scalars['uuid']>
   /** 设备ID */
   id?: InputMaybe<Scalars['uuid']>
   /** 检测仪器 */
   inspectionInstrument?: InputMaybe<Scalars['String']>
-  /** 更新时间 */
-  updateTime?: InputMaybe<Scalars['timestamptz']>
+  updatedAt?: InputMaybe<Scalars['timestamptz']>
 }
 
 /** aggregate stddev on columns */
-export interface DeviceStddevFields {
+export interface EquipmentStddevFields {
   /** 创建者id */
   createrId?: Maybe<Scalars['Float']>
 }
 
-/** order by stddev() on columns of table "device" */
-export interface DeviceStddevOrderBy {
+/** order by stddev() on columns of table "equipment" */
+export interface EquipmentStddevOrderBy {
   /** 创建者id */
   createrId?: InputMaybe<OrderBy>
 }
 
 /** aggregate stddev_pop on columns */
-export interface DeviceStddevPopFields {
+export interface EquipmentStddevPopFields {
   /** 创建者id */
   createrId?: Maybe<Scalars['Float']>
 }
 
-/** order by stddev_pop() on columns of table "device" */
-export interface DeviceStddevPopOrderBy {
+/** order by stddev_pop() on columns of table "equipment" */
+export interface EquipmentStddevPopOrderBy {
   /** 创建者id */
   createrId?: InputMaybe<OrderBy>
 }
 
 /** aggregate stddev_samp on columns */
-export interface DeviceStddevSampFields {
+export interface EquipmentStddevSampFields {
   /** 创建者id */
   createrId?: Maybe<Scalars['Float']>
 }
 
-/** order by stddev_samp() on columns of table "device" */
-export interface DeviceStddevSampOrderBy {
+/** order by stddev_samp() on columns of table "equipment" */
+export interface EquipmentStddevSampOrderBy {
   /** 创建者id */
   createrId?: InputMaybe<OrderBy>
 }
 
 /** aggregate sum on columns */
-export interface DeviceSumFields {
+export interface EquipmentSumFields {
   /** 创建者id */
   createrId?: Maybe<Scalars['Int']>
 }
 
-/** order by sum() on columns of table "device" */
-export interface DeviceSumOrderBy {
+/** order by sum() on columns of table "equipment" */
+export interface EquipmentSumOrderBy {
   /** 创建者id */
   createrId?: InputMaybe<OrderBy>
 }
 
-/** update columns of table "device" */
-export enum DeviceUpdateColumn {
+/** 设备种类举例 */
+export interface EquipmentTypes {
+  comment?: Maybe<Scalars['String']>
+  displayName?: Maybe<Scalars['String']>
+  id: Scalars['uuid']
+  /** An array relationship */
+  inspectionItems: Array<InspectionTypes>
+  /** An aggregate relationship */
+  inspectionItems_aggregate: InspectionTypesAggregate
+  name: Scalars['String']
+}
+
+/** 设备种类举例 */
+export interface EquipmentTypesInspectionItemsArgs {
+  distinct_on?: InputMaybe<Array<InspectionTypesSelectColumn>>
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
+  order_by?: InputMaybe<Array<InspectionTypesOrderBy>>
+  where?: InputMaybe<InspectionTypesBoolExp>
+}
+
+/** 设备种类举例 */
+export interface EquipmentTypesInspectionItemsAggregateArgs {
+  distinct_on?: InputMaybe<Array<InspectionTypesSelectColumn>>
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
+  order_by?: InputMaybe<Array<InspectionTypesOrderBy>>
+  where?: InputMaybe<InspectionTypesBoolExp>
+}
+
+/** aggregated selection of "equipment_types" */
+export interface EquipmentTypesAggregate {
+  aggregate?: Maybe<EquipmentTypesAggregateFields>
+  nodes: Array<EquipmentTypes>
+}
+
+/** aggregate fields of "equipment_types" */
+export interface EquipmentTypesAggregateFields {
+  count: Scalars['Int']
+  max?: Maybe<EquipmentTypesMaxFields>
+  min?: Maybe<EquipmentTypesMinFields>
+}
+
+/** aggregate fields of "equipment_types" */
+export interface EquipmentTypesAggregateFieldsCountArgs {
+  columns?: InputMaybe<Array<EquipmentTypesSelectColumn>>
+  distinct?: InputMaybe<Scalars['Boolean']>
+}
+
+/** Boolean expression to filter rows from the table "equipment_types". All fields are combined with a logical 'AND'. */
+export interface EquipmentTypesBoolExp {
+  _and?: InputMaybe<Array<EquipmentTypesBoolExp>>
+  _not?: InputMaybe<EquipmentTypesBoolExp>
+  _or?: InputMaybe<Array<EquipmentTypesBoolExp>>
+  comment?: InputMaybe<StringComparisonExp>
+  displayName?: InputMaybe<StringComparisonExp>
+  id?: InputMaybe<UuidComparisonExp>
+  inspectionItems?: InputMaybe<InspectionTypesBoolExp>
+  name?: InputMaybe<StringComparisonExp>
+}
+
+/** unique or primary key constraints on table "equipment_types" */
+export enum EquipmentTypesConstraint {
+  /** unique or primary key constraint */
+  EQUIPMENT_ENUM_NAME_KEY = 'equipment_enum_name_key',
+  /** unique or primary key constraint */
+  EQUIPMENT_ENUM_PKEY = 'equipment_enum_pkey',
+}
+
+/** input type for inserting data into table "equipment_types" */
+export interface EquipmentTypesInsertInput {
+  comment?: InputMaybe<Scalars['String']>
+  displayName?: InputMaybe<Scalars['String']>
+  id?: InputMaybe<Scalars['uuid']>
+  inspectionItems?: InputMaybe<InspectionTypesArrRelInsertInput>
+  name?: InputMaybe<Scalars['String']>
+}
+
+/** aggregate max on columns */
+export interface EquipmentTypesMaxFields {
+  comment?: Maybe<Scalars['String']>
+  displayName?: Maybe<Scalars['String']>
+  id?: Maybe<Scalars['uuid']>
+  name?: Maybe<Scalars['String']>
+}
+
+/** aggregate min on columns */
+export interface EquipmentTypesMinFields {
+  comment?: Maybe<Scalars['String']>
+  displayName?: Maybe<Scalars['String']>
+  id?: Maybe<Scalars['uuid']>
+  name?: Maybe<Scalars['String']>
+}
+
+/** response of any mutation on the table "equipment_types" */
+export interface EquipmentTypesMutationResponse {
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']
+  /** data from the rows affected by the mutation */
+  returning: Array<EquipmentTypes>
+}
+
+/** input type for inserting object relation for remote table "equipment_types" */
+export interface EquipmentTypesObjRelInsertInput {
+  data: EquipmentTypesInsertInput
+  /** upsert condition */
+  on_conflict?: InputMaybe<EquipmentTypesOnConflict>
+}
+
+/** on_conflict condition type for table "equipment_types" */
+export interface EquipmentTypesOnConflict {
+  constraint: EquipmentTypesConstraint
+  update_columns?: Array<EquipmentTypesUpdateColumn>
+  where?: InputMaybe<EquipmentTypesBoolExp>
+}
+
+/** Ordering options when selecting data from "equipment_types". */
+export interface EquipmentTypesOrderBy {
+  comment?: InputMaybe<OrderBy>
+  displayName?: InputMaybe<OrderBy>
+  id?: InputMaybe<OrderBy>
+  inspectionItems_aggregate?: InputMaybe<InspectionTypesAggregateOrderBy>
+  name?: InputMaybe<OrderBy>
+}
+
+/** primary key columns input for table: equipment_types */
+export interface EquipmentTypesPkColumnsInput {
+  id: Scalars['uuid']
+}
+
+/** select columns of table "equipment_types" */
+export enum EquipmentTypesSelectColumn {
+  /** column name */
+  COMMENT = 'comment',
+  /** column name */
+  DISPLAYNAME = 'displayName',
+  /** column name */
+  ID = 'id',
+  /** column name */
+  NAME = 'name',
+}
+
+/** input type for updating data in table "equipment_types" */
+export interface EquipmentTypesSetInput {
+  comment?: InputMaybe<Scalars['String']>
+  displayName?: InputMaybe<Scalars['String']>
+  id?: InputMaybe<Scalars['uuid']>
+  name?: InputMaybe<Scalars['String']>
+}
+
+/** update columns of table "equipment_types" */
+export enum EquipmentTypesUpdateColumn {
+  /** column name */
+  COMMENT = 'comment',
+  /** column name */
+  DISPLAYNAME = 'displayName',
+  /** column name */
+  ID = 'id',
+  /** column name */
+  NAME = 'name',
+}
+
+/** update columns of table "equipment" */
+export enum EquipmentUpdateColumn {
   /** column name */
   ADDRESS = 'address',
   /** column name */
@@ -766,7 +915,7 @@ export enum DeviceUpdateColumn {
   /** column name */
   COMMENT = 'comment',
   /** column name */
-  CREATETIME = 'createTime',
+  CREATEDAT = 'createdAt',
   /** column name */
   CREATERID = 'createrId',
   /** column name */
@@ -778,946 +927,53 @@ export enum DeviceUpdateColumn {
   /** column name */
   EQUIPMENTNAME = 'equipmentName',
   /** column name */
-  EQUIPMENTREQUESTER = 'equipmentRequester',
-  /** column name */
   EQUIPMENTSAMPLEID = 'equipmentSampleId',
   /** column name */
   EQUIPMENTSITE = 'equipmentSite',
+  /** column name */
+  EQUIPMENTTYPEID = 'equipmentTypeId',
   /** column name */
   ID = 'id',
   /** column name */
   INSPECTIONINSTRUMENT = 'inspectionInstrument',
   /** column name */
-  UPDATETIME = 'updateTime',
+  UPDATEDAT = 'updatedAt',
 }
 
 /** aggregate var_pop on columns */
-export interface DeviceVarPopFields {
+export interface EquipmentVarPopFields {
   /** 创建者id */
   createrId?: Maybe<Scalars['Float']>
 }
 
-/** order by var_pop() on columns of table "device" */
-export interface DeviceVarPopOrderBy {
+/** order by var_pop() on columns of table "equipment" */
+export interface EquipmentVarPopOrderBy {
   /** 创建者id */
   createrId?: InputMaybe<OrderBy>
 }
 
 /** aggregate var_samp on columns */
-export interface DeviceVarSampFields {
+export interface EquipmentVarSampFields {
   /** 创建者id */
   createrId?: Maybe<Scalars['Float']>
 }
 
-/** order by var_samp() on columns of table "device" */
-export interface DeviceVarSampOrderBy {
+/** order by var_samp() on columns of table "equipment" */
+export interface EquipmentVarSampOrderBy {
   /** 创建者id */
   createrId?: InputMaybe<OrderBy>
 }
 
 /** aggregate variance on columns */
-export interface DeviceVarianceFields {
+export interface EquipmentVarianceFields {
   /** 创建者id */
   createrId?: Maybe<Scalars['Float']>
 }
 
-/** order by variance() on columns of table "device" */
-export interface DeviceVarianceOrderBy {
+/** order by variance() on columns of table "equipment" */
+export interface EquipmentVarianceOrderBy {
   /** 创建者id */
   createrId?: InputMaybe<OrderBy>
-}
-
-/** 设备种类举例 */
-export interface EquipmentEnum {
-  comment?: Maybe<Scalars['String']>
-  displayName?: Maybe<Scalars['String']>
-  id: Scalars['uuid']
-  /** An array relationship */
-  inspection_items: Array<InspectionItemEnum>
-  /** An aggregate relationship */
-  inspection_items_aggregate: InspectionItemEnumAggregate
-  name: Scalars['String']
-}
-
-/** 设备种类举例 */
-export interface EquipmentEnumInspectionItemsArgs {
-  distinct_on?: InputMaybe<Array<InspectionItemEnumSelectColumn>>
-  limit?: InputMaybe<Scalars['Int']>
-  offset?: InputMaybe<Scalars['Int']>
-  order_by?: InputMaybe<Array<InspectionItemEnumOrderBy>>
-  where?: InputMaybe<InspectionItemEnumBoolExp>
-}
-
-/** 设备种类举例 */
-export interface EquipmentEnumInspectionItemsAggregateArgs {
-  distinct_on?: InputMaybe<Array<InspectionItemEnumSelectColumn>>
-  limit?: InputMaybe<Scalars['Int']>
-  offset?: InputMaybe<Scalars['Int']>
-  order_by?: InputMaybe<Array<InspectionItemEnumOrderBy>>
-  where?: InputMaybe<InspectionItemEnumBoolExp>
-}
-
-/** aggregated selection of "equipment_enum" */
-export interface EquipmentEnumAggregate {
-  aggregate?: Maybe<EquipmentEnumAggregateFields>
-  nodes: Array<EquipmentEnum>
-}
-
-/** aggregate fields of "equipment_enum" */
-export interface EquipmentEnumAggregateFields {
-  count: Scalars['Int']
-  max?: Maybe<EquipmentEnumMaxFields>
-  min?: Maybe<EquipmentEnumMinFields>
-}
-
-/** aggregate fields of "equipment_enum" */
-export interface EquipmentEnumAggregateFieldsCountArgs {
-  columns?: InputMaybe<Array<EquipmentEnumSelectColumn>>
-  distinct?: InputMaybe<Scalars['Boolean']>
-}
-
-/** Boolean expression to filter rows from the table "equipment_enum". All fields are combined with a logical 'AND'. */
-export interface EquipmentEnumBoolExp {
-  _and?: InputMaybe<Array<EquipmentEnumBoolExp>>
-  _not?: InputMaybe<EquipmentEnumBoolExp>
-  _or?: InputMaybe<Array<EquipmentEnumBoolExp>>
-  comment?: InputMaybe<StringComparisonExp>
-  displayName?: InputMaybe<StringComparisonExp>
-  id?: InputMaybe<UuidComparisonExp>
-  inspection_items?: InputMaybe<InspectionItemEnumBoolExp>
-  name?: InputMaybe<StringComparisonExp>
-}
-
-/** unique or primary key constraints on table "equipment_enum" */
-export enum EquipmentEnumConstraint {
-  /** unique or primary key constraint */
-  EQUIPMENT_ENUM_NAME_KEY = 'equipment_enum_name_key',
-  /** unique or primary key constraint */
-  EQUIPMENT_ENUM_PKEY = 'equipment_enum_pkey',
-}
-
-/** input type for inserting data into table "equipment_enum" */
-export interface EquipmentEnumInsertInput {
-  comment?: InputMaybe<Scalars['String']>
-  displayName?: InputMaybe<Scalars['String']>
-  id?: InputMaybe<Scalars['uuid']>
-  inspection_items?: InputMaybe<InspectionItemEnumArrRelInsertInput>
-  name?: InputMaybe<Scalars['String']>
-}
-
-/** aggregate max on columns */
-export interface EquipmentEnumMaxFields {
-  comment?: Maybe<Scalars['String']>
-  displayName?: Maybe<Scalars['String']>
-  id?: Maybe<Scalars['uuid']>
-  name?: Maybe<Scalars['String']>
-}
-
-/** aggregate min on columns */
-export interface EquipmentEnumMinFields {
-  comment?: Maybe<Scalars['String']>
-  displayName?: Maybe<Scalars['String']>
-  id?: Maybe<Scalars['uuid']>
-  name?: Maybe<Scalars['String']>
-}
-
-/** response of any mutation on the table "equipment_enum" */
-export interface EquipmentEnumMutationResponse {
-  /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int']
-  /** data from the rows affected by the mutation */
-  returning: Array<EquipmentEnum>
-}
-
-/** input type for inserting object relation for remote table "equipment_enum" */
-export interface EquipmentEnumObjRelInsertInput {
-  data: EquipmentEnumInsertInput
-  /** upsert condition */
-  on_conflict?: InputMaybe<EquipmentEnumOnConflict>
-}
-
-/** on_conflict condition type for table "equipment_enum" */
-export interface EquipmentEnumOnConflict {
-  constraint: EquipmentEnumConstraint
-  update_columns?: Array<EquipmentEnumUpdateColumn>
-  where?: InputMaybe<EquipmentEnumBoolExp>
-}
-
-/** Ordering options when selecting data from "equipment_enum". */
-export interface EquipmentEnumOrderBy {
-  comment?: InputMaybe<OrderBy>
-  displayName?: InputMaybe<OrderBy>
-  id?: InputMaybe<OrderBy>
-  inspection_items_aggregate?: InputMaybe<InspectionItemEnumAggregateOrderBy>
-  name?: InputMaybe<OrderBy>
-}
-
-/** primary key columns input for table: equipment_enum */
-export interface EquipmentEnumPkColumnsInput {
-  id: Scalars['uuid']
-}
-
-/** select columns of table "equipment_enum" */
-export enum EquipmentEnumSelectColumn {
-  /** column name */
-  COMMENT = 'comment',
-  /** column name */
-  DISPLAYNAME = 'displayName',
-  /** column name */
-  ID = 'id',
-  /** column name */
-  NAME = 'name',
-}
-
-/** input type for updating data in table "equipment_enum" */
-export interface EquipmentEnumSetInput {
-  comment?: InputMaybe<Scalars['String']>
-  displayName?: InputMaybe<Scalars['String']>
-  id?: InputMaybe<Scalars['uuid']>
-  name?: InputMaybe<Scalars['String']>
-}
-
-/** update columns of table "equipment_enum" */
-export enum EquipmentEnumUpdateColumn {
-  /** column name */
-  COMMENT = 'comment',
-  /** column name */
-  DISPLAYNAME = 'displayName',
-  /** column name */
-  ID = 'id',
-  /** column name */
-  NAME = 'name',
-}
-
-/** 全局常量 */
-export interface GlobalConst {
-  /** 备注 */
-  comment: Scalars['String']
-  id: Scalars['uuid']
-  /** 常量名 */
-  name: Scalars['String']
-  /** 常量值 */
-  value: Scalars['numeric']
-}
-
-/** aggregated selection of "global_const" */
-export interface GlobalConstAggregate {
-  aggregate?: Maybe<GlobalConstAggregateFields>
-  nodes: Array<GlobalConst>
-}
-
-/** aggregate fields of "global_const" */
-export interface GlobalConstAggregateFields {
-  avg?: Maybe<GlobalConstAvgFields>
-  count: Scalars['Int']
-  max?: Maybe<GlobalConstMaxFields>
-  min?: Maybe<GlobalConstMinFields>
-  stddev?: Maybe<GlobalConstStddevFields>
-  stddev_pop?: Maybe<GlobalConstStddevPopFields>
-  stddev_samp?: Maybe<GlobalConstStddevSampFields>
-  sum?: Maybe<GlobalConstSumFields>
-  var_pop?: Maybe<GlobalConstVarPopFields>
-  var_samp?: Maybe<GlobalConstVarSampFields>
-  variance?: Maybe<GlobalConstVarianceFields>
-}
-
-/** aggregate fields of "global_const" */
-export interface GlobalConstAggregateFieldsCountArgs {
-  columns?: InputMaybe<Array<GlobalConstSelectColumn>>
-  distinct?: InputMaybe<Scalars['Boolean']>
-}
-
-/** aggregate avg on columns */
-export interface GlobalConstAvgFields {
-  /** 常量值 */
-  value?: Maybe<Scalars['Float']>
-}
-
-/** Boolean expression to filter rows from the table "global_const". All fields are combined with a logical 'AND'. */
-export interface GlobalConstBoolExp {
-  _and?: InputMaybe<Array<GlobalConstBoolExp>>
-  _not?: InputMaybe<GlobalConstBoolExp>
-  _or?: InputMaybe<Array<GlobalConstBoolExp>>
-  comment?: InputMaybe<StringComparisonExp>
-  id?: InputMaybe<UuidComparisonExp>
-  name?: InputMaybe<StringComparisonExp>
-  value?: InputMaybe<NumericComparisonExp>
-}
-
-/** unique or primary key constraints on table "global_const" */
-export enum GlobalConstConstraint {
-  /** unique or primary key constraint */
-  GLOBAL_CONST_NAME_KEY = 'global_const_name_key',
-  /** unique or primary key constraint */
-  GLOBAL_CONST_PKEY = 'global_const_pkey',
-}
-
-/** input type for incrementing numeric columns in table "global_const" */
-export interface GlobalConstIncInput {
-  /** 常量值 */
-  value?: InputMaybe<Scalars['numeric']>
-}
-
-/** input type for inserting data into table "global_const" */
-export interface GlobalConstInsertInput {
-  /** 备注 */
-  comment?: InputMaybe<Scalars['String']>
-  id?: InputMaybe<Scalars['uuid']>
-  /** 常量名 */
-  name?: InputMaybe<Scalars['String']>
-  /** 常量值 */
-  value?: InputMaybe<Scalars['numeric']>
-}
-
-/** aggregate max on columns */
-export interface GlobalConstMaxFields {
-  /** 备注 */
-  comment?: Maybe<Scalars['String']>
-  id?: Maybe<Scalars['uuid']>
-  /** 常量名 */
-  name?: Maybe<Scalars['String']>
-  /** 常量值 */
-  value?: Maybe<Scalars['numeric']>
-}
-
-/** aggregate min on columns */
-export interface GlobalConstMinFields {
-  /** 备注 */
-  comment?: Maybe<Scalars['String']>
-  id?: Maybe<Scalars['uuid']>
-  /** 常量名 */
-  name?: Maybe<Scalars['String']>
-  /** 常量值 */
-  value?: Maybe<Scalars['numeric']>
-}
-
-/** response of any mutation on the table "global_const" */
-export interface GlobalConstMutationResponse {
-  /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int']
-  /** data from the rows affected by the mutation */
-  returning: Array<GlobalConst>
-}
-
-/** on_conflict condition type for table "global_const" */
-export interface GlobalConstOnConflict {
-  constraint: GlobalConstConstraint
-  update_columns?: Array<GlobalConstUpdateColumn>
-  where?: InputMaybe<GlobalConstBoolExp>
-}
-
-/** Ordering options when selecting data from "global_const". */
-export interface GlobalConstOrderBy {
-  comment?: InputMaybe<OrderBy>
-  id?: InputMaybe<OrderBy>
-  name?: InputMaybe<OrderBy>
-  value?: InputMaybe<OrderBy>
-}
-
-/** primary key columns input for table: global_const */
-export interface GlobalConstPkColumnsInput {
-  id: Scalars['uuid']
-}
-
-/** select columns of table "global_const" */
-export enum GlobalConstSelectColumn {
-  /** column name */
-  COMMENT = 'comment',
-  /** column name */
-  ID = 'id',
-  /** column name */
-  NAME = 'name',
-  /** column name */
-  VALUE = 'value',
-}
-
-/** input type for updating data in table "global_const" */
-export interface GlobalConstSetInput {
-  /** 备注 */
-  comment?: InputMaybe<Scalars['String']>
-  id?: InputMaybe<Scalars['uuid']>
-  /** 常量名 */
-  name?: InputMaybe<Scalars['String']>
-  /** 常量值 */
-  value?: InputMaybe<Scalars['numeric']>
-}
-
-/** aggregate stddev on columns */
-export interface GlobalConstStddevFields {
-  /** 常量值 */
-  value?: Maybe<Scalars['Float']>
-}
-
-/** aggregate stddev_pop on columns */
-export interface GlobalConstStddevPopFields {
-  /** 常量值 */
-  value?: Maybe<Scalars['Float']>
-}
-
-/** aggregate stddev_samp on columns */
-export interface GlobalConstStddevSampFields {
-  /** 常量值 */
-  value?: Maybe<Scalars['Float']>
-}
-
-/** aggregate sum on columns */
-export interface GlobalConstSumFields {
-  /** 常量值 */
-  value?: Maybe<Scalars['numeric']>
-}
-
-/** update columns of table "global_const" */
-export enum GlobalConstUpdateColumn {
-  /** column name */
-  COMMENT = 'comment',
-  /** column name */
-  ID = 'id',
-  /** column name */
-  NAME = 'name',
-  /** column name */
-  VALUE = 'value',
-}
-
-/** aggregate var_pop on columns */
-export interface GlobalConstVarPopFields {
-  /** 常量值 */
-  value?: Maybe<Scalars['Float']>
-}
-
-/** aggregate var_samp on columns */
-export interface GlobalConstVarSampFields {
-  /** 常量值 */
-  value?: Maybe<Scalars['Float']>
-}
-
-/** aggregate variance on columns */
-export interface GlobalConstVarianceFields {
-  /** 常量值 */
-  value?: Maybe<Scalars['Float']>
-}
-
-/** 检测项目枚举 */
-export interface InspectionItemEnum {
-  /** 指标要求 - 验收检测 */
-  acceptanceRequire?: Maybe<Scalars['String']>
-  /** 检测项目备注 */
-  comment?: Maybe<Scalars['String']>
-  /** 检测项目名 */
-  displayName?: Maybe<Scalars['String']>
-  /** An object relationship */
-  equipment?: Maybe<EquipmentEnum>
-  equipment_id?: Maybe<Scalars['uuid']>
-  /** 公式 */
-  formula?: Maybe<Scalars['String']>
-  id: Scalars['uuid']
-  /** 输入值数量 */
-  inputCount: Scalars['Int']
-  /** 输入值名称 */
-  inputName?: Maybe<Scalars['String']>
-  /** 输入值单位 */
-  inputUnit?: Maybe<Scalars['String']>
-  /** 预设检测条件（加载因素、预设值） */
-  inspectionCondition: Scalars['jsonb']
-  name?: Maybe<Scalars['String']>
-  /** 输出值名称 */
-  outputName: Scalars['String']
-  /** 输出值单位 */
-  outputUnit?: Maybe<Scalars['String']>
-  /** 指标要求 - 状态检测 */
-  stateRequire?: Maybe<Scalars['String']>
-}
-
-/** 检测项目枚举 */
-export interface InspectionItemEnumInspectionConditionArgs {
-  path?: InputMaybe<Scalars['String']>
-}
-
-/** aggregated selection of "inspection_item_enum" */
-export interface InspectionItemEnumAggregate {
-  aggregate?: Maybe<InspectionItemEnumAggregateFields>
-  nodes: Array<InspectionItemEnum>
-}
-
-/** aggregate fields of "inspection_item_enum" */
-export interface InspectionItemEnumAggregateFields {
-  avg?: Maybe<InspectionItemEnumAvgFields>
-  count: Scalars['Int']
-  max?: Maybe<InspectionItemEnumMaxFields>
-  min?: Maybe<InspectionItemEnumMinFields>
-  stddev?: Maybe<InspectionItemEnumStddevFields>
-  stddev_pop?: Maybe<InspectionItemEnumStddevPopFields>
-  stddev_samp?: Maybe<InspectionItemEnumStddevSampFields>
-  sum?: Maybe<InspectionItemEnumSumFields>
-  var_pop?: Maybe<InspectionItemEnumVarPopFields>
-  var_samp?: Maybe<InspectionItemEnumVarSampFields>
-  variance?: Maybe<InspectionItemEnumVarianceFields>
-}
-
-/** aggregate fields of "inspection_item_enum" */
-export interface InspectionItemEnumAggregateFieldsCountArgs {
-  columns?: InputMaybe<Array<InspectionItemEnumSelectColumn>>
-  distinct?: InputMaybe<Scalars['Boolean']>
-}
-
-/** order by aggregate values of table "inspection_item_enum" */
-export interface InspectionItemEnumAggregateOrderBy {
-  avg?: InputMaybe<InspectionItemEnumAvgOrderBy>
-  count?: InputMaybe<OrderBy>
-  max?: InputMaybe<InspectionItemEnumMaxOrderBy>
-  min?: InputMaybe<InspectionItemEnumMinOrderBy>
-  stddev?: InputMaybe<InspectionItemEnumStddevOrderBy>
-  stddev_pop?: InputMaybe<InspectionItemEnumStddevPopOrderBy>
-  stddev_samp?: InputMaybe<InspectionItemEnumStddevSampOrderBy>
-  sum?: InputMaybe<InspectionItemEnumSumOrderBy>
-  var_pop?: InputMaybe<InspectionItemEnumVarPopOrderBy>
-  var_samp?: InputMaybe<InspectionItemEnumVarSampOrderBy>
-  variance?: InputMaybe<InspectionItemEnumVarianceOrderBy>
-}
-
-/** append existing jsonb value of filtered columns with new jsonb value */
-export interface InspectionItemEnumAppendInput {
-  /** 预设检测条件（加载因素、预设值） */
-  inspectionCondition?: InputMaybe<Scalars['jsonb']>
-}
-
-/** input type for inserting array relation for remote table "inspection_item_enum" */
-export interface InspectionItemEnumArrRelInsertInput {
-  data: Array<InspectionItemEnumInsertInput>
-  /** upsert condition */
-  on_conflict?: InputMaybe<InspectionItemEnumOnConflict>
-}
-
-/** aggregate avg on columns */
-export interface InspectionItemEnumAvgFields {
-  /** 输入值数量 */
-  inputCount?: Maybe<Scalars['Float']>
-}
-
-/** order by avg() on columns of table "inspection_item_enum" */
-export interface InspectionItemEnumAvgOrderBy {
-  /** 输入值数量 */
-  inputCount?: InputMaybe<OrderBy>
-}
-
-/** Boolean expression to filter rows from the table "inspection_item_enum". All fields are combined with a logical 'AND'. */
-export interface InspectionItemEnumBoolExp {
-  _and?: InputMaybe<Array<InspectionItemEnumBoolExp>>
-  _not?: InputMaybe<InspectionItemEnumBoolExp>
-  _or?: InputMaybe<Array<InspectionItemEnumBoolExp>>
-  acceptanceRequire?: InputMaybe<StringComparisonExp>
-  comment?: InputMaybe<StringComparisonExp>
-  displayName?: InputMaybe<StringComparisonExp>
-  equipment?: InputMaybe<EquipmentEnumBoolExp>
-  equipment_id?: InputMaybe<UuidComparisonExp>
-  formula?: InputMaybe<StringComparisonExp>
-  id?: InputMaybe<UuidComparisonExp>
-  inputCount?: InputMaybe<IntComparisonExp>
-  inputName?: InputMaybe<StringComparisonExp>
-  inputUnit?: InputMaybe<StringComparisonExp>
-  inspectionCondition?: InputMaybe<JsonbComparisonExp>
-  name?: InputMaybe<StringComparisonExp>
-  outputName?: InputMaybe<StringComparisonExp>
-  outputUnit?: InputMaybe<StringComparisonExp>
-  stateRequire?: InputMaybe<StringComparisonExp>
-}
-
-/** unique or primary key constraints on table "inspection_item_enum" */
-export enum InspectionItemEnumConstraint {
-  /** unique or primary key constraint */
-  INSPECTION_ITEM_ENUM_NAME_KEY1 = 'inspection_item_enum_name_key1',
-  /** unique or primary key constraint */
-  INSPECTION_ITEM_ENUM_PKEY = 'inspection_item_enum_pkey',
-}
-
-/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
-export interface InspectionItemEnumDeleteAtPathInput {
-  /** 预设检测条件（加载因素、预设值） */
-  inspectionCondition?: InputMaybe<Array<Scalars['String']>>
-}
-
-/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
-export interface InspectionItemEnumDeleteElemInput {
-  /** 预设检测条件（加载因素、预设值） */
-  inspectionCondition?: InputMaybe<Scalars['Int']>
-}
-
-/** delete key/value pair or string element. key/value pairs are matched based on their key value */
-export interface InspectionItemEnumDeleteKeyInput {
-  /** 预设检测条件（加载因素、预设值） */
-  inspectionCondition?: InputMaybe<Scalars['String']>
-}
-
-/** input type for incrementing numeric columns in table "inspection_item_enum" */
-export interface InspectionItemEnumIncInput {
-  /** 输入值数量 */
-  inputCount?: InputMaybe<Scalars['Int']>
-}
-
-/** input type for inserting data into table "inspection_item_enum" */
-export interface InspectionItemEnumInsertInput {
-  /** 指标要求 - 验收检测 */
-  acceptanceRequire?: InputMaybe<Scalars['String']>
-  /** 检测项目备注 */
-  comment?: InputMaybe<Scalars['String']>
-  /** 检测项目名 */
-  displayName?: InputMaybe<Scalars['String']>
-  equipment?: InputMaybe<EquipmentEnumObjRelInsertInput>
-  equipment_id?: InputMaybe<Scalars['uuid']>
-  /** 公式 */
-  formula?: InputMaybe<Scalars['String']>
-  id?: InputMaybe<Scalars['uuid']>
-  /** 输入值数量 */
-  inputCount?: InputMaybe<Scalars['Int']>
-  /** 输入值名称 */
-  inputName?: InputMaybe<Scalars['String']>
-  /** 输入值单位 */
-  inputUnit?: InputMaybe<Scalars['String']>
-  /** 预设检测条件（加载因素、预设值） */
-  inspectionCondition?: InputMaybe<Scalars['jsonb']>
-  name?: InputMaybe<Scalars['String']>
-  /** 输出值名称 */
-  outputName?: InputMaybe<Scalars['String']>
-  /** 输出值单位 */
-  outputUnit?: InputMaybe<Scalars['String']>
-  /** 指标要求 - 状态检测 */
-  stateRequire?: InputMaybe<Scalars['String']>
-}
-
-/** aggregate max on columns */
-export interface InspectionItemEnumMaxFields {
-  /** 指标要求 - 验收检测 */
-  acceptanceRequire?: Maybe<Scalars['String']>
-  /** 检测项目备注 */
-  comment?: Maybe<Scalars['String']>
-  /** 检测项目名 */
-  displayName?: Maybe<Scalars['String']>
-  equipment_id?: Maybe<Scalars['uuid']>
-  /** 公式 */
-  formula?: Maybe<Scalars['String']>
-  id?: Maybe<Scalars['uuid']>
-  /** 输入值数量 */
-  inputCount?: Maybe<Scalars['Int']>
-  /** 输入值名称 */
-  inputName?: Maybe<Scalars['String']>
-  /** 输入值单位 */
-  inputUnit?: Maybe<Scalars['String']>
-  name?: Maybe<Scalars['String']>
-  /** 输出值名称 */
-  outputName?: Maybe<Scalars['String']>
-  /** 输出值单位 */
-  outputUnit?: Maybe<Scalars['String']>
-  /** 指标要求 - 状态检测 */
-  stateRequire?: Maybe<Scalars['String']>
-}
-
-/** order by max() on columns of table "inspection_item_enum" */
-export interface InspectionItemEnumMaxOrderBy {
-  /** 指标要求 - 验收检测 */
-  acceptanceRequire?: InputMaybe<OrderBy>
-  /** 检测项目备注 */
-  comment?: InputMaybe<OrderBy>
-  /** 检测项目名 */
-  displayName?: InputMaybe<OrderBy>
-  equipment_id?: InputMaybe<OrderBy>
-  /** 公式 */
-  formula?: InputMaybe<OrderBy>
-  id?: InputMaybe<OrderBy>
-  /** 输入值数量 */
-  inputCount?: InputMaybe<OrderBy>
-  /** 输入值名称 */
-  inputName?: InputMaybe<OrderBy>
-  /** 输入值单位 */
-  inputUnit?: InputMaybe<OrderBy>
-  name?: InputMaybe<OrderBy>
-  /** 输出值名称 */
-  outputName?: InputMaybe<OrderBy>
-  /** 输出值单位 */
-  outputUnit?: InputMaybe<OrderBy>
-  /** 指标要求 - 状态检测 */
-  stateRequire?: InputMaybe<OrderBy>
-}
-
-/** aggregate min on columns */
-export interface InspectionItemEnumMinFields {
-  /** 指标要求 - 验收检测 */
-  acceptanceRequire?: Maybe<Scalars['String']>
-  /** 检测项目备注 */
-  comment?: Maybe<Scalars['String']>
-  /** 检测项目名 */
-  displayName?: Maybe<Scalars['String']>
-  equipment_id?: Maybe<Scalars['uuid']>
-  /** 公式 */
-  formula?: Maybe<Scalars['String']>
-  id?: Maybe<Scalars['uuid']>
-  /** 输入值数量 */
-  inputCount?: Maybe<Scalars['Int']>
-  /** 输入值名称 */
-  inputName?: Maybe<Scalars['String']>
-  /** 输入值单位 */
-  inputUnit?: Maybe<Scalars['String']>
-  name?: Maybe<Scalars['String']>
-  /** 输出值名称 */
-  outputName?: Maybe<Scalars['String']>
-  /** 输出值单位 */
-  outputUnit?: Maybe<Scalars['String']>
-  /** 指标要求 - 状态检测 */
-  stateRequire?: Maybe<Scalars['String']>
-}
-
-/** order by min() on columns of table "inspection_item_enum" */
-export interface InspectionItemEnumMinOrderBy {
-  /** 指标要求 - 验收检测 */
-  acceptanceRequire?: InputMaybe<OrderBy>
-  /** 检测项目备注 */
-  comment?: InputMaybe<OrderBy>
-  /** 检测项目名 */
-  displayName?: InputMaybe<OrderBy>
-  equipment_id?: InputMaybe<OrderBy>
-  /** 公式 */
-  formula?: InputMaybe<OrderBy>
-  id?: InputMaybe<OrderBy>
-  /** 输入值数量 */
-  inputCount?: InputMaybe<OrderBy>
-  /** 输入值名称 */
-  inputName?: InputMaybe<OrderBy>
-  /** 输入值单位 */
-  inputUnit?: InputMaybe<OrderBy>
-  name?: InputMaybe<OrderBy>
-  /** 输出值名称 */
-  outputName?: InputMaybe<OrderBy>
-  /** 输出值单位 */
-  outputUnit?: InputMaybe<OrderBy>
-  /** 指标要求 - 状态检测 */
-  stateRequire?: InputMaybe<OrderBy>
-}
-
-/** response of any mutation on the table "inspection_item_enum" */
-export interface InspectionItemEnumMutationResponse {
-  /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int']
-  /** data from the rows affected by the mutation */
-  returning: Array<InspectionItemEnum>
-}
-
-/** input type for inserting object relation for remote table "inspection_item_enum" */
-export interface InspectionItemEnumObjRelInsertInput {
-  data: InspectionItemEnumInsertInput
-  /** upsert condition */
-  on_conflict?: InputMaybe<InspectionItemEnumOnConflict>
-}
-
-/** on_conflict condition type for table "inspection_item_enum" */
-export interface InspectionItemEnumOnConflict {
-  constraint: InspectionItemEnumConstraint
-  update_columns?: Array<InspectionItemEnumUpdateColumn>
-  where?: InputMaybe<InspectionItemEnumBoolExp>
-}
-
-/** Ordering options when selecting data from "inspection_item_enum". */
-export interface InspectionItemEnumOrderBy {
-  acceptanceRequire?: InputMaybe<OrderBy>
-  comment?: InputMaybe<OrderBy>
-  displayName?: InputMaybe<OrderBy>
-  equipment?: InputMaybe<EquipmentEnumOrderBy>
-  equipment_id?: InputMaybe<OrderBy>
-  formula?: InputMaybe<OrderBy>
-  id?: InputMaybe<OrderBy>
-  inputCount?: InputMaybe<OrderBy>
-  inputName?: InputMaybe<OrderBy>
-  inputUnit?: InputMaybe<OrderBy>
-  inspectionCondition?: InputMaybe<OrderBy>
-  name?: InputMaybe<OrderBy>
-  outputName?: InputMaybe<OrderBy>
-  outputUnit?: InputMaybe<OrderBy>
-  stateRequire?: InputMaybe<OrderBy>
-}
-
-/** primary key columns input for table: inspection_item_enum */
-export interface InspectionItemEnumPkColumnsInput {
-  id: Scalars['uuid']
-}
-
-/** prepend existing jsonb value of filtered columns with new jsonb value */
-export interface InspectionItemEnumPrependInput {
-  /** 预设检测条件（加载因素、预设值） */
-  inspectionCondition?: InputMaybe<Scalars['jsonb']>
-}
-
-/** select columns of table "inspection_item_enum" */
-export enum InspectionItemEnumSelectColumn {
-  /** column name */
-  ACCEPTANCEREQUIRE = 'acceptanceRequire',
-  /** column name */
-  COMMENT = 'comment',
-  /** column name */
-  DISPLAYNAME = 'displayName',
-  /** column name */
-  EQUIPMENT_ID = 'equipment_id',
-  /** column name */
-  FORMULA = 'formula',
-  /** column name */
-  ID = 'id',
-  /** column name */
-  INPUTCOUNT = 'inputCount',
-  /** column name */
-  INPUTNAME = 'inputName',
-  /** column name */
-  INPUTUNIT = 'inputUnit',
-  /** column name */
-  INSPECTIONCONDITION = 'inspectionCondition',
-  /** column name */
-  NAME = 'name',
-  /** column name */
-  OUTPUTNAME = 'outputName',
-  /** column name */
-  OUTPUTUNIT = 'outputUnit',
-  /** column name */
-  STATEREQUIRE = 'stateRequire',
-}
-
-/** input type for updating data in table "inspection_item_enum" */
-export interface InspectionItemEnumSetInput {
-  /** 指标要求 - 验收检测 */
-  acceptanceRequire?: InputMaybe<Scalars['String']>
-  /** 检测项目备注 */
-  comment?: InputMaybe<Scalars['String']>
-  /** 检测项目名 */
-  displayName?: InputMaybe<Scalars['String']>
-  equipment_id?: InputMaybe<Scalars['uuid']>
-  /** 公式 */
-  formula?: InputMaybe<Scalars['String']>
-  id?: InputMaybe<Scalars['uuid']>
-  /** 输入值数量 */
-  inputCount?: InputMaybe<Scalars['Int']>
-  /** 输入值名称 */
-  inputName?: InputMaybe<Scalars['String']>
-  /** 输入值单位 */
-  inputUnit?: InputMaybe<Scalars['String']>
-  /** 预设检测条件（加载因素、预设值） */
-  inspectionCondition?: InputMaybe<Scalars['jsonb']>
-  name?: InputMaybe<Scalars['String']>
-  /** 输出值名称 */
-  outputName?: InputMaybe<Scalars['String']>
-  /** 输出值单位 */
-  outputUnit?: InputMaybe<Scalars['String']>
-  /** 指标要求 - 状态检测 */
-  stateRequire?: InputMaybe<Scalars['String']>
-}
-
-/** aggregate stddev on columns */
-export interface InspectionItemEnumStddevFields {
-  /** 输入值数量 */
-  inputCount?: Maybe<Scalars['Float']>
-}
-
-/** order by stddev() on columns of table "inspection_item_enum" */
-export interface InspectionItemEnumStddevOrderBy {
-  /** 输入值数量 */
-  inputCount?: InputMaybe<OrderBy>
-}
-
-/** aggregate stddev_pop on columns */
-export interface InspectionItemEnumStddevPopFields {
-  /** 输入值数量 */
-  inputCount?: Maybe<Scalars['Float']>
-}
-
-/** order by stddev_pop() on columns of table "inspection_item_enum" */
-export interface InspectionItemEnumStddevPopOrderBy {
-  /** 输入值数量 */
-  inputCount?: InputMaybe<OrderBy>
-}
-
-/** aggregate stddev_samp on columns */
-export interface InspectionItemEnumStddevSampFields {
-  /** 输入值数量 */
-  inputCount?: Maybe<Scalars['Float']>
-}
-
-/** order by stddev_samp() on columns of table "inspection_item_enum" */
-export interface InspectionItemEnumStddevSampOrderBy {
-  /** 输入值数量 */
-  inputCount?: InputMaybe<OrderBy>
-}
-
-/** aggregate sum on columns */
-export interface InspectionItemEnumSumFields {
-  /** 输入值数量 */
-  inputCount?: Maybe<Scalars['Int']>
-}
-
-/** order by sum() on columns of table "inspection_item_enum" */
-export interface InspectionItemEnumSumOrderBy {
-  /** 输入值数量 */
-  inputCount?: InputMaybe<OrderBy>
-}
-
-/** update columns of table "inspection_item_enum" */
-export enum InspectionItemEnumUpdateColumn {
-  /** column name */
-  ACCEPTANCEREQUIRE = 'acceptanceRequire',
-  /** column name */
-  COMMENT = 'comment',
-  /** column name */
-  DISPLAYNAME = 'displayName',
-  /** column name */
-  EQUIPMENT_ID = 'equipment_id',
-  /** column name */
-  FORMULA = 'formula',
-  /** column name */
-  ID = 'id',
-  /** column name */
-  INPUTCOUNT = 'inputCount',
-  /** column name */
-  INPUTNAME = 'inputName',
-  /** column name */
-  INPUTUNIT = 'inputUnit',
-  /** column name */
-  INSPECTIONCONDITION = 'inspectionCondition',
-  /** column name */
-  NAME = 'name',
-  /** column name */
-  OUTPUTNAME = 'outputName',
-  /** column name */
-  OUTPUTUNIT = 'outputUnit',
-  /** column name */
-  STATEREQUIRE = 'stateRequire',
-}
-
-/** aggregate var_pop on columns */
-export interface InspectionItemEnumVarPopFields {
-  /** 输入值数量 */
-  inputCount?: Maybe<Scalars['Float']>
-}
-
-/** order by var_pop() on columns of table "inspection_item_enum" */
-export interface InspectionItemEnumVarPopOrderBy {
-  /** 输入值数量 */
-  inputCount?: InputMaybe<OrderBy>
-}
-
-/** aggregate var_samp on columns */
-export interface InspectionItemEnumVarSampFields {
-  /** 输入值数量 */
-  inputCount?: Maybe<Scalars['Float']>
-}
-
-/** order by var_samp() on columns of table "inspection_item_enum" */
-export interface InspectionItemEnumVarSampOrderBy {
-  /** 输入值数量 */
-  inputCount?: InputMaybe<OrderBy>
-}
-
-/** aggregate variance on columns */
-export interface InspectionItemEnumVarianceFields {
-  /** 输入值数量 */
-  inputCount?: Maybe<Scalars['Float']>
-}
-
-/** order by variance() on columns of table "inspection_item_enum" */
-export interface InspectionItemEnumVarianceOrderBy {
-  /** 输入值数量 */
-  inputCount?: InputMaybe<OrderBy>
 }
 
 /** 设备检验检测报告 */
@@ -1742,6 +998,8 @@ export interface InspectionReport {
   equipmentSampleId?: Maybe<Scalars['String']>
   /** 设备场所 */
   equipmentSite?: Maybe<Scalars['String']>
+  /** 设备类型，此项用于决定哪些检测项是可用的 */
+  equipmentType: Scalars['jsonb']
   /** 主键 */
   id: Scalars['uuid']
   /** 检测地址 */
@@ -1754,13 +1012,16 @@ export interface InspectionReport {
   inspectionInstrument?: Maybe<Scalars['String']>
   /** 检测类型 */
   inspectionItem: Scalars['jsonb']
-  /** An array relationship */
-  items: Array<InspectionReportItem>
-  /** An aggregate relationship */
-  items_aggregate: InspectionReportItemAggregate
+  /** 检测项，数据结构是 inspection_report_enum[] */
+  items: Scalars['jsonb']
   /** 序列号 */
   serialNumber?: Maybe<Scalars['jsonb']>
   updatedAt?: Maybe<Scalars['timestamptz']>
+}
+
+/** 设备检验检测报告 */
+export interface InspectionReportEquipmentTypeArgs {
+  path?: InputMaybe<Scalars['String']>
 }
 
 /** 设备检验检测报告 */
@@ -1775,20 +1036,7 @@ export interface InspectionReportInspectionItemArgs {
 
 /** 设备检验检测报告 */
 export interface InspectionReportItemsArgs {
-  distinct_on?: InputMaybe<Array<InspectionReportItemSelectColumn>>
-  limit?: InputMaybe<Scalars['Int']>
-  offset?: InputMaybe<Scalars['Int']>
-  order_by?: InputMaybe<Array<InspectionReportItemOrderBy>>
-  where?: InputMaybe<InspectionReportItemBoolExp>
-}
-
-/** 设备检验检测报告 */
-export interface InspectionReportItemsAggregateArgs {
-  distinct_on?: InputMaybe<Array<InspectionReportItemSelectColumn>>
-  limit?: InputMaybe<Scalars['Int']>
-  offset?: InputMaybe<Scalars['Int']>
-  order_by?: InputMaybe<Array<InspectionReportItemOrderBy>>
-  where?: InputMaybe<InspectionReportItemBoolExp>
+  path?: InputMaybe<Scalars['String']>
 }
 
 /** 设备检验检测报告 */
@@ -1840,10 +1088,14 @@ export interface InspectionReportAggregateOrderBy {
 
 /** append existing jsonb value of filtered columns with new jsonb value */
 export interface InspectionReportAppendInput {
+  /** 设备类型，此项用于决定哪些检测项是可用的 */
+  equipmentType?: InputMaybe<Scalars['jsonb']>
   /** 检测地址 */
   inspectionAddress?: InputMaybe<Scalars['jsonb']>
   /** 检测类型 */
   inspectionItem?: InputMaybe<Scalars['jsonb']>
+  /** 检测项，数据结构是 inspection_report_enum[] */
+  items?: InputMaybe<Scalars['jsonb']>
   /** 序列号 */
   serialNumber?: InputMaybe<Scalars['jsonb']>
 }
@@ -1882,13 +1134,14 @@ export interface InspectionReportBoolExp {
   equipmentRequester?: InputMaybe<StringComparisonExp>
   equipmentSampleId?: InputMaybe<StringComparisonExp>
   equipmentSite?: InputMaybe<StringComparisonExp>
+  equipmentType?: InputMaybe<JsonbComparisonExp>
   id?: InputMaybe<UuidComparisonExp>
   inspectionAddress?: InputMaybe<JsonbComparisonExp>
   inspectionBasis?: InputMaybe<StringComparisonExp>
   inspectionDate?: InputMaybe<TimestamptzComparisonExp>
   inspectionInstrument?: InputMaybe<StringComparisonExp>
   inspectionItem?: InputMaybe<JsonbComparisonExp>
-  items?: InputMaybe<InspectionReportItemBoolExp>
+  items?: InputMaybe<JsonbComparisonExp>
   serialNumber?: InputMaybe<JsonbComparisonExp>
   updatedAt?: InputMaybe<TimestamptzComparisonExp>
 }
@@ -1903,30 +1156,42 @@ export enum InspectionReportConstraint {
 
 /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
 export interface InspectionReportDeleteAtPathInput {
+  /** 设备类型，此项用于决定哪些检测项是可用的 */
+  equipmentType?: InputMaybe<Array<Scalars['String']>>
   /** 检测地址 */
   inspectionAddress?: InputMaybe<Array<Scalars['String']>>
   /** 检测类型 */
   inspectionItem?: InputMaybe<Array<Scalars['String']>>
+  /** 检测项，数据结构是 inspection_report_enum[] */
+  items?: InputMaybe<Array<Scalars['String']>>
   /** 序列号 */
   serialNumber?: InputMaybe<Array<Scalars['String']>>
 }
 
 /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
 export interface InspectionReportDeleteElemInput {
+  /** 设备类型，此项用于决定哪些检测项是可用的 */
+  equipmentType?: InputMaybe<Scalars['Int']>
   /** 检测地址 */
   inspectionAddress?: InputMaybe<Scalars['Int']>
   /** 检测类型 */
   inspectionItem?: InputMaybe<Scalars['Int']>
+  /** 检测项，数据结构是 inspection_report_enum[] */
+  items?: InputMaybe<Scalars['Int']>
   /** 序列号 */
   serialNumber?: InputMaybe<Scalars['Int']>
 }
 
 /** delete key/value pair or string element. key/value pairs are matched based on their key value */
 export interface InspectionReportDeleteKeyInput {
+  /** 设备类型，此项用于决定哪些检测项是可用的 */
+  equipmentType?: InputMaybe<Scalars['String']>
   /** 检测地址 */
   inspectionAddress?: InputMaybe<Scalars['String']>
   /** 检测类型 */
   inspectionItem?: InputMaybe<Scalars['String']>
+  /** 检测项，数据结构是 inspection_report_enum[] */
+  items?: InputMaybe<Scalars['String']>
   /** 序列号 */
   serialNumber?: InputMaybe<Scalars['String']>
 }
@@ -1958,6 +1223,8 @@ export interface InspectionReportInsertInput {
   equipmentSampleId?: InputMaybe<Scalars['String']>
   /** 设备场所 */
   equipmentSite?: InputMaybe<Scalars['String']>
+  /** 设备类型，此项用于决定哪些检测项是可用的 */
+  equipmentType?: InputMaybe<Scalars['jsonb']>
   /** 主键 */
   id?: InputMaybe<Scalars['uuid']>
   /** 检测地址 */
@@ -1970,365 +1237,11 @@ export interface InspectionReportInsertInput {
   inspectionInstrument?: InputMaybe<Scalars['String']>
   /** 检测类型 */
   inspectionItem?: InputMaybe<Scalars['jsonb']>
-  items?: InputMaybe<InspectionReportItemArrRelInsertInput>
+  /** 检测项，数据结构是 inspection_report_enum[] */
+  items?: InputMaybe<Scalars['jsonb']>
   /** 序列号 */
   serialNumber?: InputMaybe<Scalars['jsonb']>
   updatedAt?: InputMaybe<Scalars['timestamptz']>
-}
-
-/** 检测项，全扔这里，不再JSON */
-export interface InspectionReportItem {
-  /** 结论 */
-  conclusion?: Maybe<Scalars['String']>
-  /** 检测条件 */
-  condition?: Maybe<Scalars['jsonb']>
-  /** 检测项名 */
-  displayName: Scalars['String']
-  /** An object relationship */
-  enum?: Maybe<InspectionItemEnum>
-  /** 字段id */
-  id: Scalars['uuid']
-  /** 输入的值，可能有多个，可能有多组 */
-  inputValues?: Maybe<Scalars['jsonb']>
-  /** 检测项名称，与 inspection_item_enum 内的对应 */
-  name?: Maybe<Scalars['String']>
-  /** An object relationship */
-  report?: Maybe<InspectionReport>
-  reportId?: Maybe<Scalars['uuid']>
-  /** 指标要求：验收检测 */
-  requirementAcceptance?: Maybe<Scalars['String']>
-  /** 指标要求：状态检测 */
-  requirementState?: Maybe<Scalars['String']>
-  /** 检测结果 */
-  result?: Maybe<Scalars['jsonb']>
-}
-
-/** 检测项，全扔这里，不再JSON */
-export interface InspectionReportItemConditionArgs {
-  path?: InputMaybe<Scalars['String']>
-}
-
-/** 检测项，全扔这里，不再JSON */
-export interface InspectionReportItemInputValuesArgs {
-  path?: InputMaybe<Scalars['String']>
-}
-
-/** 检测项，全扔这里，不再JSON */
-export interface InspectionReportItemResultArgs {
-  path?: InputMaybe<Scalars['String']>
-}
-
-/** aggregated selection of "inspection_report_item" */
-export interface InspectionReportItemAggregate {
-  aggregate?: Maybe<InspectionReportItemAggregateFields>
-  nodes: Array<InspectionReportItem>
-}
-
-/** aggregate fields of "inspection_report_item" */
-export interface InspectionReportItemAggregateFields {
-  count: Scalars['Int']
-  max?: Maybe<InspectionReportItemMaxFields>
-  min?: Maybe<InspectionReportItemMinFields>
-}
-
-/** aggregate fields of "inspection_report_item" */
-export interface InspectionReportItemAggregateFieldsCountArgs {
-  columns?: InputMaybe<Array<InspectionReportItemSelectColumn>>
-  distinct?: InputMaybe<Scalars['Boolean']>
-}
-
-/** order by aggregate values of table "inspection_report_item" */
-export interface InspectionReportItemAggregateOrderBy {
-  count?: InputMaybe<OrderBy>
-  max?: InputMaybe<InspectionReportItemMaxOrderBy>
-  min?: InputMaybe<InspectionReportItemMinOrderBy>
-}
-
-/** append existing jsonb value of filtered columns with new jsonb value */
-export interface InspectionReportItemAppendInput {
-  /** 检测条件 */
-  condition?: InputMaybe<Scalars['jsonb']>
-  /** 输入的值，可能有多个，可能有多组 */
-  inputValues?: InputMaybe<Scalars['jsonb']>
-  /** 检测结果 */
-  result?: InputMaybe<Scalars['jsonb']>
-}
-
-/** input type for inserting array relation for remote table "inspection_report_item" */
-export interface InspectionReportItemArrRelInsertInput {
-  data: Array<InspectionReportItemInsertInput>
-  /** upsert condition */
-  on_conflict?: InputMaybe<InspectionReportItemOnConflict>
-}
-
-/** Boolean expression to filter rows from the table "inspection_report_item". All fields are combined with a logical 'AND'. */
-export interface InspectionReportItemBoolExp {
-  _and?: InputMaybe<Array<InspectionReportItemBoolExp>>
-  _not?: InputMaybe<InspectionReportItemBoolExp>
-  _or?: InputMaybe<Array<InspectionReportItemBoolExp>>
-  conclusion?: InputMaybe<StringComparisonExp>
-  condition?: InputMaybe<JsonbComparisonExp>
-  displayName?: InputMaybe<StringComparisonExp>
-  enum?: InputMaybe<InspectionItemEnumBoolExp>
-  id?: InputMaybe<UuidComparisonExp>
-  inputValues?: InputMaybe<JsonbComparisonExp>
-  name?: InputMaybe<StringComparisonExp>
-  report?: InputMaybe<InspectionReportBoolExp>
-  reportId?: InputMaybe<UuidComparisonExp>
-  requirementAcceptance?: InputMaybe<StringComparisonExp>
-  requirementState?: InputMaybe<StringComparisonExp>
-  result?: InputMaybe<JsonbComparisonExp>
-}
-
-/** unique or primary key constraints on table "inspection_report_item" */
-export enum InspectionReportItemConstraint {
-  /** unique or primary key constraint */
-  INSPECTION_ITEMS_ID_KEY = 'inspection_items_id_key',
-  /** unique or primary key constraint */
-  INSPECTION_ITEMS_PKEY = 'inspection_items_pkey',
-  /** unique or primary key constraint */
-  INSPECTION_REPORT_ITEM_ITEMNAME_KEY = 'inspection_report_item_itemName_key',
-}
-
-/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
-export interface InspectionReportItemDeleteAtPathInput {
-  /** 检测条件 */
-  condition?: InputMaybe<Array<Scalars['String']>>
-  /** 输入的值，可能有多个，可能有多组 */
-  inputValues?: InputMaybe<Array<Scalars['String']>>
-  /** 检测结果 */
-  result?: InputMaybe<Array<Scalars['String']>>
-}
-
-/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
-export interface InspectionReportItemDeleteElemInput {
-  /** 检测条件 */
-  condition?: InputMaybe<Scalars['Int']>
-  /** 输入的值，可能有多个，可能有多组 */
-  inputValues?: InputMaybe<Scalars['Int']>
-  /** 检测结果 */
-  result?: InputMaybe<Scalars['Int']>
-}
-
-/** delete key/value pair or string element. key/value pairs are matched based on their key value */
-export interface InspectionReportItemDeleteKeyInput {
-  /** 检测条件 */
-  condition?: InputMaybe<Scalars['String']>
-  /** 输入的值，可能有多个，可能有多组 */
-  inputValues?: InputMaybe<Scalars['String']>
-  /** 检测结果 */
-  result?: InputMaybe<Scalars['String']>
-}
-
-/** input type for inserting data into table "inspection_report_item" */
-export interface InspectionReportItemInsertInput {
-  /** 结论 */
-  conclusion?: InputMaybe<Scalars['String']>
-  /** 检测条件 */
-  condition?: InputMaybe<Scalars['jsonb']>
-  /** 检测项名 */
-  displayName?: InputMaybe<Scalars['String']>
-  enum?: InputMaybe<InspectionItemEnumObjRelInsertInput>
-  /** 字段id */
-  id?: InputMaybe<Scalars['uuid']>
-  /** 输入的值，可能有多个，可能有多组 */
-  inputValues?: InputMaybe<Scalars['jsonb']>
-  /** 检测项名称，与 inspection_item_enum 内的对应 */
-  name?: InputMaybe<Scalars['String']>
-  report?: InputMaybe<InspectionReportObjRelInsertInput>
-  reportId?: InputMaybe<Scalars['uuid']>
-  /** 指标要求：验收检测 */
-  requirementAcceptance?: InputMaybe<Scalars['String']>
-  /** 指标要求：状态检测 */
-  requirementState?: InputMaybe<Scalars['String']>
-  /** 检测结果 */
-  result?: InputMaybe<Scalars['jsonb']>
-}
-
-/** aggregate max on columns */
-export interface InspectionReportItemMaxFields {
-  /** 结论 */
-  conclusion?: Maybe<Scalars['String']>
-  /** 检测项名 */
-  displayName?: Maybe<Scalars['String']>
-  /** 字段id */
-  id?: Maybe<Scalars['uuid']>
-  /** 检测项名称，与 inspection_item_enum 内的对应 */
-  name?: Maybe<Scalars['String']>
-  reportId?: Maybe<Scalars['uuid']>
-  /** 指标要求：验收检测 */
-  requirementAcceptance?: Maybe<Scalars['String']>
-  /** 指标要求：状态检测 */
-  requirementState?: Maybe<Scalars['String']>
-}
-
-/** order by max() on columns of table "inspection_report_item" */
-export interface InspectionReportItemMaxOrderBy {
-  /** 结论 */
-  conclusion?: InputMaybe<OrderBy>
-  /** 检测项名 */
-  displayName?: InputMaybe<OrderBy>
-  /** 字段id */
-  id?: InputMaybe<OrderBy>
-  /** 检测项名称，与 inspection_item_enum 内的对应 */
-  name?: InputMaybe<OrderBy>
-  reportId?: InputMaybe<OrderBy>
-  /** 指标要求：验收检测 */
-  requirementAcceptance?: InputMaybe<OrderBy>
-  /** 指标要求：状态检测 */
-  requirementState?: InputMaybe<OrderBy>
-}
-
-/** aggregate min on columns */
-export interface InspectionReportItemMinFields {
-  /** 结论 */
-  conclusion?: Maybe<Scalars['String']>
-  /** 检测项名 */
-  displayName?: Maybe<Scalars['String']>
-  /** 字段id */
-  id?: Maybe<Scalars['uuid']>
-  /** 检测项名称，与 inspection_item_enum 内的对应 */
-  name?: Maybe<Scalars['String']>
-  reportId?: Maybe<Scalars['uuid']>
-  /** 指标要求：验收检测 */
-  requirementAcceptance?: Maybe<Scalars['String']>
-  /** 指标要求：状态检测 */
-  requirementState?: Maybe<Scalars['String']>
-}
-
-/** order by min() on columns of table "inspection_report_item" */
-export interface InspectionReportItemMinOrderBy {
-  /** 结论 */
-  conclusion?: InputMaybe<OrderBy>
-  /** 检测项名 */
-  displayName?: InputMaybe<OrderBy>
-  /** 字段id */
-  id?: InputMaybe<OrderBy>
-  /** 检测项名称，与 inspection_item_enum 内的对应 */
-  name?: InputMaybe<OrderBy>
-  reportId?: InputMaybe<OrderBy>
-  /** 指标要求：验收检测 */
-  requirementAcceptance?: InputMaybe<OrderBy>
-  /** 指标要求：状态检测 */
-  requirementState?: InputMaybe<OrderBy>
-}
-
-/** response of any mutation on the table "inspection_report_item" */
-export interface InspectionReportItemMutationResponse {
-  /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int']
-  /** data from the rows affected by the mutation */
-  returning: Array<InspectionReportItem>
-}
-
-/** on_conflict condition type for table "inspection_report_item" */
-export interface InspectionReportItemOnConflict {
-  constraint: InspectionReportItemConstraint
-  update_columns?: Array<InspectionReportItemUpdateColumn>
-  where?: InputMaybe<InspectionReportItemBoolExp>
-}
-
-/** Ordering options when selecting data from "inspection_report_item". */
-export interface InspectionReportItemOrderBy {
-  conclusion?: InputMaybe<OrderBy>
-  condition?: InputMaybe<OrderBy>
-  displayName?: InputMaybe<OrderBy>
-  enum?: InputMaybe<InspectionItemEnumOrderBy>
-  id?: InputMaybe<OrderBy>
-  inputValues?: InputMaybe<OrderBy>
-  name?: InputMaybe<OrderBy>
-  report?: InputMaybe<InspectionReportOrderBy>
-  reportId?: InputMaybe<OrderBy>
-  requirementAcceptance?: InputMaybe<OrderBy>
-  requirementState?: InputMaybe<OrderBy>
-  result?: InputMaybe<OrderBy>
-}
-
-/** primary key columns input for table: inspection_report_item */
-export interface InspectionReportItemPkColumnsInput {
-  /** 字段id */
-  id: Scalars['uuid']
-}
-
-/** prepend existing jsonb value of filtered columns with new jsonb value */
-export interface InspectionReportItemPrependInput {
-  /** 检测条件 */
-  condition?: InputMaybe<Scalars['jsonb']>
-  /** 输入的值，可能有多个，可能有多组 */
-  inputValues?: InputMaybe<Scalars['jsonb']>
-  /** 检测结果 */
-  result?: InputMaybe<Scalars['jsonb']>
-}
-
-/** select columns of table "inspection_report_item" */
-export enum InspectionReportItemSelectColumn {
-  /** column name */
-  CONCLUSION = 'conclusion',
-  /** column name */
-  CONDITION = 'condition',
-  /** column name */
-  DISPLAYNAME = 'displayName',
-  /** column name */
-  ID = 'id',
-  /** column name */
-  INPUTVALUES = 'inputValues',
-  /** column name */
-  NAME = 'name',
-  /** column name */
-  REPORTID = 'reportId',
-  /** column name */
-  REQUIREMENTACCEPTANCE = 'requirementAcceptance',
-  /** column name */
-  REQUIREMENTSTATE = 'requirementState',
-  /** column name */
-  RESULT = 'result',
-}
-
-/** input type for updating data in table "inspection_report_item" */
-export interface InspectionReportItemSetInput {
-  /** 结论 */
-  conclusion?: InputMaybe<Scalars['String']>
-  /** 检测条件 */
-  condition?: InputMaybe<Scalars['jsonb']>
-  /** 检测项名 */
-  displayName?: InputMaybe<Scalars['String']>
-  /** 字段id */
-  id?: InputMaybe<Scalars['uuid']>
-  /** 输入的值，可能有多个，可能有多组 */
-  inputValues?: InputMaybe<Scalars['jsonb']>
-  /** 检测项名称，与 inspection_item_enum 内的对应 */
-  name?: InputMaybe<Scalars['String']>
-  reportId?: InputMaybe<Scalars['uuid']>
-  /** 指标要求：验收检测 */
-  requirementAcceptance?: InputMaybe<Scalars['String']>
-  /** 指标要求：状态检测 */
-  requirementState?: InputMaybe<Scalars['String']>
-  /** 检测结果 */
-  result?: InputMaybe<Scalars['jsonb']>
-}
-
-/** update columns of table "inspection_report_item" */
-export enum InspectionReportItemUpdateColumn {
-  /** column name */
-  CONCLUSION = 'conclusion',
-  /** column name */
-  CONDITION = 'condition',
-  /** column name */
-  DISPLAYNAME = 'displayName',
-  /** column name */
-  ID = 'id',
-  /** column name */
-  INPUTVALUES = 'inputValues',
-  /** column name */
-  NAME = 'name',
-  /** column name */
-  REPORTID = 'reportId',
-  /** column name */
-  REQUIREMENTACCEPTANCE = 'requirementAcceptance',
-  /** column name */
-  REQUIREMENTSTATE = 'requirementState',
-  /** column name */
-  RESULT = 'result',
 }
 
 /** aggregate max on columns */
@@ -2463,13 +1376,6 @@ export interface InspectionReportMutationResponse {
   returning: Array<InspectionReport>
 }
 
-/** input type for inserting object relation for remote table "inspection_report" */
-export interface InspectionReportObjRelInsertInput {
-  data: InspectionReportInsertInput
-  /** upsert condition */
-  on_conflict?: InputMaybe<InspectionReportOnConflict>
-}
-
 /** on_conflict condition type for table "inspection_report" */
 export interface InspectionReportOnConflict {
   constraint: InspectionReportConstraint
@@ -2489,13 +1395,14 @@ export interface InspectionReportOrderBy {
   equipmentRequester?: InputMaybe<OrderBy>
   equipmentSampleId?: InputMaybe<OrderBy>
   equipmentSite?: InputMaybe<OrderBy>
+  equipmentType?: InputMaybe<OrderBy>
   id?: InputMaybe<OrderBy>
   inspectionAddress?: InputMaybe<OrderBy>
   inspectionBasis?: InputMaybe<OrderBy>
   inspectionDate?: InputMaybe<OrderBy>
   inspectionInstrument?: InputMaybe<OrderBy>
   inspectionItem?: InputMaybe<OrderBy>
-  items_aggregate?: InputMaybe<InspectionReportItemAggregateOrderBy>
+  items?: InputMaybe<OrderBy>
   serialNumber?: InputMaybe<OrderBy>
   updatedAt?: InputMaybe<OrderBy>
 }
@@ -2508,10 +1415,14 @@ export interface InspectionReportPkColumnsInput {
 
 /** prepend existing jsonb value of filtered columns with new jsonb value */
 export interface InspectionReportPrependInput {
+  /** 设备类型，此项用于决定哪些检测项是可用的 */
+  equipmentType?: InputMaybe<Scalars['jsonb']>
   /** 检测地址 */
   inspectionAddress?: InputMaybe<Scalars['jsonb']>
   /** 检测类型 */
   inspectionItem?: InputMaybe<Scalars['jsonb']>
+  /** 检测项，数据结构是 inspection_report_enum[] */
+  items?: InputMaybe<Scalars['jsonb']>
   /** 序列号 */
   serialNumber?: InputMaybe<Scalars['jsonb']>
 }
@@ -2537,6 +1448,8 @@ export enum InspectionReportSelectColumn {
   /** column name */
   EQUIPMENTSITE = 'equipmentSite',
   /** column name */
+  EQUIPMENTTYPE = 'equipmentType',
+  /** column name */
   ID = 'id',
   /** column name */
   INSPECTIONADDRESS = 'inspectionAddress',
@@ -2548,6 +1461,8 @@ export enum InspectionReportSelectColumn {
   INSPECTIONINSTRUMENT = 'inspectionInstrument',
   /** column name */
   INSPECTIONITEM = 'inspectionItem',
+  /** column name */
+  ITEMS = 'items',
   /** column name */
   SERIALNUMBER = 'serialNumber',
   /** column name */
@@ -2574,6 +1489,8 @@ export interface InspectionReportSetInput {
   equipmentSampleId?: InputMaybe<Scalars['String']>
   /** 设备场所 */
   equipmentSite?: InputMaybe<Scalars['String']>
+  /** 设备类型，此项用于决定哪些检测项是可用的 */
+  equipmentType?: InputMaybe<Scalars['jsonb']>
   /** 主键 */
   id?: InputMaybe<Scalars['uuid']>
   /** 检测地址 */
@@ -2586,6 +1503,8 @@ export interface InspectionReportSetInput {
   inspectionInstrument?: InputMaybe<Scalars['String']>
   /** 检测类型 */
   inspectionItem?: InputMaybe<Scalars['jsonb']>
+  /** 检测项，数据结构是 inspection_report_enum[] */
+  items?: InputMaybe<Scalars['jsonb']>
   /** 序列号 */
   serialNumber?: InputMaybe<Scalars['jsonb']>
   updatedAt?: InputMaybe<Scalars['timestamptz']>
@@ -2660,6 +1579,8 @@ export enum InspectionReportUpdateColumn {
   /** column name */
   EQUIPMENTSITE = 'equipmentSite',
   /** column name */
+  EQUIPMENTTYPE = 'equipmentType',
+  /** column name */
   ID = 'id',
   /** column name */
   INSPECTIONADDRESS = 'inspectionAddress',
@@ -2671,6 +1592,8 @@ export enum InspectionReportUpdateColumn {
   INSPECTIONINSTRUMENT = 'inspectionInstrument',
   /** column name */
   INSPECTIONITEM = 'inspectionItem',
+  /** column name */
+  ITEMS = 'items',
   /** column name */
   SERIALNUMBER = 'serialNumber',
   /** column name */
@@ -2711,6 +1634,360 @@ export interface InspectionReportVarianceFields {
 export interface InspectionReportVarianceOrderBy {
   /** 创建者id */
   creatorId?: InputMaybe<OrderBy>
+}
+
+/** 检测项目枚举 */
+export interface InspectionTypes {
+  /** 检测项目备注 */
+  comment?: Maybe<Scalars['String']>
+  /** 预设检测条件（加载因素、预设值） */
+  condition: Scalars['jsonb']
+  /** 常量列表 */
+  consts: Scalars['jsonb']
+  /** 初始数据 */
+  data?: Maybe<Scalars['jsonb']>
+  /** 检测项目名 */
+  displayName: Scalars['String']
+  /** An object relationship */
+  equipment?: Maybe<EquipmentTypes>
+  /** 对应哪个设备 */
+  equipmentTypeId?: Maybe<Scalars['uuid']>
+  /** 公式 */
+  formula?: Maybe<Scalars['String']>
+  id: Scalars['uuid']
+  /** 检测项名称，用于与实际检测报告中的检测项对应 */
+  name: Scalars['String']
+  /** 指标要求 */
+  requirement: Scalars['jsonb']
+}
+
+/** 检测项目枚举 */
+export interface InspectionTypesConditionArgs {
+  path?: InputMaybe<Scalars['String']>
+}
+
+/** 检测项目枚举 */
+export interface InspectionTypesConstsArgs {
+  path?: InputMaybe<Scalars['String']>
+}
+
+/** 检测项目枚举 */
+export interface InspectionTypesDataArgs {
+  path?: InputMaybe<Scalars['String']>
+}
+
+/** 检测项目枚举 */
+export interface InspectionTypesRequirementArgs {
+  path?: InputMaybe<Scalars['String']>
+}
+
+/** aggregated selection of "inspection_types" */
+export interface InspectionTypesAggregate {
+  aggregate?: Maybe<InspectionTypesAggregateFields>
+  nodes: Array<InspectionTypes>
+}
+
+/** aggregate fields of "inspection_types" */
+export interface InspectionTypesAggregateFields {
+  count: Scalars['Int']
+  max?: Maybe<InspectionTypesMaxFields>
+  min?: Maybe<InspectionTypesMinFields>
+}
+
+/** aggregate fields of "inspection_types" */
+export interface InspectionTypesAggregateFieldsCountArgs {
+  columns?: InputMaybe<Array<InspectionTypesSelectColumn>>
+  distinct?: InputMaybe<Scalars['Boolean']>
+}
+
+/** order by aggregate values of table "inspection_types" */
+export interface InspectionTypesAggregateOrderBy {
+  count?: InputMaybe<OrderBy>
+  max?: InputMaybe<InspectionTypesMaxOrderBy>
+  min?: InputMaybe<InspectionTypesMinOrderBy>
+}
+
+/** append existing jsonb value of filtered columns with new jsonb value */
+export interface InspectionTypesAppendInput {
+  /** 预设检测条件（加载因素、预设值） */
+  condition?: InputMaybe<Scalars['jsonb']>
+  /** 常量列表 */
+  consts?: InputMaybe<Scalars['jsonb']>
+  /** 初始数据 */
+  data?: InputMaybe<Scalars['jsonb']>
+  /** 指标要求 */
+  requirement?: InputMaybe<Scalars['jsonb']>
+}
+
+/** input type for inserting array relation for remote table "inspection_types" */
+export interface InspectionTypesArrRelInsertInput {
+  data: Array<InspectionTypesInsertInput>
+  /** upsert condition */
+  on_conflict?: InputMaybe<InspectionTypesOnConflict>
+}
+
+/** Boolean expression to filter rows from the table "inspection_types". All fields are combined with a logical 'AND'. */
+export interface InspectionTypesBoolExp {
+  _and?: InputMaybe<Array<InspectionTypesBoolExp>>
+  _not?: InputMaybe<InspectionTypesBoolExp>
+  _or?: InputMaybe<Array<InspectionTypesBoolExp>>
+  comment?: InputMaybe<StringComparisonExp>
+  condition?: InputMaybe<JsonbComparisonExp>
+  consts?: InputMaybe<JsonbComparisonExp>
+  data?: InputMaybe<JsonbComparisonExp>
+  displayName?: InputMaybe<StringComparisonExp>
+  equipment?: InputMaybe<EquipmentTypesBoolExp>
+  equipmentTypeId?: InputMaybe<UuidComparisonExp>
+  formula?: InputMaybe<StringComparisonExp>
+  id?: InputMaybe<UuidComparisonExp>
+  name?: InputMaybe<StringComparisonExp>
+  requirement?: InputMaybe<JsonbComparisonExp>
+}
+
+/** unique or primary key constraints on table "inspection_types" */
+export enum InspectionTypesConstraint {
+  /** unique or primary key constraint */
+  INSPECTION_ITEM_ENUM_NAME_KEY1 = 'inspection_item_enum_name_key1',
+  /** unique or primary key constraint */
+  INSPECTION_ITEM_ENUM_PKEY = 'inspection_item_enum_pkey',
+}
+
+/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+export interface InspectionTypesDeleteAtPathInput {
+  /** 预设检测条件（加载因素、预设值） */
+  condition?: InputMaybe<Array<Scalars['String']>>
+  /** 常量列表 */
+  consts?: InputMaybe<Array<Scalars['String']>>
+  /** 初始数据 */
+  data?: InputMaybe<Array<Scalars['String']>>
+  /** 指标要求 */
+  requirement?: InputMaybe<Array<Scalars['String']>>
+}
+
+/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+export interface InspectionTypesDeleteElemInput {
+  /** 预设检测条件（加载因素、预设值） */
+  condition?: InputMaybe<Scalars['Int']>
+  /** 常量列表 */
+  consts?: InputMaybe<Scalars['Int']>
+  /** 初始数据 */
+  data?: InputMaybe<Scalars['Int']>
+  /** 指标要求 */
+  requirement?: InputMaybe<Scalars['Int']>
+}
+
+/** delete key/value pair or string element. key/value pairs are matched based on their key value */
+export interface InspectionTypesDeleteKeyInput {
+  /** 预设检测条件（加载因素、预设值） */
+  condition?: InputMaybe<Scalars['String']>
+  /** 常量列表 */
+  consts?: InputMaybe<Scalars['String']>
+  /** 初始数据 */
+  data?: InputMaybe<Scalars['String']>
+  /** 指标要求 */
+  requirement?: InputMaybe<Scalars['String']>
+}
+
+/** input type for inserting data into table "inspection_types" */
+export interface InspectionTypesInsertInput {
+  /** 检测项目备注 */
+  comment?: InputMaybe<Scalars['String']>
+  /** 预设检测条件（加载因素、预设值） */
+  condition?: InputMaybe<Scalars['jsonb']>
+  /** 常量列表 */
+  consts?: InputMaybe<Scalars['jsonb']>
+  /** 初始数据 */
+  data?: InputMaybe<Scalars['jsonb']>
+  /** 检测项目名 */
+  displayName?: InputMaybe<Scalars['String']>
+  equipment?: InputMaybe<EquipmentTypesObjRelInsertInput>
+  /** 对应哪个设备 */
+  equipmentTypeId?: InputMaybe<Scalars['uuid']>
+  /** 公式 */
+  formula?: InputMaybe<Scalars['String']>
+  id?: InputMaybe<Scalars['uuid']>
+  /** 检测项名称，用于与实际检测报告中的检测项对应 */
+  name?: InputMaybe<Scalars['String']>
+  /** 指标要求 */
+  requirement?: InputMaybe<Scalars['jsonb']>
+}
+
+/** aggregate max on columns */
+export interface InspectionTypesMaxFields {
+  /** 检测项目备注 */
+  comment?: Maybe<Scalars['String']>
+  /** 检测项目名 */
+  displayName?: Maybe<Scalars['String']>
+  /** 对应哪个设备 */
+  equipmentTypeId?: Maybe<Scalars['uuid']>
+  /** 公式 */
+  formula?: Maybe<Scalars['String']>
+  id?: Maybe<Scalars['uuid']>
+  /** 检测项名称，用于与实际检测报告中的检测项对应 */
+  name?: Maybe<Scalars['String']>
+}
+
+/** order by max() on columns of table "inspection_types" */
+export interface InspectionTypesMaxOrderBy {
+  /** 检测项目备注 */
+  comment?: InputMaybe<OrderBy>
+  /** 检测项目名 */
+  displayName?: InputMaybe<OrderBy>
+  /** 对应哪个设备 */
+  equipmentTypeId?: InputMaybe<OrderBy>
+  /** 公式 */
+  formula?: InputMaybe<OrderBy>
+  id?: InputMaybe<OrderBy>
+  /** 检测项名称，用于与实际检测报告中的检测项对应 */
+  name?: InputMaybe<OrderBy>
+}
+
+/** aggregate min on columns */
+export interface InspectionTypesMinFields {
+  /** 检测项目备注 */
+  comment?: Maybe<Scalars['String']>
+  /** 检测项目名 */
+  displayName?: Maybe<Scalars['String']>
+  /** 对应哪个设备 */
+  equipmentTypeId?: Maybe<Scalars['uuid']>
+  /** 公式 */
+  formula?: Maybe<Scalars['String']>
+  id?: Maybe<Scalars['uuid']>
+  /** 检测项名称，用于与实际检测报告中的检测项对应 */
+  name?: Maybe<Scalars['String']>
+}
+
+/** order by min() on columns of table "inspection_types" */
+export interface InspectionTypesMinOrderBy {
+  /** 检测项目备注 */
+  comment?: InputMaybe<OrderBy>
+  /** 检测项目名 */
+  displayName?: InputMaybe<OrderBy>
+  /** 对应哪个设备 */
+  equipmentTypeId?: InputMaybe<OrderBy>
+  /** 公式 */
+  formula?: InputMaybe<OrderBy>
+  id?: InputMaybe<OrderBy>
+  /** 检测项名称，用于与实际检测报告中的检测项对应 */
+  name?: InputMaybe<OrderBy>
+}
+
+/** response of any mutation on the table "inspection_types" */
+export interface InspectionTypesMutationResponse {
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']
+  /** data from the rows affected by the mutation */
+  returning: Array<InspectionTypes>
+}
+
+/** on_conflict condition type for table "inspection_types" */
+export interface InspectionTypesOnConflict {
+  constraint: InspectionTypesConstraint
+  update_columns?: Array<InspectionTypesUpdateColumn>
+  where?: InputMaybe<InspectionTypesBoolExp>
+}
+
+/** Ordering options when selecting data from "inspection_types". */
+export interface InspectionTypesOrderBy {
+  comment?: InputMaybe<OrderBy>
+  condition?: InputMaybe<OrderBy>
+  consts?: InputMaybe<OrderBy>
+  data?: InputMaybe<OrderBy>
+  displayName?: InputMaybe<OrderBy>
+  equipment?: InputMaybe<EquipmentTypesOrderBy>
+  equipmentTypeId?: InputMaybe<OrderBy>
+  formula?: InputMaybe<OrderBy>
+  id?: InputMaybe<OrderBy>
+  name?: InputMaybe<OrderBy>
+  requirement?: InputMaybe<OrderBy>
+}
+
+/** primary key columns input for table: inspection_types */
+export interface InspectionTypesPkColumnsInput {
+  id: Scalars['uuid']
+}
+
+/** prepend existing jsonb value of filtered columns with new jsonb value */
+export interface InspectionTypesPrependInput {
+  /** 预设检测条件（加载因素、预设值） */
+  condition?: InputMaybe<Scalars['jsonb']>
+  /** 常量列表 */
+  consts?: InputMaybe<Scalars['jsonb']>
+  /** 初始数据 */
+  data?: InputMaybe<Scalars['jsonb']>
+  /** 指标要求 */
+  requirement?: InputMaybe<Scalars['jsonb']>
+}
+
+/** select columns of table "inspection_types" */
+export enum InspectionTypesSelectColumn {
+  /** column name */
+  COMMENT = 'comment',
+  /** column name */
+  CONDITION = 'condition',
+  /** column name */
+  CONSTS = 'consts',
+  /** column name */
+  DATA = 'data',
+  /** column name */
+  DISPLAYNAME = 'displayName',
+  /** column name */
+  EQUIPMENTTYPEID = 'equipmentTypeId',
+  /** column name */
+  FORMULA = 'formula',
+  /** column name */
+  ID = 'id',
+  /** column name */
+  NAME = 'name',
+  /** column name */
+  REQUIREMENT = 'requirement',
+}
+
+/** input type for updating data in table "inspection_types" */
+export interface InspectionTypesSetInput {
+  /** 检测项目备注 */
+  comment?: InputMaybe<Scalars['String']>
+  /** 预设检测条件（加载因素、预设值） */
+  condition?: InputMaybe<Scalars['jsonb']>
+  /** 常量列表 */
+  consts?: InputMaybe<Scalars['jsonb']>
+  /** 初始数据 */
+  data?: InputMaybe<Scalars['jsonb']>
+  /** 检测项目名 */
+  displayName?: InputMaybe<Scalars['String']>
+  /** 对应哪个设备 */
+  equipmentTypeId?: InputMaybe<Scalars['uuid']>
+  /** 公式 */
+  formula?: InputMaybe<Scalars['String']>
+  id?: InputMaybe<Scalars['uuid']>
+  /** 检测项名称，用于与实际检测报告中的检测项对应 */
+  name?: InputMaybe<Scalars['String']>
+  /** 指标要求 */
+  requirement?: InputMaybe<Scalars['jsonb']>
+}
+
+/** update columns of table "inspection_types" */
+export enum InspectionTypesUpdateColumn {
+  /** column name */
+  COMMENT = 'comment',
+  /** column name */
+  CONDITION = 'condition',
+  /** column name */
+  CONSTS = 'consts',
+  /** column name */
+  DATA = 'data',
+  /** column name */
+  DISPLAYNAME = 'displayName',
+  /** column name */
+  EQUIPMENTTYPEID = 'equipmentTypeId',
+  /** column name */
+  FORMULA = 'formula',
+  /** column name */
+  ID = 'id',
+  /** column name */
+  NAME = 'name',
+  /** column name */
+  REQUIREMENT = 'requirement',
 }
 
 export interface JsonbCastExp {
@@ -3905,35 +3182,135 @@ export interface MetaAreaCnTownVarianceOrderBy {
   provinceCode?: InputMaybe<OrderBy>
 }
 
+/** columns and relationships of "meta.avalar_list" */
+export interface MetaAvalarList {
+  id: Scalars['uuid']
+  src: Scalars['String']
+}
+
+/** aggregated selection of "meta.avalar_list" */
+export interface MetaAvalarListAggregate {
+  aggregate?: Maybe<MetaAvalarListAggregateFields>
+  nodes: Array<MetaAvalarList>
+}
+
+/** aggregate fields of "meta.avalar_list" */
+export interface MetaAvalarListAggregateFields {
+  count: Scalars['Int']
+  max?: Maybe<MetaAvalarListMaxFields>
+  min?: Maybe<MetaAvalarListMinFields>
+}
+
+/** aggregate fields of "meta.avalar_list" */
+export interface MetaAvalarListAggregateFieldsCountArgs {
+  columns?: InputMaybe<Array<MetaAvalarListSelectColumn>>
+  distinct?: InputMaybe<Scalars['Boolean']>
+}
+
+/** Boolean expression to filter rows from the table "meta.avalar_list". All fields are combined with a logical 'AND'. */
+export interface MetaAvalarListBoolExp {
+  _and?: InputMaybe<Array<MetaAvalarListBoolExp>>
+  _not?: InputMaybe<MetaAvalarListBoolExp>
+  _or?: InputMaybe<Array<MetaAvalarListBoolExp>>
+  id?: InputMaybe<UuidComparisonExp>
+  src?: InputMaybe<StringComparisonExp>
+}
+
+/** unique or primary key constraints on table "meta.avalar_list" */
+export enum MetaAvalarListConstraint {
+  /** unique or primary key constraint */
+  AVALAR_LIST_PKEY = 'avalar_list_pkey',
+  /** unique or primary key constraint */
+  AVALAR_LIST_SRC_KEY = 'avalar_list_src_key',
+}
+
+/** input type for inserting data into table "meta.avalar_list" */
+export interface MetaAvalarListInsertInput {
+  id?: InputMaybe<Scalars['uuid']>
+  src?: InputMaybe<Scalars['String']>
+}
+
+/** aggregate max on columns */
+export interface MetaAvalarListMaxFields {
+  id?: Maybe<Scalars['uuid']>
+  src?: Maybe<Scalars['String']>
+}
+
+/** aggregate min on columns */
+export interface MetaAvalarListMinFields {
+  id?: Maybe<Scalars['uuid']>
+  src?: Maybe<Scalars['String']>
+}
+
+/** response of any mutation on the table "meta.avalar_list" */
+export interface MetaAvalarListMutationResponse {
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']
+  /** data from the rows affected by the mutation */
+  returning: Array<MetaAvalarList>
+}
+
+/** on_conflict condition type for table "meta.avalar_list" */
+export interface MetaAvalarListOnConflict {
+  constraint: MetaAvalarListConstraint
+  update_columns?: Array<MetaAvalarListUpdateColumn>
+  where?: InputMaybe<MetaAvalarListBoolExp>
+}
+
+/** Ordering options when selecting data from "meta.avalar_list". */
+export interface MetaAvalarListOrderBy {
+  id?: InputMaybe<OrderBy>
+  src?: InputMaybe<OrderBy>
+}
+
+/** primary key columns input for table: meta_avalar_list */
+export interface MetaAvalarListPkColumnsInput {
+  id: Scalars['uuid']
+}
+
+/** select columns of table "meta.avalar_list" */
+export enum MetaAvalarListSelectColumn {
+  /** column name */
+  ID = 'id',
+  /** column name */
+  SRC = 'src',
+}
+
+/** input type for updating data in table "meta.avalar_list" */
+export interface MetaAvalarListSetInput {
+  id?: InputMaybe<Scalars['uuid']>
+  src?: InputMaybe<Scalars['String']>
+}
+
+/** update columns of table "meta.avalar_list" */
+export enum MetaAvalarListUpdateColumn {
+  /** column name */
+  ID = 'id',
+  /** column name */
+  SRC = 'src',
+}
+
 /** mutation root */
 export interface MutationRoot {
   /** delete data from the table: "clients" */
   delete_clients?: Maybe<ClientsMutationResponse>
   /** delete single row from the table: "clients" */
   delete_clients_by_pk?: Maybe<Clients>
-  /** delete data from the table: "device" */
-  delete_device?: Maybe<DeviceMutationResponse>
-  /** delete single row from the table: "device" */
-  delete_device_by_pk?: Maybe<Device>
-  /** delete data from the table: "equipment_enum" */
-  delete_equipment_enum?: Maybe<EquipmentEnumMutationResponse>
-  /** delete single row from the table: "equipment_enum" */
-  delete_equipment_enum_by_pk?: Maybe<EquipmentEnum>
-  /** delete data from the table: "global_const" */
-  delete_global_const?: Maybe<GlobalConstMutationResponse>
-  /** delete single row from the table: "global_const" */
-  delete_global_const_by_pk?: Maybe<GlobalConst>
-  /** delete data from the table: "inspection_item_enum" */
-  delete_inspection_item_enum?: Maybe<InspectionItemEnumMutationResponse>
-  /** delete single row from the table: "inspection_item_enum" */
-  delete_inspection_item_enum_by_pk?: Maybe<InspectionItemEnum>
+  /** delete data from the table: "equipment" */
+  delete_equipment?: Maybe<EquipmentMutationResponse>
+  /** delete single row from the table: "equipment" */
+  delete_equipment_by_pk?: Maybe<Equipment>
+  /** delete data from the table: "equipment_types" */
+  delete_equipment_types?: Maybe<EquipmentTypesMutationResponse>
+  /** delete single row from the table: "equipment_types" */
+  delete_equipment_types_by_pk?: Maybe<EquipmentTypes>
   delete_inspection_report?: Maybe<InspectionReportMutationResponse>
   /** delete single row from the table: "inspection_report" */
   delete_inspection_report_by_pk?: Maybe<InspectionReport>
-  /** delete data from the table: "inspection_report_item" */
-  delete_inspection_report_item?: Maybe<InspectionReportItemMutationResponse>
-  /** delete single row from the table: "inspection_report_item" */
-  delete_inspection_report_item_by_pk?: Maybe<InspectionReportItem>
+  /** delete data from the table: "inspection_types" */
+  delete_inspection_types?: Maybe<InspectionTypesMutationResponse>
+  /** delete single row from the table: "inspection_types" */
+  delete_inspection_types_by_pk?: Maybe<InspectionTypes>
   /** delete data from the table: "meta.area_cn_city" */
   delete_meta_area_cn_city?: Maybe<MetaAreaCnCityMutationResponse>
   /** delete single row from the table: "meta.area_cn_city" */
@@ -3950,6 +3327,10 @@ export interface MutationRoot {
   delete_meta_area_cn_town?: Maybe<MetaAreaCnTownMutationResponse>
   /** delete single row from the table: "meta.area_cn_town" */
   delete_meta_area_cn_town_by_pk?: Maybe<MetaAreaCnTown>
+  /** delete data from the table: "meta.avalar_list" */
+  delete_meta_avalar_list?: Maybe<MetaAvalarListMutationResponse>
+  /** delete single row from the table: "meta.avalar_list" */
+  delete_meta_avalar_list_by_pk?: Maybe<MetaAvalarList>
   /** delete data from the table: "report_file" */
   delete_report_file?: Maybe<ReportFileMutationResponse>
   /** delete single row from the table: "report_file" */
@@ -3964,29 +3345,21 @@ export interface MutationRoot {
   insert_clients?: Maybe<ClientsMutationResponse>
   /** insert a single row into the table: "clients" */
   insert_clients_one?: Maybe<Clients>
-  /** insert data into the table: "device" */
-  insert_device?: Maybe<DeviceMutationResponse>
-  /** insert a single row into the table: "device" */
-  insert_device_one?: Maybe<Device>
-  /** insert data into the table: "equipment_enum" */
-  insert_equipment_enum?: Maybe<EquipmentEnumMutationResponse>
-  /** insert a single row into the table: "equipment_enum" */
-  insert_equipment_enum_one?: Maybe<EquipmentEnum>
-  /** insert data into the table: "global_const" */
-  insert_global_const?: Maybe<GlobalConstMutationResponse>
-  /** insert a single row into the table: "global_const" */
-  insert_global_const_one?: Maybe<GlobalConst>
-  /** insert data into the table: "inspection_item_enum" */
-  insert_inspection_item_enum?: Maybe<InspectionItemEnumMutationResponse>
-  /** insert a single row into the table: "inspection_item_enum" */
-  insert_inspection_item_enum_one?: Maybe<InspectionItemEnum>
+  /** insert data into the table: "equipment" */
+  insert_equipment?: Maybe<EquipmentMutationResponse>
+  /** insert a single row into the table: "equipment" */
+  insert_equipment_one?: Maybe<Equipment>
+  /** insert data into the table: "equipment_types" */
+  insert_equipment_types?: Maybe<EquipmentTypesMutationResponse>
+  /** insert a single row into the table: "equipment_types" */
+  insert_equipment_types_one?: Maybe<EquipmentTypes>
   insert_inspection_report?: Maybe<InspectionReportMutationResponse>
-  /** insert data into the table: "inspection_report_item" */
-  insert_inspection_report_item?: Maybe<InspectionReportItemMutationResponse>
-  /** insert a single row into the table: "inspection_report_item" */
-  insert_inspection_report_item_one?: Maybe<InspectionReportItem>
   /** insert a single row into the table: "inspection_report" */
   insert_inspection_report_one?: Maybe<InspectionReport>
+  /** insert data into the table: "inspection_types" */
+  insert_inspection_types?: Maybe<InspectionTypesMutationResponse>
+  /** insert a single row into the table: "inspection_types" */
+  insert_inspection_types_one?: Maybe<InspectionTypes>
   /** insert data into the table: "meta.area_cn_city" */
   insert_meta_area_cn_city?: Maybe<MetaAreaCnCityMutationResponse>
   /** insert a single row into the table: "meta.area_cn_city" */
@@ -4003,6 +3376,10 @@ export interface MutationRoot {
   insert_meta_area_cn_town?: Maybe<MetaAreaCnTownMutationResponse>
   /** insert a single row into the table: "meta.area_cn_town" */
   insert_meta_area_cn_town_one?: Maybe<MetaAreaCnTown>
+  /** insert data into the table: "meta.avalar_list" */
+  insert_meta_avalar_list?: Maybe<MetaAvalarListMutationResponse>
+  /** insert a single row into the table: "meta.avalar_list" */
+  insert_meta_avalar_list_one?: Maybe<MetaAvalarList>
   /** insert data into the table: "report_file" */
   insert_report_file?: Maybe<ReportFileMutationResponse>
   /** insert a single row into the table: "report_file" */
@@ -4019,29 +3396,21 @@ export interface MutationRoot {
   update_clients?: Maybe<ClientsMutationResponse>
   /** update single row of the table: "clients" */
   update_clients_by_pk?: Maybe<Clients>
-  /** update data of the table: "device" */
-  update_device?: Maybe<DeviceMutationResponse>
-  /** update single row of the table: "device" */
-  update_device_by_pk?: Maybe<Device>
-  /** update data of the table: "equipment_enum" */
-  update_equipment_enum?: Maybe<EquipmentEnumMutationResponse>
-  /** update single row of the table: "equipment_enum" */
-  update_equipment_enum_by_pk?: Maybe<EquipmentEnum>
-  /** update data of the table: "global_const" */
-  update_global_const?: Maybe<GlobalConstMutationResponse>
-  /** update single row of the table: "global_const" */
-  update_global_const_by_pk?: Maybe<GlobalConst>
-  /** update data of the table: "inspection_item_enum" */
-  update_inspection_item_enum?: Maybe<InspectionItemEnumMutationResponse>
-  /** update single row of the table: "inspection_item_enum" */
-  update_inspection_item_enum_by_pk?: Maybe<InspectionItemEnum>
+  /** update data of the table: "equipment" */
+  update_equipment?: Maybe<EquipmentMutationResponse>
+  /** update single row of the table: "equipment" */
+  update_equipment_by_pk?: Maybe<Equipment>
+  /** update data of the table: "equipment_types" */
+  update_equipment_types?: Maybe<EquipmentTypesMutationResponse>
+  /** update single row of the table: "equipment_types" */
+  update_equipment_types_by_pk?: Maybe<EquipmentTypes>
   update_inspection_report?: Maybe<InspectionReportMutationResponse>
   /** update single row of the table: "inspection_report" */
   update_inspection_report_by_pk?: Maybe<InspectionReport>
-  /** update data of the table: "inspection_report_item" */
-  update_inspection_report_item?: Maybe<InspectionReportItemMutationResponse>
-  /** update single row of the table: "inspection_report_item" */
-  update_inspection_report_item_by_pk?: Maybe<InspectionReportItem>
+  /** update data of the table: "inspection_types" */
+  update_inspection_types?: Maybe<InspectionTypesMutationResponse>
+  /** update single row of the table: "inspection_types" */
+  update_inspection_types_by_pk?: Maybe<InspectionTypes>
   /** update data of the table: "meta.area_cn_city" */
   update_meta_area_cn_city?: Maybe<MetaAreaCnCityMutationResponse>
   /** update single row of the table: "meta.area_cn_city" */
@@ -4058,6 +3427,10 @@ export interface MutationRoot {
   update_meta_area_cn_town?: Maybe<MetaAreaCnTownMutationResponse>
   /** update single row of the table: "meta.area_cn_town" */
   update_meta_area_cn_town_by_pk?: Maybe<MetaAreaCnTown>
+  /** update data of the table: "meta.avalar_list" */
+  update_meta_avalar_list?: Maybe<MetaAvalarListMutationResponse>
+  /** update single row of the table: "meta.avalar_list" */
+  update_meta_avalar_list_by_pk?: Maybe<MetaAvalarList>
   /** update data of the table: "report_file" */
   update_report_file?: Maybe<ReportFileMutationResponse>
   /** update single row of the table: "report_file" */
@@ -4081,42 +3454,22 @@ export interface MutationRootDeleteClientsByPkArgs {
 }
 
 /** mutation root */
-export interface MutationRootDeleteDeviceArgs {
-  where: DeviceBoolExp
+export interface MutationRootDeleteEquipmentArgs {
+  where: EquipmentBoolExp
 }
 
 /** mutation root */
-export interface MutationRootDeleteDeviceByPkArgs {
+export interface MutationRootDeleteEquipmentByPkArgs {
   id: Scalars['uuid']
 }
 
 /** mutation root */
-export interface MutationRootDeleteEquipmentEnumArgs {
-  where: EquipmentEnumBoolExp
+export interface MutationRootDeleteEquipmentTypesArgs {
+  where: EquipmentTypesBoolExp
 }
 
 /** mutation root */
-export interface MutationRootDeleteEquipmentEnumByPkArgs {
-  id: Scalars['uuid']
-}
-
-/** mutation root */
-export interface MutationRootDeleteGlobalConstArgs {
-  where: GlobalConstBoolExp
-}
-
-/** mutation root */
-export interface MutationRootDeleteGlobalConstByPkArgs {
-  id: Scalars['uuid']
-}
-
-/** mutation root */
-export interface MutationRootDeleteInspectionItemEnumArgs {
-  where: InspectionItemEnumBoolExp
-}
-
-/** mutation root */
-export interface MutationRootDeleteInspectionItemEnumByPkArgs {
+export interface MutationRootDeleteEquipmentTypesByPkArgs {
   id: Scalars['uuid']
 }
 
@@ -4131,12 +3484,12 @@ export interface MutationRootDeleteInspectionReportByPkArgs {
 }
 
 /** mutation root */
-export interface MutationRootDeleteInspectionReportItemArgs {
-  where: InspectionReportItemBoolExp
+export interface MutationRootDeleteInspectionTypesArgs {
+  where: InspectionTypesBoolExp
 }
 
 /** mutation root */
-export interface MutationRootDeleteInspectionReportItemByPkArgs {
+export interface MutationRootDeleteInspectionTypesByPkArgs {
   id: Scalars['uuid']
 }
 
@@ -4181,6 +3534,16 @@ export interface MutationRootDeleteMetaAreaCnTownByPkArgs {
 }
 
 /** mutation root */
+export interface MutationRootDeleteMetaAvalarListArgs {
+  where: MetaAvalarListBoolExp
+}
+
+/** mutation root */
+export interface MutationRootDeleteMetaAvalarListByPkArgs {
+  id: Scalars['uuid']
+}
+
+/** mutation root */
 export interface MutationRootDeleteReportFileArgs {
   where: ReportFileBoolExp
 }
@@ -4218,51 +3581,27 @@ export interface MutationRootInsertClientsOneArgs {
 }
 
 /** mutation root */
-export interface MutationRootInsertDeviceArgs {
-  objects: Array<DeviceInsertInput>
-  on_conflict?: InputMaybe<DeviceOnConflict>
+export interface MutationRootInsertEquipmentArgs {
+  objects: Array<EquipmentInsertInput>
+  on_conflict?: InputMaybe<EquipmentOnConflict>
 }
 
 /** mutation root */
-export interface MutationRootInsertDeviceOneArgs {
-  object: DeviceInsertInput
-  on_conflict?: InputMaybe<DeviceOnConflict>
+export interface MutationRootInsertEquipmentOneArgs {
+  object: EquipmentInsertInput
+  on_conflict?: InputMaybe<EquipmentOnConflict>
 }
 
 /** mutation root */
-export interface MutationRootInsertEquipmentEnumArgs {
-  objects: Array<EquipmentEnumInsertInput>
-  on_conflict?: InputMaybe<EquipmentEnumOnConflict>
+export interface MutationRootInsertEquipmentTypesArgs {
+  objects: Array<EquipmentTypesInsertInput>
+  on_conflict?: InputMaybe<EquipmentTypesOnConflict>
 }
 
 /** mutation root */
-export interface MutationRootInsertEquipmentEnumOneArgs {
-  object: EquipmentEnumInsertInput
-  on_conflict?: InputMaybe<EquipmentEnumOnConflict>
-}
-
-/** mutation root */
-export interface MutationRootInsertGlobalConstArgs {
-  objects: Array<GlobalConstInsertInput>
-  on_conflict?: InputMaybe<GlobalConstOnConflict>
-}
-
-/** mutation root */
-export interface MutationRootInsertGlobalConstOneArgs {
-  object: GlobalConstInsertInput
-  on_conflict?: InputMaybe<GlobalConstOnConflict>
-}
-
-/** mutation root */
-export interface MutationRootInsertInspectionItemEnumArgs {
-  objects: Array<InspectionItemEnumInsertInput>
-  on_conflict?: InputMaybe<InspectionItemEnumOnConflict>
-}
-
-/** mutation root */
-export interface MutationRootInsertInspectionItemEnumOneArgs {
-  object: InspectionItemEnumInsertInput
-  on_conflict?: InputMaybe<InspectionItemEnumOnConflict>
+export interface MutationRootInsertEquipmentTypesOneArgs {
+  object: EquipmentTypesInsertInput
+  on_conflict?: InputMaybe<EquipmentTypesOnConflict>
 }
 
 /** mutation root */
@@ -4272,21 +3611,21 @@ export interface MutationRootInsertInspectionReportArgs {
 }
 
 /** mutation root */
-export interface MutationRootInsertInspectionReportItemArgs {
-  objects: Array<InspectionReportItemInsertInput>
-  on_conflict?: InputMaybe<InspectionReportItemOnConflict>
-}
-
-/** mutation root */
-export interface MutationRootInsertInspectionReportItemOneArgs {
-  object: InspectionReportItemInsertInput
-  on_conflict?: InputMaybe<InspectionReportItemOnConflict>
-}
-
-/** mutation root */
 export interface MutationRootInsertInspectionReportOneArgs {
   object: InspectionReportInsertInput
   on_conflict?: InputMaybe<InspectionReportOnConflict>
+}
+
+/** mutation root */
+export interface MutationRootInsertInspectionTypesArgs {
+  objects: Array<InspectionTypesInsertInput>
+  on_conflict?: InputMaybe<InspectionTypesOnConflict>
+}
+
+/** mutation root */
+export interface MutationRootInsertInspectionTypesOneArgs {
+  object: InspectionTypesInsertInput
+  on_conflict?: InputMaybe<InspectionTypesOnConflict>
 }
 
 /** mutation root */
@@ -4335,6 +3674,18 @@ export interface MutationRootInsertMetaAreaCnTownArgs {
 export interface MutationRootInsertMetaAreaCnTownOneArgs {
   object: MetaAreaCnTownInsertInput
   on_conflict?: InputMaybe<MetaAreaCnTownOnConflict>
+}
+
+/** mutation root */
+export interface MutationRootInsertMetaAvalarListArgs {
+  objects: Array<MetaAvalarListInsertInput>
+  on_conflict?: InputMaybe<MetaAvalarListOnConflict>
+}
+
+/** mutation root */
+export interface MutationRootInsertMetaAvalarListOneArgs {
+  object: MetaAvalarListInsertInput
+  on_conflict?: InputMaybe<MetaAvalarListOnConflict>
 }
 
 /** mutation root */
@@ -4394,77 +3745,39 @@ export interface MutationRootUpdateClientsByPkArgs {
 }
 
 /** mutation root */
-export interface MutationRootUpdateDeviceArgs {
-  _append?: InputMaybe<DeviceAppendInput>
-  _delete_at_path?: InputMaybe<DeviceDeleteAtPathInput>
-  _delete_elem?: InputMaybe<DeviceDeleteElemInput>
-  _delete_key?: InputMaybe<DeviceDeleteKeyInput>
-  _inc?: InputMaybe<DeviceIncInput>
-  _prepend?: InputMaybe<DevicePrependInput>
-  _set?: InputMaybe<DeviceSetInput>
-  where: DeviceBoolExp
+export interface MutationRootUpdateEquipmentArgs {
+  _append?: InputMaybe<EquipmentAppendInput>
+  _delete_at_path?: InputMaybe<EquipmentDeleteAtPathInput>
+  _delete_elem?: InputMaybe<EquipmentDeleteElemInput>
+  _delete_key?: InputMaybe<EquipmentDeleteKeyInput>
+  _inc?: InputMaybe<EquipmentIncInput>
+  _prepend?: InputMaybe<EquipmentPrependInput>
+  _set?: InputMaybe<EquipmentSetInput>
+  where: EquipmentBoolExp
 }
 
 /** mutation root */
-export interface MutationRootUpdateDeviceByPkArgs {
-  _append?: InputMaybe<DeviceAppendInput>
-  _delete_at_path?: InputMaybe<DeviceDeleteAtPathInput>
-  _delete_elem?: InputMaybe<DeviceDeleteElemInput>
-  _delete_key?: InputMaybe<DeviceDeleteKeyInput>
-  _inc?: InputMaybe<DeviceIncInput>
-  _prepend?: InputMaybe<DevicePrependInput>
-  _set?: InputMaybe<DeviceSetInput>
-  pk_columns: DevicePkColumnsInput
+export interface MutationRootUpdateEquipmentByPkArgs {
+  _append?: InputMaybe<EquipmentAppendInput>
+  _delete_at_path?: InputMaybe<EquipmentDeleteAtPathInput>
+  _delete_elem?: InputMaybe<EquipmentDeleteElemInput>
+  _delete_key?: InputMaybe<EquipmentDeleteKeyInput>
+  _inc?: InputMaybe<EquipmentIncInput>
+  _prepend?: InputMaybe<EquipmentPrependInput>
+  _set?: InputMaybe<EquipmentSetInput>
+  pk_columns: EquipmentPkColumnsInput
 }
 
 /** mutation root */
-export interface MutationRootUpdateEquipmentEnumArgs {
-  _set?: InputMaybe<EquipmentEnumSetInput>
-  where: EquipmentEnumBoolExp
+export interface MutationRootUpdateEquipmentTypesArgs {
+  _set?: InputMaybe<EquipmentTypesSetInput>
+  where: EquipmentTypesBoolExp
 }
 
 /** mutation root */
-export interface MutationRootUpdateEquipmentEnumByPkArgs {
-  _set?: InputMaybe<EquipmentEnumSetInput>
-  pk_columns: EquipmentEnumPkColumnsInput
-}
-
-/** mutation root */
-export interface MutationRootUpdateGlobalConstArgs {
-  _inc?: InputMaybe<GlobalConstIncInput>
-  _set?: InputMaybe<GlobalConstSetInput>
-  where: GlobalConstBoolExp
-}
-
-/** mutation root */
-export interface MutationRootUpdateGlobalConstByPkArgs {
-  _inc?: InputMaybe<GlobalConstIncInput>
-  _set?: InputMaybe<GlobalConstSetInput>
-  pk_columns: GlobalConstPkColumnsInput
-}
-
-/** mutation root */
-export interface MutationRootUpdateInspectionItemEnumArgs {
-  _append?: InputMaybe<InspectionItemEnumAppendInput>
-  _delete_at_path?: InputMaybe<InspectionItemEnumDeleteAtPathInput>
-  _delete_elem?: InputMaybe<InspectionItemEnumDeleteElemInput>
-  _delete_key?: InputMaybe<InspectionItemEnumDeleteKeyInput>
-  _inc?: InputMaybe<InspectionItemEnumIncInput>
-  _prepend?: InputMaybe<InspectionItemEnumPrependInput>
-  _set?: InputMaybe<InspectionItemEnumSetInput>
-  where: InspectionItemEnumBoolExp
-}
-
-/** mutation root */
-export interface MutationRootUpdateInspectionItemEnumByPkArgs {
-  _append?: InputMaybe<InspectionItemEnumAppendInput>
-  _delete_at_path?: InputMaybe<InspectionItemEnumDeleteAtPathInput>
-  _delete_elem?: InputMaybe<InspectionItemEnumDeleteElemInput>
-  _delete_key?: InputMaybe<InspectionItemEnumDeleteKeyInput>
-  _inc?: InputMaybe<InspectionItemEnumIncInput>
-  _prepend?: InputMaybe<InspectionItemEnumPrependInput>
-  _set?: InputMaybe<InspectionItemEnumSetInput>
-  pk_columns: InspectionItemEnumPkColumnsInput
+export interface MutationRootUpdateEquipmentTypesByPkArgs {
+  _set?: InputMaybe<EquipmentTypesSetInput>
+  pk_columns: EquipmentTypesPkColumnsInput
 }
 
 /** mutation root */
@@ -4492,25 +3805,25 @@ export interface MutationRootUpdateInspectionReportByPkArgs {
 }
 
 /** mutation root */
-export interface MutationRootUpdateInspectionReportItemArgs {
-  _append?: InputMaybe<InspectionReportItemAppendInput>
-  _delete_at_path?: InputMaybe<InspectionReportItemDeleteAtPathInput>
-  _delete_elem?: InputMaybe<InspectionReportItemDeleteElemInput>
-  _delete_key?: InputMaybe<InspectionReportItemDeleteKeyInput>
-  _prepend?: InputMaybe<InspectionReportItemPrependInput>
-  _set?: InputMaybe<InspectionReportItemSetInput>
-  where: InspectionReportItemBoolExp
+export interface MutationRootUpdateInspectionTypesArgs {
+  _append?: InputMaybe<InspectionTypesAppendInput>
+  _delete_at_path?: InputMaybe<InspectionTypesDeleteAtPathInput>
+  _delete_elem?: InputMaybe<InspectionTypesDeleteElemInput>
+  _delete_key?: InputMaybe<InspectionTypesDeleteKeyInput>
+  _prepend?: InputMaybe<InspectionTypesPrependInput>
+  _set?: InputMaybe<InspectionTypesSetInput>
+  where: InspectionTypesBoolExp
 }
 
 /** mutation root */
-export interface MutationRootUpdateInspectionReportItemByPkArgs {
-  _append?: InputMaybe<InspectionReportItemAppendInput>
-  _delete_at_path?: InputMaybe<InspectionReportItemDeleteAtPathInput>
-  _delete_elem?: InputMaybe<InspectionReportItemDeleteElemInput>
-  _delete_key?: InputMaybe<InspectionReportItemDeleteKeyInput>
-  _prepend?: InputMaybe<InspectionReportItemPrependInput>
-  _set?: InputMaybe<InspectionReportItemSetInput>
-  pk_columns: InspectionReportItemPkColumnsInput
+export interface MutationRootUpdateInspectionTypesByPkArgs {
+  _append?: InputMaybe<InspectionTypesAppendInput>
+  _delete_at_path?: InputMaybe<InspectionTypesDeleteAtPathInput>
+  _delete_elem?: InputMaybe<InspectionTypesDeleteElemInput>
+  _delete_key?: InputMaybe<InspectionTypesDeleteKeyInput>
+  _prepend?: InputMaybe<InspectionTypesPrependInput>
+  _set?: InputMaybe<InspectionTypesSetInput>
+  pk_columns: InspectionTypesPkColumnsInput
 }
 
 /** mutation root */
@@ -4570,6 +3883,18 @@ export interface MutationRootUpdateMetaAreaCnTownByPkArgs {
 }
 
 /** mutation root */
+export interface MutationRootUpdateMetaAvalarListArgs {
+  _set?: InputMaybe<MetaAvalarListSetInput>
+  where: MetaAvalarListBoolExp
+}
+
+/** mutation root */
+export interface MutationRootUpdateMetaAvalarListByPkArgs {
+  _set?: InputMaybe<MetaAvalarListSetInput>
+  pk_columns: MetaAvalarListPkColumnsInput
+}
+
+/** mutation root */
 export interface MutationRootUpdateReportFileArgs {
   _append?: InputMaybe<ReportFileAppendInput>
   _delete_at_path?: InputMaybe<ReportFileDeleteAtPathInput>
@@ -4612,19 +3937,6 @@ export interface MutationRootUpdateUserViewArgs {
   where: UserViewBoolExp
 }
 
-/** Boolean expression to compare columns of type "numeric". All fields are combined with logical 'AND'. */
-export interface NumericComparisonExp {
-  _eq?: InputMaybe<Scalars['numeric']>
-  _gt?: InputMaybe<Scalars['numeric']>
-  _gte?: InputMaybe<Scalars['numeric']>
-  _in?: InputMaybe<Array<Scalars['numeric']>>
-  _is_null?: InputMaybe<Scalars['Boolean']>
-  _lt?: InputMaybe<Scalars['numeric']>
-  _lte?: InputMaybe<Scalars['numeric']>
-  _neq?: InputMaybe<Scalars['numeric']>
-  _nin?: InputMaybe<Array<Scalars['numeric']>>
-}
-
 /** column ordering options */
 export enum OrderBy {
   /** in ascending order, nulls last */
@@ -4648,41 +3960,30 @@ export interface QueryRoot {
   clients_aggregate: ClientsAggregate
   /** fetch data from the table: "clients" using primary key columns */
   clients_by_pk?: Maybe<Clients>
-  /** fetch data from the table: "device" */
-  device: Array<Device>
-  /** fetch aggregated fields from the table: "device" */
-  device_aggregate: DeviceAggregate
-  /** fetch data from the table: "device" using primary key columns */
-  device_by_pk?: Maybe<Device>
-  /** fetch data from the table: "equipment_enum" */
-  equipment_enum: Array<EquipmentEnum>
-  /** fetch aggregated fields from the table: "equipment_enum" */
-  equipment_enum_aggregate: EquipmentEnumAggregate
-  /** fetch data from the table: "equipment_enum" using primary key columns */
-  equipment_enum_by_pk?: Maybe<EquipmentEnum>
-  /** fetch data from the table: "global_const" */
-  global_const: Array<GlobalConst>
-  /** fetch aggregated fields from the table: "global_const" */
-  global_const_aggregate: GlobalConstAggregate
-  /** fetch data from the table: "global_const" using primary key columns */
-  global_const_by_pk?: Maybe<GlobalConst>
-  /** fetch data from the table: "inspection_item_enum" */
-  inspection_item_enum: Array<InspectionItemEnum>
-  /** fetch aggregated fields from the table: "inspection_item_enum" */
-  inspection_item_enum_aggregate: InspectionItemEnumAggregate
-  /** fetch data from the table: "inspection_item_enum" using primary key columns */
-  inspection_item_enum_by_pk?: Maybe<InspectionItemEnum>
+  /** fetch data from the table: "equipment" */
+  equipment: Array<Equipment>
+  /** fetch aggregated fields from the table: "equipment" */
+  equipment_aggregate: EquipmentAggregate
+  /** fetch data from the table: "equipment" using primary key columns */
+  equipment_by_pk?: Maybe<Equipment>
+  /** fetch data from the table: "equipment_types" */
+  equipment_types: Array<EquipmentTypes>
+  /** fetch aggregated fields from the table: "equipment_types" */
+  equipment_types_aggregate: EquipmentTypesAggregate
+  /** fetch data from the table: "equipment_types" using primary key columns */
+  equipment_types_by_pk?: Maybe<EquipmentTypes>
   /** fetch data from the table: "inspection_report" */
   inspection_report: Array<InspectionReport>
   /** fetch aggregated fields from the table: "inspection_report" */
   inspection_report_aggregate: InspectionReportAggregate
   /** fetch data from the table: "inspection_report" using primary key columns */
   inspection_report_by_pk?: Maybe<InspectionReport>
-  /** fetch data from the table: "inspection_report_item" */
-  inspection_report_item: Array<InspectionReportItem>
-  inspection_report_item_aggregate: InspectionReportItemAggregate
-  /** fetch data from the table: "inspection_report_item" using primary key columns */
-  inspection_report_item_by_pk?: Maybe<InspectionReportItem>
+  /** fetch data from the table: "inspection_types" */
+  inspection_types: Array<InspectionTypes>
+  /** fetch aggregated fields from the table: "inspection_types" */
+  inspection_types_aggregate: InspectionTypesAggregate
+  /** fetch data from the table: "inspection_types" using primary key columns */
+  inspection_types_by_pk?: Maybe<InspectionTypes>
   /** fetch data from the table: "meta.area_cn_city" */
   meta_area_cn_city: Array<MetaAreaCnCity>
   /** fetch aggregated fields from the table: "meta.area_cn_city" */
@@ -4707,6 +4008,12 @@ export interface QueryRoot {
   meta_area_cn_town_aggregate: MetaAreaCnTownAggregate
   /** fetch data from the table: "meta.area_cn_town" using primary key columns */
   meta_area_cn_town_by_pk?: Maybe<MetaAreaCnTown>
+  /** fetch data from the table: "meta.avalar_list" */
+  meta_avalar_list: Array<MetaAvalarList>
+  /** fetch aggregated fields from the table: "meta.avalar_list" */
+  meta_avalar_list_aggregate: MetaAvalarListAggregate
+  /** fetch data from the table: "meta.avalar_list" using primary key columns */
+  meta_avalar_list_by_pk?: Maybe<MetaAvalarList>
   /** fetch data from the table: "report_file" */
   report_file: Array<ReportFile>
   /** fetch aggregated fields from the table: "report_file" */
@@ -4745,83 +4052,43 @@ export interface QueryRootClientsByPkArgs {
   id: Scalars['uuid']
 }
 
-export interface QueryRootDeviceArgs {
-  distinct_on?: InputMaybe<Array<DeviceSelectColumn>>
+export interface QueryRootEquipmentArgs {
+  distinct_on?: InputMaybe<Array<EquipmentSelectColumn>>
   limit?: InputMaybe<Scalars['Int']>
   offset?: InputMaybe<Scalars['Int']>
-  order_by?: InputMaybe<Array<DeviceOrderBy>>
-  where?: InputMaybe<DeviceBoolExp>
+  order_by?: InputMaybe<Array<EquipmentOrderBy>>
+  where?: InputMaybe<EquipmentBoolExp>
 }
 
-export interface QueryRootDeviceAggregateArgs {
-  distinct_on?: InputMaybe<Array<DeviceSelectColumn>>
+export interface QueryRootEquipmentAggregateArgs {
+  distinct_on?: InputMaybe<Array<EquipmentSelectColumn>>
   limit?: InputMaybe<Scalars['Int']>
   offset?: InputMaybe<Scalars['Int']>
-  order_by?: InputMaybe<Array<DeviceOrderBy>>
-  where?: InputMaybe<DeviceBoolExp>
+  order_by?: InputMaybe<Array<EquipmentOrderBy>>
+  where?: InputMaybe<EquipmentBoolExp>
 }
 
-export interface QueryRootDeviceByPkArgs {
+export interface QueryRootEquipmentByPkArgs {
   id: Scalars['uuid']
 }
 
-export interface QueryRootEquipmentEnumArgs {
-  distinct_on?: InputMaybe<Array<EquipmentEnumSelectColumn>>
+export interface QueryRootEquipmentTypesArgs {
+  distinct_on?: InputMaybe<Array<EquipmentTypesSelectColumn>>
   limit?: InputMaybe<Scalars['Int']>
   offset?: InputMaybe<Scalars['Int']>
-  order_by?: InputMaybe<Array<EquipmentEnumOrderBy>>
-  where?: InputMaybe<EquipmentEnumBoolExp>
+  order_by?: InputMaybe<Array<EquipmentTypesOrderBy>>
+  where?: InputMaybe<EquipmentTypesBoolExp>
 }
 
-export interface QueryRootEquipmentEnumAggregateArgs {
-  distinct_on?: InputMaybe<Array<EquipmentEnumSelectColumn>>
+export interface QueryRootEquipmentTypesAggregateArgs {
+  distinct_on?: InputMaybe<Array<EquipmentTypesSelectColumn>>
   limit?: InputMaybe<Scalars['Int']>
   offset?: InputMaybe<Scalars['Int']>
-  order_by?: InputMaybe<Array<EquipmentEnumOrderBy>>
-  where?: InputMaybe<EquipmentEnumBoolExp>
+  order_by?: InputMaybe<Array<EquipmentTypesOrderBy>>
+  where?: InputMaybe<EquipmentTypesBoolExp>
 }
 
-export interface QueryRootEquipmentEnumByPkArgs {
-  id: Scalars['uuid']
-}
-
-export interface QueryRootGlobalConstArgs {
-  distinct_on?: InputMaybe<Array<GlobalConstSelectColumn>>
-  limit?: InputMaybe<Scalars['Int']>
-  offset?: InputMaybe<Scalars['Int']>
-  order_by?: InputMaybe<Array<GlobalConstOrderBy>>
-  where?: InputMaybe<GlobalConstBoolExp>
-}
-
-export interface QueryRootGlobalConstAggregateArgs {
-  distinct_on?: InputMaybe<Array<GlobalConstSelectColumn>>
-  limit?: InputMaybe<Scalars['Int']>
-  offset?: InputMaybe<Scalars['Int']>
-  order_by?: InputMaybe<Array<GlobalConstOrderBy>>
-  where?: InputMaybe<GlobalConstBoolExp>
-}
-
-export interface QueryRootGlobalConstByPkArgs {
-  id: Scalars['uuid']
-}
-
-export interface QueryRootInspectionItemEnumArgs {
-  distinct_on?: InputMaybe<Array<InspectionItemEnumSelectColumn>>
-  limit?: InputMaybe<Scalars['Int']>
-  offset?: InputMaybe<Scalars['Int']>
-  order_by?: InputMaybe<Array<InspectionItemEnumOrderBy>>
-  where?: InputMaybe<InspectionItemEnumBoolExp>
-}
-
-export interface QueryRootInspectionItemEnumAggregateArgs {
-  distinct_on?: InputMaybe<Array<InspectionItemEnumSelectColumn>>
-  limit?: InputMaybe<Scalars['Int']>
-  offset?: InputMaybe<Scalars['Int']>
-  order_by?: InputMaybe<Array<InspectionItemEnumOrderBy>>
-  where?: InputMaybe<InspectionItemEnumBoolExp>
-}
-
-export interface QueryRootInspectionItemEnumByPkArgs {
+export interface QueryRootEquipmentTypesByPkArgs {
   id: Scalars['uuid']
 }
 
@@ -4845,23 +4112,23 @@ export interface QueryRootInspectionReportByPkArgs {
   id: Scalars['uuid']
 }
 
-export interface QueryRootInspectionReportItemArgs {
-  distinct_on?: InputMaybe<Array<InspectionReportItemSelectColumn>>
+export interface QueryRootInspectionTypesArgs {
+  distinct_on?: InputMaybe<Array<InspectionTypesSelectColumn>>
   limit?: InputMaybe<Scalars['Int']>
   offset?: InputMaybe<Scalars['Int']>
-  order_by?: InputMaybe<Array<InspectionReportItemOrderBy>>
-  where?: InputMaybe<InspectionReportItemBoolExp>
+  order_by?: InputMaybe<Array<InspectionTypesOrderBy>>
+  where?: InputMaybe<InspectionTypesBoolExp>
 }
 
-export interface QueryRootInspectionReportItemAggregateArgs {
-  distinct_on?: InputMaybe<Array<InspectionReportItemSelectColumn>>
+export interface QueryRootInspectionTypesAggregateArgs {
+  distinct_on?: InputMaybe<Array<InspectionTypesSelectColumn>>
   limit?: InputMaybe<Scalars['Int']>
   offset?: InputMaybe<Scalars['Int']>
-  order_by?: InputMaybe<Array<InspectionReportItemOrderBy>>
-  where?: InputMaybe<InspectionReportItemBoolExp>
+  order_by?: InputMaybe<Array<InspectionTypesOrderBy>>
+  where?: InputMaybe<InspectionTypesBoolExp>
 }
 
-export interface QueryRootInspectionReportItemByPkArgs {
+export interface QueryRootInspectionTypesByPkArgs {
   id: Scalars['uuid']
 }
 
@@ -4943,6 +4210,26 @@ export interface QueryRootMetaAreaCnTownAggregateArgs {
 
 export interface QueryRootMetaAreaCnTownByPkArgs {
   code: Scalars['Int']
+}
+
+export interface QueryRootMetaAvalarListArgs {
+  distinct_on?: InputMaybe<Array<MetaAvalarListSelectColumn>>
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
+  order_by?: InputMaybe<Array<MetaAvalarListOrderBy>>
+  where?: InputMaybe<MetaAvalarListBoolExp>
+}
+
+export interface QueryRootMetaAvalarListAggregateArgs {
+  distinct_on?: InputMaybe<Array<MetaAvalarListSelectColumn>>
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
+  order_by?: InputMaybe<Array<MetaAvalarListOrderBy>>
+  where?: InputMaybe<MetaAvalarListBoolExp>
+}
+
+export interface QueryRootMetaAvalarListByPkArgs {
+  id: Scalars['uuid']
 }
 
 export interface QueryRootReportFileArgs {
@@ -5201,41 +4488,30 @@ export interface SubscriptionRoot {
   clients_aggregate: ClientsAggregate
   /** fetch data from the table: "clients" using primary key columns */
   clients_by_pk?: Maybe<Clients>
-  /** fetch data from the table: "device" */
-  device: Array<Device>
-  /** fetch aggregated fields from the table: "device" */
-  device_aggregate: DeviceAggregate
-  /** fetch data from the table: "device" using primary key columns */
-  device_by_pk?: Maybe<Device>
-  /** fetch data from the table: "equipment_enum" */
-  equipment_enum: Array<EquipmentEnum>
-  /** fetch aggregated fields from the table: "equipment_enum" */
-  equipment_enum_aggregate: EquipmentEnumAggregate
-  /** fetch data from the table: "equipment_enum" using primary key columns */
-  equipment_enum_by_pk?: Maybe<EquipmentEnum>
-  /** fetch data from the table: "global_const" */
-  global_const: Array<GlobalConst>
-  /** fetch aggregated fields from the table: "global_const" */
-  global_const_aggregate: GlobalConstAggregate
-  /** fetch data from the table: "global_const" using primary key columns */
-  global_const_by_pk?: Maybe<GlobalConst>
-  /** fetch data from the table: "inspection_item_enum" */
-  inspection_item_enum: Array<InspectionItemEnum>
-  /** fetch aggregated fields from the table: "inspection_item_enum" */
-  inspection_item_enum_aggregate: InspectionItemEnumAggregate
-  /** fetch data from the table: "inspection_item_enum" using primary key columns */
-  inspection_item_enum_by_pk?: Maybe<InspectionItemEnum>
+  /** fetch data from the table: "equipment" */
+  equipment: Array<Equipment>
+  /** fetch aggregated fields from the table: "equipment" */
+  equipment_aggregate: EquipmentAggregate
+  /** fetch data from the table: "equipment" using primary key columns */
+  equipment_by_pk?: Maybe<Equipment>
+  /** fetch data from the table: "equipment_types" */
+  equipment_types: Array<EquipmentTypes>
+  /** fetch aggregated fields from the table: "equipment_types" */
+  equipment_types_aggregate: EquipmentTypesAggregate
+  /** fetch data from the table: "equipment_types" using primary key columns */
+  equipment_types_by_pk?: Maybe<EquipmentTypes>
   /** fetch data from the table: "inspection_report" */
   inspection_report: Array<InspectionReport>
   /** fetch aggregated fields from the table: "inspection_report" */
   inspection_report_aggregate: InspectionReportAggregate
   /** fetch data from the table: "inspection_report" using primary key columns */
   inspection_report_by_pk?: Maybe<InspectionReport>
-  /** fetch data from the table: "inspection_report_item" */
-  inspection_report_item: Array<InspectionReportItem>
-  inspection_report_item_aggregate: InspectionReportItemAggregate
-  /** fetch data from the table: "inspection_report_item" using primary key columns */
-  inspection_report_item_by_pk?: Maybe<InspectionReportItem>
+  /** fetch data from the table: "inspection_types" */
+  inspection_types: Array<InspectionTypes>
+  /** fetch aggregated fields from the table: "inspection_types" */
+  inspection_types_aggregate: InspectionTypesAggregate
+  /** fetch data from the table: "inspection_types" using primary key columns */
+  inspection_types_by_pk?: Maybe<InspectionTypes>
   /** fetch data from the table: "meta.area_cn_city" */
   meta_area_cn_city: Array<MetaAreaCnCity>
   /** fetch aggregated fields from the table: "meta.area_cn_city" */
@@ -5260,6 +4536,12 @@ export interface SubscriptionRoot {
   meta_area_cn_town_aggregate: MetaAreaCnTownAggregate
   /** fetch data from the table: "meta.area_cn_town" using primary key columns */
   meta_area_cn_town_by_pk?: Maybe<MetaAreaCnTown>
+  /** fetch data from the table: "meta.avalar_list" */
+  meta_avalar_list: Array<MetaAvalarList>
+  /** fetch aggregated fields from the table: "meta.avalar_list" */
+  meta_avalar_list_aggregate: MetaAvalarListAggregate
+  /** fetch data from the table: "meta.avalar_list" using primary key columns */
+  meta_avalar_list_by_pk?: Maybe<MetaAvalarList>
   /** fetch data from the table: "report_file" */
   report_file: Array<ReportFile>
   /** fetch aggregated fields from the table: "report_file" */
@@ -5298,83 +4580,43 @@ export interface SubscriptionRootClientsByPkArgs {
   id: Scalars['uuid']
 }
 
-export interface SubscriptionRootDeviceArgs {
-  distinct_on?: InputMaybe<Array<DeviceSelectColumn>>
+export interface SubscriptionRootEquipmentArgs {
+  distinct_on?: InputMaybe<Array<EquipmentSelectColumn>>
   limit?: InputMaybe<Scalars['Int']>
   offset?: InputMaybe<Scalars['Int']>
-  order_by?: InputMaybe<Array<DeviceOrderBy>>
-  where?: InputMaybe<DeviceBoolExp>
+  order_by?: InputMaybe<Array<EquipmentOrderBy>>
+  where?: InputMaybe<EquipmentBoolExp>
 }
 
-export interface SubscriptionRootDeviceAggregateArgs {
-  distinct_on?: InputMaybe<Array<DeviceSelectColumn>>
+export interface SubscriptionRootEquipmentAggregateArgs {
+  distinct_on?: InputMaybe<Array<EquipmentSelectColumn>>
   limit?: InputMaybe<Scalars['Int']>
   offset?: InputMaybe<Scalars['Int']>
-  order_by?: InputMaybe<Array<DeviceOrderBy>>
-  where?: InputMaybe<DeviceBoolExp>
+  order_by?: InputMaybe<Array<EquipmentOrderBy>>
+  where?: InputMaybe<EquipmentBoolExp>
 }
 
-export interface SubscriptionRootDeviceByPkArgs {
+export interface SubscriptionRootEquipmentByPkArgs {
   id: Scalars['uuid']
 }
 
-export interface SubscriptionRootEquipmentEnumArgs {
-  distinct_on?: InputMaybe<Array<EquipmentEnumSelectColumn>>
+export interface SubscriptionRootEquipmentTypesArgs {
+  distinct_on?: InputMaybe<Array<EquipmentTypesSelectColumn>>
   limit?: InputMaybe<Scalars['Int']>
   offset?: InputMaybe<Scalars['Int']>
-  order_by?: InputMaybe<Array<EquipmentEnumOrderBy>>
-  where?: InputMaybe<EquipmentEnumBoolExp>
+  order_by?: InputMaybe<Array<EquipmentTypesOrderBy>>
+  where?: InputMaybe<EquipmentTypesBoolExp>
 }
 
-export interface SubscriptionRootEquipmentEnumAggregateArgs {
-  distinct_on?: InputMaybe<Array<EquipmentEnumSelectColumn>>
+export interface SubscriptionRootEquipmentTypesAggregateArgs {
+  distinct_on?: InputMaybe<Array<EquipmentTypesSelectColumn>>
   limit?: InputMaybe<Scalars['Int']>
   offset?: InputMaybe<Scalars['Int']>
-  order_by?: InputMaybe<Array<EquipmentEnumOrderBy>>
-  where?: InputMaybe<EquipmentEnumBoolExp>
+  order_by?: InputMaybe<Array<EquipmentTypesOrderBy>>
+  where?: InputMaybe<EquipmentTypesBoolExp>
 }
 
-export interface SubscriptionRootEquipmentEnumByPkArgs {
-  id: Scalars['uuid']
-}
-
-export interface SubscriptionRootGlobalConstArgs {
-  distinct_on?: InputMaybe<Array<GlobalConstSelectColumn>>
-  limit?: InputMaybe<Scalars['Int']>
-  offset?: InputMaybe<Scalars['Int']>
-  order_by?: InputMaybe<Array<GlobalConstOrderBy>>
-  where?: InputMaybe<GlobalConstBoolExp>
-}
-
-export interface SubscriptionRootGlobalConstAggregateArgs {
-  distinct_on?: InputMaybe<Array<GlobalConstSelectColumn>>
-  limit?: InputMaybe<Scalars['Int']>
-  offset?: InputMaybe<Scalars['Int']>
-  order_by?: InputMaybe<Array<GlobalConstOrderBy>>
-  where?: InputMaybe<GlobalConstBoolExp>
-}
-
-export interface SubscriptionRootGlobalConstByPkArgs {
-  id: Scalars['uuid']
-}
-
-export interface SubscriptionRootInspectionItemEnumArgs {
-  distinct_on?: InputMaybe<Array<InspectionItemEnumSelectColumn>>
-  limit?: InputMaybe<Scalars['Int']>
-  offset?: InputMaybe<Scalars['Int']>
-  order_by?: InputMaybe<Array<InspectionItemEnumOrderBy>>
-  where?: InputMaybe<InspectionItemEnumBoolExp>
-}
-
-export interface SubscriptionRootInspectionItemEnumAggregateArgs {
-  distinct_on?: InputMaybe<Array<InspectionItemEnumSelectColumn>>
-  limit?: InputMaybe<Scalars['Int']>
-  offset?: InputMaybe<Scalars['Int']>
-  order_by?: InputMaybe<Array<InspectionItemEnumOrderBy>>
-  where?: InputMaybe<InspectionItemEnumBoolExp>
-}
-
-export interface SubscriptionRootInspectionItemEnumByPkArgs {
+export interface SubscriptionRootEquipmentTypesByPkArgs {
   id: Scalars['uuid']
 }
 
@@ -5398,23 +4640,23 @@ export interface SubscriptionRootInspectionReportByPkArgs {
   id: Scalars['uuid']
 }
 
-export interface SubscriptionRootInspectionReportItemArgs {
-  distinct_on?: InputMaybe<Array<InspectionReportItemSelectColumn>>
+export interface SubscriptionRootInspectionTypesArgs {
+  distinct_on?: InputMaybe<Array<InspectionTypesSelectColumn>>
   limit?: InputMaybe<Scalars['Int']>
   offset?: InputMaybe<Scalars['Int']>
-  order_by?: InputMaybe<Array<InspectionReportItemOrderBy>>
-  where?: InputMaybe<InspectionReportItemBoolExp>
+  order_by?: InputMaybe<Array<InspectionTypesOrderBy>>
+  where?: InputMaybe<InspectionTypesBoolExp>
 }
 
-export interface SubscriptionRootInspectionReportItemAggregateArgs {
-  distinct_on?: InputMaybe<Array<InspectionReportItemSelectColumn>>
+export interface SubscriptionRootInspectionTypesAggregateArgs {
+  distinct_on?: InputMaybe<Array<InspectionTypesSelectColumn>>
   limit?: InputMaybe<Scalars['Int']>
   offset?: InputMaybe<Scalars['Int']>
-  order_by?: InputMaybe<Array<InspectionReportItemOrderBy>>
-  where?: InputMaybe<InspectionReportItemBoolExp>
+  order_by?: InputMaybe<Array<InspectionTypesOrderBy>>
+  where?: InputMaybe<InspectionTypesBoolExp>
 }
 
-export interface SubscriptionRootInspectionReportItemByPkArgs {
+export interface SubscriptionRootInspectionTypesByPkArgs {
   id: Scalars['uuid']
 }
 
@@ -5496,6 +4738,26 @@ export interface SubscriptionRootMetaAreaCnTownAggregateArgs {
 
 export interface SubscriptionRootMetaAreaCnTownByPkArgs {
   code: Scalars['Int']
+}
+
+export interface SubscriptionRootMetaAvalarListArgs {
+  distinct_on?: InputMaybe<Array<MetaAvalarListSelectColumn>>
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
+  order_by?: InputMaybe<Array<MetaAvalarListOrderBy>>
+  where?: InputMaybe<MetaAvalarListBoolExp>
+}
+
+export interface SubscriptionRootMetaAvalarListAggregateArgs {
+  distinct_on?: InputMaybe<Array<MetaAvalarListSelectColumn>>
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
+  order_by?: InputMaybe<Array<MetaAvalarListOrderBy>>
+  where?: InputMaybe<MetaAvalarListBoolExp>
+}
+
+export interface SubscriptionRootMetaAvalarListByPkArgs {
+  id: Scalars['uuid']
 }
 
 export interface SubscriptionRootReportFileArgs {
@@ -5584,10 +4846,11 @@ export interface TimestamptzComparisonExp {
 export interface User {
   avatar?: Maybe<Scalars['String']>
   /** An array relationship */
-  devices: Array<Device>
+  devices: Array<Equipment>
   /** An aggregate relationship */
-  devices_aggregate: DeviceAggregate
+  devices_aggregate: EquipmentAggregate
   displayname?: Maybe<Scalars['String']>
+  email?: Maybe<Scalars['String']>
   id: Scalars['Int']
   /** An array relationship */
   inspection_reports: Array<InspectionReport>
@@ -5600,20 +4863,20 @@ export interface User {
 
 /** columns and relationships of "user" */
 export interface UserDevicesArgs {
-  distinct_on?: InputMaybe<Array<DeviceSelectColumn>>
+  distinct_on?: InputMaybe<Array<EquipmentSelectColumn>>
   limit?: InputMaybe<Scalars['Int']>
   offset?: InputMaybe<Scalars['Int']>
-  order_by?: InputMaybe<Array<DeviceOrderBy>>
-  where?: InputMaybe<DeviceBoolExp>
+  order_by?: InputMaybe<Array<EquipmentOrderBy>>
+  where?: InputMaybe<EquipmentBoolExp>
 }
 
 /** columns and relationships of "user" */
 export interface UserDevicesAggregateArgs {
-  distinct_on?: InputMaybe<Array<DeviceSelectColumn>>
+  distinct_on?: InputMaybe<Array<EquipmentSelectColumn>>
   limit?: InputMaybe<Scalars['Int']>
   offset?: InputMaybe<Scalars['Int']>
-  order_by?: InputMaybe<Array<DeviceOrderBy>>
-  where?: InputMaybe<DeviceBoolExp>
+  order_by?: InputMaybe<Array<EquipmentOrderBy>>
+  where?: InputMaybe<EquipmentBoolExp>
 }
 
 /** columns and relationships of "user" */
@@ -5672,8 +4935,9 @@ export interface UserBoolExp {
   _not?: InputMaybe<UserBoolExp>
   _or?: InputMaybe<Array<UserBoolExp>>
   avatar?: InputMaybe<StringComparisonExp>
-  devices?: InputMaybe<DeviceBoolExp>
+  devices?: InputMaybe<EquipmentBoolExp>
   displayname?: InputMaybe<StringComparisonExp>
+  email?: InputMaybe<StringComparisonExp>
   id?: InputMaybe<IntComparisonExp>
   inspection_reports?: InputMaybe<InspectionReportBoolExp>
   password?: InputMaybe<StringComparisonExp>
@@ -5699,8 +4963,9 @@ export interface UserIncInput {
 /** input type for inserting data into table "user" */
 export interface UserInsertInput {
   avatar?: InputMaybe<Scalars['String']>
-  devices?: InputMaybe<DeviceArrRelInsertInput>
+  devices?: InputMaybe<EquipmentArrRelInsertInput>
   displayname?: InputMaybe<Scalars['String']>
+  email?: InputMaybe<Scalars['String']>
   id?: InputMaybe<Scalars['Int']>
   inspection_reports?: InputMaybe<InspectionReportArrRelInsertInput>
   password?: InputMaybe<Scalars['String']>
@@ -5712,6 +4977,7 @@ export interface UserInsertInput {
 export interface UserMaxFields {
   avatar?: Maybe<Scalars['String']>
   displayname?: Maybe<Scalars['String']>
+  email?: Maybe<Scalars['String']>
   id?: Maybe<Scalars['Int']>
   password?: Maybe<Scalars['String']>
   role?: Maybe<Scalars['role']>
@@ -5722,6 +4988,7 @@ export interface UserMaxFields {
 export interface UserMinFields {
   avatar?: Maybe<Scalars['String']>
   displayname?: Maybe<Scalars['String']>
+  email?: Maybe<Scalars['String']>
   id?: Maybe<Scalars['Int']>
   password?: Maybe<Scalars['String']>
   role?: Maybe<Scalars['role']>
@@ -5753,8 +5020,9 @@ export interface UserOnConflict {
 /** Ordering options when selecting data from "user". */
 export interface UserOrderBy {
   avatar?: InputMaybe<OrderBy>
-  devices_aggregate?: InputMaybe<DeviceAggregateOrderBy>
+  devices_aggregate?: InputMaybe<EquipmentAggregateOrderBy>
   displayname?: InputMaybe<OrderBy>
+  email?: InputMaybe<OrderBy>
   id?: InputMaybe<OrderBy>
   inspection_reports_aggregate?: InputMaybe<InspectionReportAggregateOrderBy>
   password?: InputMaybe<OrderBy>
@@ -5774,6 +5042,8 @@ export enum UserSelectColumn {
   /** column name */
   DISPLAYNAME = 'displayname',
   /** column name */
+  EMAIL = 'email',
+  /** column name */
   ID = 'id',
   /** column name */
   PASSWORD = 'password',
@@ -5787,6 +5057,7 @@ export enum UserSelectColumn {
 export interface UserSetInput {
   avatar?: InputMaybe<Scalars['String']>
   displayname?: InputMaybe<Scalars['String']>
+  email?: InputMaybe<Scalars['String']>
   id?: InputMaybe<Scalars['Int']>
   password?: InputMaybe<Scalars['String']>
   role?: InputMaybe<Scalars['role']>
@@ -5820,6 +5091,8 @@ export enum UserUpdateColumn {
   /** column name */
   DISPLAYNAME = 'displayname',
   /** column name */
+  EMAIL = 'email',
+  /** column name */
   ID = 'id',
   /** column name */
   PASSWORD = 'password',
@@ -5848,6 +5121,7 @@ export interface UserVarianceFields {
 export interface UserView {
   avatar?: Maybe<Scalars['String']>
   displayname?: Maybe<Scalars['String']>
+  email?: Maybe<Scalars['String']>
   id?: Maybe<Scalars['Int']>
   role?: Maybe<Scalars['role']>
   username?: Maybe<Scalars['String']>
@@ -5892,6 +5166,7 @@ export interface UserViewBoolExp {
   _or?: InputMaybe<Array<UserViewBoolExp>>
   avatar?: InputMaybe<StringComparisonExp>
   displayname?: InputMaybe<StringComparisonExp>
+  email?: InputMaybe<StringComparisonExp>
   id?: InputMaybe<IntComparisonExp>
   role?: InputMaybe<RoleComparisonExp>
   username?: InputMaybe<StringComparisonExp>
@@ -5906,6 +5181,7 @@ export interface UserViewIncInput {
 export interface UserViewInsertInput {
   avatar?: InputMaybe<Scalars['String']>
   displayname?: InputMaybe<Scalars['String']>
+  email?: InputMaybe<Scalars['String']>
   id?: InputMaybe<Scalars['Int']>
   role?: InputMaybe<Scalars['role']>
   username?: InputMaybe<Scalars['String']>
@@ -5915,6 +5191,7 @@ export interface UserViewInsertInput {
 export interface UserViewMaxFields {
   avatar?: Maybe<Scalars['String']>
   displayname?: Maybe<Scalars['String']>
+  email?: Maybe<Scalars['String']>
   id?: Maybe<Scalars['Int']>
   role?: Maybe<Scalars['role']>
   username?: Maybe<Scalars['String']>
@@ -5924,6 +5201,7 @@ export interface UserViewMaxFields {
 export interface UserViewMinFields {
   avatar?: Maybe<Scalars['String']>
   displayname?: Maybe<Scalars['String']>
+  email?: Maybe<Scalars['String']>
   id?: Maybe<Scalars['Int']>
   role?: Maybe<Scalars['role']>
   username?: Maybe<Scalars['String']>
@@ -5941,6 +5219,7 @@ export interface UserViewMutationResponse {
 export interface UserViewOrderBy {
   avatar?: InputMaybe<OrderBy>
   displayname?: InputMaybe<OrderBy>
+  email?: InputMaybe<OrderBy>
   id?: InputMaybe<OrderBy>
   role?: InputMaybe<OrderBy>
   username?: InputMaybe<OrderBy>
@@ -5953,6 +5232,8 @@ export enum UserViewSelectColumn {
   /** column name */
   DISPLAYNAME = 'displayname',
   /** column name */
+  EMAIL = 'email',
+  /** column name */
   ID = 'id',
   /** column name */
   ROLE = 'role',
@@ -5964,6 +5245,7 @@ export enum UserViewSelectColumn {
 export interface UserViewSetInput {
   avatar?: InputMaybe<Scalars['String']>
   displayname?: InputMaybe<Scalars['String']>
+  email?: InputMaybe<Scalars['String']>
   id?: InputMaybe<Scalars['Int']>
   role?: InputMaybe<Scalars['role']>
   username?: InputMaybe<Scalars['String']>
@@ -6020,12 +5302,16 @@ export interface UuidComparisonExp {
 export const namedOperations = {
   Query: {
     ClientsDetailList: 'ClientsDetailList',
+    ClientsSearchList: 'ClientsSearchList',
     ClientsById: 'ClientsById',
-    DeviceList: 'DeviceList',
-    DeviceById: 'DeviceById',
-    GlobalConstList: 'GlobalConstList',
-    EquipmentEnumList: 'EquipmentEnumList',
-    InspectionItemEnumList: 'InspectionItemEnumList',
+    InspectionTypesList: 'InspectionTypesList',
+    InspectionTypesDetail: 'InspectionTypesDetail',
+    InspectionTypesByEquipment: 'InspectionTypesByEquipment',
+    EquipmentTypesList: 'EquipmentTypesList',
+    EquipmentTypesById: 'EquipmentTypesById',
+    EquipmentList: 'EquipmentList',
+    EquipmentById: 'EquipmentById',
+    FindEquipment: 'FindEquipment',
     InspectionReportList: 'InspectionReportList',
     InspectionReportById: 'InspectionReportById',
     ProvinceList: 'ProvinceList',
@@ -6044,19 +5330,16 @@ export const namedOperations = {
     UpdateClientsById: 'UpdateClientsById',
     DeleteClientsById: 'DeleteClientsById',
     DeleteClientsBulk: 'DeleteClientsBulk',
-    CreateDevice: 'CreateDevice',
-    UpdateDeviceById: 'UpdateDeviceById',
-    DeleteDeviceById: 'DeleteDeviceById',
-    DeleteDeviceBulk: 'DeleteDeviceBulk',
-    CreateGlobalConst: 'CreateGlobalConst',
-    UpdateGlobalConstById: 'UpdateGlobalConstById',
-    DeleteGlobalConst: 'DeleteGlobalConst',
-    CreateEquipmentEnum: 'CreateEquipmentEnum',
-    UpdateEquipmentEnumById: 'UpdateEquipmentEnumById',
-    DeleteEquipmentEnum: 'DeleteEquipmentEnum',
-    CreateInspectionItemEnum: 'CreateInspectionItemEnum',
-    UpdateInspectionItemEnumById: 'UpdateInspectionItemEnumById',
-    DeleteInspectionItemEnum: 'DeleteInspectionItemEnum',
+    CreateInspectionTypes: 'CreateInspectionTypes',
+    UpdateInspectionTypesById: 'UpdateInspectionTypesById',
+    DeleteInspectionTypes: 'DeleteInspectionTypes',
+    CreateEquipmentTypes: 'CreateEquipmentTypes',
+    UpdateEquipmentTypesById: 'UpdateEquipmentTypesById',
+    DeleteEquipmentTypes: 'DeleteEquipmentTypes',
+    CreateEquipment: 'CreateEquipment',
+    UpdateEquipmentById: 'UpdateEquipmentById',
+    DeleteEquipmentById: 'DeleteEquipmentById',
+    DeleteEquipmentBulk: 'DeleteEquipmentBulk',
     CreateInspectionReport: 'CreateInspectionReport',
     UpdateInspectionReportById: 'UpdateInspectionReportById',
     DeleteInspectionReportById: 'DeleteInspectionReportById',
@@ -6066,15 +5349,15 @@ export const namedOperations = {
     AdminDeleteAccountById: 'AdminDeleteAccountById',
   },
   Fragment: {
-    GlobalConst: 'GlobalConst',
-    EquipmentEnum: 'EquipmentEnum',
-    InspectionItemEnumFragment: 'InspectionItemEnumFragment',
-    InspectionItem: 'InspectionItem',
+    InspectionTypes: 'InspectionTypes',
+    InspectionTypesHeader: 'InspectionTypesHeader',
+    EquipmentTypes: 'EquipmentTypes',
+    FindEquipmentResult: 'FindEquipmentResult',
     InspectionReportHeader: 'InspectionReportHeader',
     InspectionReport: 'InspectionReport',
     UserInfo: 'UserInfo',
     UserView: 'UserView',
     ClientsDetail: 'ClientsDetail',
-    DeviceDetail: 'DeviceDetail',
+    EquipmentDetail: 'EquipmentDetail',
   },
 }

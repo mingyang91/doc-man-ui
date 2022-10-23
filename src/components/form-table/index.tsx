@@ -1,13 +1,9 @@
-import { Paper, TableContainer, Table, TableBody } from '@mui/material'
-import { FormikHelpers } from 'formik'
+import { Paper, Table, TableBody, TableContainer } from '@mui/material'
 import { ReactNode } from 'react'
 
 import { FormTableHeader } from './components/header'
 
-export type FnSubmit<D, I> = (
-  values: D,
-  helper: FormikHelpers<I>
-) => Promise<void>
+export type FnSubmit<D, I> = (values: D) => Promise<void>
 
 export type FormTableProps = {
   children?: ReactNode

@@ -1,8 +1,10 @@
 // @mui
+import { Box, Link, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
-import { Box, Link, Typography, Avatar } from '@mui/material'
 
 import { useAuth } from '@/providers/auth'
+
+import { Avatar } from 'd/components/avatar'
 
 // ----------------------------------------------------------------------
 
@@ -34,7 +36,11 @@ export default function NavbarAccount({ isCollapse }: Props) {
           }),
         }}
       >
-        <Avatar alt={userInfo?.displayName}>{userInfo?.displayName}</Avatar>
+        <Avatar
+          alt={userInfo?.displayName || 'unknown'}
+          label={userInfo?.displayName}
+          src={userInfo?.avatar || undefined}
+        />
 
         <Box
           sx={{

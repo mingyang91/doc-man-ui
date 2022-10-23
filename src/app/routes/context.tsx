@@ -14,22 +14,30 @@ import { SignIn } from '@/views/sign-in/index'
 import type { RouteView } from './index'
 
 export const ROUTES = {
-  default: '/',
-  demo: '/demo',
-  signIn: '/sign-in',
-  dashboard: '/dashboard',
-  consumerList: '/consumer',
-  consumerDetail: '/consumer/detail/:id',
-  consumerEdit: '/consumer/edit/:id',
-  consumerCreate: '/consumer/create',
-  deviceList: '/device',
-  deviceDetail: '/device/detail/:id',
-  deviceEdit: '/device/edit/:id',
-  deviceCreate: '/device/create',
-  inspectionList: '/inspection',
-  inspectionDetail: '/inspection/detail/:id',
-  inspectionEdit: '/inspection/edit/:id',
-  inspectionCreate: '/inspection/create',
+  default: '/', // 默认路由
+  demo: '/demo', // demo 页，没啥用
+  signIn: '/sign-in', // 登录
+  dashboard: '/dashboard', // 仪表盘
+  equipmentTypeList: '/equipment-types', // 设备类型列表
+  equipmentTypeDetail: '/equipment-types/detail/:id', // 设备类型详情
+  equipmentInspectionTypeDetail:
+    '/equipment-types/detail/:id/inspection-enums/:itemId/detail', // 设备类型检测项详情
+  equipmentInspectionTypeEdit:
+    '/equipment-types/detail/:id/inspection-enums/:itemId/edit', // 设备类型检测项编辑
+  equipmentInspectionTypeCreate:
+    '/equipment-types/detail/:id/inspection-enums/create', // 设备类型检测项创建
+  consumerList: '/consumer', // 委托单位列表
+  consumerDetail: '/consumer/detail/:id', // 委托单位详情
+  consumerEdit: '/consumer/edit/:id', // 委托单位编辑
+  consumerCreate: '/consumer/create', // 委托单位创建
+  equipmentList: '/equipments/', // 设备列表
+  equipmentDetail: '/equipments/detail/:id', // 设备详情
+  equipmentEdit: '/equipments/edit/:id', // 设备编辑
+  equipmentCreate: '/equipments/create', // 设备创建
+  inspectionList: '/inspection', // 检测报告列表
+  inspectionDetail: '/inspection/detail/:id', // 检测报告详情
+  inspectionEdit: '/inspection/edit/:id', // 检测报告编辑
+  inspectionCreate: '/inspection/create', // 检测报告创建
 }
 
 export const routes: RouteView[] = [
@@ -73,91 +81,11 @@ export const routes: RouteView[] = [
   },
   {
     id: 'meta-root',
-    title: '元数据',
+    title: '客户关系',
     icon: RiHomeSmile2Fill,
     isMenu: true,
     isGroupTitle: true,
     submodule: [
-      /*  设备管理 */
-      {
-        id: 'meta-device-list',
-        path: ROUTES.deviceList,
-        title: '设备管理',
-        icon: RiFile2Fill,
-        isMenu: true,
-        isRequireAuth: true,
-        activePaths: [
-          ROUTES.deviceDetail,
-          ROUTES.deviceEdit,
-          ROUTES.deviceCreate,
-        ],
-        breadcrumbs: [
-          { name: '元数据' },
-          { name: '设备管理', href: ROUTES.deviceList },
-        ],
-        layout: 'admin',
-        Component: lazy(
-          () =>
-            import(
-              /* webpackChunkName: "views/devices/index" */ '@/views/devices/index'
-            )
-        ),
-      },
-      {
-        id: 'meta-detail',
-        path: ROUTES.deviceDetail,
-        isRequireAuth: true,
-        Component: lazy(
-          () =>
-            import(
-              /* webpackChunkName: "views/demo/index" */ '@/views/demo/index'
-            )
-        ),
-        layout: 'admin',
-        breadcrumbs: [
-          { name: '元数据' },
-          { name: '设备管理', href: ROUTES.deviceList },
-          { name: '设备详情' },
-        ],
-      },
-      {
-        id: 'meta-create',
-        path: ROUTES.deviceCreate,
-        isRequireAuth: true,
-        title: '设备管理 - 新增',
-        icon: RiFile2Fill,
-        Component: lazy(
-          () =>
-            import(
-              /* webpackChunkName: "views/devices/create" */ '@/views/devices/create'
-            )
-        ),
-        layout: 'admin',
-        breadcrumbs: [
-          { name: '元数据' },
-          { name: '设备管理', href: ROUTES.deviceList },
-          { name: '新增' },
-        ],
-      },
-      {
-        id: 'meta-edit',
-        path: ROUTES.deviceEdit,
-        isRequireAuth: true,
-        title: '设备管理 - 编辑',
-        icon: RiFile2Fill,
-        Component: lazy(
-          () =>
-            import(
-              /* webpackChunkName: "views/demo/index" */ '@/views/demo/index'
-            )
-        ),
-        layout: 'admin',
-        breadcrumbs: [
-          { name: '元数据' },
-          { name: '设备管理', href: ROUTES.deviceList },
-          { name: '编辑' },
-        ],
-      },
       /*  委托单位 */
       {
         id: 'meta-consumer-list',
@@ -235,6 +163,197 @@ export const routes: RouteView[] = [
         breadcrumbs: [
           { name: '元数据' },
           { name: '设备管理', href: ROUTES.consumerList },
+          { name: '编辑' },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'equipment-root',
+    title: '设备数据',
+    icon: RiHomeSmile2Fill,
+    isMenu: true,
+    isGroupTitle: true,
+    submodule: [
+      /* 设备类型 */
+      {
+        id: 'equipment-type-list',
+        path: ROUTES.equipmentTypeList,
+        title: '设备类型',
+        icon: RiFile2Fill,
+        isMenu: true,
+        isRequireAuth: true,
+        activePaths: [
+          ROUTES.equipmentTypeList,
+          ROUTES.equipmentTypeDetail,
+          ROUTES.equipmentInspectionTypeDetail,
+          ROUTES.equipmentInspectionTypeEdit,
+          ROUTES.equipmentInspectionTypeCreate,
+        ],
+        breadcrumbs: [
+          { name: '设备数据' },
+          { name: '设备类型', href: ROUTES.equipmentTypeList },
+        ],
+        layout: 'admin',
+        Component: lazy(
+          () =>
+            import(
+              /* webpackChunkName: "views/equipment-types" */ '@/views/equipment-type/index'
+            )
+        ),
+      },
+      {
+        id: 'equipment-type-detail',
+        path: ROUTES.equipmentTypeDetail,
+        title: '设备类型 - 详情',
+        isRequireAuth: true,
+        breadcrumbs: [
+          { name: '设备数据' },
+          { name: '设备类型', href: ROUTES.equipmentTypeList },
+          { name: '详情' },
+        ],
+        layout: 'admin',
+        Component: lazy(
+          () =>
+            import(
+              /* webpackChunkName: "views/equipment-types/detail" */ '@/views/equipment-type/detail'
+            )
+        ),
+      },
+      {
+        id: 'equipment-type-inspection',
+        path: ROUTES.equipmentInspectionTypeDetail,
+        title: '设备类型 - 检测项 - 查看',
+        isRequireAuth: true,
+        breadcrumbs: [
+          { name: '设备数据' },
+          { name: '设备类型', href: ROUTES.equipmentTypeList },
+          { name: '详情' },
+          { name: '检测项 - 查看' },
+        ],
+        layout: 'admin',
+        Component: lazy(
+          () =>
+            import(
+              /* webpackChunkName: "views/equipment-types/inspection-item-enum" */ '@/views/equipment-type/inspection-enum-detail'
+            )
+        ),
+      },
+      {
+        id: 'equipment-type-inspection-edit',
+        path: ROUTES.equipmentInspectionTypeEdit,
+        title: '设备类型 - 检测项 - 编辑',
+        isRequireAuth: true,
+        breadcrumbs: [
+          { name: '设备数据' },
+          { name: '设备类型', href: ROUTES.equipmentTypeList },
+          { name: '详情' },
+          { name: '检测项 - 编辑' },
+        ],
+        layout: 'admin',
+        Component: lazy(
+          () =>
+            import(
+              /* webpackChunkName: "views/equipment-types/inspection-item-enum-edit" */ '@/views/equipment-type/inspection-enum-edit'
+            )
+        ),
+      },
+      {
+        id: 'equipment-type-inspection-create',
+        path: ROUTES.equipmentInspectionTypeEdit,
+        title: '设备类型 - 检测项 - 新增',
+        isRequireAuth: true,
+        breadcrumbs: [
+          { name: '设备数据' },
+          { name: '设备类型', href: ROUTES.equipmentTypeList },
+          { name: '详情' },
+          { name: '检测项 - 编辑' },
+        ],
+        layout: 'admin',
+        Component: lazy(
+          () =>
+            import(
+              /* webpackChunkName: "views/equipment-types/inspection-item-enum-create" */ '@/views/equipment-type/inspection-enum-create'
+            )
+        ),
+      },
+      /* 设备管理 */
+      {
+        id: 'equipment-list',
+        path: ROUTES.equipmentList,
+        title: '设备管理',
+        icon: RiFile2Fill,
+        isMenu: true,
+        isRequireAuth: true,
+        activePaths: [
+          ROUTES.equipmentDetail,
+          ROUTES.equipmentEdit,
+          ROUTES.equipmentCreate,
+        ],
+        breadcrumbs: [
+          { name: '设备数据' },
+          { name: '设备管理', href: ROUTES.equipmentList },
+        ],
+        layout: 'admin',
+        Component: lazy(
+          () =>
+            import(
+              /* webpackChunkName: "views/devices/index" */ '@/views/equipment/index'
+            )
+        ),
+      },
+      {
+        id: 'meta-device-detail',
+        path: ROUTES.equipmentDetail,
+        isRequireAuth: true,
+        Component: lazy(
+          () =>
+            import(
+              /* webpackChunkName: "views/devices/detail" */ '@/views/equipment/detail'
+            )
+        ),
+        layout: 'admin',
+        breadcrumbs: [
+          { name: '设备数据' },
+          { name: '设备管理', href: ROUTES.equipmentList },
+          { name: '设备详情' },
+        ],
+      },
+      {
+        id: 'meta-device-create',
+        path: ROUTES.equipmentCreate,
+        isRequireAuth: true,
+        title: '设备管理 - 新增',
+        icon: RiFile2Fill,
+        Component: lazy(
+          () =>
+            import(
+              /* webpackChunkName: "views/devices/create" */ '@/views/equipment/create'
+            )
+        ),
+        layout: 'admin',
+        breadcrumbs: [
+          { name: '设备数据' },
+          { name: '设备管理', href: ROUTES.equipmentList },
+          { name: '新增' },
+        ],
+      },
+      {
+        id: 'meta-device-edit',
+        path: ROUTES.equipmentEdit,
+        isRequireAuth: true,
+        title: '设备管理 - 编辑',
+        icon: RiFile2Fill,
+        Component: lazy(
+          () =>
+            import(
+              /* webpackChunkName: "views/devices/edit" */ '@/views/equipment/edit'
+            )
+        ),
+        layout: 'admin',
+        breadcrumbs: [
+          { name: '设备数据' },
+          { name: '设备管理', href: ROUTES.equipmentList },
           { name: '编辑' },
         ],
       },

@@ -49,7 +49,7 @@ function stringAvatar(name: string, length: number) {
 }
 
 export interface AvatarProps extends Omit<MuiAvatarProps, 'children'> {
-  label?: string
+  label?: string | null
   length?: number
 }
 

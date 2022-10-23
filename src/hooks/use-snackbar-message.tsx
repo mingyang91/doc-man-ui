@@ -102,8 +102,6 @@ export const useMessage = () => {
   const pushLoadingMessage = useMemoizedFn((message = '加载中...') => {
     const id = enqueueSnackbar(message, {
       variant: 'loading',
-      persist: true,
-      preventDuplicate: true,
     })
     loadingRef.current = id
     return id
