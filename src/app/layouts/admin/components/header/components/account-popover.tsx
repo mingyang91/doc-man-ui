@@ -1,21 +1,14 @@
+import { Box, Divider, MenuItem, Stack, Typography } from '@mui/material'
+import { alpha } from '@mui/material/styles'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { alpha } from '@mui/material/styles'
-import {
-  Box,
-  Divider,
-  Typography,
-  Stack,
-  MenuItem,
-  Avatar,
-} from '@mui/material'
 
 import { useAuth } from '@/providers/auth'
 import { ROUTES } from '@/routes'
 
-import MenuPopover from 'd/components/menu-popover'
 import { IconButtonAnimate } from 'd/components/animate'
-
+import { Avatar } from 'd/components/avatar'
+import MenuPopover from 'd/components/menu-popover'
 
 // ----------------------------------------------------------------------
 
@@ -70,7 +63,11 @@ export const AccountPopover = () => {
           }),
         }}
       >
-        <Avatar alt={userInfo?.displayName}>{userInfo?.displayName}</Avatar>
+        <Avatar
+          alt={userInfo?.displayName || 'unknown'}
+          label={userInfo?.displayName}
+          src={userInfo?.avatar || undefined}
+        />
       </IconButtonAnimate>
 
       <MenuPopover

@@ -1,12 +1,13 @@
 import { createContext, CSSProperties, ReactNode, useContext } from 'react'
 
 interface FieldContextValue {
+  id?: string
   direction?: 'row' | 'column'
   align?: CSSProperties['textAlign']
   headerWidth?: CSSProperties['width']
 }
 
-const initialValue: Required<FieldContextValue> = {
+const initialValue: FieldContextValue = {
   direction: 'row',
   align: 'right',
   headerWidth: '160px',

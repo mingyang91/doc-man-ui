@@ -20,35 +20,20 @@ import * as Types from '../types'
 import { UserInfoFragmentDoc } from '../public.generated'
 
 
-export type InspectionItemFragment = {
-  id: UUIDV4
-  name?: string | null
-  displayName: string
-  requirementState?: string | null
-  requirementAcceptance?: string | null
-  condition?: ScalarJson | null
-  conclusion?: string | null
-  result?: ScalarJson | null
-  inputValues?: ScalarJson | null
-}
-
-export type InspectionItemFragmentVariables = Types.Exact<{
-  [key: string]: never
-}>
-
 export type InspectionReportHeaderFragment = {
   id: UUIDV4
   equipmentCode?: string | null
   inspectionAddress: ScalarJson
   equipmentRequester?: string | null
   equipmentName?: string | null
-  inspectionBasis?: string | null
-  inspectionInstrument?: string | null
-  inspectionItem: ScalarJson
+  equipmentType: ScalarJson
   equipmentManufacturer?: string | null
   equipmentModel?: string | null
   equipmentSampleId?: string | null
   equipmentSite?: string | null
+  inspectionBasis?: string | null
+  inspectionInstrument?: string | null
+  inspectionItem: ScalarJson
   createAt?: ScalarTz | null
   updatedAt?: ScalarTz | null
   serialNumber?: ScalarJson | null
@@ -56,8 +41,9 @@ export type InspectionReportHeaderFragment = {
     id: number
     username: string
     avatar?: string | null
-    displayname?: string | null
     role: any
+    email?: string | null
+    displayName?: string | null
   } | null
 }
 
@@ -66,38 +52,30 @@ export type InspectionReportHeaderFragmentVariables = Types.Exact<{
 }>
 
 export type InspectionReportFragment = {
+  items: ScalarJson
   id: UUIDV4
   equipmentCode?: string | null
   inspectionAddress: ScalarJson
   equipmentRequester?: string | null
   equipmentName?: string | null
-  inspectionBasis?: string | null
-  inspectionInstrument?: string | null
-  inspectionItem: ScalarJson
+  equipmentType: ScalarJson
   equipmentManufacturer?: string | null
   equipmentModel?: string | null
   equipmentSampleId?: string | null
   equipmentSite?: string | null
+  inspectionBasis?: string | null
+  inspectionInstrument?: string | null
+  inspectionItem: ScalarJson
   createAt?: ScalarTz | null
   updatedAt?: ScalarTz | null
   serialNumber?: ScalarJson | null
-  items: Array<{
-    id: UUIDV4
-    name?: string | null
-    displayName: string
-    requirementState?: string | null
-    requirementAcceptance?: string | null
-    condition?: ScalarJson | null
-    conclusion?: string | null
-    result?: ScalarJson | null
-    inputValues?: ScalarJson | null
-  }>
   creator?: {
     id: number
     username: string
     avatar?: string | null
-    displayname?: string | null
     role: any
+    email?: string | null
+    displayName?: string | null
   } | null
 }
 
@@ -116,38 +94,30 @@ export type InspectionReportListQueryVariables = Types.Exact<{
 
 export type InspectionReportListQuery = {
   list: Array<{
+    items: ScalarJson
     id: UUIDV4
     equipmentCode?: string | null
     inspectionAddress: ScalarJson
     equipmentRequester?: string | null
     equipmentName?: string | null
-    inspectionBasis?: string | null
-    inspectionInstrument?: string | null
-    inspectionItem: ScalarJson
+    equipmentType: ScalarJson
     equipmentManufacturer?: string | null
     equipmentModel?: string | null
     equipmentSampleId?: string | null
     equipmentSite?: string | null
+    inspectionBasis?: string | null
+    inspectionInstrument?: string | null
+    inspectionItem: ScalarJson
     createAt?: ScalarTz | null
     updatedAt?: ScalarTz | null
     serialNumber?: ScalarJson | null
-    items: Array<{
-      id: UUIDV4
-      name?: string | null
-      displayName: string
-      requirementState?: string | null
-      requirementAcceptance?: string | null
-      condition?: ScalarJson | null
-      conclusion?: string | null
-      result?: ScalarJson | null
-      inputValues?: ScalarJson | null
-    }>
     creator?: {
       id: number
       username: string
       avatar?: string | null
-      displayname?: string | null
       role: any
+      email?: string | null
+      displayName?: string | null
     } | null
   }>
   total: { aggregate?: { count: number } | null }
@@ -159,38 +129,30 @@ export type InspectionReportByIdQueryVariables = Types.Exact<{
 
 export type InspectionReportByIdQuery = {
   detail?: {
+    items: ScalarJson
     id: UUIDV4
     equipmentCode?: string | null
     inspectionAddress: ScalarJson
     equipmentRequester?: string | null
     equipmentName?: string | null
-    inspectionBasis?: string | null
-    inspectionInstrument?: string | null
-    inspectionItem: ScalarJson
+    equipmentType: ScalarJson
     equipmentManufacturer?: string | null
     equipmentModel?: string | null
     equipmentSampleId?: string | null
     equipmentSite?: string | null
+    inspectionBasis?: string | null
+    inspectionInstrument?: string | null
+    inspectionItem: ScalarJson
     createAt?: ScalarTz | null
     updatedAt?: ScalarTz | null
     serialNumber?: ScalarJson | null
-    items: Array<{
-      id: UUIDV4
-      name?: string | null
-      displayName: string
-      requirementState?: string | null
-      requirementAcceptance?: string | null
-      condition?: ScalarJson | null
-      conclusion?: string | null
-      result?: ScalarJson | null
-      inputValues?: ScalarJson | null
-    }>
     creator?: {
       id: number
       username: string
       avatar?: string | null
-      displayname?: string | null
       role: any
+      email?: string | null
+      displayName?: string | null
     } | null
   } | null
 }
@@ -200,39 +162,31 @@ export type CreateInspectionReportMutationVariables = Types.Exact<{
 }>
 
 export type CreateInspectionReportMutation = {
-  insert_inspection_report_one?: {
+  returning?: {
+    items: ScalarJson
     id: UUIDV4
     equipmentCode?: string | null
     inspectionAddress: ScalarJson
     equipmentRequester?: string | null
     equipmentName?: string | null
-    inspectionBasis?: string | null
-    inspectionInstrument?: string | null
-    inspectionItem: ScalarJson
+    equipmentType: ScalarJson
     equipmentManufacturer?: string | null
     equipmentModel?: string | null
     equipmentSampleId?: string | null
     equipmentSite?: string | null
+    inspectionBasis?: string | null
+    inspectionInstrument?: string | null
+    inspectionItem: ScalarJson
     createAt?: ScalarTz | null
     updatedAt?: ScalarTz | null
     serialNumber?: ScalarJson | null
-    items: Array<{
-      id: UUIDV4
-      name?: string | null
-      displayName: string
-      requirementState?: string | null
-      requirementAcceptance?: string | null
-      condition?: ScalarJson | null
-      conclusion?: string | null
-      result?: ScalarJson | null
-      inputValues?: ScalarJson | null
-    }>
     creator?: {
       id: number
       username: string
       avatar?: string | null
-      displayname?: string | null
       role: any
+      email?: string | null
+      displayName?: string | null
     } | null
   } | null
 }
@@ -240,61 +194,35 @@ export type CreateInspectionReportMutation = {
 export type UpdateInspectionReportByIdMutationVariables = Types.Exact<{
   id?: Types.InputMaybe<Types.Scalars['uuid']>
   data?: Types.InputMaybe<Types.InspectionReportSetInput>
-  items?: Types.InputMaybe<
-    | Array<Types.InspectionReportItemInsertInput>
-    | Types.InspectionReportItemInsertInput
-  >
 }>
 
 export type UpdateInspectionReportByIdMutation = {
-  update_inspection_report_by_pk?: {
+  returning?: {
+    items: ScalarJson
     id: UUIDV4
     equipmentCode?: string | null
     inspectionAddress: ScalarJson
     equipmentRequester?: string | null
     equipmentName?: string | null
-    inspectionBasis?: string | null
-    inspectionInstrument?: string | null
-    inspectionItem: ScalarJson
+    equipmentType: ScalarJson
     equipmentManufacturer?: string | null
     equipmentModel?: string | null
     equipmentSampleId?: string | null
     equipmentSite?: string | null
+    inspectionBasis?: string | null
+    inspectionInstrument?: string | null
+    inspectionItem: ScalarJson
     createAt?: ScalarTz | null
     updatedAt?: ScalarTz | null
     serialNumber?: ScalarJson | null
-    items: Array<{
-      id: UUIDV4
-      name?: string | null
-      displayName: string
-      requirementState?: string | null
-      requirementAcceptance?: string | null
-      condition?: ScalarJson | null
-      conclusion?: string | null
-      result?: ScalarJson | null
-      inputValues?: ScalarJson | null
-    }>
     creator?: {
       id: number
       username: string
       avatar?: string | null
-      displayname?: string | null
       role: any
+      email?: string | null
+      displayName?: string | null
     } | null
-  } | null
-  insert_inspection_report_item?: {
-    affected_rows: number
-    returning: Array<{
-      id: UUIDV4
-      name?: string | null
-      displayName: string
-      requirementState?: string | null
-      requirementAcceptance?: string | null
-      condition?: ScalarJson | null
-      conclusion?: string | null
-      result?: ScalarJson | null
-      inputValues?: ScalarJson | null
-    }>
   } | null
 }
 
@@ -303,41 +231,7 @@ export type DeleteInspectionReportByIdMutationVariables = Types.Exact<{
 }>
 
 export type DeleteInspectionReportByIdMutation = {
-  delete_inspection_report_by_pk?: {
-    id: UUIDV4
-    equipmentCode?: string | null
-    inspectionAddress: ScalarJson
-    equipmentRequester?: string | null
-    equipmentName?: string | null
-    inspectionBasis?: string | null
-    inspectionInstrument?: string | null
-    inspectionItem: ScalarJson
-    equipmentManufacturer?: string | null
-    equipmentModel?: string | null
-    equipmentSampleId?: string | null
-    equipmentSite?: string | null
-    createAt?: ScalarTz | null
-    updatedAt?: ScalarTz | null
-    serialNumber?: ScalarJson | null
-    items: Array<{
-      id: UUIDV4
-      name?: string | null
-      displayName: string
-      requirementState?: string | null
-      requirementAcceptance?: string | null
-      condition?: ScalarJson | null
-      conclusion?: string | null
-      result?: ScalarJson | null
-      inputValues?: ScalarJson | null
-    }>
-    creator?: {
-      id: number
-      username: string
-      avatar?: string | null
-      displayname?: string | null
-      role: any
-    } | null
-  } | null
+  returning?: { id: UUIDV4 } | null
 }
 
 export const InspectionReportHeaderFragmentDoc = `
@@ -347,13 +241,14 @@ export const InspectionReportHeaderFragmentDoc = `
   inspectionAddress
   equipmentRequester
   equipmentName
-  inspectionBasis
-  inspectionInstrument
-  inspectionItem
+  equipmentType
   equipmentManufacturer
   equipmentModel
   equipmentSampleId
   equipmentSite
+  inspectionBasis
+  inspectionInstrument
+  inspectionItem
   createAt
   updatedAt
   serialNumber
@@ -362,25 +257,10 @@ export const InspectionReportHeaderFragmentDoc = `
   }
 }
     `
-export const InspectionItemFragmentDoc = `
-    fragment InspectionItem on inspection_report_item {
-  id
-  name
-  displayName
-  requirementState
-  requirementAcceptance
-  condition
-  conclusion
-  result
-  inputValues
-}
-    `
 export const InspectionReportFragmentDoc = `
     fragment InspectionReport on inspection_report {
   ...InspectionReportHeader
-  items {
-    ...InspectionItem
-  }
+  items
 }
     `
 export const InspectionReportListDocument = `
@@ -401,8 +281,7 @@ export const InspectionReportListDocument = `
 }
     ${InspectionReportFragmentDoc}
 ${InspectionReportHeaderFragmentDoc}
-${UserInfoFragmentDoc}
-${InspectionItemFragmentDoc}`
+${UserInfoFragmentDoc}`
 export const useInspectionReportListQuery = <
   TData = InspectionReportListQuery,
   TError = unknown
@@ -427,8 +306,7 @@ export const InspectionReportByIdDocument = `
 }
     ${InspectionReportFragmentDoc}
 ${InspectionReportHeaderFragmentDoc}
-${UserInfoFragmentDoc}
-${InspectionItemFragmentDoc}`
+${UserInfoFragmentDoc}`
 export const useInspectionReportByIdQuery = <
   TData = InspectionReportByIdQuery,
   TError = unknown
@@ -447,7 +325,7 @@ export const useInspectionReportByIdQuery = <
   )
 export const CreateInspectionReportDocument = `
     mutation CreateInspectionReport($data: inspection_report_insert_input = {}) {
-  insert_inspection_report_one(
+  returning: insert_inspection_report_one(
     object: $data
     on_conflict: {constraint: equipment_inspection_reports_id_key}
   ) {
@@ -456,8 +334,7 @@ export const CreateInspectionReportDocument = `
 }
     ${InspectionReportFragmentDoc}
 ${InspectionReportHeaderFragmentDoc}
-${UserInfoFragmentDoc}
-${InspectionItemFragmentDoc}`
+${UserInfoFragmentDoc}`
 export const useCreateInspectionReportMutation = <
   TError = unknown,
   TContext = unknown
@@ -483,24 +360,14 @@ export const useCreateInspectionReportMutation = <
     options
   )
 export const UpdateInspectionReportByIdDocument = `
-    mutation UpdateInspectionReportById($id: uuid = "", $data: inspection_report_set_input = {}, $items: [inspection_report_item_insert_input!] = {}) {
-  update_inspection_report_by_pk(pk_columns: {id: $id}, _set: $data) {
+    mutation UpdateInspectionReportById($id: uuid = "", $data: inspection_report_set_input = {}) {
+  returning: update_inspection_report_by_pk(pk_columns: {id: $id}, _set: $data) {
     ...InspectionReport
-  }
-  insert_inspection_report_item(
-    objects: $items
-    on_conflict: {constraint: inspection_items_id_key, update_columns: [condition, conclusion, requirementAcceptance, requirementState, result, inputValues]}
-  ) {
-    affected_rows
-    returning {
-      ...InspectionItem
-    }
   }
 }
     ${InspectionReportFragmentDoc}
 ${InspectionReportHeaderFragmentDoc}
-${UserInfoFragmentDoc}
-${InspectionItemFragmentDoc}`
+${UserInfoFragmentDoc}`
 export const useUpdateInspectionReportByIdMutation = <
   TError = unknown,
   TContext = unknown
@@ -527,14 +394,11 @@ export const useUpdateInspectionReportByIdMutation = <
   )
 export const DeleteInspectionReportByIdDocument = `
     mutation DeleteInspectionReportById($id: uuid = "") {
-  delete_inspection_report_by_pk(id: $id) {
-    ...InspectionReport
+  returning: delete_inspection_report_by_pk(id: $id) {
+    id
   }
 }
-    ${InspectionReportFragmentDoc}
-${InspectionReportHeaderFragmentDoc}
-${UserInfoFragmentDoc}
-${InspectionItemFragmentDoc}`
+    `
 export const useDeleteInspectionReportByIdMutation = <
   TError = unknown,
   TContext = unknown

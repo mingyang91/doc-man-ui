@@ -1,32 +1,30 @@
 import { LoadingButton } from '@mui/lab'
-import { Box, Grid } from '@mui/material'
-import { Field, Formik, FormikHelpers } from 'formik'
-import { TextField } from 'formik-mui'
+import { Box, Unstable_Grid2 as Grid } from '@mui/material'
+import { FormApi, SubmissionErrors } from 'final-form'
+import { TextField } from 'mui-rff'
 import { useMemo } from 'react'
-import * as Yup from 'yup'
+import { Field, Form } from 'react-final-form'
 
 import { DomainFormProps } from '@/modules/form'
 
-import { ClientsInsertInput } from 'm/types'
+import { Loading } from 'd/components/loading-screen'
 
-import { initialClientsFormData } from './utils'
+import {
+  ConsumerFormData,
+  ConsumerFormValidation,
+  initialClientsFormData,
+} from './utils'
 
-import { LocationSelectorFormik } from '@@/location-selector'
-import { validateSchema } from '@@/location-selector/utils'
-
-const ConsumerFormSchema = Yup.object().shape({
-  name: Yup.string().required('必填').trim('请勿输入空格'),
-  address: validateSchema,
-  comment: Yup.string().max(500, '最多500个字符'),
-})
+import { LocationSelectorElement } from '@@/location-selector'
 
 export type FnSubmitClient = (
-  values: ClientsInsertInput,
-  helper: FormikHelpers<ClientsInsertInput>
+  values: ConsumerFormData,
+  form: FormApi<ConsumerFormData>,
+  callback?: (errors?: SubmissionErrors) => void
 ) => Promise<void>
 
 interface ConsumerFormProps extends DomainFormProps {
-  data?: ClientsInsertInput
+  data?: ConsumerFormData
   submitForm?: FnSubmitClient
 }
 
@@ -40,36 +38,29 @@ export const ConsumerForm = ({
     return initialClientsFormData(data)
   }, [data])
 
-  return (
-    <Formik
-      validationSchema={ConsumerFormSchema}
-      isSubmitting={isLoading}
+  return isEdit && !data ? (
+    <Loading />
+  ) : (
+    <Form<ConsumerFormData>
+      validate={ConsumerFormValidation}
       initialValues={initialValue}
       onSubmit={submitForm}
     >
-      {({ submitForm, resetForm, isSubmitting, dirty }) => (
+      {({ pristine, submitting, handleSubmit }) => (
         <Grid container spacing={3}>
-          <Grid item xs={12} md={6}>
-            <Field
-              component={TextField}
-              name="name"
-              label="单位名称"
-              fullWidth
-              required
-            />
+          <Grid xs={12} md={6}>
+            <TextField name="name" label="单位名称" fullWidth required />
           </Grid>
-          <Grid item xs={12}>
+          <Grid xs={12}>
             <Field
-              component={LocationSelectorFormik}
-              newLineForDetail={false}
               name="address"
-              label="检测地址"
-              fullWidth
+              newLineForDetail={false}
+              component={LocationSelectorElement}
+              sx={{ display: 'flex' }}
             />
           </Grid>
-          <Grid item xs={12}>
-            <Field
-              component={TextField}
+          <Grid xs={12}>
+            <TextField
               name="comment"
               label="备注"
               type="text"
@@ -79,15 +70,15 @@ export const ConsumerForm = ({
               maxRows={8}
             />
           </Grid>
-          <Grid item xs={12} display="flex" justifyContent="space-between">
+          <Grid xs={12} display="flex" justifyContent="space-between">
             <Box display="flex" justifyContent="flex-start"></Box>
             <Box display="flex" justifyContent="flex-end">
               <LoadingButton
                 type="button"
                 variant="contained"
-                disabled={isSubmitting || !dirty}
-                loading={isSubmitting}
-                onClick={submitForm}
+                disabled={submitting || pristine || isLoading}
+                loading={submitting}
+                onClick={handleSubmit}
               >
                 {!isEdit ? '新增设备' : '保存更改'}
               </LoadingButton>
@@ -95,6 +86,6 @@ export const ConsumerForm = ({
           </Grid>
         </Grid>
       )}
-    </Formik>
+    </Form>
   )
 }

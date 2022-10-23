@@ -10,13 +10,13 @@ export const AuthProtectModule = ({
   children,
 }: PropsWithChildren<Record<never, never>>) => {
   const location = useLocation()
-  const { isLogin, checkState } = useAuth()
+  const { isLogin, isLoading } = useAuth()
 
   if (isLogin) {
     return <>{children}</>
   }
 
-  if (checkState.isLoading) {
+  if (isLoading) {
     return <LoadingScreen />
   }
 

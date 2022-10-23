@@ -23,9 +23,7 @@ import { ClientsDetailFragmentDoc } from '../public.generated'
 export type ClientsDetailListQueryVariables = Types.Exact<{
   limit?: Types.InputMaybe<Types.Scalars['Int']>
   offset?: Types.InputMaybe<Types.Scalars['Int']>
-  order_by?: Types.InputMaybe<
-    Array<Types.ClientsOrderBy> | Types.ClientsOrderBy
-  >
+  orderby?: Types.InputMaybe<Array<Types.ClientsOrderBy> | Types.ClientsOrderBy>
   where?: Types.InputMaybe<Types.ClientsBoolExp>
 }>
 
@@ -39,6 +37,19 @@ export type ClientsDetailListQuery = {
     address: ScalarJson
   }>
   total: { aggregate?: { count: number } | null }
+}
+
+export type ClientsSearchListQueryVariables = Types.Exact<{
+  keyword?: Types.InputMaybe<Types.Scalars['String']>
+  order_by?: Types.InputMaybe<
+    Array<Types.ClientsOrderBy> | Types.ClientsOrderBy
+  >
+  limit?: Types.InputMaybe<Types.Scalars['Int']>
+  offset?: Types.InputMaybe<Types.Scalars['Int']>
+}>
+
+export type ClientsSearchListQuery = {
+  list: Array<{ id: UUIDV4; name: string; address: ScalarJson }>
 }
 
 export type ClientsByIdQueryVariables = Types.Exact<{
@@ -111,13 +122,8 @@ export type DeleteClientsBulkMutation = {
 }
 
 export const ClientsDetailListDocument = `
-    query ClientsDetailList($limit: Int = 10, $offset: Int = 0, $order_by: [clients_order_by!] = {}, $where: clients_bool_exp = {}) {
-  list: clients(
-    limit: $limit
-    offset: $offset
-    order_by: $order_by
-    where: $where
-  ) {
+    query ClientsDetailList($limit: Int = 10, $offset: Int = 0, $orderby: [clients_order_by!] = {}, $where: clients_bool_exp = {}) {
+  list: clients(limit: $limit, offset: $offset, order_by: $orderby, where: $where) {
     ...ClientsDetail
   }
   total: clients_aggregate {
@@ -140,6 +146,36 @@ export const useClientsDetailListQuery = <
       : ['ClientsDetailList', variables],
     useFetch<ClientsDetailListQuery, ClientsDetailListQueryVariables>(
       ClientsDetailListDocument
+    ).bind(null, variables),
+    options
+  )
+export const ClientsSearchListDocument = `
+    query ClientsSearchList($keyword: String = "", $order_by: [clients_order_by!] = {name: asc_nulls_last}, $limit: Int = 10, $offset: Int = 0) {
+  list: clients(
+    limit: $limit
+    offset: $offset
+    order_by: $order_by
+    where: {name: {_like: $keyword}}
+  ) {
+    id
+    name
+    address
+  }
+}
+    `
+export const useClientsSearchListQuery = <
+  TData = ClientsSearchListQuery,
+  TError = unknown
+>(
+  variables?: ClientsSearchListQueryVariables,
+  options?: UseQueryOptions<ClientsSearchListQuery, TError, TData>
+) =>
+  useQuery<ClientsSearchListQuery, TError, TData>(
+    variables === undefined
+      ? ['ClientsSearchList']
+      : ['ClientsSearchList', variables],
+    useFetch<ClientsSearchListQuery, ClientsSearchListQueryVariables>(
+      ClientsSearchListDocument
     ).bind(null, variables),
     options
   )

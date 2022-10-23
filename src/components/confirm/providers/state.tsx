@@ -39,6 +39,9 @@ const ConfirmContainer = createContainer(function useConfirmContainer({
   })
 
   const confirm = useMemoizedFn<ConfirmFunction>((args = {}) => {
+    args.confirmText = args.confirmText ?? '确定'
+    args.cancelText = args.cancelText ?? '取消'
+
     setDialogProps(() => ({
       ...dialogProps,
       ...args,

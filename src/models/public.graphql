@@ -2,16 +2,18 @@ fragment UserInfo on user {
   id
   username
   avatar
-  displayname
+  displayName: displayname
   role
+  email
 }
 
 fragment UserView on user_view {
   id
   username
   avatar
-  displayname
+  displayName: displayname
   role
+  email
 }
 
 # 委托单位
@@ -25,12 +27,13 @@ fragment ClientsDetail on clients {
   address
 }
 
-fragment DeviceDetail on device {
+fragment EquipmentDetail on equipment {
   id
   inspectionInstrument
-  createTime
-  updateTime
+  createdAt
+  updatedAt
   address
+  equipmentTypeId
   equipmentCode
   equipmentManufacturer
   equipmentName
@@ -38,9 +41,16 @@ fragment DeviceDetail on device {
   equipmentSite
   equipmentModel
   comment
+  clientId
   client {
     id
     name
+    address
+  }
+  equipmentType {
+    id
+    name
+    displayName
   }
 }
 

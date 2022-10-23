@@ -1,3 +1,5 @@
+import { TextFieldProps } from '@mui/material'
+
 import { AddressField } from 'm/presets'
 
 export type BaseLocationValue = {
@@ -9,6 +11,8 @@ export type BaseLocationValue = {
 export type OnValueChange = (value: BaseLocationValue | null) => void
 
 export type SelectorProps = {
+  variant?: TextFieldProps['variant']
+  isError?: boolean
   value: BaseLocationValue['code']
   onChange?: OnValueChange
   onFocus?: () => void

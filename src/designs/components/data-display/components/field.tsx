@@ -1,9 +1,9 @@
-import { CSSProperties, forwardRef, HTMLAttributes } from 'react'
-import { SxProps, Theme, styled } from '@mui/material'
+import { styled, SxProps, Theme } from '@mui/material'
+import { CSSProperties, forwardRef, HTMLAttributes, useId } from 'react'
 
 import {
-  FieldContextProvider,
   FieldContextProps,
+  FieldContextProvider,
 } from '../contexts/field-context'
 
 const FieldStyle = styled('div', {
@@ -24,7 +24,11 @@ export interface FieldLineProps
 }
 
 export const FieldLine = forwardRef<HTMLDivElement, FieldLineProps>(
-  ({ children, direction, align, headerWidth, ...props }, ref) => {
+  ({ id: idProps, children, direction, align, headerWidth, ...props }, ref) => {
+    const idState = useId()
+
+    const id = idProps || idState
+
     return (
       <FieldStyle
         {...props}
@@ -37,6 +41,7 @@ export const FieldLine = forwardRef<HTMLDivElement, FieldLineProps>(
           direction={direction}
           align={align}
           headerWidth={headerWidth}
+          id={id}
         >
           {children}
         </FieldContextProvider>

@@ -17,3 +17,10 @@ export const isSamplesAvailable = (
 ): samples is unknown[] => {
   return !!samples?.length && !hasEmpty(samples)
 }
+
+// 带单位的数值
+export interface UnitValue {
+  value: number
+  unit: string
+  name?: string
+}

@@ -16,6 +16,7 @@ import {
 import { UUIDV4 } from 'm/presets'
 
 import { ConsumerForm, FnSubmitClient } from './components/consumer-form'
+import { ConsumerFormData } from './components/consumer-form/utils'
 
 const TITLE = `委托单位 - 编辑`
 
@@ -56,7 +57,8 @@ const PageConsumerEdit = () => {
         links={activeRouteConfig.breadcrumbs}
       />
       <ConsumerForm
-        data={data?.detail || undefined}
+        isEdit
+        data={(data?.detail as unknown as ConsumerFormData) || undefined}
         isLoading={isLoading}
         submitForm={onSubmit}
       />

@@ -39,7 +39,7 @@ export interface InspectiontypeSelectorProps
 
 export const InspectiontypeSelector = ({
   id,
-  label = '地址',
+  label = '检测类型',
   value: valueProps,
   onChange,
   isError,
@@ -58,7 +58,6 @@ export const InspectiontypeSelector = ({
     setValue(draft => {
       const value = e.target.value as InspectionTypeEnum
       draft.type = value
-
       if (value === InspectionTypeEnum.None) {
         draft.text = ''
       }
@@ -95,8 +94,9 @@ export const InspectiontypeSelector = ({
           sx={{
             flex: 1,
           }}
+          label={label}
           fullWidth
-          value={value.type}
+          value={value?.type || ''}
           onChange={onSelectChange}
           onFocus={() => handleChangeFocus(0, true)}
           onBlur={() => handleChangeFocus(0, false)}
@@ -106,16 +106,19 @@ export const InspectiontypeSelector = ({
           <MenuItem value={InspectionTypeEnum.State}>状态检测</MenuItem>
           <MenuItem value={InspectionTypeEnum.Other}>其他</MenuItem>
         </Select>
-        <TextField
-          sx={{
-            flex: 1,
-          }}
-          fullWidth
-          value={value.text || ''}
-          onChange={onInputChange}
-          onFocus={() => handleChangeFocus(1, true)}
-          onBlur={() => handleChangeFocus(1, false)}
-        />
+        {value?.type !== InspectionTypeEnum.None && (
+          <TextField
+            sx={{
+              flex: 1,
+            }}
+            fullWidth
+            placeholder="检测项目描述"
+            value={value?.text || ''}
+            onChange={onInputChange}
+            onFocus={() => handleChangeFocus(1, true)}
+            onBlur={() => handleChangeFocus(1, false)}
+          />
+        )}
       </Stack>
       <FormHelperText>{helperText}</FormHelperText>
     </FormControl>

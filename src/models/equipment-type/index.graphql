@@ -1,0 +1,129 @@
+# 一些全局的元数据
+
+#import '../public.graphql'
+
+# * inspection_types 检测项。被检测的设备类型不同，检测项也不同
+
+fragment InspectionTypes on inspection_types {
+  id
+  name
+  displayName
+  comment
+  condition
+  formula
+  requirement
+  consts
+  data
+}
+
+fragment InspectionTypesHeader on inspection_types {
+  name
+  displayName
+  id
+  formula
+  comment
+}
+
+query InspectionTypesList {
+  data: inspection_types(distinct_on: name) {
+    ...InspectionTypes
+  }
+}
+
+# 检测项详情
+query InspectionTypesDetail($id: uuid!) {
+  data: inspection_types_by_pk(id: $id) {
+    ...InspectionTypes
+  }
+}
+
+# 某一设备的全部检测项
+query InspectionTypesByEquipment($equipmentTypeId: uuid!) {
+  list: inspection_types(
+    where: { equipmentTypeId: { _eq: $equipmentTypeId } }
+  ) {
+    ...InspectionTypes
+  }
+}
+
+# 某一设备的全部检测项
+mutation CreateInspectionTypes($input: inspection_types_insert_input = {}) {
+  data: insert_inspection_types_one(object: $input) {
+    ...InspectionTypes
+  }
+}
+
+mutation UpdateInspectionTypesById(
+  $id: uuid = ""
+  $object: inspection_types_set_input = {}
+) {
+  data: update_inspection_types_by_pk(pk_columns: { id: $id }, _set: $object) {
+    ...InspectionTypes
+  }
+}
+
+mutation DeleteInspectionTypes($id: uuid = "") {
+  returning: delete_inspection_types_by_pk(id: $id) {
+    id
+  }
+}
+
+# * equipment_types 设备种类
+
+# 选择设备类型
+fragment EquipmentTypes on equipment_types {
+  id
+  name
+  displayName
+  comment
+}
+
+query EquipmentTypesList {
+  data: equipment_types {
+    ...EquipmentTypes
+    inspectionItems {
+      id
+    }
+  }
+}
+
+query EquipmentTypesById($id: uuid = "") {
+  data: equipment_types_by_pk(id: $id) {
+    ...EquipmentTypes
+    items: inspectionItems {
+      ...InspectionTypesHeader
+    }
+  }
+}
+
+mutation CreateEquipmentTypes(
+  $name: String = ""
+  $displayName: String = ""
+  $comment: String = ""
+) {
+  insert_equipment_types_one(
+    object: { name: $name, displayName: $displayName, comment: $comment }
+  ) {
+    ...EquipmentTypes
+  }
+}
+
+mutation UpdateEquipmentTypesById(
+  $id: uuid = ""
+  $name: String = ""
+  $displayName: String = ""
+  $comment: String = ""
+) {
+  data: update_equipment_types_by_pk(
+    pk_columns: { id: $id }
+    _set: { name: $name, displayName: $displayName, comment: $comment }
+  ) {
+    ...EquipmentTypes
+  }
+}
+
+mutation DeleteEquipmentTypes($id: uuid = "") {
+  data: delete_inspection_types_by_pk(id: $id) {
+    id
+  }
+}

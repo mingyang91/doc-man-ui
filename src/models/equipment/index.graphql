@@ -1,0 +1,91 @@
+#import '../public.graphql'
+
+query EquipmentList(
+  $limit: Int = 10
+  $offset: Int = 0
+  $order_by: [equipment_order_by!] = {}
+  $where: equipment_bool_exp = {}
+) {
+  list: equipment(
+    limit: $limit
+    offset: $offset
+    order_by: $order_by
+    where: $where
+  ) {
+    ...EquipmentDetail
+    creator {
+      ...UserInfo
+    }
+  }
+  total: equipment_aggregate {
+    aggregate {
+      count
+    }
+  }
+}
+
+query EquipmentById($id: uuid = "") {
+  detail: equipment_by_pk(id: $id) {
+    ...EquipmentDetail
+    creator {
+      ...UserInfo
+    }
+  }
+}
+
+fragment FindEquipmentResult on equipment {
+  id
+  client {
+    name
+  }
+  equipmentName
+  equipmentCode
+  equipmentManufacturer
+  equipmentModel
+  equipmentSampleId
+  equipmentSite
+  equipmentTypeId
+  equipmentType {
+    id
+    name
+    displayName
+  }
+  inspectionInstrument
+  address
+}
+
+query FindEquipment($where: equipment_bool_exp = {}) {
+  data: equipment(where: $where) {
+    ...FindEquipmentResult
+  }
+}
+
+mutation CreateEquipment($data: equipment_insert_input = {}) {
+  data: insert_equipment_one(
+    object: $data
+    on_conflict: { constraint: equipment_id_key }
+  ) {
+    ...EquipmentDetail
+  }
+}
+
+mutation UpdateEquipmentById($id: uuid = "", $data: equipment_set_input = {}) {
+  data: update_equipment_by_pk(pk_columns: { id: $id }, _set: $data) {
+    ...EquipmentDetail
+  }
+}
+
+mutation DeleteEquipmentById($id: uuid = "") {
+  data: delete_equipment_by_pk(id: $id) {
+    ...EquipmentDetail
+  }
+}
+
+mutation DeleteEquipmentBulk($ids: [uuid!]!) {
+  root: delete_equipment(where: { id: { _in: $ids } }) {
+    affected_rows
+    returning {
+      id
+    }
+  }
+}

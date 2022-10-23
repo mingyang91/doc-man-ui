@@ -6,16 +6,23 @@ import {
   AutocompleteInputChangeReason,
   AutocompleteProps,
   AutocompleteValue,
-  TextField,
 } from '@mui/material'
 import { useMemoizedFn } from 'ahooks'
 import { isArray, isObject } from 'lodash-es'
-import { ElementType, SyntheticEvent, useId, useMemo, useState } from 'react'
+import {
+  ElementType,
+  SyntheticEvent,
+  useEffect,
+  useId,
+  useMemo,
+  useState,
+} from 'react'
 
 import { useCityListQuery } from 'm/location/index.generated'
 
 import { BaseLocationValue, SelectorProps } from '../type'
 import { filterOptions } from '../utils'
+import { SelectTextField } from './base'
 
 export interface SelectorCityProps<
   T,
@@ -35,6 +42,7 @@ export interface SelectorCityProps<
 }
 
 export const SelectorCity = ({
+  isError,
   provinceValue,
   value: valueProp,
   onChange: onChangeProps,
@@ -101,6 +109,17 @@ export const SelectorCity = ({
     }
   })
 
+  useEffect(() => {
+    if (options.length === 1) {
+      const value = options[0]
+      onChangeProps?.({
+        label: value.label,
+        value: value.value,
+        code: value.code,
+      })
+    }
+  }, [onChangeProps, options, options.length])
+
   return (
     <Autocomplete
       fullWidth
@@ -108,7 +127,9 @@ export const SelectorCity = ({
       id={id}
       loading={isLoading}
       options={options}
-      renderInput={params => <TextField {...params} placeholder="地级" />}
+      renderInput={params => (
+        <SelectTextField {...params} placeholder="地级" error={isError} />
+      )}
       value={value}
       inputValue={inputValue}
       onInputChange={onInput}

@@ -3,13 +3,13 @@
 query ClientsDetailList(
   $limit: Int = 10
   $offset: Int = 0
-  $order_by: [clients_order_by!] = {}
+  $orderby: [clients_order_by!] = {}
   $where: clients_bool_exp = {}
 ) {
   list: clients(
     limit: $limit
     offset: $offset
-    order_by: $order_by
+    order_by: $orderby
     where: $where
   ) {
     ...ClientsDetail
@@ -18,6 +18,24 @@ query ClientsDetailList(
     aggregate {
       count
     }
+  }
+}
+
+query ClientsSearchList(
+  $keyword: String = ""
+  $order_by: [clients_order_by!] = { name: asc_nulls_last }
+  $limit: Int = 10
+  $offset: Int = 0
+) {
+  list: clients(
+    limit: $limit
+    offset: $offset
+    order_by: $order_by
+    where: { name: { _like: $keyword } }
+  ) {
+    id
+    name
+    address
   }
 }
 

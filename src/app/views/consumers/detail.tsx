@@ -1,7 +1,9 @@
-import { Card, Grid, Snackbar } from '@mui/material'
-import { useParams } from 'react-router-dom'
+import { Button, Snackbar, Unstable_Grid2 as Grid } from '@mui/material'
+import { MdEdit } from 'react-icons/md'
+import { generatePath, Link as RouteLink, useParams } from 'react-router-dom'
 
 import { useMenuAndRoutes } from '@/layouts/admin/components/menu-and-routes'
+import { ROUTES } from '@/routes'
 
 import { FieldContent, FieldHeader, FieldLine } from 'd/components/data-display'
 import HeaderBreadcrumbs from 'd/components/header-breadcrumbs'
@@ -13,6 +15,7 @@ import { fDate } from 'u/format-time'
 import { useClientsByIdQuery } from 'm/clients/index.generated'
 import { UUIDV4 } from 'm/presets'
 
+import { DetailCard, DetailCardFooter } from '@@/detail-card'
 import { LocationValue } from '@@/location-selector'
 import { formatLocation } from '@@/location-selector/utils'
 
@@ -29,6 +32,10 @@ const PageDetailConsumer = () => {
 
   const detail = data?.detail
 
+  const editPath = generatePath(ROUTES.consumerEdit, {
+    id,
+  })
+
   return (
     <Page title={TITLE}>
       <HeaderBreadcrumbs
@@ -36,15 +43,15 @@ const PageDetailConsumer = () => {
         links={activeRouteConfig.breadcrumbs}
       />
       {data ? (
-        <Card variant="elevation" sx={{ pt: 5, px: 5 }} elevation={1}>
+        <DetailCard>
           <Grid container spacing={3}>
-            <Grid item xs={12} sm={6}>
+            <Grid xs={12} sm={6}>
               <FieldLine>
                 <FieldHeader>委托单位</FieldHeader>
                 <FieldContent>{detail?.name}</FieldContent>
               </FieldLine>
             </Grid>
-            <Grid item xs={12}>
+            <Grid xs={12}>
               <FieldLine>
                 <FieldHeader>检测地址</FieldHeader>
                 <FieldContent>
@@ -52,7 +59,7 @@ const PageDetailConsumer = () => {
                 </FieldContent>
               </FieldLine>
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid xs={12} sm={6}>
               <FieldLine>
                 <FieldHeader>创建日期</FieldHeader>
                 <FieldContent>
@@ -60,7 +67,7 @@ const PageDetailConsumer = () => {
                 </FieldContent>
               </FieldLine>
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid xs={12} sm={6}>
               <FieldLine>
                 <FieldHeader>更新日期</FieldHeader>
                 <FieldContent>
@@ -68,14 +75,26 @@ const PageDetailConsumer = () => {
                 </FieldContent>
               </FieldLine>
             </Grid>
-            <Grid item xs={12}>
+            <Grid xs={12}>
               <FieldLine>
                 <FieldHeader>备注</FieldHeader>
                 <FieldContent>{detail?.comment}</FieldContent>
               </FieldLine>
             </Grid>
           </Grid>
-        </Card>
+          <DetailCardFooter
+            divider
+            right={
+              <Button
+                component={RouteLink}
+                to={editPath}
+                startIcon={<MdEdit />}
+              >
+                编辑
+              </Button>
+            }
+          />
+        </DetailCard>
       ) : isLoading ? (
         <SnackbarLoadingComponent />
       ) : (

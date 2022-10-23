@@ -1,20 +1,23 @@
 import { m } from 'framer-motion'
 // @mui
-import { alpha, styled } from '@mui/material/styles'
 import { Box } from '@mui/material'
+import { alpha, styled } from '@mui/material/styles'
 
 //
 import Logo from './logo'
 
 // ----------------------------------------------------------------------
 
-const RootStyle = styled('div')(({ theme }) => ({
+const RootStyle = styled('div')<{
+  isFullScreen?: boolean
+  height?: string
+}>(({ theme, isFullScreen, height = '100%' }) => ({
   right: 0,
   bottom: 0,
   zIndex: 99999,
   width: '100%',
-  height: '100%',
-  position: 'fixed',
+  height,
+  position: isFullScreen ? 'fixed' : 'relative',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -23,9 +26,9 @@ const RootStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-export default function LoadingScreen() {
+function LoadingContent() {
   return (
-    <RootStyle>
+    <>
       <m.div
         animate={{
           scale: [1, 0.9, 0.9, 1, 1],
@@ -80,6 +83,22 @@ export default function LoadingScreen() {
             `solid 8px ${alpha(theme.palette.primary.dark, 0.24)}`,
         }}
       />
+    </>
+  )
+}
+
+export default function LoadingScreen() {
+  return (
+    <RootStyle isFullScreen>
+      <LoadingContent />
+    </RootStyle>
+  )
+}
+
+export const Loading = ({ height }: { height?: string }) => {
+  return (
+    <RootStyle isFullScreen={false} height={height}>
+      <LoadingContent />
     </RootStyle>
   )
 }

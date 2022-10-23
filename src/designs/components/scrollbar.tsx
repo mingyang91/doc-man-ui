@@ -1,8 +1,9 @@
 import SimpleBarReact, { Props as ScrollbarProps } from 'simplebar-react'
 // @mui
-import { alpha, styled } from '@mui/material/styles'
 import { Box, SxProps } from '@mui/material'
+import { alpha, styled } from '@mui/material/styles'
 import { isFunction } from 'lodash-es'
+import { ReactNode } from 'react'
 
 // ----------------------------------------------------------------------
 
@@ -59,7 +60,7 @@ export default function Scrollbar({ children, sx, ...other }: Props) {
   return (
     <RootStyle>
       <SimpleBarStyle timeout={500} clickOnTrack={false} sx={sx} {...other}>
-        {children}
+        {children as ReactNode}
       </SimpleBarStyle>
     </RootStyle>
   )

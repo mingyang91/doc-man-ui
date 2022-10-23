@@ -6,7 +6,6 @@ import {
   AutocompleteInputChangeReason,
   AutocompleteProps,
   AutocompleteValue,
-  TextField,
 } from '@mui/material'
 import { useMemoizedFn } from 'ahooks'
 import { isArray, isObject } from 'lodash-es'
@@ -16,6 +15,7 @@ import { useTownListQuery } from 'm/location/index.generated'
 
 import { BaseLocationValue, SelectorProps } from '../type'
 import { filterOptions } from '../utils'
+import { SelectTextField } from './base'
 
 export interface SelectorTownProps<
   T,
@@ -35,6 +35,7 @@ export interface SelectorTownProps<
 }
 
 export const SelectorTown = ({
+  isError,
   countyValue,
   value: valueProp,
   onChange: onChangeProps,
@@ -108,7 +109,9 @@ export const SelectorTown = ({
       id={id}
       loading={isLoading}
       options={options}
-      renderInput={params => <TextField {...params} placeholder="乡镇街道" />}
+      renderInput={params => (
+        <SelectTextField {...params} placeholder="乡镇街道" error={isError} />
+      )}
       value={value}
       inputValue={inputValue}
       onInputChange={onInput}

@@ -36,7 +36,7 @@ const PageConsumerCreate = () => {
   })
 
   const onSubmit = useCallback<FnSubmitClient>(
-    async (values, helpers) => {
+    async (values, formApi) => {
       mutate(
         {
           data: values,
@@ -44,7 +44,7 @@ const PageConsumerCreate = () => {
         {
           onSuccess: data => {
             if (shouldContinue) {
-              helpers.resetForm()
+              formApi.reset()
             } else {
               navigate(
                 generatePath(ROUTES.consumerDetail, { id: data.data?.id })

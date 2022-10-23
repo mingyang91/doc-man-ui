@@ -9,6 +9,7 @@ import {
   Popover,
   PopoverOrigin,
   SxProps,
+  Tooltip,
 } from '@mui/material'
 import { useMemoizedFn } from 'ahooks'
 import { isEqual, isUndefined } from 'lodash-es'
@@ -18,7 +19,7 @@ import {
   usePopupState,
 } from 'material-ui-popup-state/hooks'
 import { ChangeEvent, useEffect, useMemo } from 'react'
-import { RiFilter2Fill } from 'react-icons/ri'
+import { MdFilterList } from 'react-icons/md'
 import { useImmerReducer } from 'use-immer'
 
 import Iconify from 'd/components/iconify'
@@ -157,14 +158,17 @@ export const DataColumnSelector = ({
 
   return (
     <>
-      <IconButton
-        aria-label="过滤"
-        color="default"
-        {...bindTrigger(popupState)}
-        sx={sx}
-      >
-        <Iconify icon={RiFilter2Fill} />
-      </IconButton>
+      <Tooltip title="过滤数据项">
+        <IconButton
+          aria-label="过滤"
+          color="default"
+          {...bindTrigger(popupState)}
+          sx={sx}
+        >
+          <Iconify icon={MdFilterList} />
+        </IconButton>
+      </Tooltip>
+
       <Popover {...bindPopover(popupState)} anchorOrigin={anchorOrigin}>
         <List>
           <ListItem disablePadding>

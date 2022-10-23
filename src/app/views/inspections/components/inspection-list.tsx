@@ -1,19 +1,17 @@
 import {
   Box,
   Button,
+  IconButton,
   Link,
   Stack,
   TablePagination,
+  Tooltip,
   Typography,
 } from '@mui/material'
 import { useCreation } from 'ahooks'
 import { ChangeEventHandler, MouseEvent, useState } from 'react'
-import {
-  RiDeleteBinLine,
-  RiEditLine,
-  RiFileAddLine,
-  RiUploadLine,
-} from 'react-icons/ri'
+import { MdDelete, MdEdit, MdUploadFile } from 'react-icons/md'
+import { RiFileAddLine } from 'react-icons/ri'
 import { generatePath, Link as RouteLink, NavLink } from 'react-router-dom'
 
 import { ROUTES } from '@/routes'
@@ -31,11 +29,13 @@ import { PaginationConfig } from 'm/common'
 import { InspectionReportListQuery } from 'm/inspection-report/index.generated'
 import { AddressField, InspectionType } from 'm/presets'
 
+import { formatLocation } from '@@/location-selector/utils'
+
 type InspectionReport = Required<ArrayItem<InspectionReportListQuery['list']>>
 
 type InspectionReportRowFields = Omit<
   InspectionReport,
-  'items' | 'id' | 'equipmentName' | 'serialNumber'
+  'items' | 'id' | 'equipmentName' | 'serialNumber' | 'equipmentType'
 >
 
 const columnMaps: {
@@ -65,12 +65,14 @@ const columnMaps: {
 
       return (
         <>
-          <Typography variant="body1">设备名：{equipmentName}</Typography>
-          <Typography variant="body1">
-            编号：
+          <Typography variant="body1" component="span">
             <Link component={RouteLink} to={path}>
-              {equipmentCode}
+              {equipmentCode || '无编号'}
             </Link>
+          </Typography>{' '}
+          -{' '}
+          <Typography variant="body1" component="span">
+            {equipmentName || '未命名设备'}
           </Typography>
         </>
       )
@@ -83,20 +85,9 @@ const columnMaps: {
     minWidth: 100,
     flexGrow: 2,
     render: ({ inspectionAddress }) => {
-      const {
-        provinceName = '',
-        cityName = '',
-        countyName = '',
-        townName = '',
-        detail = '',
-      } = inspectionAddress as AddressField
       return (
         <Typography variant="body1">
-          {provinceName}
-          {cityName}
-          {countyName}
-          {townName}
-          {detail}
+          {formatLocation(inspectionAddress as AddressField, true)}
         </Typography>
       )
     },
@@ -196,7 +187,7 @@ const columnMaps: {
     title: '创建人',
     width: 60,
     minWidth: 60,
-    render: ({ creator }) => (creator ? creator.displayname : ' - '),
+    render: ({ creator }) => (creator ? creator.displayName : ' - '),
   },
 }
 
@@ -242,38 +233,41 @@ export const InspectionReportList = ({
     const right: ColumnProps<InspectionReport>[] = [
       {
         field: 'uuid',
-        flexGrow: 2,
-        width: 380,
-        minWidth: 380,
+        title: '操作',
+        align: 'center',
+        width: 150,
+        minWidth: 150,
         fixed: 'right',
         render: ({ id }) => {
           return (
-            <Stack spacing={2} direction="row">
-              <Button
-                size="small"
-                variant="outlined"
-                color="error"
-                startIcon={<RiDeleteBinLine />}
-                onClick={() => onRemove?.(id)}
-              >
-                删除
-              </Button>
-              <Button
-                size="small"
-                variant="outlined"
-                startIcon={<RiEditLine />}
-                onClick={() => onEdit?.(id)}
-              >
-                编辑
-              </Button>
-              <Button
-                size="small"
-                variant="outlined"
-                startIcon={<RiUploadLine />}
-                onClick={() => onUpload?.(id)}
-              >
-                上传附件
-              </Button>
+            <Stack spacing={2} direction="row" display="inline-flex">
+              <Tooltip title="删除">
+                <IconButton
+                  size="small"
+                  color="error"
+                  onClick={() => onRemove?.(id)}
+                >
+                  <MdDelete />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="编辑">
+                <IconButton
+                  size="small"
+                  color="primary"
+                  onClick={() => onEdit?.(id)}
+                >
+                  <MdEdit />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="上传附件">
+                <IconButton
+                  size="small"
+                  color="default"
+                  onClick={() => onUpload?.(id)}
+                >
+                  <MdUploadFile />
+                </IconButton>
+              </Tooltip>
             </Stack>
           )
         },
