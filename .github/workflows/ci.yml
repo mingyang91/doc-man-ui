@@ -45,6 +45,7 @@ jobs:
         with:
           eslint: true
           eslint_extensions: tsx,ts,js,jsx
+          eslint__args: --max-warnings 999999
           # prettier: true
           # auto_fix: true
           # commit_message: 'fix(styles): fix code style issues with ${linter}'
