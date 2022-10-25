@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "craco start",
-    "build": "craco build",
+    "build": "CI=false craco build",
     "test": "craco test",
     "test:css": "jest --config jest.stylelint.config.js",
     "eject": "react-scripts eject",
