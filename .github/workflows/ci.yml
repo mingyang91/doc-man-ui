@@ -1,31 +1,3 @@
-Skip to content
-Search or jump to…
-Pull requests
-Issues
-Marketplace
-Explore
-
-@shijinyu
-mingyang91
-/
-doc-man-ui
-Private
-Code
-Issues
-Pull requests
-Actions
-Projects
-Security
-Insights
-doc-man-ui/.github/workflows/ci.yml
-@shijinyu
-shijinyu ci: build fix
-Latest commit a91949b on 22 May
- History
- 2 contributors
-@shijinyu@mingyang91
-54 lines (48 sloc)  1.33 KB
-
 name: Run Tests
 on: [pull_request]
 
