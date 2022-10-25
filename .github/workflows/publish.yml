@@ -78,7 +78,7 @@ jobs:
 
       # 8. Build from source, Login to Amazon ECR
       - name: 8. Build from source
-        run: pnpm run build
+        run: CI=false BUILD_PATH='dist' pnpm run build
 
       - name: 9. Set up QEMU
         uses: docker/setup-qemu-action@v2
