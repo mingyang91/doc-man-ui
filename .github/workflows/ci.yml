@@ -37,7 +37,7 @@ jobs:
         uses: pnpm/action-setup@v2.0.1
         id: setup-pnpm
         with:
-          version: 7.1.2
+          version: 7.14.0
           run_install: true
 
       - name: Run linters
