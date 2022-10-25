@@ -41,7 +41,7 @@ jobs:
           run_install: true
 
       - name: Run linters
-        uses: wearerequired/lint-action@v1
+        uses: wearerequired/lint-action@v2
         with:
           eslint: true
           eslint_extensions: tsx,ts,js,jsx
