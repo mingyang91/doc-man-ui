@@ -20,6 +20,7 @@ export const StyledInput = styled('input')(({ theme }) => ({
   width: '100%',
   height: '100%',
   fontSize: 'inherit',
+  fontFamily: 'inherit',
   lineHeight: 'inherit',
   color: theme.palette.text.primary,
   backgroundColor: 'transparent',
@@ -29,7 +30,9 @@ export const StyledInput = styled('input')(({ theme }) => ({
   },
 }))
 
-export const StyledTextarea = styled('input')(({ theme }) => ({
+export type ComponentInputProps = ComponentProps<typeof StyledInput>
+
+export const StyledTextarea = styled('textarea')(({ theme }) => ({
   position: 'absolute',
   border: 0,
   padding: theme.spacing(1),
@@ -38,6 +41,7 @@ export const StyledTextarea = styled('input')(({ theme }) => ({
   width: '100%',
   height: '100%',
   fontSize: 'inherit',
+  fontFamily: 'inherit',
   lineHeight: 'inherit',
   color: theme.palette.text.primary,
   backgroundColor: 'transparent',
@@ -46,6 +50,8 @@ export const StyledTextarea = styled('input')(({ theme }) => ({
     opacity: 1,
   },
 }))
+
+export type ComponentTextareaProps = ComponentProps<typeof StyledTextarea>
 
 export const StyledLabel = styled('span')(({ theme }) => ({
   position: 'relative',

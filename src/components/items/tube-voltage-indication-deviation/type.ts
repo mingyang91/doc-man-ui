@@ -11,23 +11,24 @@ interface TVIDDataItemFactor {
 // 预设值
 type TVIDDataPresets = UnitValue
 
-interface TVIDDataCondition {
+export interface TVIDDataCondition {
   factor: TVIDDataItemFactor
   presets: TVIDDataPresets
 }
 
-interface TVIDDataResult {
+export interface TVIDDataResult {
   scalar: UnitValue // 偏离值
   percentage: UnitValue // 偏离率
 }
 
-interface TVIDDataInput {
+export interface TVIDDataInput {
   name: string
   unit: string
+  offsets: number[]
   values: number[]
 }
 
-interface TVIDDataItem {
+export interface TVIDDataItem {
   condition?: TVIDDataCondition
   input?: TVIDDataInput
   result?: TVIDDataResult

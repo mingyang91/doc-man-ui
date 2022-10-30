@@ -1,7 +1,10 @@
 import { Typography } from '@mui/material'
 import { FieldRenderProps } from 'react-final-form'
+import { useMemo } from 'react'
 
 import { HighlightSyntax } from 'd/components/highlight-syntax'
+
+import { isDevelopment } from 'com/const'
 
 import { InspectionReportItem } from 'm/presets'
 
@@ -9,12 +12,21 @@ import { InspectionReportItem } from 'm/presets'
 export const DefaultItem = ({
   input: { value },
 }: FieldRenderProps<InspectionReportItem>) => {
+  const stringify = useMemo(() => {
+    try {
+      return JSON.stringify(value, null, 2)
+    } catch (e) {
+      isDevelopment && console.error(e)
+      return ''
+    }
+  }, [value])
+
   return (
     <>
       <Typography variant="body1" component="section" flex="1">
         未知的检测项类型，数据如下
       </Typography>
-      <HighlightSyntax code={JSON.stringify(value, null, 2)} />
+      <HighlightSyntax code={stringify} />
     </>
   )
 }

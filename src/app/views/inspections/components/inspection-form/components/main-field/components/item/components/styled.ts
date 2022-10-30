@@ -1,4 +1,4 @@
-import { Box, styled, Table } from '@mui/material'
+import { Box, styled, Table, Paper } from '@mui/material'
 
 export const StyledWrapper = styled(Box)(({ theme }) => ({
   padding: theme.spacing(3),
@@ -21,11 +21,19 @@ export const StyledHeader = styled(Box)({
   flexDirection: 'row',
 })
 
+export const StyledTablePaper = styled(Paper)(({ theme }) => ({
+  marginTop: theme.spacing(2),
+  marginBottom: theme.spacing(2),
+  padding: theme.spacing(1),
+  borderRadius: 0,
+  backgroundColor: theme.palette.background.paper,
+}))
+
 export const StyledTable = styled(Table)(({ theme }) => ({
   borderCollapse: 'collapse',
-  border: '1px solid #ccc',
+  border: '1px solid #eee',
 
   '& .MuiTableCell-root': {
-    border: '1px solid #ccc',
+    border: '1px solid #eee',
   },
 }))

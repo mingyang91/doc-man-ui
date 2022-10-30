@@ -10,7 +10,7 @@ export const ItemComponents: Record<
   string,
   FC<FieldRenderProps<InspectionReportItem>>
 > = {
-  TubeVoltageIndicationDeviation: lazy(
+  tubeVoltageIndicationDeviation: lazy(
     () =>
       import(
         /* webpackChunkName: "items/tube-voltage-indication-deviation" */ './tube-voltage-indication-deviation/index'

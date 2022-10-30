@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FilterQuery, QuerySelector } from 'rule-judgment'
 
+import { Conclusions } from './common'
 import { InspectionTypes } from './types'
 
 export type ScalarJson<T = any> = Record<string, T>
@@ -68,5 +69,6 @@ export interface InspectionReportItem<
 > extends Omit<InspectionTypes, 'id' | 'requirement' | 'consts' | 'data'> {
   data?: Data
   requirement?: InspectionRequirement
+  conclusions?: Conclusions
   consts: number[]
 }
