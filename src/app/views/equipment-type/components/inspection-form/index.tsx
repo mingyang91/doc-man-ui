@@ -17,6 +17,7 @@ import { MdAddCircle, MdDelete } from 'react-icons/md'
 
 import Iconify from 'd/components/iconify'
 import { Loading } from 'd/components/loading-screen'
+import { JsonEditor } from 'd/components/highlight-syntax'
 
 import { UUIDV4 } from 'm/presets'
 
@@ -141,6 +142,50 @@ export const InspectionForm = ({
                 </FieldArray>
               </Stack>
             </Stack>
+          </Grid>
+          <Grid xs={12} md={6}>
+            <TextField
+              name="requirement.state.display"
+              fullWidth
+              label="状态检测合格条件描述"
+              type="text"
+            />
+          </Grid>
+          <Grid xs={12} md={6}>
+            <Field name="requirement.state.rule">
+              {({ input, meta }) => (
+                <JsonEditor
+                  sx={{ width: '100%' }}
+                  label="状态检测合格条件代码"
+                  value={input.value}
+                  onChange={input.onChange}
+                  helperText={meta.error}
+                  showHelperText={!!meta.error}
+                />
+              )}
+            </Field>
+          </Grid>
+          <Grid xs={12} md={6}>
+            <TextField
+              name="requirement.acceptance.display"
+              fullWidth
+              label="验收检测合格条件描述"
+              type="text"
+            />
+          </Grid>
+          <Grid xs={12} md={6}>
+            <Field name="requirement.acceptance.rule">
+              {({ input, meta }) => (
+                <JsonEditor
+                  sx={{ width: '100%' }}
+                  label="验收检测合格条件代码"
+                  value={input.value}
+                  onChange={input.onChange}
+                  helperText={meta.error}
+                  showHelperText={!!meta.error}
+                />
+              )}
+            </Field>
           </Grid>
           <Grid xs={12} md={6}>
             <TextField

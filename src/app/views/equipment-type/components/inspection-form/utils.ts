@@ -21,7 +21,7 @@ export const inspectionEnumFormValidation =
         .trim('请勿输入空格'),
       consts: Yup.array(),
       condition: Yup.object(),
-      formula: Yup.string(),
+      formula: Yup.string().optional(),
       requirement: Yup.object().shape({
         state: Yup.object()
           .shape({

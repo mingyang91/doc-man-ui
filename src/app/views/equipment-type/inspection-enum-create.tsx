@@ -1,10 +1,4 @@
-import {
-  Alert,
-  AlertTitle,
-  Checkbox,
-  FormControlLabel,
-  FormGroup
-} from '@mui/material'
+import { Checkbox, FormControlLabel, FormGroup } from '@mui/material'
 import { useMemoizedFn } from 'ahooks'
 import { ChangeEvent, useCallback, useMemo, useState } from 'react'
 import { generatePath, useNavigate, useParams } from 'react-router-dom'
@@ -22,6 +16,7 @@ import { UUIDV4 } from 'm/presets'
 
 import { InspectionForm, InspectionFormFn } from './components/inspection-form'
 import { initialInspectionTypesFormData } from './components/inspection-form/utils'
+import { EditAlert } from './components/alert'
 
 const TITLE = '设备类型 - 检测类型 - 详情'
 
@@ -62,7 +57,9 @@ const PageInspectionTypeDetail = () => {
             if (shouldContinue) {
               formApi.reset()
             } else {
-              navigate(generatePath(ROUTES.equipmentDetail, { id: data.data?.id }))
+              navigate(
+                generatePath(ROUTES.equipmentDetail, { id: data.data?.id })
+              )
             }
           },
         }
@@ -83,10 +80,7 @@ const PageInspectionTypeDetail = () => {
   return (
     <Page title={TITLE}>
       <HeaderBreadcrumbs heading={TITLE} links={breadcrumbs} />
-      <Alert severity="warning" sx={{ mb: 3 }}>
-        <AlertTitle>非开发人员不要修改</AlertTitle>
-        此功能不完善，数据修改需研发人员配合，否则可能导致系统崩溃。
-      </Alert>
+      <EditAlert />
       <InspectionForm
         isLoading={isLoading}
         equipmentTypeId={id}

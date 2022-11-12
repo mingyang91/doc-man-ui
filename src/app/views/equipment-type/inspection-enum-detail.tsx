@@ -3,7 +3,7 @@ import {
   AlertTitle,
   Snackbar,
   Typography,
-  Unstable_Grid2 as Grid
+  Unstable_Grid2 as Grid,
 } from '@mui/material'
 import { useMemo } from 'react'
 import { generatePath, useParams } from 'react-router-dom'
@@ -20,6 +20,8 @@ import Page from 'd/components/page'
 import { useInspectionTypesDetailQuery } from 'm/equipment-type/index.generated'
 import { UUIDV4 } from 'm/presets'
 
+import { EditAlert } from './components/alert'
+
 import { DetailCard } from '@@/detail-card'
 
 const TITLE = '设备类型 - 检测类型 - 详情'
@@ -29,15 +31,14 @@ const PageInspectionTypeDetail = () => {
 
   const { id, itemId = '' }: { id?: UUIDV4; itemId?: UUIDV4 } = useParams()
 
-  const { data, isLoading, isError, refetch } =
-    useInspectionTypesDetailQuery(
-      {
-        id: itemId,
-      },
-      {
-        enabled: !!itemId,
-      }
-    )
+  const { data, isLoading, isError, refetch } = useInspectionTypesDetailQuery(
+    {
+      id: itemId,
+    },
+    {
+      enabled: !!itemId,
+    }
+  )
 
   const memoData = useMemo(() => data?.data, [data?.data])
 
@@ -53,10 +54,7 @@ const PageInspectionTypeDetail = () => {
   return (
     <Page title={TITLE}>
       <HeaderBreadcrumbs heading={TITLE} links={breadcrumbs} />
-      <Alert severity="warning" sx={{ mb: 3 }}>
-        <AlertTitle>非开发人员不要修改</AlertTitle>
-        此功能不完善，数据修改需研发人员配合，否则可能导致系统崩溃。
-      </Alert>
+      <EditAlert />
       {id && memoData ? (
         <DetailCard>
           <Grid container spacing={3}>
