@@ -25,3 +25,28 @@ export const StyledWrapper = styled(Box)(({ theme }) => ({
     flexDirection: 'column',
   },
 }))
+
+export const StyledConclusion = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'flex-end',
+
+  ['& > *:first-of-type']: {
+    marginInlineStart: 0,
+  },
+  ['& > *:last-of-type']: {
+    marginInlineEnd: 0,
+  },
+  '& > *': {
+    marginInlineStart: 4,
+    marginInlineEnd: 4,
+  },
+  '& .suggest': {
+    padding: theme.spacing(0, 2),
+    fontSize: theme.typography.subtitle1.fontSize,
+    lineHeight: '36px',
+    color: theme.palette.primary.main,
+    backgroundColor: '#fff090',
+  },
+}))

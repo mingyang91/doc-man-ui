@@ -1,4 +1,4 @@
-import { UnitValue } from 'm/common'
+import { Conclusions, UnitValue } from 'm/common'
 
 // 检测条件
 
@@ -21,16 +21,16 @@ export interface TVIDDataResult {
   percentage: UnitValue // 偏离率
 }
 
-export interface TVIDDataInput {
+export interface TVIDDataItemInput {
   name: string
   unit: string
-  offsets: number[]
+  offset: number
   values: number[]
 }
 
 export interface TVIDDataItem {
   condition?: TVIDDataCondition
-  input?: TVIDDataInput
+  input?: TVIDDataItemInput
   result?: TVIDDataResult
 }
 

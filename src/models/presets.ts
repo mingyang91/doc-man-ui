@@ -12,8 +12,8 @@ export type ScalarNumeric = number
 export enum InspectionTypeEnum {
   None = 'None',
   Other = 'Other',
-  Acceptance = 'Acceptance', // 验收检测时，对应的检测项目不能减少
-  State = 'State',
+  Acceptance = 'acceptance', // 验收检测时，对应的检测项目不能减少
+  State = 'state',
 }
 
 // --- 设备类型
@@ -52,15 +52,15 @@ export interface SerialNumber {
 
 // --- 检测项指标要求
 
-interface InspectionRequirementChild {
+export interface InspectionRequirementChild {
   display: string
   rule: FilterQuery<any> | QuerySelector<any>
 }
 
 // 检测项指标要求
 export interface InspectionRequirement {
-  state: InspectionRequirementChild
-  acceptance: InspectionRequirementChild
+  [InspectionTypeEnum.State]: InspectionRequirementChild
+  [InspectionTypeEnum.Acceptance]: InspectionRequirementChild
 }
 
 // 检测项类型约束

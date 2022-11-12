@@ -9,10 +9,11 @@ import { HighlightSyntax } from 'd/components/highlight-syntax'
 import { InspectionReportItem } from 'm/presets'
 
 import { TVIDData, TVIDDataItem } from './type'
-import { TVIDItem } from './components/item'
+import { TVIDItem } from './components/item/index'
 import { TVIDBar } from './components/bar'
 import { initialTVIDData, initialTVIDDataItem } from './utils'
 import { TVIDItemHeader } from './components/header'
+import { TVIDConclusion } from './components/conclusion'
 
 /**
  * Tube Voltage Indication Deviation
@@ -29,14 +30,14 @@ const TVIDField = ({
     if (isEmpty(value.data)) {
       onChange({
         ...value,
-        data: initialTVIDData(value),
+        data: initialTVIDData(value, value.consts),
       })
     }
   }, [onChange, value, value.data])
 
   return (
     <>
-      <HighlightSyntax code={JSON.stringify(value, null, 2)} />
+      {/* <HighlightSyntax code={JSON.stringify(value, null, 2)} /> */}
       <FieldArray<TVIDDataItem> name={`${name}.data`}>
         {({ fields }) => (
           <TableContainer
@@ -46,7 +47,8 @@ const TVIDField = ({
           >
             <Table>
               <colgroup>
-                <col width="70%" />
+                <col width="20%" />
+                <col width="50%" />
                 <col width="30%" />
               </colgroup>
               <TVIDItemHeader />
@@ -64,11 +66,22 @@ const TVIDField = ({
                   </Field>
                 ))}
               </TableBody>
-              <TVIDBar onAdd={() => fields.push(initialTVIDDataItem({}))} />
+              <TVIDBar
+                onAdd={() =>
+                  fields.push(
+                    initialTVIDDataItem(
+                      {},
+                      value.consts,
+                      value.data?.length || 0
+                    )
+                  )
+                }
+              />
             </Table>
           </TableContainer>
         )}
       </FieldArray>
+      <TVIDConclusion name={name} />
     </>
   )
 }
