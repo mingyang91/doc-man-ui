@@ -1,10 +1,16 @@
-import { FocusEventHandler, useMemo, useState } from 'react'
+import {
+  FocusEventHandler,
+  useMemo,
+  useState,
+  useRef,
+  useLayoutEffect,
+} from 'react'
 import { useUpdateEffect } from 'ahooks'
 import HighlightEditor from 'react-simple-code-editor'
 import hljs from 'highlight.js/lib/core'
 import excel from 'highlight.js/lib/languages/excel'
 import json from 'highlight.js/lib/languages/json'
-import 'highlight.js/styles/vs.css'
+import 'highlight.js/styles/base16/papercolor-light.css'
 import {
   Box,
   FormControl,
@@ -35,21 +41,26 @@ export const HighlightSyntax = ({
     () => ({
       padding: theme.spacing(2),
       fontFamily: 'Fira Code, Fira Mono, Courier New, monospace',
-      fontSize: theme.typography.body2.fontSize,
+      fontSize: theme.typography.htmlFontSize,
+      backgroundColor: theme.palette.background.neutral,
     }),
     [theme]
   )
+
+  const typographyRef = useRef<HTMLPreElement>(null)
 
   const highlight = useMemo(
     () => hljs.highlight(code, { language }).value,
     [code, language]
   )
 
-  return (
-    <Typography component="section" sx={sx}>
-      {highlight}
-    </Typography>
-  )
+  useLayoutEffect(() => {
+    if (typographyRef.current) {
+      typographyRef.current.innerHTML = highlight
+    }
+  }, [highlight])
+
+  return <Typography component="pre" sx={sx} ref={typographyRef}></Typography>
 }
 
 type JSONData = Record<string | number, unknown>

@@ -49,4 +49,10 @@ export const StyledConclusion = styled(Box)(({ theme }) => ({
     color: theme.palette.primary.main,
     backgroundColor: '#fff090',
   },
+  '& .typo': {
+    padding: theme.spacing(0, 2),
+    fontSize: theme.typography.subtitle1.fontSize,
+    lineHeight: '36px',
+    color: theme.palette.primary.main,
+  },
 }))

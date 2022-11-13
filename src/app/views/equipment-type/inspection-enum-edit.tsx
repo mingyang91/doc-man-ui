@@ -16,8 +16,11 @@ import {
 } from 'm/equipment-type/index.generated'
 import { UUIDV4 } from 'm/presets'
 
-import { InspectionForm, InspectionFormFn } from './components/inspection-form'
-import { InspectionTypeFormData } from './components/inspection-form/utils'
+import {
+  InspectionEnumForm,
+  InspectionEnumFormFn,
+} from './components/equipment-type-form'
+import { InspectionTypeEnumFormData } from './components/equipment-type-form/utils'
 import { EditAlert } from './components/alert'
 
 const TITLE = '设备类型 - 检测类型 - 详情'
@@ -53,7 +56,7 @@ const PageInspectionTypeDetail = () => {
       },
     })
 
-  const onSubmit = useCallback<InspectionFormFn>(
+  const onSubmit = useCallback<InspectionEnumFormFn>(
     async values => {
       mutate({
         id,
@@ -78,11 +81,11 @@ const PageInspectionTypeDetail = () => {
     <Page title={TITLE}>
       <HeaderBreadcrumbs heading={TITLE} links={breadcrumbs} />
       <EditAlert />
-      <InspectionForm
+      <InspectionEnumForm
         isEdit
         isLoading={isLoading}
         equipmentTypeId={id}
-        initialValue={(data?.data as InspectionTypeFormData) || undefined}
+        initialValue={(data?.data as InspectionTypeEnumFormData) || undefined}
         onSubmit={onSubmit}
       />
     </Page>

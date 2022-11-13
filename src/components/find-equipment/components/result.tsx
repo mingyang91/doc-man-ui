@@ -1,7 +1,9 @@
 import { IconButton, Link, Stack, Tooltip, Typography } from '@mui/material'
-import { useMemo } from 'react'
+import { useMemo, MouseEvent } from 'react'
 import { MdCheckCircle } from 'react-icons/md'
 import { generatePath, Link as RouteLink } from 'react-router-dom'
+import { useMemoizedFn } from 'ahooks'
+import { RowDataType } from 'rsuite-table'
 
 import { ROUTES } from '@/routes'
 
@@ -40,8 +42,8 @@ export const SearchResult = ({
       {
         field: 'equipmentCode',
         title: '设备信息',
-        width: 220,
         minWidth: 200,
+        flexGrow: 2,
         render: ({ equipmentCode, equipmentName, id }) => {
           const path = generatePath(ROUTES.equipmentDetail, {
             id,
@@ -49,13 +51,12 @@ export const SearchResult = ({
 
           return (
             <>
-              <Typography variant="body1" component="span">
+              <Typography variant="body1" component="div">
                 <Link component={RouteLink} to={path}>
                   {equipmentCode || '无编号'}
                 </Link>
               </Typography>{' '}
-              -{' '}
-              <Typography variant="body1" component="span">
+              <Typography variant="body1" component="div">
                 {equipmentName || '未命名设备'}
               </Typography>
             </>
@@ -98,38 +99,46 @@ export const SearchResult = ({
           return <Typography variant="body1">{equipmentModel}</Typography>
         },
       },
-      {
-        field: 'uuid',
-        flexGrow: 1,
-        width: 120,
-        minWidth: 180,
-        fixed: 'right',
-        title: '操作',
-        render: row => {
-          return (
-            <Stack spacing={2} direction="row">
-              <Tooltip title="选择">
-                <IconButton
-                  size="small"
-                  color="primary"
-                  onClick={() => onSelect?.(row)}
-                >
-                  <MdCheckCircle />
-                </IconButton>
-              </Tooltip>
-            </Stack>
-          )
-        },
-      },
+      // {
+      //   field: 'uuid',
+      //   flexGrow: 1,
+      //   width: 100,
+      //   fixed: 'right',
+      //   title: '选择',
+      //   render: row => {
+      //     return (
+      //       <Stack spacing={2} direction="row">
+      //         <Tooltip title="选择">
+      //           <IconButton
+      //             size="small"
+      //             color="primary"
+      //             onClick={() => onSelect?.(row)}
+      //           >
+      //             <MdCheckCircle />
+      //           </IconButton>
+      //         </Tooltip>
+      //       </Stack>
+      //     )
+      //   },
+      // },
     ],
     [onSelect]
+  )
+
+  const onRowClick = useMemoizedFn(
+    (rowData: RowDataType, event: MouseEvent) => {
+      onSelect?.(rowData as FindEquipmentRow)
+    }
   )
 
   return (
     <DataTable<FindEquipmentRow>
       loading={isLoading}
+      cellBordered={false}
+      rowClassName="selectable"
       dataSource={data || []}
       columns={columns}
+      onRowClick={onRowClick}
     />
   )
 }

@@ -72,7 +72,7 @@ const PageInspectionTypeDetail = () => {
             </Grid>
             <Grid xs={12} sm={6}>
               <FieldLine>
-                <FieldHeader>检测条件</FieldHeader>
+                <FieldHeader>检测条件预设</FieldHeader>
                 <FieldContent>
                   <HighlightSyntax
                     code={JSON.stringify(memoData.condition, null, 2)}

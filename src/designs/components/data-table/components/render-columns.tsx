@@ -87,7 +87,7 @@ export const renderColumns = <D extends Record<string, unknown>>(
             column.render as (
               rowData: RowDataType,
               rowIndex?: number
-            ) => React.ReactNode
+            ) => ReactNode
           }
         </Cell>
       ) : (

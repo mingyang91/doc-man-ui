@@ -21,34 +21,37 @@ import { JsonEditor } from 'd/components/highlight-syntax'
 
 import { UUIDV4 } from 'm/presets'
 
-import { inspectionEnumFormValidation, InspectionTypeFormData } from './utils'
+import {
+  inspectionTypeEnumFormValidation,
+  InspectionTypeEnumFormData,
+} from './utils'
 
-export type InspectionFormFn = (
-  value: InspectionTypeFormData,
-  form: FormApi<InspectionTypeFormData>,
+export type InspectionEnumFormFn = (
+  value: InspectionTypeEnumFormData,
+  form: FormApi<InspectionTypeEnumFormData>,
   callback?: (errors?: SubmissionErrors) => void
 ) => Promise<void>
 
-interface InspectionFormProps {
-  initialValue?: InspectionTypeFormData
+interface InspectionEnumFormProps {
+  initialValue?: InspectionTypeEnumFormData
   equipmentTypeId: UUIDV4
   isEdit?: boolean
   isLoading?: boolean
-  onSubmit: InspectionFormFn
+  onSubmit: InspectionEnumFormFn
 }
 
-export const InspectionForm = ({
+export const InspectionEnumForm = ({
   initialValue,
   equipmentTypeId,
   isEdit,
   isLoading,
   onSubmit,
-}: InspectionFormProps) => {
+}: InspectionEnumFormProps) => {
   return isEdit && isEmpty(initialValue) ? (
     <Loading />
   ) : (
-    <Form<InspectionTypeFormData>
-      validate={inspectionEnumFormValidation}
+    <Form<InspectionTypeEnumFormData>
+      validate={inspectionTypeEnumFormValidation}
       initialValues={initialValue}
       mutators={{
         ...arrayMutators,

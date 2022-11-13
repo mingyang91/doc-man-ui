@@ -20,7 +20,10 @@ export const BaseConclusion = ({
   getConclusionMethod,
 }: BaseConclusionProps) => {
   const { input: inputConclusion } = useField<Conclusions>(
-    `${itemFieldName}.conclusions`
+    `${itemFieldName}.conclusions`,
+    {
+      defaultValue: Conclusions.Unknown,
+    }
   )
   const { input: inputInspectionItem } =
     useField<InspectionTypeEnum>('inspectionItem')
@@ -65,6 +68,9 @@ export const BaseConclusion = ({
 
   return (
     <StyledConclusion>
+      <Typography variant="body1" className="typo">
+        结论：
+      </Typography>
       {isDifferent && (
         <Stack direction="row" spacing={1}>
           <Button variant="text" onClick={onChange}>

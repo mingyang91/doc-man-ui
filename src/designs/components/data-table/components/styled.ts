@@ -41,5 +41,9 @@ export const Table = styled(TablePrimitive, {
     borderSpacing: 0,
     borderColor: theme.palette.divider,
     margin: theme.spacing(2, 'auto'),
+
+    '& .selectable': {
+      cursor: 'pointer',
+    },
   }),
 ])

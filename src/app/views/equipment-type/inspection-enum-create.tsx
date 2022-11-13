@@ -14,8 +14,11 @@ import { useMessage } from 'h/use-snackbar-message'
 import { useCreateInspectionTypesMutation } from 'm/equipment-type/index.generated'
 import { UUIDV4 } from 'm/presets'
 
-import { InspectionForm, InspectionFormFn } from './components/inspection-form'
-import { initialInspectionTypesFormData } from './components/inspection-form/utils'
+import {
+  InspectionEnumForm,
+  InspectionEnumFormFn,
+} from './components/equipment-type-form'
+import { initialInspectionTypeEnumFormData } from './components/equipment-type-form/utils'
 import { EditAlert } from './components/alert'
 
 const TITLE = '设备类型 - 检测类型 - 详情'
@@ -35,7 +38,7 @@ const PageInspectionTypeDetail = () => {
     (event: ChangeEvent<HTMLInputElement>, checked: boolean) => void
   >((_, checked) => setShouldContinue(checked))
 
-  const initialValue = initialInspectionTypesFormData()
+  const initialValue = initialInspectionTypeEnumFormData()
 
   const { mutate, isLoading } = useCreateInspectionTypesMutation({
     onSuccess() {
@@ -46,7 +49,7 @@ const PageInspectionTypeDetail = () => {
     },
   })
 
-  const onSubmit = useCallback<InspectionFormFn>(
+  const onSubmit = useCallback<InspectionEnumFormFn>(
     async (values, formApi) => {
       mutate(
         {
@@ -81,7 +84,7 @@ const PageInspectionTypeDetail = () => {
     <Page title={TITLE}>
       <HeaderBreadcrumbs heading={TITLE} links={breadcrumbs} />
       <EditAlert />
-      <InspectionForm
+      <InspectionEnumForm
         isLoading={isLoading}
         equipmentTypeId={id}
         initialValue={initialValue}
