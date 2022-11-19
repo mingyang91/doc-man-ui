@@ -20,8 +20,8 @@ export const inspectionTypeEnumFormValidation =
         .required('枚举显示名称必填')
         .trim('请勿输入空格'),
       consts: Yup.array(),
-      condition: Yup.object(),
-      formula: Yup.string().optional(),
+      condition: Yup.object().optional().nullable(),
+      formula: Yup.string().optional().nullable(),
       requirement: Yup.object().shape({
         state: Yup.object()
           .shape({
@@ -36,7 +36,7 @@ export const inspectionTypeEnumFormValidation =
           })
           .optional(),
       }),
-      data: Yup.object(),
+      data: Yup.object().optional(),
     })
   )
 

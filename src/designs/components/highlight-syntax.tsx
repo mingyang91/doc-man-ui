@@ -5,7 +5,7 @@ import {
   useRef,
   useLayoutEffect,
 } from 'react'
-import { useUpdateEffect } from 'ahooks'
+import { useMemoizedFn, useUpdateEffect } from 'ahooks'
 import HighlightEditor from 'react-simple-code-editor'
 import hljs from 'highlight.js/lib/core'
 import excel from 'highlight.js/lib/languages/excel'
@@ -69,7 +69,6 @@ const transformToString = (value: JSONData) => {
   try {
     return JSON.stringify(value, null, 2)
   } catch (e) {
-    console.error(e)
     return ''
   }
 }
@@ -78,7 +77,6 @@ const transformToJSON = (value: string) => {
   try {
     return JSON.parse(value)
   } catch (e) {
-    console.error(e)
     return undefined
   }
 }
@@ -115,13 +113,18 @@ export const JsonEditor = ({
   const sx = useMemo(
     () => ({
       ...sxProps,
-      ['& .pre']: {
+      ['& .code-highlight']: {
         padding: theme.spacing(2),
         flex: 1,
         width: '100%',
         fontFamily: 'Fira Code, Fira Mono, Courier New, monospace',
         fontSize: theme.typography.body2.fontSize,
+        backgroundColor: '#fff',
       },
+      ['& .code-highlight .npm__react-simple-code-editor__textarea:focus-visible']:
+        {
+          outline: 'none',
+        },
     }),
     [sxProps, theme]
   )
@@ -132,13 +135,14 @@ export const JsonEditor = ({
     []
   )
 
-  useUpdateEffect(() => {
-    const obj = transformToJSON(stringified)
-
-    if (obj !== undefined) {
-      onChange?.(obj)
+  const handleChange = useMemoizedFn((code: string) => {
+    setStringified(code)
+    const json = transformToJSON(code)
+    console.log(code, json)
+    if (typeof json !== 'undefined') {
+      onChange?.(json)
     }
-  }, [stringified, onChange])
+  })
 
   return (
     <FormControl {...restProps} variant={variant} sx={sx}>
@@ -150,11 +154,11 @@ export const JsonEditor = ({
           id={id}
           value={stringified}
           highlight={highlight}
-          onValueChange={setStringified}
+          onValueChange={handleChange}
           onBlur={onBlur}
           onFocus={onFocus}
           padding={theme.spacing(4)}
-          className="pre"
+          className="code-highlight"
         />
       </Box>
       {showHelperText && <FormHelperText>{helperText}</FormHelperText>}

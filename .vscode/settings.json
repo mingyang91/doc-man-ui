@@ -59,5 +59,6 @@
       "source.formatDocument": true,
       "source.fixAll.eslint": true,
     }
-  }
+  },
+  "prettier-config.tool": "pnpm"
 }

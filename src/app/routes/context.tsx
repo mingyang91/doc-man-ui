@@ -260,7 +260,7 @@ export const routes: RouteView[] = [
       },
       {
         id: 'equipment-type-inspection-create',
-        path: ROUTES.equipmentInspectionTypeEdit,
+        path: ROUTES.equipmentInspectionTypeCreate,
         title: '设备类型 - 检测项 - 新增',
         isRequireAuth: true,
         breadcrumbs: [

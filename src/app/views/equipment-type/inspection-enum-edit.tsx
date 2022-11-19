@@ -1,4 +1,3 @@
-import { Alert, AlertTitle } from '@mui/material'
 import { useCallback, useMemo } from 'react'
 import { generatePath, useParams } from 'react-router-dom'
 
@@ -48,6 +47,7 @@ const PageInspectionTypeDetail = () => {
   const { mutate, isLoading: isMutationLoading } =
     useUpdateInspectionTypesByIdMutation({
       onSuccess() {
+        console.log('onSuccess')
         pushSuccessMessage(`更新检测类型成功`)
         refetch()
       },
@@ -58,12 +58,13 @@ const PageInspectionTypeDetail = () => {
 
   const onSubmit = useCallback<InspectionEnumFormFn>(
     async values => {
+      console.log('values', values)
       mutate({
-        id,
+        id: itemId,
         object: values,
       })
     },
-    [id, mutate]
+    [itemId, mutate]
   )
 
   const breadcrumbs = useMemo(() => {

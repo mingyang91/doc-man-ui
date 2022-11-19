@@ -11,7 +11,10 @@ import Page from 'd/components/page'
 
 import { useMessage } from 'h/use-snackbar-message'
 
-import { useCreateInspectionTypesMutation } from 'm/equipment-type/index.generated'
+import {
+  useCreateInspectionTypesMutation,
+  useEquipmentTypesByIdQuery,
+} from 'm/equipment-type/index.generated'
 import { UUIDV4 } from 'm/presets'
 
 import {
@@ -49,26 +52,35 @@ const PageInspectionTypeDetail = () => {
     },
   })
 
+  const { refetch: refetchEquipmentType } = useEquipmentTypesByIdQuery({
+    id,
+  })
+
   const onSubmit = useCallback<InspectionEnumFormFn>(
     async (values, formApi) => {
+      values.equipmentTypeId = id
+
       mutate(
         {
           input: values,
         },
         {
           onSuccess: data => {
+            refetchEquipmentType()
             if (shouldContinue) {
               formApi.reset()
             } else {
               navigate(
-                generatePath(ROUTES.equipmentDetail, { id: data.data?.id })
+                generatePath(ROUTES.equipmentInspectionTypeDetail, {
+                  id: data.data?.id,
+                })
               )
             }
           },
         }
       )
     },
-    [mutate, navigate, shouldContinue]
+    [id, mutate, navigate, refetchEquipmentType, shouldContinue]
   )
 
   const breadcrumbs = useMemo(() => {
