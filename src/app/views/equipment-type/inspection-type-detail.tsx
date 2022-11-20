@@ -1,10 +1,4 @@
-import {
-  Alert,
-  AlertTitle,
-  Snackbar,
-  Typography,
-  Unstable_Grid2 as Grid,
-} from '@mui/material'
+import { Snackbar, Typography, Unstable_Grid2 as Grid } from '@mui/material'
 import { useMemo } from 'react'
 import { generatePath, useParams } from 'react-router-dom'
 
@@ -31,7 +25,7 @@ const PageInspectionTypeDetail = () => {
 
   const { id, itemId = '' }: { id?: UUIDV4; itemId?: UUIDV4 } = useParams()
 
-  const { data, isLoading, isError, refetch } = useInspectionTypesDetailQuery(
+  const { data, isLoading, isError } = useInspectionTypesDetailQuery(
     {
       id: itemId,
     },

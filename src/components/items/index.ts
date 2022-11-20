@@ -16,4 +16,16 @@ export const ItemComponents: Record<
         /* webpackChunkName: "items/tube-voltage-indication-deviation" */ './tube-voltage-indication-deviation/index'
       )
   ),
+  radiationOutputRepeatability: lazy(
+    () =>
+      import(
+        /* webpackChunkName: "items/radiation-output-repeatability" */ './radiation-output-repeatability/index'
+      )
+  ),
+  usefulHarnessHalfValueLayer: lazy(
+    () =>
+      import(
+        /* webpackChunkName: "items/useful-harness-half-value-layer" */ './useful-harness-half-value-layer/index'
+      )
+  ),
 }

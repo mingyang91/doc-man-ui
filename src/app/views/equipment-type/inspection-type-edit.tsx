@@ -18,13 +18,13 @@ import { UUIDV4 } from 'm/presets'
 import {
   InspectionEnumForm,
   InspectionEnumFormFn,
-} from './components/equipment-type-form'
-import { InspectionTypeEnumFormData } from './components/equipment-type-form/utils'
+} from './components/inspection-type-form'
+import { InspectionTypeEnumFormData } from './components/inspection-type-form/utils'
 import { EditAlert } from './components/alert'
 
 const TITLE = '设备类型 - 检测类型 - 详情'
 
-const PageInspectionTypeDetail = () => {
+const PageInspectionItemEnumDetail = () => {
   const { activeRouteConfig } = useMenuAndRoutes()
 
   const { id = '', itemId = '' }: { id?: UUIDV4; itemId?: UUIDV4 } = useParams()
@@ -93,4 +93,4 @@ const PageInspectionTypeDetail = () => {
   )
 }
 
-export default PageInspectionTypeDetail
+export default PageInspectionItemEnumDetail

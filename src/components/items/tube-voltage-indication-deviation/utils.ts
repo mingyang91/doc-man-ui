@@ -78,7 +78,7 @@ export const calculateTVIDItemResult = (
   preset: number,
   offset = 0
 ) => {
-  if (values.some(value => isNaN(Number(value)))) {
+  if (values.some(value => isNaN(Number(value)) || Number(value) === 0)) {
     return {
       scalar: {
         value: 0,
@@ -92,8 +92,6 @@ export const calculateTVIDItemResult = (
   }
 
   try {
-    console.log('values', values)
-
     const _average = AVERAGE(values.map(Number))
 
     const average = new Big(_average).round(3)

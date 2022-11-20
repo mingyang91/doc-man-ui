@@ -1,4 +1,4 @@
-import { Conclusions, UnitValue } from 'm/common'
+import { UnitValue } from 'm/common'
 
 // 检测条件
 

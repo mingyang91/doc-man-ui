@@ -20,6 +20,7 @@ export const ROUTES = {
   dashboard: '/dashboard', // 仪表盘
   equipmentTypeList: '/equipment-types', // 设备类型列表
   equipmentTypeDetail: '/equipment-types/detail/:id', // 设备类型详情
+  equipmentTypeCreate: '/equipment-types/create', // 设备类型创建
   equipmentInspectionTypeDetail:
     '/equipment-types/detail/:id/inspection-enums/:itemId/detail', // 设备类型检测项详情
   equipmentInspectionTypeEdit:
@@ -221,6 +222,24 @@ export const routes: RouteView[] = [
         ),
       },
       {
+        id: 'equipment-type-create',
+        path: ROUTES.equipmentTypeCreate,
+        title: '设备类型 - 新增',
+        isRequireAuth: true,
+        breadcrumbs: [
+          { name: '设备数据' },
+          { name: '设备类型', href: ROUTES.equipmentTypeList },
+          { name: '新增' },
+        ],
+        layout: 'admin',
+        Component: lazy(
+          () =>
+            import(
+              /* webpackChunkName: "views/equipment-types/create" */ '@/views/equipment-type/create'
+            )
+        ),
+      },
+      {
         id: 'equipment-type-inspection',
         path: ROUTES.equipmentInspectionTypeDetail,
         title: '设备类型 - 检测项 - 查看',
@@ -235,7 +254,7 @@ export const routes: RouteView[] = [
         Component: lazy(
           () =>
             import(
-              /* webpackChunkName: "views/equipment-types/inspection-item-enum" */ '@/views/equipment-type/inspection-enum-detail'
+              /* webpackChunkName: "views/equipment-types/inspection-item-enum" */ '@/views/equipment-type/inspection-type-detail'
             )
         ),
       },
@@ -254,7 +273,7 @@ export const routes: RouteView[] = [
         Component: lazy(
           () =>
             import(
-              /* webpackChunkName: "views/equipment-types/inspection-item-enum-edit" */ '@/views/equipment-type/inspection-enum-edit'
+              /* webpackChunkName: "views/equipment-types/inspection-item-enum-edit" */ '@/views/equipment-type/inspection-type-edit'
             )
         ),
       },
@@ -273,7 +292,7 @@ export const routes: RouteView[] = [
         Component: lazy(
           () =>
             import(
-              /* webpackChunkName: "views/equipment-types/inspection-item-enum-create" */ '@/views/equipment-type/inspection-enum-create'
+              /* webpackChunkName: "views/equipment-types/inspection-item-enum-create" */ '@/views/equipment-type/inspection-type-create'
             )
         ),
       },

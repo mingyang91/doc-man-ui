@@ -4,18 +4,23 @@ import {
   Link,
   Stack,
   Tooltip,
-  Typography
+  Typography,
 } from '@mui/material'
 import { useCreation, useMemoizedFn } from 'ahooks'
 import { MdAddCircle, MdDelete, MdViewList } from 'react-icons/md'
-import { generatePath, Link as RouteLink, useNavigate } from 'react-router-dom'
+import {
+  generatePath,
+  Link as RouteLink,
+  useNavigate,
+  Link as RouterLink,
+} from 'react-router-dom'
 
 import { ROUTES } from '@/routes'
 
 import {
   ColumnItemProps,
   ColumnProps,
-  DataTable
+  DataTable,
 } from 'd/components/data-table'
 
 import { EquipmentTypesListQuery } from 'm/equipment-type/index.generated'
@@ -162,9 +167,9 @@ export const DeviceTypeList = ({
           <Button
             variant="contained"
             color="primary"
-            to={ROUTES.equipmentCreate}
-            component={RouteLink}
             startIcon={<MdAddCircle />}
+            component={RouterLink}
+            to={ROUTES.equipmentTypeCreate}
           >
             创建新设备类型
           </Button>

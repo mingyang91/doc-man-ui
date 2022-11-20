@@ -16,11 +16,11 @@ import { isNil } from 'lodash-es'
 import { Modal, ModalProps } from 'd/components/modal'
 
 import {
-  TVIDDataItemInput,
-  TVIDDataResult,
-  TVIDDataCondition,
+  RORDataItemInput,
+  RORDataItemResult,
+  RORDataItemCondition,
 } from '../../../type'
-import { calculateTVIDItemResult } from '../../../utils'
+import { calculateRORItemResult } from '../../../utils'
 
 const StyledBox = styled(Box)(({ theme }) => ({
   width: '60vw',
@@ -30,10 +30,10 @@ const StyledBox = styled(Box)(({ theme }) => ({
 
 export interface CalcModalProps
   extends Omit<ModalProps, 'isOpen' | 'onConfirm'> {
-  condition: TVIDDataCondition
-  input: TVIDDataItemInput
-  result: TVIDDataResult
-  onConfirm: (input: TVIDDataItemInput, result: TVIDDataResult) => void
+  condition: RORDataItemCondition
+  input: RORDataItemInput
+  result: RORDataItemResult
+  onConfirm: (input: RORDataItemInput, result: RORDataItemResult) => void
   onClose: () => void
 }
 
@@ -46,8 +46,8 @@ export const CalcModal = ({
 }: CalcModalProps) => {
   const title = useMemo(
     () =>
-      `管电压指示偏离 @  ${condition.presets.value} / ${condition.presets.unit}`,
-    [condition.presets.unit, condition.presets.value]
+      `辐射输出量重复性 @  ${condition.current.value}${condition.current.value}, ${condition.voltage.value} ${condition.voltage.unit}, ${condition.timeProduct.value}${condition.timeProduct.unit}`,
+    [condition]
   )
 
   const [values, setValue] = useImmer(input.values.map(String))
@@ -72,11 +72,7 @@ export const CalcModal = ({
 
   useUpdateEffect(() => {
     if (values.every(value => !isNil(value))) {
-      const result = calculateTVIDItemResult(
-        values,
-        condition.presets.value,
-        input.offset
-      )
+      const result = calculateRORItemResult(values, condition)
       setResultState(result)
     }
   }, [...values, setResultState])
@@ -92,14 +88,12 @@ export const CalcModal = ({
       <StyledBox>
         <Table>
           <colgroup>
-            <col width="40%" />
-            <col width="30%" />
+            <col width="70%" />
             <col width="30%" />
           </colgroup>
           <TableHead>
             <TableRow>
               <TableCell component="th">实测值({input.unit})</TableCell>
-              <TableCell component="th">校准因子</TableCell>
               <TableCell component="th">结果</TableCell>
             </TableRow>
           </TableHead>
@@ -116,11 +110,9 @@ export const CalcModal = ({
                   </Box>
                 ))}
               </TableCell>
-              <TableCell>{input.offset}</TableCell>
               <TableCell>
-                {resultState.scalar.value}
-                {result.scalar.unit}({resultState.percentage.value}
-                {result.percentage.unit})
+                {resultState.value}
+                {resultState.unit}
               </TableCell>
             </TableRow>
           </TableBody>

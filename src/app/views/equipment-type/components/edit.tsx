@@ -11,7 +11,7 @@ import { ModalComponentBaseProps } from 'ctx/modal'
 
 import { EquipmentTypes } from 'm/types'
 
-interface FieldEditProps extends ModalComponentBaseProps {
+export interface FieldEditProps extends ModalComponentBaseProps {
   initialValue: Omit<
     EquipmentTypes,
     'inspectionItems' | 'inspectionItems_aggregate'

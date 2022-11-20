@@ -1,5 +1,5 @@
 import { FieldRenderProps, Field } from 'react-final-form'
-import { FieldArray } from 'react-final-form-arrays'
+import { FieldArray, FieldArrayRenderProps } from 'react-final-form-arrays'
 import { useEffect } from 'react'
 import { isEmpty } from 'lodash-es'
 import {
@@ -9,40 +9,46 @@ import {
   TableContainer,
   Typography,
 } from '@mui/material'
+import { useMemoizedFn } from 'ahooks'
 
 import { InspectionReportItem } from 'm/presets'
 
-import { TVIDData, TVIDDataItem } from './type'
-import { TVIDItem } from './components/item/index'
-import { TVIDBar } from './components/bar'
-import { initialTVIDData, initialTVIDDataItem } from './utils'
-import { TVIDItemHeader } from './components/header'
-import { TVIDConclusion } from './components/conclusion'
+import { RORData, RORDataItem } from './type'
+import { initialRORData, initialRORDataItem } from './utils'
+import { RORItemHeader } from './components/header'
+import { RORItem } from './components/item'
+import { RORBar } from './components/bar'
+import { RORConclusion } from './components/conclusion'
 
 /**
- * Tube Voltage Indication Deviation
- * 管电压指示偏离
+ * Radiation Output Repeatability
+ * 放射性输出重复性
  */
 
-type TVIDFieldProps = FieldRenderProps<InspectionReportItem<TVIDData>>
+type RORFieldProps = FieldRenderProps<InspectionReportItem<RORData>>
 
-const TVIDField = ({
+const RORField = ({
   input: { name, value, onChange, onBlur, onFocus },
   meta: { touched, error },
-}: TVIDFieldProps) => {
+}: RORFieldProps) => {
   useEffect(() => {
     if (isEmpty(value.data)) {
       onChange({
         ...value,
-        data: initialTVIDData(value, value.consts),
+        data: initialRORData(value),
       })
     }
   }, [onChange, value, value.data])
 
+  const onAdd = useMemoizedFn(
+    (fields: FieldArrayRenderProps<RORDataItem, HTMLElement>['fields']) => {
+      fields.push(initialRORDataItem({}, value.data?.length || 0))
+    }
+  )
+
   return (
     <>
-      {/* <HighlightSyntax code={JSON.stringify(value, null, 2)} /> */}
-      <FieldArray<TVIDDataItem> name={`${name}.data`}>
+      <FieldArray<RORDataItem> name={`${name}.data`}>
         {({ fields }) => (
           <TableContainer
             component={Card}
@@ -55,12 +61,12 @@ const TVIDField = ({
                 <col width="50%" />
                 <col width="30%" />
               </colgroup>
-              <TVIDItemHeader />
+              <RORItemHeader />
               <TableBody>
                 {fields.map((name, index) => (
                   <Field name={name} key={name}>
                     {({ input }) => (
-                      <TVIDItem
+                      <RORItem
                         index={index}
                         value={input.value}
                         onChange={input.onChange}
@@ -70,22 +76,12 @@ const TVIDField = ({
                   </Field>
                 ))}
               </TableBody>
-              <TVIDBar
-                onAdd={() =>
-                  fields.push(
-                    initialTVIDDataItem(
-                      {},
-                      value.consts,
-                      value.data?.length || 0
-                    )
-                  )
-                }
-              />
+              <RORBar onAdd={() => onAdd(fields)} />
             </Table>
           </TableContainer>
         )}
       </FieldArray>
-      <TVIDConclusion name={name} />
+      <RORConclusion name={name} />
       {touched && error && (
         <Typography component="div" color="error">
           {error}
@@ -95,4 +91,4 @@ const TVIDField = ({
   )
 }
 
-export default TVIDField
+export default RORField
