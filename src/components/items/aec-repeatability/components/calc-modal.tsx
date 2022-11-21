@@ -15,8 +15,12 @@ import { isNil } from 'lodash-es'
 
 import { Modal, ModalProps } from 'd/components/modal'
 
-import { UHHVLDataCondition, UHHVLDataInput, UHHVLDataResult } from '../type'
-import { calculateUHHVLData } from '../utils'
+import {
+  AECRepeatabilityDataCondition,
+  AECRepeatabilityDataInput,
+  AECRepeatabilityDataResult,
+} from '../type'
+import { calculateAECRepeatabilityData } from '../utils'
 
 const StyledBox = styled(Box)(({ theme }) => ({
   width: '60vw',
@@ -26,10 +30,13 @@ const StyledBox = styled(Box)(({ theme }) => ({
 
 export interface CalcModalProps
   extends Omit<ModalProps, 'isOpen' | 'onConfirm'> {
-  condition: UHHVLDataCondition
-  input: UHHVLDataInput
-  result: UHHVLDataResult
-  onConfirm: (input: UHHVLDataInput, result: UHHVLDataResult) => void
+  condition: AECRepeatabilityDataCondition
+  input: AECRepeatabilityDataInput
+  result: AECRepeatabilityDataResult
+  onConfirm: (
+    input: AECRepeatabilityDataInput,
+    result: AECRepeatabilityDataResult
+  ) => void
   onClose: () => void
 }
 
@@ -41,8 +48,7 @@ export const CalcModal = ({
   onClose,
 }: CalcModalProps) => {
   const title = useMemo<string>(
-    () =>
-      `有用线束半值层（mmAl） @ ${condition.current.value}${condition.current.unit} ${condition.voltage.value}${condition.voltage.unit} ${condition.timeProduct.value}${condition.timeProduct.unit}`,
+    () => `有用线束半值层（mmAl） @ ${condition.value}${condition.unit}`,
     [condition]
   )
 
@@ -59,7 +65,6 @@ export const CalcModal = ({
   const handleConfirm = useMemoizedFn(() => {
     onConfirm(
       {
-        ...input,
         values: values.map(Number),
       },
       resultState
@@ -68,7 +73,7 @@ export const CalcModal = ({
 
   useUpdateEffect(() => {
     if (values.every(value => !isNil(value))) {
-      const result = calculateUHHVLData(values)
+      const result = calculateAECRepeatabilityData(values)
       setResultState(result)
     }
   }, [...values, setResultState])

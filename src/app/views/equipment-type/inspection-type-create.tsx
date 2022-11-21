@@ -72,7 +72,8 @@ const PageInspectionItemEnumDetail = () => {
             } else {
               navigate(
                 generatePath(ROUTES.equipmentInspectionTypeDetail, {
-                  id: data.data?.id,
+                  id,
+                  itemId: data.data?.id,
                 })
               )
             }

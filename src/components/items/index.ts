@@ -28,4 +28,16 @@ export const ItemComponents: Record<
         /* webpackChunkName: "items/useful-harness-half-value-layer" */ './useful-harness-half-value-layer/index'
       )
   ),
+  AECRepeatability: lazy(
+    () =>
+      import(
+        /* webpackChunkName: "items/aec-repeatability" */ './aec-repeatability/index'
+      )
+  ),
+  AECResponse: lazy(
+    () =>
+      import(
+        /* webpackChunkName: "items/aec-response" */ './aec-response/index'
+      )
+  ),
 }
