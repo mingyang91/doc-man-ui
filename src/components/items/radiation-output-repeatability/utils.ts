@@ -6,13 +6,7 @@ import ruleJudgment from 'rule-judgment'
 import { Conclusions, UnitValue } from 'm/common'
 import { InspectionReportItem, InspectionRequirementChild } from 'm/presets'
 
-import {
-  RORData,
-  RORDataItem,
-  RORDataItemInput,
-  RORDataItemResult,
-  RORDataItemCondition,
-} from './type'
+import { RORData, RORDataItem, RORDataItemCondition } from './type'
 
 export const initialRORDataItem = (
   input: RORDataItem,
@@ -95,7 +89,10 @@ export const getRORConclusion = (
   result: RORData,
   requirement: InspectionRequirementChild
 ): Conclusions => {
-  if (result.some(item => !item.result || isNaN(item.result.value))) {
+  if (
+    !result ||
+    result.some(item => !item.result || isNaN(item.result.value))
+  ) {
     return Conclusions.Unknown
   }
 

@@ -1,8 +1,13 @@
-import { InputBase, TextField, TextFieldProps, InputAdornment } from '@mui/material';
-import { useMemoizedFn, useUpdateEffect } from 'ahooks'
-import { ChangeEventHandler, useEffect } from 'react'
-import { useImmer } from 'use-immer'
-import { isNil, isEqual } from 'lodash-es'
+import {
+  InputBase,
+  TextField,
+  TextFieldProps,
+  InputAdornment,
+  styled,
+} from '@mui/material'
+import { useMemoizedFn } from 'ahooks'
+import { ChangeEventHandler, useState } from 'react'
+import { produce } from 'immer'
 
 import { UnitValue } from 'm/common'
 
@@ -23,73 +28,58 @@ export const TextFieldWithUnit = ({
   onUnitChange,
   ...restProps
 }: TextFieldWithUnitProps) => {
-  const [value, setValue] = useImmer(
-    () =>
-      valueProps || {
-        value: 0,
-        unit: '',
-      }
-  )
+  const [value, setValue] = useState(() => ({
+    value: `${valueProps?.value || 0}` ?? '0',
+    unit: valueProps?.unit || '',
+  }))
 
   const handleValueChange = useMemoizedFn<
     ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>
   >(e => {
-    setValue(prev => {
-      const numericValue = Number(e.target.value)
-
-      if (isNaN(numericValue)) {
-        return prev
-      }
-
+    const nextState = produce(value, prev => {
       if (prev) {
-        prev.value = numericValue
+        prev.value = e.target.value
       } else {
         return {
-          value: numericValue,
+          value: e.target.value,
           unit: '',
         }
       }
     })
+
+    setValue(nextState)
+
+    const numericValue = Number(e.target.value)
+
+    if (!isNaN(numericValue)) {
+      onValueChange?.(numericValue)
+      onChange?.({
+        value: numericValue,
+        unit: value.unit,
+      })
+    }
   })
 
   const handleUnitChange = useMemoizedFn<
     ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>
   >(e => {
-    setValue(prev => {
+    const nextState = produce(value, prev => {
       if (prev) {
         prev.unit = e.target.value
       } else {
         return {
-          value: 0,
+          value: '0',
           unit: e.target.value,
         }
       }
     })
+    setValue(nextState)
+    onUnitChange?.(e.target.value)
+    onChange?.({
+      value: Number(value.value),
+      unit: e.target.value,
+    })
   })
-
-  useUpdateEffect(() => {
-    if (!isNil(value?.value) && value?.value !== valueProps?.value) {
-      onValueChange?.(value?.value)
-    }
-  }, [onValueChange, value?.value, valueProps])
-
-  useUpdateEffect(() => {
-    if (!isNil(value?.unit) && value?.unit !== valueProps?.unit) {
-      onUnitChange?.(value?.unit)
-    }
-  }, [onUnitChange, value?.unit, valueProps])
-
-  useUpdateEffect(() => {
-    if (!isNil(value) && !isEqual(value, valueProps)) {
-      onChange?.(value)
-    }
-  }, [onChange, value, valueProps])
-
-  useEffect(() => {
-    if (!isNil(valueProps) && !isEqual(value, valueProps)) {
-      setValue(() => valueProps)
-    }
-  }, [setValue, value, valueProps])
 
   return (
     <TextField
@@ -102,7 +92,6 @@ export const TextFieldWithUnit = ({
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">
-            {' / '}
             <InputBase value={value?.unit} onChange={handleUnitChange} />
           </InputAdornment>
         ),

@@ -36,6 +36,7 @@ export const initialAECResponseData = (
       {
         value: 0,
         prefix: '±',
+        unit: '%',
       },
       input?.result
     ),
@@ -87,14 +88,15 @@ export const calculateAECResponseData = (input: AECResponseDataInput) => {
 }
 
 export const getAECResponseConclusion = (
-  result: number,
+  data: AECResponseData,
   requirement: InspectionRequirementChild
 ) => {
-  if (!result || isNaN(result)) {
+  console.log('getAECResponseConclusion', data.result, requirement)
+  if (!data.result?.value || isNaN(data.result.value)) {
     return Conclusions.Unknown
   }
 
   const fn = ruleJudgment(requirement.rule)
 
-  return fn(result) ? Conclusions.Good : Conclusions.Bad
+  return fn(data.result.value) ? Conclusions.Good : Conclusions.Bad
 }

@@ -1,5 +1,5 @@
 import { useField } from 'react-final-form'
-import { useUpdateEffect } from 'ahooks'
+import { useDeepCompareEffect } from 'ahooks'
 import { useMemo, useState } from 'react'
 import { Button, Stack, Tooltip, Typography } from '@mui/material'
 
@@ -45,7 +45,7 @@ export const BaseConclusion = ({
     inputConclusion.onChange(interConclusion)
   }
 
-  useUpdateEffect(() => {
+  useDeepCompareEffect(() => {
     if (
       inputInspectionItem.value === InspectionTypeEnum.None ||
       inputInspectionItem.value === InspectionTypeEnum.Other

@@ -36,7 +36,7 @@ export const inspectionTypeEnumFormValidation =
           })
           .optional(),
       }),
-      data: Yup.object().optional(),
+      data: Yup.mixed().optional(),
     })
   )
 

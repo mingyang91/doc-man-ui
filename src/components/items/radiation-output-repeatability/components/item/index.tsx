@@ -89,11 +89,7 @@ export const RORItem = ({ index, value, onChange, onRemove }: RORItemProps) => {
         </Box>
       </TableCell>
       <TableCell>
-        <Button
-          variant="text"
-          color="primary"
-          onClick={() => setOpen.setTrue()}
-        >
+        <Button variant="text" color="primary" onClick={setOpen.setTrue}>
           {ResultText}
         </Button>
         {open && (

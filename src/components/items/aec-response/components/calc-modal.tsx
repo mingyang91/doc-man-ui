@@ -169,6 +169,7 @@ export const CalcModal = ({
               <TableCell>
                 {resultState.prefix}
                 {resultState.value}
+                {resultState.unit}
               </TableCell>
             </TableRow>
             <TableRow>

@@ -130,6 +130,7 @@ export const getTVIDConclusion = (
   requirement: InspectionRequirementChild
 ) => {
   if (
+    !result ||
     result.some(item => !item.result || isNaN(item.result.percentage.value))
   ) {
     return Conclusions.Unknown

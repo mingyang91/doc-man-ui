@@ -68,14 +68,15 @@ export const calculateAECRepeatabilityData = (values: string[]) => {
 }
 
 export const getAECRepeatabilityConclusion = (
-  result: number,
+  data: AECRepeatabilityData,
   requirement: InspectionRequirementChild
 ) => {
+  const result = data.result?.value
   if (!result || isNaN(result)) {
     return Conclusions.Unknown
   }
 
   const fn = ruleJudgment(requirement.rule)
 
-  return fn(result) ? Conclusions.Good : Conclusions.Bad
+  return fn(`${result}`) ? Conclusions.Good : Conclusions.Bad
 }
