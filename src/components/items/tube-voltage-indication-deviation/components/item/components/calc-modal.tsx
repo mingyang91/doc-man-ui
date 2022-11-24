@@ -109,7 +109,7 @@ export const CalcModal = ({
                 {values.map((value, index) => (
                   <Box key={index}>
                     <TextField
-                      label={`${index}`}
+                      label={`${index + 1}`}
                       value={value}
                       onChange={e => onInput(e.target.value, index)}
                     />

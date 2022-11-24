@@ -20,10 +20,11 @@ import { UHVDData } from './type'
 import { UHVDHeader } from './components/header'
 import { UHVDCondition } from './components/condition'
 import { UHVDConclusion } from './components/conclusion'
+import { initialUHVDData } from './utils'
 
 /**
  * Useful harness verticality deviation
- * 放射性输出重复性
+ * 有用线束垂直度偏离
  */
 
 type UHVDFieldProps = FieldRenderProps<InspectionReportItem<UHVDData>>
@@ -34,7 +35,10 @@ const UHVDField = ({
 }: UHVDFieldProps) => {
   return (
     <>
-      <Field<UHVDData> name={`${name}.data`}>
+      <Field<UHVDData>
+        name={`${name}.data`}
+        initialValue={initialUHVDData(value.data)}
+      >
         {({ input: { value, onChange } }) => (
           <TableContainer
             component={Card}

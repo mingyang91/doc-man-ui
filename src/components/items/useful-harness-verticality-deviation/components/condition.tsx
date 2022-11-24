@@ -1,3 +1,4 @@
+import { Stack } from '@mui/material'
 import { TextField } from 'mui-rff'
 
 export interface UHVDConditionProps {
@@ -6,10 +7,10 @@ export interface UHVDConditionProps {
 
 export const UHVDCondition = ({ name }: UHVDConditionProps) => {
   return (
-    <>
-      <TextField name={`${name}.condition.left`} />
-      <TextField name={`${name}.condition.option`} />
-      <TextField name={`${name}.condition.right`} />
-    </>
+    <Stack direction="row">
+      <TextField name={`${name}.left`} />
+      <TextField name={`${name}.operator`} />
+      <TextField name={`${name}.right`} />
+    </Stack>
   )
 }

@@ -1,7 +1,8 @@
 import { merge } from 'lodash-es'
 import { AVERAGE } from '@formulajs/formulajs'
 import Big from 'big.js'
-import ruleJudgment from 'rule-judgment'
+
+import ruleJudgment from 'u/rule-judgment'
 
 import { InspectionRequirementChild } from 'm/presets'
 import { Conclusions } from 'm/common'

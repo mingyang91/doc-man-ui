@@ -116,9 +116,8 @@ export const DeviceTypeList = ({
     const right: ColumnProps<EquipmentTypesListData>[] = [
       {
         field: 'uuid',
-        flexGrow: 2,
-        width: 380,
-        minWidth: 380,
+        width: 120,
+        minWidth: 120,
         fixed: 'right',
         title: '操作',
         render: ({ id, displayName, inspectionItems }) => {

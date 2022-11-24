@@ -11,16 +11,15 @@ import {
 } from '@mui/material'
 import { useImmer } from 'use-immer'
 import { useMemoizedFn, useUpdateEffect } from 'ahooks'
-import { isNil } from 'lodash-es'
 
 import { Modal, ModalProps } from 'd/components/modal'
 
 import {
-  AECResponseDataCondition,
-  AECResponseDataInput,
-  AECResponseDataResult,
+  ConsistencyAmongAECChambersDataCondition,
+  ConsistencyAmongAECChambersDataInput,
+  ConsistencyAmongAECChambersDataResult,
 } from '../type'
-import { calculateAECResponseData } from '../utils'
+import { calculateConsistencyAmongAECChambersData } from '../utils'
 
 const StyledBox = styled(Box)(({ theme }) => ({
   width: '60vw',
@@ -30,12 +29,12 @@ const StyledBox = styled(Box)(({ theme }) => ({
 
 export interface CalcModalProps
   extends Omit<ModalProps, 'isOpen' | 'onConfirm'> {
-  condition: AECResponseDataCondition
-  input: AECResponseDataInput
-  result: AECResponseDataResult
+  condition: ConsistencyAmongAECChambersDataCondition
+  input: ConsistencyAmongAECChambersDataInput
+  result: ConsistencyAmongAECChambersDataResult
   onConfirm: (
-    input: AECResponseDataInput,
-    result: AECResponseDataResult
+    input: ConsistencyAmongAECChambersDataInput,
+    result: ConsistencyAmongAECChambersDataResult
   ) => void
   onClose: () => void
 }
@@ -48,32 +47,26 @@ export const CalcModal = ({
   onClose,
 }: CalcModalProps) => {
   const title = useMemo<string>(
-    () => `AEC响应 @ ${condition.value}${condition.unit}`,
+    () => `AEC电离室之间一致性 @ ${condition.value}${condition.unit}`,
     [condition]
   )
 
   const [value, setValue] = useImmer({
-    0: {
-      title: input[0].title,
-      values: input[0].values.map(String),
-    },
-    1: {
-      title: input[1].title,
-      values: input[1].values.map(String),
-    },
+    title: input.title,
+    values: input.values.map(String),
   })
 
   const onInputNumber = useMemoizedFn(
     (value: string, index: number, row: 0 | 1) => {
       setValue(draft => {
-        draft[row].values[index] = value
+        draft.values[index] = value
       })
     }
   )
 
   const onInputTitle = useMemoizedFn((value: string, row: 0 | 1) => {
     setValue(draft => {
-      draft[row].title = value
+      draft.title = value
     })
   })
 
@@ -81,14 +74,8 @@ export const CalcModal = ({
 
   const handleConfirm = useMemoizedFn(() => {
     const input = {
-      0: {
-        title: value[0].title,
-        values: value[0].values.map(Number),
-      },
-      1: {
-        title: value[1].title,
-        values: value[1].values.map(Number),
-      },
+      title: value.title,
+      values: value.values.map(Number),
     }
 
     onConfirm(input, resultState)
@@ -96,31 +83,22 @@ export const CalcModal = ({
 
   useUpdateEffect(() => {
     if (
-      value[0].values.some(
-        value => isNaN(Number(value)) || Number(value) === 0
-      ) ||
-      value[1].values.some(value => isNaN(Number(value)) || Number(value) === 0)
+      value.values.some(value => isNaN(Number(value)) || Number(value) === 0)
     ) {
       return
     }
 
     const input = {
-      0: {
-        title: value[0].title,
-        values: value[0].values.map(Number),
-      },
-      1: {
-        title: value[1].title,
-        values: value[1].values.map(Number),
-      },
+      title: value.title,
+      values: value.values.map(Number),
     }
 
     console.log(input)
 
-    const result = calculateAECResponseData(input)
+    const result = calculateConsistencyAmongAECChambersData(input)
 
     setResultState(result)
-  }, [...value[0].values, ...value[1].values])
+  }, [...value.values])
 
   return (
     <Modal
@@ -141,7 +119,7 @@ export const CalcModal = ({
             <TableRow>
               <TableCell component="th"></TableCell>
               <TableCell component="th">测量值</TableCell>
-              <TableCell component="th">相对偏差</TableCell>
+              <TableCell component="th">最大相对偏差</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -150,16 +128,16 @@ export const CalcModal = ({
                 <Box>
                   <TextField
                     label=""
-                    value={value[0].title}
+                    value={value.title}
                     onChange={e => onInputTitle(e.target.value, 0)}
                   />
                 </Box>
               </TableCell>
               <TableCell>
-                {value[0].values.map((value, index) => (
+                {value.values.map((value, index) => (
                   <Box key={index}>
                     <TextField
-                      label={`${index + 1}`}
+                      label={`电离室${index + 1}`}
                       value={value}
                       onChange={e => onInputNumber(e.target.value, index, 0)}
                     />
@@ -167,33 +145,9 @@ export const CalcModal = ({
                 ))}
               </TableCell>
               <TableCell>
-                {resultState.prefix}
                 {resultState.value}
                 {resultState.unit}
               </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>
-                <Box>
-                  <TextField
-                    label=""
-                    value={value[1].title}
-                    onChange={e => onInputTitle(e.target.value, 1)}
-                  />
-                </Box>
-              </TableCell>
-              <TableCell>
-                {value[1].values.map((value, index) => (
-                  <Box key={index}>
-                    <TextField
-                      label={`${index + 1}`}
-                      value={value}
-                      onChange={e => onInputNumber(e.target.value, index, 1)}
-                    />
-                  </Box>
-                ))}
-              </TableCell>
-              <TableCell></TableCell>
             </TableRow>
           </TableBody>
         </Table>

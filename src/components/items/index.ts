@@ -40,4 +40,16 @@ export const ItemComponents: Record<
         /* webpackChunkName: "items/aec-response" */ './aec-response/index'
       )
   ),
+  ConsistencyAmongAECChambers: lazy(
+    () =>
+      import(
+        /* webpackChunkName: "items/consistency-among-aec-chambers" */ './consistency-among-aec-chambers/index'
+      )
+  ),
+  UsefulHarnessVerticalityDeviation: lazy(
+    () =>
+      import(
+        /* webpackChunkName: "items/useful-harness-verticality-deviation" */ './useful-harness-verticality-deviation/index'
+      )
+  ),
 }

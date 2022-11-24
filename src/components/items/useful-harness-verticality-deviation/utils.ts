@@ -4,24 +4,24 @@ import ruleJudgment from 'rule-judgment'
 import { Conclusions } from 'm/common'
 import { InspectionRequirementChild } from 'm/presets'
 
-import { UHVDData, UHVDDataResult } from './type'
+import { UHVDData } from './type'
 
-export const initialUHVDData = (input: UHVDData): Required<UHVDData> => {
+export const initialUHVDData = (input?: UHVDData): Required<UHVDData> => {
   return {
     condition: merge(
       {
         left: 'SID',
-        option: '=',
+        operator: '=',
         right: '100cm',
       },
-      input.condition
+      input?.condition
     ),
     result: merge(
       {
         unit: '',
         value: 0,
       },
-      input.result
+      input?.result
     ),
   }
 }

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { FilterQuery, QuerySelector } from 'rule-judgment'
+import { FilterQuery, QuerySelector } from 'u/rule-judgment'
 
 import { Conclusions } from './common'
 import { InspectionTypes } from './types'
