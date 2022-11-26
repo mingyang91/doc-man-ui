@@ -11,7 +11,6 @@ import { useSettings } from 'ctx/settings'
 import Iconify from '../../iconify'
 import BoxMask from './box-mask'
 
-
 // ----------------------------------------------------------------------
 
 const BoxStyle = styled(CardActionArea)(({ theme }) => ({

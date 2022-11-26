@@ -52,4 +52,10 @@ export const ItemComponents: Record<
         /* webpackChunkName: "items/useful-harness-verticality-deviation" */ './useful-harness-verticality-deviation/index'
       )
   ),
+  DeviationBetweenLightFieldAndIrradiationField: lazy(
+    () =>
+      import(
+        /* webpackChunkName: "items/deviation-between-light-field-and-irradiation-field" */ './deviation-between-light-field-and-irradiation-field/index'
+      )
+  ),
 }

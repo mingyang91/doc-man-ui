@@ -28,6 +28,7 @@ export type InspectionTypesFragment = {
   requirement: ScalarJson
   consts: ScalarJson
   data?: ScalarJson | null
+  index: number
 }
 
 export type InspectionTypesFragmentVariables = Types.Exact<{
@@ -40,6 +41,7 @@ export type InspectionTypesHeaderFragment = {
   id: UUIDV4
   formula?: string | null
   comment?: string | null
+  index: number
 }
 
 export type InspectionTypesHeaderFragmentVariables = Types.Exact<{
@@ -61,6 +63,7 @@ export type InspectionTypesListQuery = {
     requirement: ScalarJson
     consts: ScalarJson
     data?: ScalarJson | null
+    index: number
   }>
 }
 
@@ -79,6 +82,7 @@ export type InspectionTypesDetailQuery = {
     requirement: ScalarJson
     consts: ScalarJson
     data?: ScalarJson | null
+    index: number
   } | null
 }
 
@@ -97,6 +101,7 @@ export type InspectionTypesByEquipmentQuery = {
     requirement: ScalarJson
     consts: ScalarJson
     data?: ScalarJson | null
+    index: number
   }>
 }
 
@@ -115,6 +120,7 @@ export type CreateInspectionTypesMutation = {
     requirement: ScalarJson
     consts: ScalarJson
     data?: ScalarJson | null
+    index: number
   } | null
 }
 
@@ -134,6 +140,7 @@ export type UpdateInspectionTypesByIdMutation = {
     requirement: ScalarJson
     consts: ScalarJson
     data?: ScalarJson | null
+    index: number
   } | null
 }
 
@@ -186,6 +193,7 @@ export type EquipmentTypesByIdQuery = {
       id: UUIDV4
       formula?: string | null
       comment?: string | null
+      index: number
     }>
   } | null
 }
@@ -238,6 +246,7 @@ export const InspectionTypesFragmentDoc = `
   requirement
   consts
   data
+  index
 }
     `
 export const InspectionTypesHeaderFragmentDoc = `
@@ -247,6 +256,7 @@ export const InspectionTypesHeaderFragmentDoc = `
   id
   formula
   comment
+  index
 }
     `
 export const EquipmentTypesFragmentDoc = `
@@ -259,7 +269,7 @@ export const EquipmentTypesFragmentDoc = `
     `
 export const InspectionTypesListDocument = `
     query InspectionTypesList {
-  data: inspection_types(distinct_on: name) {
+  data: inspection_types(order_by: {index: asc}) {
     ...InspectionTypes
   }
 }
@@ -303,7 +313,10 @@ export const useInspectionTypesDetailQuery = <
   )
 export const InspectionTypesByEquipmentDocument = `
     query InspectionTypesByEquipment($equipmentTypeId: uuid!) {
-  list: inspection_types(where: {equipmentTypeId: {_eq: $equipmentTypeId}}) {
+  list: inspection_types(
+    where: {equipmentTypeId: {_eq: $equipmentTypeId}}
+    order_by: {index: asc}
+  ) {
     ...InspectionTypes
   }
 }

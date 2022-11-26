@@ -1,6 +1,6 @@
 import { TableHead, TableRow, TableCell } from '@mui/material'
 
-export const UHVDHeader = () => {
+export const DBLFAIFHeader = () => {
   return (
     <TableHead>
       <TableRow>

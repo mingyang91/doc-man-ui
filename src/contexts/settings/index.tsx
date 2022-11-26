@@ -17,8 +17,6 @@ import { createContainer } from 'u/create-container'
 
 import getColorPresets, { colorPresets, defaultPreset } from './color-presets'
 
-
-
 // @type
 
 // ----------------------------------------------------------------------

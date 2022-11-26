@@ -5,7 +5,7 @@ import {
   useRef,
   useLayoutEffect,
 } from 'react'
-import { useMemoizedFn, useUpdateEffect } from 'ahooks'
+import { useMemoizedFn } from 'ahooks'
 import HighlightEditor from 'react-simple-code-editor'
 import hljs from 'highlight.js/lib/core'
 import excel from 'highlight.js/lib/languages/excel'

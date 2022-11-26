@@ -1,12 +1,15 @@
 import { isNil, merge } from 'lodash-es'
-import ruleJudgment from 'rule-judgment'
+
+import ruleJudgment from 'u/rule-judgment'
 
 import { Conclusions } from 'm/common'
-import { InspectionRequirementChild } from 'm/presets'
+import { InspectionReportItem, InspectionRequirementChild } from 'm/presets'
 
 import { UHVDData } from './type'
 
-export const initialUHVDData = (input?: UHVDData): Required<UHVDData> => {
+export const initialUHVDData = (
+  input?: InspectionReportItem<UHVDData>
+): Required<UHVDData> => {
   return {
     condition: merge(
       {
@@ -18,10 +21,10 @@ export const initialUHVDData = (input?: UHVDData): Required<UHVDData> => {
     ),
     result: merge(
       {
-        unit: '',
+        unit: '°',
         value: 0,
       },
-      input?.result
+      input?.data?.result
     ),
   }
 }

@@ -6,4 +6,4 @@
 node_modules
 APP-META/helm
 /package.json
-/yarn.lock
+/pnpm-lock.yaml

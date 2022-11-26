@@ -15,35 +15,37 @@ import { TextFieldWithUnit } from 'd/components/text-field-with-unit'
 
 import { InspectionReportItem } from 'm/presets'
 
-import { UHVDData } from './type'
-import { UHVDHeader } from './components/header'
-import { UHVDCondition } from './components/condition'
-import { UHVDConclusion } from './components/conclusion'
-import { initialUHVDData } from './utils'
+import { DBLFAIFData } from './type'
+import { DBLFAIFHeader } from './components/header'
+import { DBLFAIFCondition } from './components/condition'
+import { DBLFAIFConclusion } from './components/conclusion'
+import { initialDBLFAIFData } from './utils'
+import { DBLFAIFValueItem } from './components/value-item'
+import { DBLFAIFDataResultInput } from './components/result-input'
 
 /**
- * Useful harness verticality deviation
+ * Deviation Between LightFieldAndIrradiationField
  * 有用线束垂直度偏离
  */
 
-type UHVDFieldProps = FieldRenderProps<InspectionReportItem<UHVDData>>
+type DBLFAIFFieldProps = FieldRenderProps<InspectionReportItem<DBLFAIFData>>
 
-const UHVDField = ({
+const DBLFAIFField = ({
   input: { name, value, onChange, onBlur, onFocus },
   meta: { touched, error },
-}: UHVDFieldProps) => {
+}: DBLFAIFFieldProps) => {
   useEffect(() => {
     if (isEmpty(value.data)) {
       onChange({
         ...value,
-        data: initialUHVDData(value),
+        data: initialDBLFAIFData(value),
       })
     }
   }, [onChange, value, value.data])
 
   return (
     <>
-      <Field<UHVDData> name={`${name}.data`}>
+      <Field<DBLFAIFData> name={`${name}.data`}>
         {({ input: { value, onChange } }) => (
           <TableContainer
             component={Card}
@@ -55,17 +57,16 @@ const UHVDField = ({
                 <col width="30%" />
                 <col width="70%" />
               </colgroup>
-              <UHVDHeader />
+              <DBLFAIFHeader />
               <TableBody>
                 <TableRow>
                   <TableCell>
-                    <UHVDCondition name={`${name}.data.condition`} />
+                    <DBLFAIFCondition name={`${name}.data.condition`} />
                   </TableCell>
                   <TableCell>
-                    <TextFieldWithUnit
-                      variant="standard"
-                      value={value.result}
-                      onChange={result => onChange({ ...value, result })}
+                    <Field
+                      name={`${name}.data.result`}
+                      component={DBLFAIFDataResultInput}
                     />
                   </TableCell>
                 </TableRow>
@@ -74,7 +75,7 @@ const UHVDField = ({
           </TableContainer>
         )}
       </Field>
-      <UHVDConclusion name={name} />
+      <DBLFAIFConclusion name={name} />
       {touched && error && (
         <Typography component="div" color="error">
           {error}
@@ -84,4 +85,4 @@ const UHVDField = ({
   )
 }
 
-export default UHVDField
+export default DBLFAIFField

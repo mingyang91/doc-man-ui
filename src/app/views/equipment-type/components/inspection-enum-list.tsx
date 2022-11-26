@@ -26,6 +26,7 @@ type InspectionTypesData = Omit<
   | 'equipmentTypeId'
   | 'condition'
   | 'requirement'
+  | 'index'
 >
 
 type DeviceRawFields = Required<Omit<InspectionTypesData, 'id'>>

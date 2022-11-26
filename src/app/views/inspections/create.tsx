@@ -17,7 +17,6 @@ import { useCreateInspectionReportMutation } from 'm/inspection-report/index.gen
 import { InspectionForm } from './components/inspection-form'
 import { FnSubmitInspectionReport } from './components/inspection-form/utils'
 
-
 const TITLE = `检验检测报告 - 创建`
 
 const PageInspectionCreate = () => {

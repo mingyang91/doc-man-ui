@@ -3,7 +3,6 @@ import { generatePath, useNavigate, useParams } from 'react-router-dom'
 import { omit } from 'lodash-es'
 import { Snackbar, Unstable_Grid2 as Grid } from '@mui/material'
 
-
 import { useMenuAndRoutes } from '@/layouts/admin/components/menu-and-routes'
 import { ROUTES } from '@/routes'
 

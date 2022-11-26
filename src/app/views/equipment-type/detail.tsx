@@ -37,7 +37,7 @@ const PageDetail = () => {
               displayName: data.data.displayName,
               comment: data.data.comment,
             },
-            items: data.data.items,
+            items: data.data.items.sort((a, b) => a.index - b.index),
           }
         : undefined,
     [data?.data]

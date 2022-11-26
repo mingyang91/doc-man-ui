@@ -29,7 +29,7 @@ export const TextFieldWithUnit = ({
   ...restProps
 }: TextFieldWithUnitProps) => {
   const [value, setValue] = useState(() => ({
-    value: `${valueProps?.value || 0}` ?? '0',
+    value: valueProps?.value === undefined ? '0' : `${valueProps.value}`,
     unit: valueProps?.unit || '',
   }))
 

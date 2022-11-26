@@ -13,8 +13,8 @@
     "lint-staged": "pnpm exec eslint --cache --ext .tsx,.ts && pnpm exec prettier --check",
     "lint": "pnpm exec eslint --cache --ext .tsx,.ts ./src",
     "lint:fix": "pnpm exec eslint --cache --ext .tsx,.ts ./src --fix",
-    "prettier:check": "prettier --check ./",
-    "prettier:fix": "prettier --write ./",
+    "prettier": "prettier --check ./src",
+    "format": "pnpm exec prettier-eslint \"./src/**/*.{ts,tsx}\" --write",
     "prepare": "is-ci || husky install",
     "preinstall": "npx only-allow pnpm"
   },
@@ -45,7 +45,7 @@
   "pnpm": {
     "peerDependencyRules": {
       "allowedVersions": {
-        "react": ">=17.0.2"
+        "react": ">=18.0.0"
       }
     }
   },
@@ -123,6 +123,7 @@
     "@graphql-codegen/typescript-operations": "^2.5.3",
     "@graphql-codegen/typescript-react-query": "^4.0.1",
     "@graphql-eslint/eslint-plugin": "^3.11.2",
+    "@stylelint/postcss-css-in-js": "^0.38.0",
     "@swc/helpers": "^0.4.11",
     "@swc/plugin-emotion": "^2.2.5",
     "@types/big.js": "^6.1.5",

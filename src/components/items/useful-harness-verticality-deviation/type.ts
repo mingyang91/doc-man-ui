@@ -6,7 +6,7 @@ import { UnitValue } from 'm/common'
 
 export interface UHVDDataCondition {
   left: string
-  option: string
+  operator: string
   right: string
 }
 

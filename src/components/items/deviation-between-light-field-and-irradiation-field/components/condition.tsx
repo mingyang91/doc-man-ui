@@ -1,11 +1,11 @@
 import { Stack } from '@mui/material'
 import { TextField } from 'mui-rff'
 
-export interface UHVDConditionProps {
+export interface DBLFAIFConditionProps {
   name: string
 }
 
-export const UHVDCondition = ({ name }: UHVDConditionProps) => {
+export const DBLFAIFCondition = ({ name }: DBLFAIFConditionProps) => {
   return (
     <Stack direction="row">
       <TextField variant="standard" name={`${name}.left`} />
