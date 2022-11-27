@@ -131,11 +131,11 @@ export interface ClientsBoolExp {
 
 /** unique or primary key constraints on table "clients" */
 export enum ClientsConstraint {
-  /** unique or primary key constraint */
+  /** unique or primary key constraint on columns "id" */
   CLIENTS_ID_KEY = 'clients_id_key',
-  /** unique or primary key constraint */
+  /** unique or primary key constraint on columns "name" */
   CLIENTS_NAME_KEY = 'clients_name_key',
-  /** unique or primary key constraint */
+  /** unique or primary key constraint on columns "id" */
   CLIENTS_PKEY = 'clients_pkey',
 }
 
@@ -250,6 +250,24 @@ export interface ClientsSetInput {
   updatedAt?: InputMaybe<Scalars['timestamptz']>
 }
 
+/** Streaming cursor of the table "clients" */
+export interface ClientsStreamCursorInput {
+  /** Stream column input with initial value */
+  initial_value: ClientsStreamCursorValueInput
+  /** cursor ordering */
+  ordering?: InputMaybe<CursorOrdering>
+}
+
+/** Initial value of the column from where the streaming should start */
+export interface ClientsStreamCursorValueInput {
+  address?: InputMaybe<Scalars['jsonb']>
+  comment?: InputMaybe<Scalars['String']>
+  createdAt?: InputMaybe<Scalars['timestamptz']>
+  id?: InputMaybe<Scalars['uuid']>
+  name?: InputMaybe<Scalars['String']>
+  updatedAt?: InputMaybe<Scalars['timestamptz']>
+}
+
 /** update columns of table "clients" */
 export enum ClientsUpdateColumn {
   /** column name */
@@ -264,6 +282,30 @@ export enum ClientsUpdateColumn {
   NAME = 'name',
   /** column name */
   UPDATEDAT = 'updatedAt',
+}
+
+export interface ClientsUpdates {
+  /** append existing jsonb value of filtered columns with new jsonb value */
+  _append?: InputMaybe<ClientsAppendInput>
+  /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+  _delete_at_path?: InputMaybe<ClientsDeleteAtPathInput>
+  /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+  _delete_elem?: InputMaybe<ClientsDeleteElemInput>
+  /** delete key/value pair or string element. key/value pairs are matched based on their key value */
+  _delete_key?: InputMaybe<ClientsDeleteKeyInput>
+  /** prepend existing jsonb value of filtered columns with new jsonb value */
+  _prepend?: InputMaybe<ClientsPrependInput>
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<ClientsSetInput>
+  where: ClientsBoolExp
+}
+
+/** ordering argument of a cursor */
+export enum CursorOrdering {
+  /** ascending ordering of the cursor */
+  ASC = 'ASC',
+  /** descending ordering of the cursor */
+  DESC = 'DESC',
 }
 
 /** columns and relationships of "equipment" */
@@ -402,9 +444,9 @@ export interface EquipmentBoolExp {
 
 /** unique or primary key constraints on table "equipment" */
 export enum EquipmentConstraint {
-  /** unique or primary key constraint */
+  /** unique or primary key constraint on columns "id" */
   DEVICE_PKEY = 'device_pkey',
-  /** unique or primary key constraint */
+  /** unique or primary key constraint on columns "id" */
   EQUIPMENT_ID_KEY = 'equipment_id_key',
 }
 
@@ -732,6 +774,45 @@ export interface EquipmentStddevSampOrderBy {
   createrId?: InputMaybe<OrderBy>
 }
 
+/** Streaming cursor of the table "equipment" */
+export interface EquipmentStreamCursorInput {
+  /** Stream column input with initial value */
+  initial_value: EquipmentStreamCursorValueInput
+  /** cursor ordering */
+  ordering?: InputMaybe<CursorOrdering>
+}
+
+/** Initial value of the column from where the streaming should start */
+export interface EquipmentStreamCursorValueInput {
+  /** 检测地址 */
+  address?: InputMaybe<Scalars['jsonb']>
+  /** 委托单位Id */
+  clientId?: InputMaybe<Scalars['uuid']>
+  /** 备注信息 */
+  comment?: InputMaybe<Scalars['String']>
+  createdAt?: InputMaybe<Scalars['timestamptz']>
+  /** 创建者id */
+  createrId?: InputMaybe<Scalars['Int']>
+  /** 设备编号 */
+  equipmentCode?: InputMaybe<Scalars['String']>
+  /** 制造商 */
+  equipmentManufacturer?: InputMaybe<Scalars['String']>
+  /** 设备型号 */
+  equipmentModel?: InputMaybe<Scalars['String']>
+  /** 设备名称 */
+  equipmentName?: InputMaybe<Scalars['String']>
+  /** 样品标识 */
+  equipmentSampleId?: InputMaybe<Scalars['String']>
+  /** 设备场所 */
+  equipmentSite?: InputMaybe<Scalars['String']>
+  equipmentTypeId?: InputMaybe<Scalars['uuid']>
+  /** 设备ID */
+  id?: InputMaybe<Scalars['uuid']>
+  /** 检测仪器 */
+  inspectionInstrument?: InputMaybe<Scalars['String']>
+  updatedAt?: InputMaybe<Scalars['timestamptz']>
+}
+
 /** aggregate sum on columns */
 export interface EquipmentSumFields {
   /** 创建者id */
@@ -807,9 +888,9 @@ export interface EquipmentTypesBoolExp {
 
 /** unique or primary key constraints on table "equipment_types" */
 export enum EquipmentTypesConstraint {
-  /** unique or primary key constraint */
+  /** unique or primary key constraint on columns "name" */
   EQUIPMENT_ENUM_NAME_KEY = 'equipment_enum_name_key',
-  /** unique or primary key constraint */
+  /** unique or primary key constraint on columns "id" */
   EQUIPMENT_ENUM_PKEY = 'equipment_enum_pkey',
 }
 
@@ -894,6 +975,22 @@ export interface EquipmentTypesSetInput {
   name?: InputMaybe<Scalars['String']>
 }
 
+/** Streaming cursor of the table "equipment_types" */
+export interface EquipmentTypesStreamCursorInput {
+  /** Stream column input with initial value */
+  initial_value: EquipmentTypesStreamCursorValueInput
+  /** cursor ordering */
+  ordering?: InputMaybe<CursorOrdering>
+}
+
+/** Initial value of the column from where the streaming should start */
+export interface EquipmentTypesStreamCursorValueInput {
+  comment?: InputMaybe<Scalars['String']>
+  displayName?: InputMaybe<Scalars['String']>
+  id?: InputMaybe<Scalars['uuid']>
+  name?: InputMaybe<Scalars['String']>
+}
+
 /** update columns of table "equipment_types" */
 export enum EquipmentTypesUpdateColumn {
   /** column name */
@@ -904,6 +1001,12 @@ export enum EquipmentTypesUpdateColumn {
   ID = 'id',
   /** column name */
   NAME = 'name',
+}
+
+export interface EquipmentTypesUpdates {
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<EquipmentTypesSetInput>
+  where: EquipmentTypesBoolExp
 }
 
 /** update columns of table "equipment" */
@@ -938,6 +1041,24 @@ export enum EquipmentUpdateColumn {
   INSPECTIONINSTRUMENT = 'inspectionInstrument',
   /** column name */
   UPDATEDAT = 'updatedAt',
+}
+
+export interface EquipmentUpdates {
+  /** append existing jsonb value of filtered columns with new jsonb value */
+  _append?: InputMaybe<EquipmentAppendInput>
+  /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+  _delete_at_path?: InputMaybe<EquipmentDeleteAtPathInput>
+  /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+  _delete_elem?: InputMaybe<EquipmentDeleteElemInput>
+  /** delete key/value pair or string element. key/value pairs are matched based on their key value */
+  _delete_key?: InputMaybe<EquipmentDeleteKeyInput>
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<EquipmentIncInput>
+  /** prepend existing jsonb value of filtered columns with new jsonb value */
+  _prepend?: InputMaybe<EquipmentPrependInput>
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<EquipmentSetInput>
+  where: EquipmentBoolExp
 }
 
 /** aggregate var_pop on columns */
@@ -1148,9 +1269,9 @@ export interface InspectionReportBoolExp {
 
 /** unique or primary key constraints on table "inspection_report" */
 export enum InspectionReportConstraint {
-  /** unique or primary key constraint */
+  /** unique or primary key constraint on columns "id" */
   EQUIPMENT_INSPECTION_REPORTS_ID_KEY = 'equipment_inspection_reports_id_key',
-  /** unique or primary key constraint */
+  /** unique or primary key constraint on columns "id" */
   EQUIPMENT_INSPECTION_REPORTS_PKEY = 'equipment_inspection_reports_pkey',
 }
 
@@ -1546,6 +1667,55 @@ export interface InspectionReportStddevSampOrderBy {
   creatorId?: InputMaybe<OrderBy>
 }
 
+/** Streaming cursor of the table "inspection_report" */
+export interface InspectionReportStreamCursorInput {
+  /** Stream column input with initial value */
+  initial_value: InspectionReportStreamCursorValueInput
+  /** cursor ordering */
+  ordering?: InputMaybe<CursorOrdering>
+}
+
+/** Initial value of the column from where the streaming should start */
+export interface InspectionReportStreamCursorValueInput {
+  /** 创建时间 */
+  createAt?: InputMaybe<Scalars['timestamptz']>
+  /** 创建者id */
+  creatorId?: InputMaybe<Scalars['Int']>
+  /** 设备编号 */
+  equipmentCode?: InputMaybe<Scalars['String']>
+  /** 制造厂商 */
+  equipmentManufacturer?: InputMaybe<Scalars['String']>
+  /** 设备型号 */
+  equipmentModel?: InputMaybe<Scalars['String']>
+  /** 设备名称 */
+  equipmentName?: InputMaybe<Scalars['String']>
+  /** 委托单位 */
+  equipmentRequester?: InputMaybe<Scalars['String']>
+  /** 样品标识 */
+  equipmentSampleId?: InputMaybe<Scalars['String']>
+  /** 设备场所 */
+  equipmentSite?: InputMaybe<Scalars['String']>
+  /** 设备类型，此项用于决定哪些检测项是可用的 */
+  equipmentType?: InputMaybe<Scalars['jsonb']>
+  /** 主键 */
+  id?: InputMaybe<Scalars['uuid']>
+  /** 检测地址 */
+  inspectionAddress?: InputMaybe<Scalars['jsonb']>
+  /** 检测依据 */
+  inspectionBasis?: InputMaybe<Scalars['String']>
+  /** 检测日期 */
+  inspectionDate?: InputMaybe<Scalars['timestamptz']>
+  /** 检测仪器 */
+  inspectionInstrument?: InputMaybe<Scalars['String']>
+  /** 检测类型 */
+  inspectionItem?: InputMaybe<Scalars['jsonb']>
+  /** 检测项，数据结构是 inspection_report_enum[] */
+  items?: InputMaybe<Scalars['jsonb']>
+  /** 序列号 */
+  serialNumber?: InputMaybe<Scalars['jsonb']>
+  updatedAt?: InputMaybe<Scalars['timestamptz']>
+}
+
 /** aggregate sum on columns */
 export interface InspectionReportSumFields {
   /** 创建者id */
@@ -1598,6 +1768,24 @@ export enum InspectionReportUpdateColumn {
   SERIALNUMBER = 'serialNumber',
   /** column name */
   UPDATEDAT = 'updatedAt',
+}
+
+export interface InspectionReportUpdates {
+  /** append existing jsonb value of filtered columns with new jsonb value */
+  _append?: InputMaybe<InspectionReportAppendInput>
+  /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+  _delete_at_path?: InputMaybe<InspectionReportDeleteAtPathInput>
+  /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+  _delete_elem?: InputMaybe<InspectionReportDeleteElemInput>
+  /** delete key/value pair or string element. key/value pairs are matched based on their key value */
+  _delete_key?: InputMaybe<InspectionReportDeleteKeyInput>
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<InspectionReportIncInput>
+  /** prepend existing jsonb value of filtered columns with new jsonb value */
+  _prepend?: InputMaybe<InspectionReportPrependInput>
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<InspectionReportSetInput>
+  where: InspectionReportBoolExp
 }
 
 /** aggregate var_pop on columns */
@@ -1655,6 +1843,7 @@ export interface InspectionTypes {
   /** 公式 */
   formula?: Maybe<Scalars['String']>
   id: Scalars['uuid']
+  index: Scalars['Int']
   /** 检测项名称，用于与实际检测报告中的检测项对应 */
   name: Scalars['String']
   /** 指标要求 */
@@ -1689,9 +1878,17 @@ export interface InspectionTypesAggregate {
 
 /** aggregate fields of "inspection_types" */
 export interface InspectionTypesAggregateFields {
+  avg?: Maybe<InspectionTypesAvgFields>
   count: Scalars['Int']
   max?: Maybe<InspectionTypesMaxFields>
   min?: Maybe<InspectionTypesMinFields>
+  stddev?: Maybe<InspectionTypesStddevFields>
+  stddev_pop?: Maybe<InspectionTypesStddevPopFields>
+  stddev_samp?: Maybe<InspectionTypesStddevSampFields>
+  sum?: Maybe<InspectionTypesSumFields>
+  var_pop?: Maybe<InspectionTypesVarPopFields>
+  var_samp?: Maybe<InspectionTypesVarSampFields>
+  variance?: Maybe<InspectionTypesVarianceFields>
 }
 
 /** aggregate fields of "inspection_types" */
@@ -1702,9 +1899,17 @@ export interface InspectionTypesAggregateFieldsCountArgs {
 
 /** order by aggregate values of table "inspection_types" */
 export interface InspectionTypesAggregateOrderBy {
+  avg?: InputMaybe<InspectionTypesAvgOrderBy>
   count?: InputMaybe<OrderBy>
   max?: InputMaybe<InspectionTypesMaxOrderBy>
   min?: InputMaybe<InspectionTypesMinOrderBy>
+  stddev?: InputMaybe<InspectionTypesStddevOrderBy>
+  stddev_pop?: InputMaybe<InspectionTypesStddevPopOrderBy>
+  stddev_samp?: InputMaybe<InspectionTypesStddevSampOrderBy>
+  sum?: InputMaybe<InspectionTypesSumOrderBy>
+  var_pop?: InputMaybe<InspectionTypesVarPopOrderBy>
+  var_samp?: InputMaybe<InspectionTypesVarSampOrderBy>
+  variance?: InputMaybe<InspectionTypesVarianceOrderBy>
 }
 
 /** append existing jsonb value of filtered columns with new jsonb value */
@@ -1726,6 +1931,16 @@ export interface InspectionTypesArrRelInsertInput {
   on_conflict?: InputMaybe<InspectionTypesOnConflict>
 }
 
+/** aggregate avg on columns */
+export interface InspectionTypesAvgFields {
+  index?: Maybe<Scalars['Float']>
+}
+
+/** order by avg() on columns of table "inspection_types" */
+export interface InspectionTypesAvgOrderBy {
+  index?: InputMaybe<OrderBy>
+}
+
 /** Boolean expression to filter rows from the table "inspection_types". All fields are combined with a logical 'AND'. */
 export interface InspectionTypesBoolExp {
   _and?: InputMaybe<Array<InspectionTypesBoolExp>>
@@ -1740,16 +1955,19 @@ export interface InspectionTypesBoolExp {
   equipmentTypeId?: InputMaybe<UuidComparisonExp>
   formula?: InputMaybe<StringComparisonExp>
   id?: InputMaybe<UuidComparisonExp>
+  index?: InputMaybe<IntComparisonExp>
   name?: InputMaybe<StringComparisonExp>
   requirement?: InputMaybe<JsonbComparisonExp>
 }
 
 /** unique or primary key constraints on table "inspection_types" */
 export enum InspectionTypesConstraint {
-  /** unique or primary key constraint */
+  /** unique or primary key constraint on columns "name" */
   INSPECTION_ITEM_ENUM_NAME_KEY1 = 'inspection_item_enum_name_key1',
-  /** unique or primary key constraint */
+  /** unique or primary key constraint on columns "id" */
   INSPECTION_ITEM_ENUM_PKEY = 'inspection_item_enum_pkey',
+  /** unique or primary key constraint on columns "index" */
+  INSPECTION_TYPES_INDEX_KEY = 'inspection_types_index_key',
 }
 
 /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
@@ -1788,6 +2006,11 @@ export interface InspectionTypesDeleteKeyInput {
   requirement?: InputMaybe<Scalars['String']>
 }
 
+/** input type for incrementing numeric columns in table "inspection_types" */
+export interface InspectionTypesIncInput {
+  index?: InputMaybe<Scalars['Int']>
+}
+
 /** input type for inserting data into table "inspection_types" */
 export interface InspectionTypesInsertInput {
   /** 检测项目备注 */
@@ -1806,6 +2029,7 @@ export interface InspectionTypesInsertInput {
   /** 公式 */
   formula?: InputMaybe<Scalars['String']>
   id?: InputMaybe<Scalars['uuid']>
+  index?: InputMaybe<Scalars['Int']>
   /** 检测项名称，用于与实际检测报告中的检测项对应 */
   name?: InputMaybe<Scalars['String']>
   /** 指标要求 */
@@ -1823,6 +2047,7 @@ export interface InspectionTypesMaxFields {
   /** 公式 */
   formula?: Maybe<Scalars['String']>
   id?: Maybe<Scalars['uuid']>
+  index?: Maybe<Scalars['Int']>
   /** 检测项名称，用于与实际检测报告中的检测项对应 */
   name?: Maybe<Scalars['String']>
 }
@@ -1838,6 +2063,7 @@ export interface InspectionTypesMaxOrderBy {
   /** 公式 */
   formula?: InputMaybe<OrderBy>
   id?: InputMaybe<OrderBy>
+  index?: InputMaybe<OrderBy>
   /** 检测项名称，用于与实际检测报告中的检测项对应 */
   name?: InputMaybe<OrderBy>
 }
@@ -1853,6 +2079,7 @@ export interface InspectionTypesMinFields {
   /** 公式 */
   formula?: Maybe<Scalars['String']>
   id?: Maybe<Scalars['uuid']>
+  index?: Maybe<Scalars['Int']>
   /** 检测项名称，用于与实际检测报告中的检测项对应 */
   name?: Maybe<Scalars['String']>
 }
@@ -1868,6 +2095,7 @@ export interface InspectionTypesMinOrderBy {
   /** 公式 */
   formula?: InputMaybe<OrderBy>
   id?: InputMaybe<OrderBy>
+  index?: InputMaybe<OrderBy>
   /** 检测项名称，用于与实际检测报告中的检测项对应 */
   name?: InputMaybe<OrderBy>
 }
@@ -1898,6 +2126,7 @@ export interface InspectionTypesOrderBy {
   equipmentTypeId?: InputMaybe<OrderBy>
   formula?: InputMaybe<OrderBy>
   id?: InputMaybe<OrderBy>
+  index?: InputMaybe<OrderBy>
   name?: InputMaybe<OrderBy>
   requirement?: InputMaybe<OrderBy>
 }
@@ -1938,6 +2167,8 @@ export enum InspectionTypesSelectColumn {
   /** column name */
   ID = 'id',
   /** column name */
+  INDEX = 'index',
+  /** column name */
   NAME = 'name',
   /** column name */
   REQUIREMENT = 'requirement',
@@ -1960,10 +2191,83 @@ export interface InspectionTypesSetInput {
   /** 公式 */
   formula?: InputMaybe<Scalars['String']>
   id?: InputMaybe<Scalars['uuid']>
+  index?: InputMaybe<Scalars['Int']>
   /** 检测项名称，用于与实际检测报告中的检测项对应 */
   name?: InputMaybe<Scalars['String']>
   /** 指标要求 */
   requirement?: InputMaybe<Scalars['jsonb']>
+}
+
+/** aggregate stddev on columns */
+export interface InspectionTypesStddevFields {
+  index?: Maybe<Scalars['Float']>
+}
+
+/** order by stddev() on columns of table "inspection_types" */
+export interface InspectionTypesStddevOrderBy {
+  index?: InputMaybe<OrderBy>
+}
+
+/** aggregate stddev_pop on columns */
+export interface InspectionTypesStddevPopFields {
+  index?: Maybe<Scalars['Float']>
+}
+
+/** order by stddev_pop() on columns of table "inspection_types" */
+export interface InspectionTypesStddevPopOrderBy {
+  index?: InputMaybe<OrderBy>
+}
+
+/** aggregate stddev_samp on columns */
+export interface InspectionTypesStddevSampFields {
+  index?: Maybe<Scalars['Float']>
+}
+
+/** order by stddev_samp() on columns of table "inspection_types" */
+export interface InspectionTypesStddevSampOrderBy {
+  index?: InputMaybe<OrderBy>
+}
+
+/** Streaming cursor of the table "inspection_types" */
+export interface InspectionTypesStreamCursorInput {
+  /** Stream column input with initial value */
+  initial_value: InspectionTypesStreamCursorValueInput
+  /** cursor ordering */
+  ordering?: InputMaybe<CursorOrdering>
+}
+
+/** Initial value of the column from where the streaming should start */
+export interface InspectionTypesStreamCursorValueInput {
+  /** 检测项目备注 */
+  comment?: InputMaybe<Scalars['String']>
+  /** 预设检测条件（加载因素、预设值） */
+  condition?: InputMaybe<Scalars['jsonb']>
+  /** 常量列表 */
+  consts?: InputMaybe<Scalars['jsonb']>
+  /** 初始数据 */
+  data?: InputMaybe<Scalars['jsonb']>
+  /** 检测项目名 */
+  displayName?: InputMaybe<Scalars['String']>
+  /** 对应哪个设备 */
+  equipmentTypeId?: InputMaybe<Scalars['uuid']>
+  /** 公式 */
+  formula?: InputMaybe<Scalars['String']>
+  id?: InputMaybe<Scalars['uuid']>
+  index?: InputMaybe<Scalars['Int']>
+  /** 检测项名称，用于与实际检测报告中的检测项对应 */
+  name?: InputMaybe<Scalars['String']>
+  /** 指标要求 */
+  requirement?: InputMaybe<Scalars['jsonb']>
+}
+
+/** aggregate sum on columns */
+export interface InspectionTypesSumFields {
+  index?: Maybe<Scalars['Int']>
+}
+
+/** order by sum() on columns of table "inspection_types" */
+export interface InspectionTypesSumOrderBy {
+  index?: InputMaybe<OrderBy>
 }
 
 /** update columns of table "inspection_types" */
@@ -1985,9 +2289,59 @@ export enum InspectionTypesUpdateColumn {
   /** column name */
   ID = 'id',
   /** column name */
+  INDEX = 'index',
+  /** column name */
   NAME = 'name',
   /** column name */
   REQUIREMENT = 'requirement',
+}
+
+export interface InspectionTypesUpdates {
+  /** append existing jsonb value of filtered columns with new jsonb value */
+  _append?: InputMaybe<InspectionTypesAppendInput>
+  /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+  _delete_at_path?: InputMaybe<InspectionTypesDeleteAtPathInput>
+  /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+  _delete_elem?: InputMaybe<InspectionTypesDeleteElemInput>
+  /** delete key/value pair or string element. key/value pairs are matched based on their key value */
+  _delete_key?: InputMaybe<InspectionTypesDeleteKeyInput>
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<InspectionTypesIncInput>
+  /** prepend existing jsonb value of filtered columns with new jsonb value */
+  _prepend?: InputMaybe<InspectionTypesPrependInput>
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<InspectionTypesSetInput>
+  where: InspectionTypesBoolExp
+}
+
+/** aggregate var_pop on columns */
+export interface InspectionTypesVarPopFields {
+  index?: Maybe<Scalars['Float']>
+}
+
+/** order by var_pop() on columns of table "inspection_types" */
+export interface InspectionTypesVarPopOrderBy {
+  index?: InputMaybe<OrderBy>
+}
+
+/** aggregate var_samp on columns */
+export interface InspectionTypesVarSampFields {
+  index?: Maybe<Scalars['Float']>
+}
+
+/** order by var_samp() on columns of table "inspection_types" */
+export interface InspectionTypesVarSampOrderBy {
+  index?: InputMaybe<OrderBy>
+}
+
+/** aggregate variance on columns */
+export interface InspectionTypesVarianceFields {
+  index?: Maybe<Scalars['Float']>
+}
+
+/** order by variance() on columns of table "inspection_types" */
+export interface InspectionTypesVarianceOrderBy {
+  index?: InputMaybe<OrderBy>
 }
 
 export interface JsonbCastExp {
@@ -2124,7 +2478,7 @@ export interface MetaAreaCnCityBoolExp {
 
 /** unique or primary key constraints on table "meta.area_cn_city" */
 export enum MetaAreaCnCityConstraint {
-  /** unique or primary key constraint */
+  /** unique or primary key constraint on columns "code" */
   AREA_CN_CITY_PKEY = 'area_cn_city_pkey',
 }
 
@@ -2202,7 +2556,7 @@ export interface MetaAreaCnCityOrderBy {
   provinceCode?: InputMaybe<OrderBy>
 }
 
-/** primary key columns input for table: meta_area_cn_city */
+/** primary key columns input for table: meta.area_cn_city */
 export interface MetaAreaCnCityPkColumnsInput {
   code: Scalars['Int']
 }
@@ -2260,6 +2614,21 @@ export interface MetaAreaCnCityStddevSampOrderBy {
   provinceCode?: InputMaybe<OrderBy>
 }
 
+/** Streaming cursor of the table "meta_area_cn_city" */
+export interface MetaAreaCnCityStreamCursorInput {
+  /** Stream column input with initial value */
+  initial_value: MetaAreaCnCityStreamCursorValueInput
+  /** cursor ordering */
+  ordering?: InputMaybe<CursorOrdering>
+}
+
+/** Initial value of the column from where the streaming should start */
+export interface MetaAreaCnCityStreamCursorValueInput {
+  code?: InputMaybe<Scalars['Int']>
+  name?: InputMaybe<Scalars['String']>
+  provinceCode?: InputMaybe<Scalars['Int']>
+}
+
 /** aggregate sum on columns */
 export interface MetaAreaCnCitySumFields {
   code?: Maybe<Scalars['Int']>
@@ -2280,6 +2649,14 @@ export enum MetaAreaCnCityUpdateColumn {
   NAME = 'name',
   /** column name */
   PROVINCECODE = 'provinceCode',
+}
+
+export interface MetaAreaCnCityUpdates {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<MetaAreaCnCityIncInput>
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<MetaAreaCnCitySetInput>
+  where: MetaAreaCnCityBoolExp
 }
 
 /** aggregate var_pop on columns */
@@ -2431,7 +2808,7 @@ export interface MetaAreaCnCountyBoolExp {
 
 /** unique or primary key constraints on table "meta.area_cn_county" */
 export enum MetaAreaCnCountyConstraint {
-  /** unique or primary key constraint */
+  /** unique or primary key constraint on columns "code" */
   AREA_STREET_DISTRICT_PKEY = 'area_street_district_pkey',
 }
 
@@ -2518,7 +2895,7 @@ export interface MetaAreaCnCountyOrderBy {
   towns_aggregate?: InputMaybe<MetaAreaCnTownAggregateOrderBy>
 }
 
-/** primary key columns input for table: meta_area_cn_county */
+/** primary key columns input for table: meta.area_cn_county */
 export interface MetaAreaCnCountyPkColumnsInput {
   code: Scalars['Int']
 }
@@ -2585,6 +2962,22 @@ export interface MetaAreaCnCountyStddevSampOrderBy {
   provinceCode?: InputMaybe<OrderBy>
 }
 
+/** Streaming cursor of the table "meta_area_cn_county" */
+export interface MetaAreaCnCountyStreamCursorInput {
+  /** Stream column input with initial value */
+  initial_value: MetaAreaCnCountyStreamCursorValueInput
+  /** cursor ordering */
+  ordering?: InputMaybe<CursorOrdering>
+}
+
+/** Initial value of the column from where the streaming should start */
+export interface MetaAreaCnCountyStreamCursorValueInput {
+  cityCode?: InputMaybe<Scalars['Int']>
+  code?: InputMaybe<Scalars['Int']>
+  name?: InputMaybe<Scalars['String']>
+  provinceCode?: InputMaybe<Scalars['Int']>
+}
+
 /** aggregate sum on columns */
 export interface MetaAreaCnCountySumFields {
   cityCode?: Maybe<Scalars['Int']>
@@ -2609,6 +3002,14 @@ export enum MetaAreaCnCountyUpdateColumn {
   NAME = 'name',
   /** column name */
   PROVINCECODE = 'provinceCode',
+}
+
+export interface MetaAreaCnCountyUpdates {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<MetaAreaCnCountyIncInput>
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<MetaAreaCnCountySetInput>
+  where: MetaAreaCnCountyBoolExp
 }
 
 /** aggregate var_pop on columns */
@@ -2725,7 +3126,7 @@ export interface MetaAreaCnProvinceBoolExp {
 
 /** unique or primary key constraints on table "meta.area_cn_province" */
 export enum MetaAreaCnProvinceConstraint {
-  /** unique or primary key constraint */
+  /** unique or primary key constraint on columns "code" */
   AREA_CN_PROVINCE_PKEY = 'area_cn_province_pkey',
 }
 
@@ -2782,7 +3183,7 @@ export interface MetaAreaCnProvinceOrderBy {
   name?: InputMaybe<OrderBy>
 }
 
-/** primary key columns input for table: meta_area_cn_province */
+/** primary key columns input for table: meta.area_cn_province */
 export interface MetaAreaCnProvincePkColumnsInput {
   code: Scalars['Int']
 }
@@ -2816,6 +3217,20 @@ export interface MetaAreaCnProvinceStddevSampFields {
   code?: Maybe<Scalars['Float']>
 }
 
+/** Streaming cursor of the table "meta_area_cn_province" */
+export interface MetaAreaCnProvinceStreamCursorInput {
+  /** Stream column input with initial value */
+  initial_value: MetaAreaCnProvinceStreamCursorValueInput
+  /** cursor ordering */
+  ordering?: InputMaybe<CursorOrdering>
+}
+
+/** Initial value of the column from where the streaming should start */
+export interface MetaAreaCnProvinceStreamCursorValueInput {
+  code?: InputMaybe<Scalars['Int']>
+  name?: InputMaybe<Scalars['String']>
+}
+
 /** aggregate sum on columns */
 export interface MetaAreaCnProvinceSumFields {
   code?: Maybe<Scalars['Int']>
@@ -2827,6 +3242,14 @@ export enum MetaAreaCnProvinceUpdateColumn {
   CODE = 'code',
   /** column name */
   NAME = 'name',
+}
+
+export interface MetaAreaCnProvinceUpdates {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<MetaAreaCnProvinceIncInput>
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<MetaAreaCnProvinceSetInput>
+  where: MetaAreaCnProvinceBoolExp
 }
 
 /** aggregate var_pop on columns */
@@ -2941,7 +3364,7 @@ export interface MetaAreaCnTownBoolExp {
 
 /** unique or primary key constraints on table "meta.area_cn_town" */
 export enum MetaAreaCnTownConstraint {
-  /** unique or primary key constraint */
+  /** unique or primary key constraint on columns "code" */
   AREA_CN_TOWN_PKEY = 'area_cn_town_pkey',
 }
 
@@ -3028,7 +3451,7 @@ export interface MetaAreaCnTownOrderBy {
   provinceCode?: InputMaybe<OrderBy>
 }
 
-/** primary key columns input for table: meta_area_cn_town */
+/** primary key columns input for table: meta.area_cn_town */
 export interface MetaAreaCnTownPkColumnsInput {
   code: Scalars['Int']
 }
@@ -3104,6 +3527,23 @@ export interface MetaAreaCnTownStddevSampOrderBy {
   provinceCode?: InputMaybe<OrderBy>
 }
 
+/** Streaming cursor of the table "meta_area_cn_town" */
+export interface MetaAreaCnTownStreamCursorInput {
+  /** Stream column input with initial value */
+  initial_value: MetaAreaCnTownStreamCursorValueInput
+  /** cursor ordering */
+  ordering?: InputMaybe<CursorOrdering>
+}
+
+/** Initial value of the column from where the streaming should start */
+export interface MetaAreaCnTownStreamCursorValueInput {
+  cityCode?: InputMaybe<Scalars['Int']>
+  code?: InputMaybe<Scalars['Int']>
+  countyCode?: InputMaybe<Scalars['Int']>
+  name?: InputMaybe<Scalars['String']>
+  provinceCode?: InputMaybe<Scalars['Int']>
+}
+
 /** aggregate sum on columns */
 export interface MetaAreaCnTownSumFields {
   cityCode?: Maybe<Scalars['Int']>
@@ -3132,6 +3572,14 @@ export enum MetaAreaCnTownUpdateColumn {
   NAME = 'name',
   /** column name */
   PROVINCECODE = 'provinceCode',
+}
+
+export interface MetaAreaCnTownUpdates {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<MetaAreaCnTownIncInput>
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<MetaAreaCnTownSetInput>
+  where: MetaAreaCnTownBoolExp
 }
 
 /** aggregate var_pop on columns */
@@ -3218,9 +3666,9 @@ export interface MetaAvalarListBoolExp {
 
 /** unique or primary key constraints on table "meta.avalar_list" */
 export enum MetaAvalarListConstraint {
-  /** unique or primary key constraint */
+  /** unique or primary key constraint on columns "id" */
   AVALAR_LIST_PKEY = 'avalar_list_pkey',
-  /** unique or primary key constraint */
+  /** unique or primary key constraint on columns "src" */
   AVALAR_LIST_SRC_KEY = 'avalar_list_src_key',
 }
 
@@ -3263,7 +3711,7 @@ export interface MetaAvalarListOrderBy {
   src?: InputMaybe<OrderBy>
 }
 
-/** primary key columns input for table: meta_avalar_list */
+/** primary key columns input for table: meta.avalar_list */
 export interface MetaAvalarListPkColumnsInput {
   id: Scalars['uuid']
 }
@@ -3282,12 +3730,32 @@ export interface MetaAvalarListSetInput {
   src?: InputMaybe<Scalars['String']>
 }
 
+/** Streaming cursor of the table "meta_avalar_list" */
+export interface MetaAvalarListStreamCursorInput {
+  /** Stream column input with initial value */
+  initial_value: MetaAvalarListStreamCursorValueInput
+  /** cursor ordering */
+  ordering?: InputMaybe<CursorOrdering>
+}
+
+/** Initial value of the column from where the streaming should start */
+export interface MetaAvalarListStreamCursorValueInput {
+  id?: InputMaybe<Scalars['uuid']>
+  src?: InputMaybe<Scalars['String']>
+}
+
 /** update columns of table "meta.avalar_list" */
 export enum MetaAvalarListUpdateColumn {
   /** column name */
   ID = 'id',
   /** column name */
   SRC = 'src',
+}
+
+export interface MetaAvalarListUpdates {
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<MetaAvalarListSetInput>
+  where: MetaAvalarListBoolExp
 }
 
 /** mutation root */
@@ -3396,51 +3864,93 @@ export interface MutationRoot {
   update_clients?: Maybe<ClientsMutationResponse>
   /** update single row of the table: "clients" */
   update_clients_by_pk?: Maybe<Clients>
+  /** update multiples rows of table: "clients" */
+  update_clients_many?: Maybe<Array<Maybe<ClientsMutationResponse>>>
   /** update data of the table: "equipment" */
   update_equipment?: Maybe<EquipmentMutationResponse>
   /** update single row of the table: "equipment" */
   update_equipment_by_pk?: Maybe<Equipment>
+  /** update multiples rows of table: "equipment" */
+  update_equipment_many?: Maybe<Array<Maybe<EquipmentMutationResponse>>>
   /** update data of the table: "equipment_types" */
   update_equipment_types?: Maybe<EquipmentTypesMutationResponse>
   /** update single row of the table: "equipment_types" */
   update_equipment_types_by_pk?: Maybe<EquipmentTypes>
+  /** update multiples rows of table: "equipment_types" */
+  update_equipment_types_many?: Maybe<
+    Array<Maybe<EquipmentTypesMutationResponse>>
+  >
   update_inspection_report?: Maybe<InspectionReportMutationResponse>
   /** update single row of the table: "inspection_report" */
   update_inspection_report_by_pk?: Maybe<InspectionReport>
+  /** update multiples rows of table: "inspection_report" */
+  update_inspection_report_many?: Maybe<
+    Array<Maybe<InspectionReportMutationResponse>>
+  >
   /** update data of the table: "inspection_types" */
   update_inspection_types?: Maybe<InspectionTypesMutationResponse>
   /** update single row of the table: "inspection_types" */
   update_inspection_types_by_pk?: Maybe<InspectionTypes>
+  /** update multiples rows of table: "inspection_types" */
+  update_inspection_types_many?: Maybe<
+    Array<Maybe<InspectionTypesMutationResponse>>
+  >
   /** update data of the table: "meta.area_cn_city" */
   update_meta_area_cn_city?: Maybe<MetaAreaCnCityMutationResponse>
   /** update single row of the table: "meta.area_cn_city" */
   update_meta_area_cn_city_by_pk?: Maybe<MetaAreaCnCity>
+  /** update multiples rows of table: "meta.area_cn_city" */
+  update_meta_area_cn_city_many?: Maybe<
+    Array<Maybe<MetaAreaCnCityMutationResponse>>
+  >
   /** update data of the table: "meta.area_cn_county" */
   update_meta_area_cn_county?: Maybe<MetaAreaCnCountyMutationResponse>
   /** update single row of the table: "meta.area_cn_county" */
   update_meta_area_cn_county_by_pk?: Maybe<MetaAreaCnCounty>
+  /** update multiples rows of table: "meta.area_cn_county" */
+  update_meta_area_cn_county_many?: Maybe<
+    Array<Maybe<MetaAreaCnCountyMutationResponse>>
+  >
   /** update data of the table: "meta.area_cn_province" */
   update_meta_area_cn_province?: Maybe<MetaAreaCnProvinceMutationResponse>
   /** update single row of the table: "meta.area_cn_province" */
   update_meta_area_cn_province_by_pk?: Maybe<MetaAreaCnProvince>
+  /** update multiples rows of table: "meta.area_cn_province" */
+  update_meta_area_cn_province_many?: Maybe<
+    Array<Maybe<MetaAreaCnProvinceMutationResponse>>
+  >
   /** update data of the table: "meta.area_cn_town" */
   update_meta_area_cn_town?: Maybe<MetaAreaCnTownMutationResponse>
   /** update single row of the table: "meta.area_cn_town" */
   update_meta_area_cn_town_by_pk?: Maybe<MetaAreaCnTown>
+  /** update multiples rows of table: "meta.area_cn_town" */
+  update_meta_area_cn_town_many?: Maybe<
+    Array<Maybe<MetaAreaCnTownMutationResponse>>
+  >
   /** update data of the table: "meta.avalar_list" */
   update_meta_avalar_list?: Maybe<MetaAvalarListMutationResponse>
   /** update single row of the table: "meta.avalar_list" */
   update_meta_avalar_list_by_pk?: Maybe<MetaAvalarList>
+  /** update multiples rows of table: "meta.avalar_list" */
+  update_meta_avalar_list_many?: Maybe<
+    Array<Maybe<MetaAvalarListMutationResponse>>
+  >
   /** update data of the table: "report_file" */
   update_report_file?: Maybe<ReportFileMutationResponse>
   /** update single row of the table: "report_file" */
   update_report_file_by_pk?: Maybe<ReportFile>
+  /** update multiples rows of table: "report_file" */
+  update_report_file_many?: Maybe<Array<Maybe<ReportFileMutationResponse>>>
   /** update data of the table: "user" */
   update_user?: Maybe<UserMutationResponse>
   /** update single row of the table: "user" */
   update_user_by_pk?: Maybe<User>
+  /** update multiples rows of table: "user" */
+  update_user_many?: Maybe<Array<Maybe<UserMutationResponse>>>
   /** update data of the table: "user_view" */
   update_user_view?: Maybe<UserViewMutationResponse>
+  /** update multiples rows of table: "user_view" */
+  update_user_view_many?: Maybe<Array<Maybe<UserViewMutationResponse>>>
 }
 
 /** mutation root */
@@ -3745,6 +4255,11 @@ export interface MutationRootUpdateClientsByPkArgs {
 }
 
 /** mutation root */
+export interface MutationRootUpdateClientsManyArgs {
+  updates: Array<ClientsUpdates>
+}
+
+/** mutation root */
 export interface MutationRootUpdateEquipmentArgs {
   _append?: InputMaybe<EquipmentAppendInput>
   _delete_at_path?: InputMaybe<EquipmentDeleteAtPathInput>
@@ -3769,6 +4284,11 @@ export interface MutationRootUpdateEquipmentByPkArgs {
 }
 
 /** mutation root */
+export interface MutationRootUpdateEquipmentManyArgs {
+  updates: Array<EquipmentUpdates>
+}
+
+/** mutation root */
 export interface MutationRootUpdateEquipmentTypesArgs {
   _set?: InputMaybe<EquipmentTypesSetInput>
   where: EquipmentTypesBoolExp
@@ -3778,6 +4298,11 @@ export interface MutationRootUpdateEquipmentTypesArgs {
 export interface MutationRootUpdateEquipmentTypesByPkArgs {
   _set?: InputMaybe<EquipmentTypesSetInput>
   pk_columns: EquipmentTypesPkColumnsInput
+}
+
+/** mutation root */
+export interface MutationRootUpdateEquipmentTypesManyArgs {
+  updates: Array<EquipmentTypesUpdates>
 }
 
 /** mutation root */
@@ -3805,11 +4330,17 @@ export interface MutationRootUpdateInspectionReportByPkArgs {
 }
 
 /** mutation root */
+export interface MutationRootUpdateInspectionReportManyArgs {
+  updates: Array<InspectionReportUpdates>
+}
+
+/** mutation root */
 export interface MutationRootUpdateInspectionTypesArgs {
   _append?: InputMaybe<InspectionTypesAppendInput>
   _delete_at_path?: InputMaybe<InspectionTypesDeleteAtPathInput>
   _delete_elem?: InputMaybe<InspectionTypesDeleteElemInput>
   _delete_key?: InputMaybe<InspectionTypesDeleteKeyInput>
+  _inc?: InputMaybe<InspectionTypesIncInput>
   _prepend?: InputMaybe<InspectionTypesPrependInput>
   _set?: InputMaybe<InspectionTypesSetInput>
   where: InspectionTypesBoolExp
@@ -3821,9 +4352,15 @@ export interface MutationRootUpdateInspectionTypesByPkArgs {
   _delete_at_path?: InputMaybe<InspectionTypesDeleteAtPathInput>
   _delete_elem?: InputMaybe<InspectionTypesDeleteElemInput>
   _delete_key?: InputMaybe<InspectionTypesDeleteKeyInput>
+  _inc?: InputMaybe<InspectionTypesIncInput>
   _prepend?: InputMaybe<InspectionTypesPrependInput>
   _set?: InputMaybe<InspectionTypesSetInput>
   pk_columns: InspectionTypesPkColumnsInput
+}
+
+/** mutation root */
+export interface MutationRootUpdateInspectionTypesManyArgs {
+  updates: Array<InspectionTypesUpdates>
 }
 
 /** mutation root */
@@ -3841,6 +4378,11 @@ export interface MutationRootUpdateMetaAreaCnCityByPkArgs {
 }
 
 /** mutation root */
+export interface MutationRootUpdateMetaAreaCnCityManyArgs {
+  updates: Array<MetaAreaCnCityUpdates>
+}
+
+/** mutation root */
 export interface MutationRootUpdateMetaAreaCnCountyArgs {
   _inc?: InputMaybe<MetaAreaCnCountyIncInput>
   _set?: InputMaybe<MetaAreaCnCountySetInput>
@@ -3852,6 +4394,11 @@ export interface MutationRootUpdateMetaAreaCnCountyByPkArgs {
   _inc?: InputMaybe<MetaAreaCnCountyIncInput>
   _set?: InputMaybe<MetaAreaCnCountySetInput>
   pk_columns: MetaAreaCnCountyPkColumnsInput
+}
+
+/** mutation root */
+export interface MutationRootUpdateMetaAreaCnCountyManyArgs {
+  updates: Array<MetaAreaCnCountyUpdates>
 }
 
 /** mutation root */
@@ -3869,6 +4416,11 @@ export interface MutationRootUpdateMetaAreaCnProvinceByPkArgs {
 }
 
 /** mutation root */
+export interface MutationRootUpdateMetaAreaCnProvinceManyArgs {
+  updates: Array<MetaAreaCnProvinceUpdates>
+}
+
+/** mutation root */
 export interface MutationRootUpdateMetaAreaCnTownArgs {
   _inc?: InputMaybe<MetaAreaCnTownIncInput>
   _set?: InputMaybe<MetaAreaCnTownSetInput>
@@ -3883,6 +4435,11 @@ export interface MutationRootUpdateMetaAreaCnTownByPkArgs {
 }
 
 /** mutation root */
+export interface MutationRootUpdateMetaAreaCnTownManyArgs {
+  updates: Array<MetaAreaCnTownUpdates>
+}
+
+/** mutation root */
 export interface MutationRootUpdateMetaAvalarListArgs {
   _set?: InputMaybe<MetaAvalarListSetInput>
   where: MetaAvalarListBoolExp
@@ -3892,6 +4449,11 @@ export interface MutationRootUpdateMetaAvalarListArgs {
 export interface MutationRootUpdateMetaAvalarListByPkArgs {
   _set?: InputMaybe<MetaAvalarListSetInput>
   pk_columns: MetaAvalarListPkColumnsInput
+}
+
+/** mutation root */
+export interface MutationRootUpdateMetaAvalarListManyArgs {
+  updates: Array<MetaAvalarListUpdates>
 }
 
 /** mutation root */
@@ -3917,6 +4479,11 @@ export interface MutationRootUpdateReportFileByPkArgs {
 }
 
 /** mutation root */
+export interface MutationRootUpdateReportFileManyArgs {
+  updates: Array<ReportFileUpdates>
+}
+
+/** mutation root */
 export interface MutationRootUpdateUserArgs {
   _inc?: InputMaybe<UserIncInput>
   _set?: InputMaybe<UserSetInput>
@@ -3931,10 +4498,20 @@ export interface MutationRootUpdateUserByPkArgs {
 }
 
 /** mutation root */
+export interface MutationRootUpdateUserManyArgs {
+  updates: Array<UserUpdates>
+}
+
+/** mutation root */
 export interface MutationRootUpdateUserViewArgs {
   _inc?: InputMaybe<UserViewIncInput>
   _set?: InputMaybe<UserViewSetInput>
   where: UserViewBoolExp
+}
+
+/** mutation root */
+export interface MutationRootUpdateUserViewManyArgs {
+  updates: Array<UserViewUpdates>
 }
 
 /** column ordering options */
@@ -4342,9 +4919,9 @@ export interface ReportFileBoolExp {
 
 /** unique or primary key constraints on table "report_file" */
 export enum ReportFileConstraint {
-  /** unique or primary key constraint */
+  /** unique or primary key constraint on columns "reportNo" */
   REPORT_NO_UINDEX = 'report_no_uindex',
-  /** unique or primary key constraint */
+  /** unique or primary key constraint on columns "id" */
   REPORT_PKEY = 'report_pkey',
 }
 
@@ -4452,6 +5029,24 @@ export interface ReportFileSetInput {
   updateTime?: InputMaybe<Scalars['timestamp']>
 }
 
+/** Streaming cursor of the table "report_file" */
+export interface ReportFileStreamCursorInput {
+  /** Stream column input with initial value */
+  initial_value: ReportFileStreamCursorValueInput
+  /** cursor ordering */
+  ordering?: InputMaybe<CursorOrdering>
+}
+
+/** Initial value of the column from where the streaming should start */
+export interface ReportFileStreamCursorValueInput {
+  createTime?: InputMaybe<Scalars['timestamp']>
+  file?: InputMaybe<Scalars['String']>
+  id?: InputMaybe<Scalars['uuid']>
+  params?: InputMaybe<Scalars['jsonb']>
+  reportNo?: InputMaybe<Scalars['String']>
+  updateTime?: InputMaybe<Scalars['timestamp']>
+}
+
 /** update columns of table "report_file" */
 export enum ReportFileUpdateColumn {
   /** column name */
@@ -4466,6 +5061,22 @@ export enum ReportFileUpdateColumn {
   REPORTNO = 'reportNo',
   /** column name */
   UPDATETIME = 'updateTime',
+}
+
+export interface ReportFileUpdates {
+  /** append existing jsonb value of filtered columns with new jsonb value */
+  _append?: InputMaybe<ReportFileAppendInput>
+  /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+  _delete_at_path?: InputMaybe<ReportFileDeleteAtPathInput>
+  /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+  _delete_elem?: InputMaybe<ReportFileDeleteElemInput>
+  /** delete key/value pair or string element. key/value pairs are matched based on their key value */
+  _delete_key?: InputMaybe<ReportFileDeleteKeyInput>
+  /** prepend existing jsonb value of filtered columns with new jsonb value */
+  _prepend?: InputMaybe<ReportFilePrependInput>
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<ReportFileSetInput>
+  where: ReportFileBoolExp
 }
 
 /** Boolean expression to compare columns of type "role". All fields are combined with logical 'AND'. */
@@ -4488,76 +5099,102 @@ export interface SubscriptionRoot {
   clients_aggregate: ClientsAggregate
   /** fetch data from the table: "clients" using primary key columns */
   clients_by_pk?: Maybe<Clients>
+  /** fetch data from the table in a streaming manner : "clients" */
+  clients_stream: Array<Clients>
   /** fetch data from the table: "equipment" */
   equipment: Array<Equipment>
   /** fetch aggregated fields from the table: "equipment" */
   equipment_aggregate: EquipmentAggregate
   /** fetch data from the table: "equipment" using primary key columns */
   equipment_by_pk?: Maybe<Equipment>
+  /** fetch data from the table in a streaming manner : "equipment" */
+  equipment_stream: Array<Equipment>
   /** fetch data from the table: "equipment_types" */
   equipment_types: Array<EquipmentTypes>
   /** fetch aggregated fields from the table: "equipment_types" */
   equipment_types_aggregate: EquipmentTypesAggregate
   /** fetch data from the table: "equipment_types" using primary key columns */
   equipment_types_by_pk?: Maybe<EquipmentTypes>
+  /** fetch data from the table in a streaming manner : "equipment_types" */
+  equipment_types_stream: Array<EquipmentTypes>
   /** fetch data from the table: "inspection_report" */
   inspection_report: Array<InspectionReport>
   /** fetch aggregated fields from the table: "inspection_report" */
   inspection_report_aggregate: InspectionReportAggregate
   /** fetch data from the table: "inspection_report" using primary key columns */
   inspection_report_by_pk?: Maybe<InspectionReport>
+  /** fetch data from the table in a streaming manner : "inspection_report" */
+  inspection_report_stream: Array<InspectionReport>
   /** fetch data from the table: "inspection_types" */
   inspection_types: Array<InspectionTypes>
   /** fetch aggregated fields from the table: "inspection_types" */
   inspection_types_aggregate: InspectionTypesAggregate
   /** fetch data from the table: "inspection_types" using primary key columns */
   inspection_types_by_pk?: Maybe<InspectionTypes>
+  /** fetch data from the table in a streaming manner : "inspection_types" */
+  inspection_types_stream: Array<InspectionTypes>
   /** fetch data from the table: "meta.area_cn_city" */
   meta_area_cn_city: Array<MetaAreaCnCity>
   /** fetch aggregated fields from the table: "meta.area_cn_city" */
   meta_area_cn_city_aggregate: MetaAreaCnCityAggregate
   /** fetch data from the table: "meta.area_cn_city" using primary key columns */
   meta_area_cn_city_by_pk?: Maybe<MetaAreaCnCity>
+  /** fetch data from the table in a streaming manner : "meta.area_cn_city" */
+  meta_area_cn_city_stream: Array<MetaAreaCnCity>
   /** fetch data from the table: "meta.area_cn_county" */
   meta_area_cn_county: Array<MetaAreaCnCounty>
   /** fetch aggregated fields from the table: "meta.area_cn_county" */
   meta_area_cn_county_aggregate: MetaAreaCnCountyAggregate
   /** fetch data from the table: "meta.area_cn_county" using primary key columns */
   meta_area_cn_county_by_pk?: Maybe<MetaAreaCnCounty>
+  /** fetch data from the table in a streaming manner : "meta.area_cn_county" */
+  meta_area_cn_county_stream: Array<MetaAreaCnCounty>
   /** fetch data from the table: "meta.area_cn_province" */
   meta_area_cn_province: Array<MetaAreaCnProvince>
   /** fetch aggregated fields from the table: "meta.area_cn_province" */
   meta_area_cn_province_aggregate: MetaAreaCnProvinceAggregate
   /** fetch data from the table: "meta.area_cn_province" using primary key columns */
   meta_area_cn_province_by_pk?: Maybe<MetaAreaCnProvince>
+  /** fetch data from the table in a streaming manner : "meta.area_cn_province" */
+  meta_area_cn_province_stream: Array<MetaAreaCnProvince>
   /** fetch data from the table: "meta.area_cn_town" */
   meta_area_cn_town: Array<MetaAreaCnTown>
   /** fetch aggregated fields from the table: "meta.area_cn_town" */
   meta_area_cn_town_aggregate: MetaAreaCnTownAggregate
   /** fetch data from the table: "meta.area_cn_town" using primary key columns */
   meta_area_cn_town_by_pk?: Maybe<MetaAreaCnTown>
+  /** fetch data from the table in a streaming manner : "meta.area_cn_town" */
+  meta_area_cn_town_stream: Array<MetaAreaCnTown>
   /** fetch data from the table: "meta.avalar_list" */
   meta_avalar_list: Array<MetaAvalarList>
   /** fetch aggregated fields from the table: "meta.avalar_list" */
   meta_avalar_list_aggregate: MetaAvalarListAggregate
   /** fetch data from the table: "meta.avalar_list" using primary key columns */
   meta_avalar_list_by_pk?: Maybe<MetaAvalarList>
+  /** fetch data from the table in a streaming manner : "meta.avalar_list" */
+  meta_avalar_list_stream: Array<MetaAvalarList>
   /** fetch data from the table: "report_file" */
   report_file: Array<ReportFile>
   /** fetch aggregated fields from the table: "report_file" */
   report_file_aggregate: ReportFileAggregate
   /** fetch data from the table: "report_file" using primary key columns */
   report_file_by_pk?: Maybe<ReportFile>
+  /** fetch data from the table in a streaming manner : "report_file" */
+  report_file_stream: Array<ReportFile>
   /** fetch data from the table: "user" */
   user: Array<User>
   /** fetch aggregated fields from the table: "user" */
   user_aggregate: UserAggregate
   /** fetch data from the table: "user" using primary key columns */
   user_by_pk?: Maybe<User>
+  /** fetch data from the table in a streaming manner : "user" */
+  user_stream: Array<User>
   /** fetch data from the table: "user_view" */
   user_view: Array<UserView>
   /** fetch aggregated fields from the table: "user_view" */
   user_view_aggregate: UserViewAggregate
+  /** fetch data from the table in a streaming manner : "user_view" */
+  user_view_stream: Array<UserView>
 }
 
 export interface SubscriptionRootClientsArgs {
@@ -4580,6 +5217,12 @@ export interface SubscriptionRootClientsByPkArgs {
   id: Scalars['uuid']
 }
 
+export interface SubscriptionRootClientsStreamArgs {
+  batch_size: Scalars['Int']
+  cursor: Array<InputMaybe<ClientsStreamCursorInput>>
+  where?: InputMaybe<ClientsBoolExp>
+}
+
 export interface SubscriptionRootEquipmentArgs {
   distinct_on?: InputMaybe<Array<EquipmentSelectColumn>>
   limit?: InputMaybe<Scalars['Int']>
@@ -4598,6 +5241,12 @@ export interface SubscriptionRootEquipmentAggregateArgs {
 
 export interface SubscriptionRootEquipmentByPkArgs {
   id: Scalars['uuid']
+}
+
+export interface SubscriptionRootEquipmentStreamArgs {
+  batch_size: Scalars['Int']
+  cursor: Array<InputMaybe<EquipmentStreamCursorInput>>
+  where?: InputMaybe<EquipmentBoolExp>
 }
 
 export interface SubscriptionRootEquipmentTypesArgs {
@@ -4620,6 +5269,12 @@ export interface SubscriptionRootEquipmentTypesByPkArgs {
   id: Scalars['uuid']
 }
 
+export interface SubscriptionRootEquipmentTypesStreamArgs {
+  batch_size: Scalars['Int']
+  cursor: Array<InputMaybe<EquipmentTypesStreamCursorInput>>
+  where?: InputMaybe<EquipmentTypesBoolExp>
+}
+
 export interface SubscriptionRootInspectionReportArgs {
   distinct_on?: InputMaybe<Array<InspectionReportSelectColumn>>
   limit?: InputMaybe<Scalars['Int']>
@@ -4638,6 +5293,12 @@ export interface SubscriptionRootInspectionReportAggregateArgs {
 
 export interface SubscriptionRootInspectionReportByPkArgs {
   id: Scalars['uuid']
+}
+
+export interface SubscriptionRootInspectionReportStreamArgs {
+  batch_size: Scalars['Int']
+  cursor: Array<InputMaybe<InspectionReportStreamCursorInput>>
+  where?: InputMaybe<InspectionReportBoolExp>
 }
 
 export interface SubscriptionRootInspectionTypesArgs {
@@ -4660,6 +5321,12 @@ export interface SubscriptionRootInspectionTypesByPkArgs {
   id: Scalars['uuid']
 }
 
+export interface SubscriptionRootInspectionTypesStreamArgs {
+  batch_size: Scalars['Int']
+  cursor: Array<InputMaybe<InspectionTypesStreamCursorInput>>
+  where?: InputMaybe<InspectionTypesBoolExp>
+}
+
 export interface SubscriptionRootMetaAreaCnCityArgs {
   distinct_on?: InputMaybe<Array<MetaAreaCnCitySelectColumn>>
   limit?: InputMaybe<Scalars['Int']>
@@ -4678,6 +5345,12 @@ export interface SubscriptionRootMetaAreaCnCityAggregateArgs {
 
 export interface SubscriptionRootMetaAreaCnCityByPkArgs {
   code: Scalars['Int']
+}
+
+export interface SubscriptionRootMetaAreaCnCityStreamArgs {
+  batch_size: Scalars['Int']
+  cursor: Array<InputMaybe<MetaAreaCnCityStreamCursorInput>>
+  where?: InputMaybe<MetaAreaCnCityBoolExp>
 }
 
 export interface SubscriptionRootMetaAreaCnCountyArgs {
@@ -4700,6 +5373,12 @@ export interface SubscriptionRootMetaAreaCnCountyByPkArgs {
   code: Scalars['Int']
 }
 
+export interface SubscriptionRootMetaAreaCnCountyStreamArgs {
+  batch_size: Scalars['Int']
+  cursor: Array<InputMaybe<MetaAreaCnCountyStreamCursorInput>>
+  where?: InputMaybe<MetaAreaCnCountyBoolExp>
+}
+
 export interface SubscriptionRootMetaAreaCnProvinceArgs {
   distinct_on?: InputMaybe<Array<MetaAreaCnProvinceSelectColumn>>
   limit?: InputMaybe<Scalars['Int']>
@@ -4718,6 +5397,12 @@ export interface SubscriptionRootMetaAreaCnProvinceAggregateArgs {
 
 export interface SubscriptionRootMetaAreaCnProvinceByPkArgs {
   code: Scalars['Int']
+}
+
+export interface SubscriptionRootMetaAreaCnProvinceStreamArgs {
+  batch_size: Scalars['Int']
+  cursor: Array<InputMaybe<MetaAreaCnProvinceStreamCursorInput>>
+  where?: InputMaybe<MetaAreaCnProvinceBoolExp>
 }
 
 export interface SubscriptionRootMetaAreaCnTownArgs {
@@ -4740,6 +5425,12 @@ export interface SubscriptionRootMetaAreaCnTownByPkArgs {
   code: Scalars['Int']
 }
 
+export interface SubscriptionRootMetaAreaCnTownStreamArgs {
+  batch_size: Scalars['Int']
+  cursor: Array<InputMaybe<MetaAreaCnTownStreamCursorInput>>
+  where?: InputMaybe<MetaAreaCnTownBoolExp>
+}
+
 export interface SubscriptionRootMetaAvalarListArgs {
   distinct_on?: InputMaybe<Array<MetaAvalarListSelectColumn>>
   limit?: InputMaybe<Scalars['Int']>
@@ -4758,6 +5449,12 @@ export interface SubscriptionRootMetaAvalarListAggregateArgs {
 
 export interface SubscriptionRootMetaAvalarListByPkArgs {
   id: Scalars['uuid']
+}
+
+export interface SubscriptionRootMetaAvalarListStreamArgs {
+  batch_size: Scalars['Int']
+  cursor: Array<InputMaybe<MetaAvalarListStreamCursorInput>>
+  where?: InputMaybe<MetaAvalarListBoolExp>
 }
 
 export interface SubscriptionRootReportFileArgs {
@@ -4780,6 +5477,12 @@ export interface SubscriptionRootReportFileByPkArgs {
   id: Scalars['uuid']
 }
 
+export interface SubscriptionRootReportFileStreamArgs {
+  batch_size: Scalars['Int']
+  cursor: Array<InputMaybe<ReportFileStreamCursorInput>>
+  where?: InputMaybe<ReportFileBoolExp>
+}
+
 export interface SubscriptionRootUserArgs {
   distinct_on?: InputMaybe<Array<UserSelectColumn>>
   limit?: InputMaybe<Scalars['Int']>
@@ -4800,6 +5503,12 @@ export interface SubscriptionRootUserByPkArgs {
   id: Scalars['Int']
 }
 
+export interface SubscriptionRootUserStreamArgs {
+  batch_size: Scalars['Int']
+  cursor: Array<InputMaybe<UserStreamCursorInput>>
+  where?: InputMaybe<UserBoolExp>
+}
+
 export interface SubscriptionRootUserViewArgs {
   distinct_on?: InputMaybe<Array<UserViewSelectColumn>>
   limit?: InputMaybe<Scalars['Int']>
@@ -4813,6 +5522,12 @@ export interface SubscriptionRootUserViewAggregateArgs {
   limit?: InputMaybe<Scalars['Int']>
   offset?: InputMaybe<Scalars['Int']>
   order_by?: InputMaybe<Array<UserViewOrderBy>>
+  where?: InputMaybe<UserViewBoolExp>
+}
+
+export interface SubscriptionRootUserViewStreamArgs {
+  batch_size: Scalars['Int']
+  cursor: Array<InputMaybe<UserViewStreamCursorInput>>
   where?: InputMaybe<UserViewBoolExp>
 }
 
@@ -4947,11 +5662,11 @@ export interface UserBoolExp {
 
 /** unique or primary key constraints on table "user" */
 export enum UserConstraint {
-  /** unique or primary key constraint */
+  /** unique or primary key constraint on columns "id" */
   USER_PKEY = 'user_pkey',
-  /** unique or primary key constraint */
+  /** unique or primary key constraint on columns "username" */
   USER_USERNAME_KEY = 'user_username_key',
-  /** unique or primary key constraint */
+  /** unique or primary key constraint on columns "username" */
   USER_USERNAME_UINDEX = 'user_username_uindex',
 }
 
@@ -5079,6 +5794,25 @@ export interface UserStddevSampFields {
   id?: Maybe<Scalars['Float']>
 }
 
+/** Streaming cursor of the table "user" */
+export interface UserStreamCursorInput {
+  /** Stream column input with initial value */
+  initial_value: UserStreamCursorValueInput
+  /** cursor ordering */
+  ordering?: InputMaybe<CursorOrdering>
+}
+
+/** Initial value of the column from where the streaming should start */
+export interface UserStreamCursorValueInput {
+  avatar?: InputMaybe<Scalars['String']>
+  displayname?: InputMaybe<Scalars['String']>
+  email?: InputMaybe<Scalars['String']>
+  id?: InputMaybe<Scalars['Int']>
+  password?: InputMaybe<Scalars['String']>
+  role?: InputMaybe<Scalars['role']>
+  username?: InputMaybe<Scalars['String']>
+}
+
 /** aggregate sum on columns */
 export interface UserSumFields {
   id?: Maybe<Scalars['Int']>
@@ -5100,6 +5834,14 @@ export enum UserUpdateColumn {
   ROLE = 'role',
   /** column name */
   USERNAME = 'username',
+}
+
+export interface UserUpdates {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<UserIncInput>
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<UserSetInput>
+  where: UserBoolExp
 }
 
 /** aggregate var_pop on columns */
@@ -5266,9 +6008,35 @@ export interface UserViewStddevSampFields {
   id?: Maybe<Scalars['Float']>
 }
 
+/** Streaming cursor of the table "user_view" */
+export interface UserViewStreamCursorInput {
+  /** Stream column input with initial value */
+  initial_value: UserViewStreamCursorValueInput
+  /** cursor ordering */
+  ordering?: InputMaybe<CursorOrdering>
+}
+
+/** Initial value of the column from where the streaming should start */
+export interface UserViewStreamCursorValueInput {
+  avatar?: InputMaybe<Scalars['String']>
+  displayname?: InputMaybe<Scalars['String']>
+  email?: InputMaybe<Scalars['String']>
+  id?: InputMaybe<Scalars['Int']>
+  role?: InputMaybe<Scalars['role']>
+  username?: InputMaybe<Scalars['String']>
+}
+
 /** aggregate sum on columns */
 export interface UserViewSumFields {
   id?: Maybe<Scalars['Int']>
+}
+
+export interface UserViewUpdates {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<UserViewIncInput>
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<UserViewSetInput>
+  where: UserViewBoolExp
 }
 
 /** aggregate var_pop on columns */

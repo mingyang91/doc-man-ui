@@ -42,15 +42,18 @@ export const Fields = ({ id, data, refetchHandler }: FieldsProps) => {
   })
 
   const [openEdit, closeEdit] = useModal(
-    props => (
-      <Edit
-        {...props}
-        isLoading={isLoading}
-        initialValue={data}
-        isEdit
-        onSubmit={onSubmit}
-      />
-    ),
+    props =>
+      props.isOpen ? (
+        <Edit
+          {...props}
+          isLoading={isLoading}
+          initialValue={data}
+          isEdit
+          onSubmit={onSubmit}
+        />
+      ) : (
+        <></>
+      ),
     [data, isLoading, onSubmit],
     {
       id: 'device-type-field-edit',

@@ -9,6 +9,7 @@ import {
   IconButton,
   styled,
 } from '@mui/material'
+import { useMemoizedFn } from 'ahooks'
 import { ReactNode, useMemo } from 'react'
 import { MdClose } from 'react-icons/md'
 
@@ -21,6 +22,7 @@ export interface ModalProps
   dividers?: boolean
   onConfirm?: VoidFn
   onClose?: VoidFn
+  clickOverlayClose?: boolean
   showActionBar?: boolean
   showCloseButton?: boolean
   customActionRender?: (onClose: VoidFn) => ReactNode
@@ -41,6 +43,7 @@ export const Modal = ({
   dividers = true,
   showActionBar = true,
   showCloseButton = true,
+  clickOverlayClose = true,
   children,
   'aria-labelledby': ariaLabelledby = 'modal-title',
   'aria-describedby': ariaDescribedby = 'modal-description',
@@ -83,10 +86,18 @@ export const Modal = ({
     [onClose, showCloseButton]
   )
 
+  const handleCloseDialog = useMemoizedFn(
+    (_: object, reason: 'backdropClick' | 'escapeKeyDown') => {
+      if (clickOverlayClose && reason === 'backdropClick') {
+        onClose?.()
+      }
+    }
+  )
+
   return (
     <DialogPrimitive
       open={isOpen}
-      onClose={onClose}
+      onClose={handleCloseDialog}
       aria-labelledby={ariaLabelledby}
       aria-describedby={ariaDescribedby}
       {...restProps}

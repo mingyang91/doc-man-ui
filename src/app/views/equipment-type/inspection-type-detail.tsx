@@ -1,9 +1,9 @@
 import {
-  Alert,
-  AlertTitle,
   Snackbar,
   Typography,
-  Unstable_Grid2 as Grid
+  Unstable_Grid2 as Grid,
+  Box,
+  styled,
 } from '@mui/material'
 import { useMemo } from 'react'
 import { generatePath, useParams } from 'react-router-dom'
@@ -20,24 +20,30 @@ import Page from 'd/components/page'
 import { useInspectionTypesDetailQuery } from 'm/equipment-type/index.generated'
 import { UUIDV4 } from 'm/presets'
 
+import { EditAlert } from './components/alert'
+
 import { DetailCard } from '@@/detail-card'
 
 const TITLE = '设备类型 - 检测类型 - 详情'
+
+const StyledDescription = styled(Box)(({ theme }) => ({
+  margin: theme.spacing(1, 0, 2),
+  ...theme.typography.body1,
+}))
 
 const PageInspectionTypeDetail = () => {
   const { activeRouteConfig } = useMenuAndRoutes()
 
   const { id, itemId = '' }: { id?: UUIDV4; itemId?: UUIDV4 } = useParams()
 
-  const { data, isLoading, isError, refetch } =
-    useInspectionTypesDetailQuery(
-      {
-        id: itemId,
-      },
-      {
-        enabled: !!itemId,
-      }
-    )
+  const { data, isLoading, isError } = useInspectionTypesDetailQuery(
+    {
+      id: itemId,
+    },
+    {
+      enabled: !!itemId,
+    }
+  )
 
   const memoData = useMemo(() => data?.data, [data?.data])
 
@@ -53,10 +59,7 @@ const PageInspectionTypeDetail = () => {
   return (
     <Page title={TITLE}>
       <HeaderBreadcrumbs heading={TITLE} links={breadcrumbs} />
-      <Alert severity="warning" sx={{ mb: 3 }}>
-        <AlertTitle>非开发人员不要修改</AlertTitle>
-        此功能不完善，数据修改需研发人员配合，否则可能导致系统崩溃。
-      </Alert>
+      <EditAlert />
       {id && memoData ? (
         <DetailCard>
           <Grid container spacing={3}>
@@ -74,7 +77,7 @@ const PageInspectionTypeDetail = () => {
             </Grid>
             <Grid xs={12} sm={6}>
               <FieldLine>
-                <FieldHeader>检测条件</FieldHeader>
+                <FieldHeader>检测条件预设</FieldHeader>
                 <FieldContent>
                   <HighlightSyntax
                     code={JSON.stringify(memoData.condition, null, 2)}
@@ -83,22 +86,43 @@ const PageInspectionTypeDetail = () => {
               </FieldLine>
             </Grid>
 
-            <Grid xs={12} sm={6}>
+            <Grid xs={12}>
               <FieldLine>
-                <FieldHeader>指标要求</FieldHeader>
+                <FieldHeader>状态检测</FieldHeader>
                 <FieldContent>
-                  <Typography variant="body2" component="header">
-                    状态检测
+                  <Typography component="h5" variant="subtitle1">
+                    描述
                   </Typography>
-                  <HighlightSyntax
-                    code={JSON.stringify(memoData.requirement?.state, null, 2)}
-                  />
-                  <Typography variant="body2" component="header">
-                    验收检测：
+                  <StyledDescription>
+                    {memoData.requirement?.state?.display}
+                  </StyledDescription>
+                  <Typography component="h5" variant="subtitle1">
+                    代码
                   </Typography>
                   <HighlightSyntax
                     code={JSON.stringify(
-                      memoData.requirement?.acceptance,
+                      memoData.requirement?.state?.rule || '',
+                      null,
+                      2
+                    )}
+                  />
+                </FieldContent>
+              </FieldLine>
+              <FieldLine>
+                <FieldHeader>验收检测</FieldHeader>
+                <FieldContent>
+                  <Typography component="h5" variant="subtitle1">
+                    描述
+                  </Typography>
+                  <StyledDescription>
+                    {memoData.requirement?.acceptance?.display}
+                  </StyledDescription>
+                  <Typography component="h5" variant="subtitle1">
+                    代码
+                  </Typography>
+                  <HighlightSyntax
+                    code={JSON.stringify(
+                      memoData.requirement?.acceptance?.rule || '',
                       null,
                       2
                     )}

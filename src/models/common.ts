@@ -12,6 +12,12 @@ export enum Conclusions {
   'Unknown',
 }
 
+export const conclusionMap = {
+  [Conclusions.Good]: '合格',
+  [Conclusions.Bad]: '不合格',
+  [Conclusions.Unknown]: '未知',
+} as const
+
 export const isSamplesAvailable = (
   samples?: unknown[]
 ): samples is unknown[] => {

@@ -14,6 +14,7 @@ fragment InspectionTypes on inspection_types {
   requirement
   consts
   data
+  index
 }
 
 fragment InspectionTypesHeader on inspection_types {
@@ -22,10 +23,11 @@ fragment InspectionTypesHeader on inspection_types {
   id
   formula
   comment
+  index
 }
 
 query InspectionTypesList {
-  data: inspection_types(distinct_on: name) {
+  data: inspection_types(order_by: { index: asc }) {
     ...InspectionTypes
   }
 }
@@ -41,6 +43,7 @@ query InspectionTypesDetail($id: uuid!) {
 query InspectionTypesByEquipment($equipmentTypeId: uuid!) {
   list: inspection_types(
     where: { equipmentTypeId: { _eq: $equipmentTypeId } }
+    order_by: { index: asc }
   ) {
     ...InspectionTypes
   }

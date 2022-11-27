@@ -9,7 +9,6 @@ import {
   Breadcrumbs as MUIBreadcrumbs,
 } from '@mui/material'
 
-
 export type BreadcrumbConfig = {
   href?: string
   name: string

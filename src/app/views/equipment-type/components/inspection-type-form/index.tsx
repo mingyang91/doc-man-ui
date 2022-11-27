@@ -17,44 +17,49 @@ import { MdAddCircle, MdDelete } from 'react-icons/md'
 
 import Iconify from 'd/components/iconify'
 import { Loading } from 'd/components/loading-screen'
+import { JsonEditor } from 'd/components/highlight-syntax'
 
 import { UUIDV4 } from 'm/presets'
 
-import { inspectionEnumFormValidation, InspectionTypeFormData } from './utils'
+import {
+  inspectionTypeEnumFormValidation,
+  InspectionTypeEnumFormData,
+} from './utils'
 
-export type InspectionFormFn = (
-  value: InspectionTypeFormData,
-  form: FormApi<InspectionTypeFormData>,
+export type InspectionEnumFormFn = (
+  value: InspectionTypeEnumFormData,
+  form: FormApi<InspectionTypeEnumFormData>,
   callback?: (errors?: SubmissionErrors) => void
 ) => Promise<void>
 
-interface InspectionFormProps {
-  initialValue?: InspectionTypeFormData
+interface InspectionEnumFormProps {
+  initialValue?: InspectionTypeEnumFormData
   equipmentTypeId: UUIDV4
   isEdit?: boolean
   isLoading?: boolean
-  onSubmit: InspectionFormFn
+  onSubmit: InspectionEnumFormFn
 }
 
-export const InspectionForm = ({
+export const InspectionEnumForm = ({
   initialValue,
   equipmentTypeId,
   isEdit,
   isLoading,
   onSubmit,
-}: InspectionFormProps) => {
+}: InspectionEnumFormProps) => {
   return isEdit && isEmpty(initialValue) ? (
     <Loading />
   ) : (
-    <Form<InspectionTypeFormData>
-      validate={inspectionEnumFormValidation}
+    <Form<InspectionTypeEnumFormData>
+      validate={inspectionTypeEnumFormValidation}
       initialValues={initialValue}
       mutators={{
         ...arrayMutators,
       }}
+      keepDirtyOnReinitialize
       onSubmit={onSubmit}
     >
-      {({ handleSubmit, pristine, submitting }) => (
+      {({ handleSubmit, pristine, submitting, touched, errors }) => (
         <Grid container spacing={3}>
           <Field
             name="equipmentTypeId"
@@ -90,6 +95,20 @@ export const InspectionForm = ({
             />
           </Grid>
           <Grid xs={12} md={6}>
+            <Field name="condition">
+              {({ input, meta }) => (
+                <JsonEditor
+                  sx={{ width: '100%' }}
+                  label="检测条件"
+                  value={input.value}
+                  onChange={input.onChange}
+                  helperText={meta.error}
+                  showHelperText={meta.touched && meta.error}
+                />
+              )}
+            </Field>
+          </Grid>
+          <Grid xs={12} md={6}>
             <Stack direction="column" alignItems="flex-start" spacing={1}>
               <Typography variant="body1" fontWeight="600">
                 常量列表
@@ -101,7 +120,7 @@ export const InspectionForm = ({
                 spacing={0}
               >
                 <FieldArray name="consts">
-                  {({ fields }) => (
+                  {({ fields, meta }) => (
                     <>
                       {fields.map((name, index) => (
                         <Stack
@@ -130,17 +149,80 @@ export const InspectionForm = ({
                       <ButtonGroup variant="text">
                         <Button
                           color="primary"
+                          variant="contained"
+                          size="medium"
                           title="增加一条"
                           onClick={() => fields.push(0)}
                         >
                           <Iconify icon={MdAddCircle} />
                         </Button>
                       </ButtonGroup>
+                      {meta.error && meta.touched && (
+                        <Typography color="error">{meta.error}</Typography>
+                      )}
                     </>
                   )}
                 </FieldArray>
               </Stack>
             </Stack>
+          </Grid>
+          <Grid xs={12} md={6}>
+            <TextField
+              name="requirement.state.display"
+              fullWidth
+              label="状态检测合格条件描述"
+              type="text"
+            />
+          </Grid>
+          <Grid xs={12} md={6}>
+            <Field name="requirement.state.rule">
+              {({ input, meta }) => (
+                <JsonEditor
+                  sx={{ width: '100%' }}
+                  label="状态检测合格条件代码"
+                  value={input.value}
+                  onChange={input.onChange}
+                  helperText={meta.error}
+                  showHelperText={meta.touched && meta.error}
+                />
+              )}
+            </Field>
+          </Grid>
+          <Grid xs={12} md={6}>
+            <TextField
+              name="requirement.acceptance.display"
+              fullWidth
+              label="验收检测合格条件描述"
+              type="text"
+            />
+          </Grid>
+          <Grid xs={12} md={6}>
+            <Field name="requirement.acceptance.rule">
+              {({ input, meta }) => (
+                <JsonEditor
+                  sx={{ width: '100%' }}
+                  label="验收检测合格条件代码"
+                  value={input.value}
+                  onChange={input.onChange}
+                  helperText={meta.error}
+                  showHelperText={meta.touched && meta.error}
+                />
+              )}
+            </Field>
+          </Grid>
+          <Grid xs={12} md={6}>
+            <Field name="data">
+              {({ input, meta }) => (
+                <JsonEditor
+                  sx={{ width: '100%' }}
+                  label="数据"
+                  value={input.value}
+                  onChange={input.onChange}
+                  helperText={meta.error}
+                  showHelperText={meta.touched && meta.error}
+                />
+              )}
+            </Field>
           </Grid>
           <Grid xs={12} md={6}>
             <TextField
@@ -154,7 +236,15 @@ export const InspectionForm = ({
             />
           </Grid>
           <Grid xs={12} display="flex" justifyContent="space-between">
-            <Box display="flex" justifyContent="flex-start"></Box>
+            <Box display="flex" justifyContent="flex-start">
+              {touched && errors && (
+                <Typography component="div" color="error">
+                  {Object.entries(errors).map(([key, value]) => (
+                    <div key={key}>{value}</div>
+                  ))}
+                </Typography>
+              )}
+            </Box>
             <Box display="flex" justifyContent="flex-end">
               <LoadingButton
                 type="button"

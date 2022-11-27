@@ -1,7 +1,6 @@
 import { useCreation } from 'ahooks'
 import { useLocation } from 'react-router-dom'
 
-
 import { createMenus, getActiveRouteConfig } from '@/routes/create-menus'
 import { RouteMenuConfig, useRoutesContext } from '@/routes'
 

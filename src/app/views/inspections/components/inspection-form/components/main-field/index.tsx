@@ -1,7 +1,9 @@
-import { Box } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import { useEffect, useMemo } from 'react'
 import { useField } from 'react-final-form'
 import { FieldArray } from 'react-final-form-arrays'
+
+import { Loading } from 'd/components/loading-screen'
 
 import { useInspectionTypesByEquipmentQuery } from 'm/equipment-type/index.generated'
 import { InspectionReportItem, InspectionTypeEnum } from 'm/presets'
@@ -29,7 +31,7 @@ export const MainField = () => {
 
   const { input } = useField<InspectionReportFormData['items']>('items')
 
-  const { data } = useInspectionTypesByEquipmentQuery(
+  const { data, isLoading } = useInspectionTypesByEquipmentQuery(
     {
       equipmentTypeId: equipmentType?.id || '',
     },
@@ -60,6 +62,17 @@ export const MainField = () => {
       input.onChange(using)
     }
   }, [input, using])
+
+  if (isLoading) {
+    return (
+      <Box>
+        <Loading height="240px" />
+        <Typography variant="subtitle1" textAlign="center">
+          正在准备检测项，请稍候...
+        </Typography>
+      </Box>
+    )
+  }
 
   return (
     <Box>

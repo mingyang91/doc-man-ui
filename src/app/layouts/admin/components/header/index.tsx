@@ -3,7 +3,6 @@ import { RiMenuFill } from 'react-icons/ri'
 import { styled } from '@mui/material/styles'
 import { Stack, AppBar, Toolbar } from '@mui/material'
 
-
 import { HEADER, NAVBAR } from 'd/config'
 import Logo from 'd/components/logo'
 import Iconify from 'd/components/iconify'
@@ -11,14 +10,11 @@ import { IconButtonAnimate } from 'd/components/animate'
 
 import cssStyles from 'u/css-styles'
 
-
 import useOffSetTop from 'h/use-offset-top'
 import useResponsive from 'h/use-responsive'
 
-
 import { AccountPopover } from './components/account-popover'
 import { SearchBar } from './components/search-bar'
-
 
 // components
 

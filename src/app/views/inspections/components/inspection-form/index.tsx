@@ -96,7 +96,7 @@ export const InspectionForm = ({
                 }}
               >
                 <LoadingButton
-                  type="button"
+                  type="submit"
                   variant="contained"
                   disabled={submitting || pristine}
                   loading={submitting || isLoading}
@@ -128,7 +128,7 @@ export const InspectionForm = ({
                 }}
               >
                 <LoadingButton
-                  type="button"
+                  type="submit"
                   variant="contained"
                   disabled={submitting || pristine}
                   loading={submitting || isLoading}

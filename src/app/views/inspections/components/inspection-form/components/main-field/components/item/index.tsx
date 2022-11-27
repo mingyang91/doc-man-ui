@@ -1,5 +1,5 @@
 import { useMemoizedFn } from 'ahooks'
-import produce from 'immer'
+import { produce } from 'immer'
 import { useMemo } from 'react'
 import { Field, FieldProps, FieldRenderProps, useField } from 'react-final-form'
 

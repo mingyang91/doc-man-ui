@@ -1,4 +1,3 @@
-import { Alert, AlertTitle } from '@mui/material'
 import { useCallback, useMemo } from 'react'
 import { generatePath, useParams } from 'react-router-dom'
 
@@ -12,16 +11,20 @@ import { useMessage } from 'h/use-snackbar-message'
 
 import {
   useInspectionTypesDetailQuery,
-  useUpdateInspectionTypesByIdMutation
+  useUpdateInspectionTypesByIdMutation,
 } from 'm/equipment-type/index.generated'
 import { UUIDV4 } from 'm/presets'
 
-import { InspectionForm, InspectionFormFn } from './components/inspection-form'
-import { InspectionTypeFormData } from './components/inspection-form/utils'
+import {
+  InspectionEnumForm,
+  InspectionEnumFormFn,
+} from './components/inspection-type-form'
+import { InspectionTypeEnumFormData } from './components/inspection-type-form/utils'
+import { EditAlert } from './components/alert'
 
 const TITLE = '设备类型 - 检测类型 - 详情'
 
-const PageInspectionTypeDetail = () => {
+const PageInspectionItemEnumDetail = () => {
   const { activeRouteConfig } = useMenuAndRoutes()
 
   const { id = '', itemId = '' }: { id?: UUIDV4; itemId?: UUIDV4 } = useParams()
@@ -44,6 +47,7 @@ const PageInspectionTypeDetail = () => {
   const { mutate, isLoading: isMutationLoading } =
     useUpdateInspectionTypesByIdMutation({
       onSuccess() {
+        console.log('onSuccess')
         pushSuccessMessage(`更新检测类型成功`)
         refetch()
       },
@@ -52,14 +56,15 @@ const PageInspectionTypeDetail = () => {
       },
     })
 
-  const onSubmit = useCallback<InspectionFormFn>(
+  const onSubmit = useCallback<InspectionEnumFormFn>(
     async values => {
+      console.log('values', values)
       mutate({
-        id,
+        id: itemId,
         object: values,
       })
     },
-    [id, mutate]
+    [itemId, mutate]
   )
 
   const breadcrumbs = useMemo(() => {
@@ -76,19 +81,16 @@ const PageInspectionTypeDetail = () => {
   return (
     <Page title={TITLE}>
       <HeaderBreadcrumbs heading={TITLE} links={breadcrumbs} />
-      <Alert severity="warning" sx={{ mb: 3 }}>
-        <AlertTitle>非开发人员不要修改</AlertTitle>
-        此功能不完善，数据修改需研发人员配合，否则可能导致系统崩溃。
-      </Alert>
-      <InspectionForm
+      <EditAlert />
+      <InspectionEnumForm
         isEdit
         isLoading={isLoading}
         equipmentTypeId={id}
-        initialValue={(data?.data as InspectionTypeFormData) || undefined}
+        initialValue={(data?.data as InspectionTypeEnumFormData) || undefined}
         onSubmit={onSubmit}
       />
     </Page>
   )
 }
 
-export default PageInspectionTypeDetail
+export default PageInspectionItemEnumDetail

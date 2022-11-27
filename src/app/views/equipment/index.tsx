@@ -14,7 +14,7 @@ import { useMessage } from 'h/use-snackbar-message'
 import {
   useDeleteEquipmentBulkMutation,
   useDeleteEquipmentByIdMutation,
-  useEquipmentListQuery
+  useEquipmentListQuery,
 } from 'm/equipment/index.generated'
 
 import { EquipmentList } from './components/list'

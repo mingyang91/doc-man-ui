@@ -40,7 +40,7 @@ export const ModalProvider = ({
 
   const getModalState = useMemoizedFn<ModalContextProps['getModalState']>(
     key => {
-      return !!modals['key']?.open
+      return !!modals[key]?.open
     }
   )
 

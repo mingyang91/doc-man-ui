@@ -1,4 +1,5 @@
 import { find, isEqual, isEqualWith, merge } from 'lodash-es'
+import { FormApi, SubmissionErrors } from 'final-form'
 
 import {
   AddressField,
@@ -25,7 +26,9 @@ export interface InspectionReportFormData
 }
 
 export type FnSubmitInspectionReport = (
-  values: InspectionReportFormData
+  values: InspectionReportFormData,
+  form: FormApi<InspectionReportFormData>,
+  callback?: (errors?: SubmissionErrors) => void
 ) => Promise<void>
 
 export const initialInspectionFormData = (

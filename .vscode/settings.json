@@ -35,7 +35,6 @@
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.codeActionsOnSave": {
-      "source.organizeImports": true,
       "source.formatDocument": true,
       "source.fixAll.eslint": true,
     }
@@ -43,7 +42,6 @@
   "[javascriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.codeActionsOnSave": {
-      "source.organizeImports": true,
       "source.formatDocument": true,
       "source.fixAll.eslint": true,
     }
@@ -51,7 +49,6 @@
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.codeActionsOnSave": {
-      "source.organizeImports": true,
       "source.formatDocument": true,
       "source.fixAll.eslint": true,
     }
@@ -59,9 +56,9 @@
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.codeActionsOnSave": {
-      "source.organizeImports": true,
       "source.formatDocument": true,
       "source.fixAll.eslint": true,
     }
-  }
+  },
+  "prettier-config.tool": "pnpm"
 }

@@ -1,10 +1,4 @@
-import {
-  Alert,
-  AlertTitle,
-  Checkbox,
-  FormControlLabel,
-  FormGroup
-} from '@mui/material'
+import { Checkbox, FormControlLabel, FormGroup } from '@mui/material'
 import { useMemoizedFn } from 'ahooks'
 import { ChangeEvent, useCallback, useMemo, useState } from 'react'
 import { generatePath, useNavigate, useParams } from 'react-router-dom'
@@ -17,15 +11,22 @@ import Page from 'd/components/page'
 
 import { useMessage } from 'h/use-snackbar-message'
 
-import { useCreateInspectionTypesMutation } from 'm/equipment-type/index.generated'
+import {
+  useCreateInspectionTypesMutation,
+  useEquipmentTypesByIdQuery,
+} from 'm/equipment-type/index.generated'
 import { UUIDV4 } from 'm/presets'
 
-import { InspectionForm, InspectionFormFn } from './components/inspection-form'
-import { initialInspectionTypesFormData } from './components/inspection-form/utils'
+import {
+  InspectionEnumForm,
+  InspectionEnumFormFn,
+} from './components/inspection-type-form'
+import { initialInspectionTypeEnumFormData } from './components/inspection-type-form/utils'
+import { EditAlert } from './components/alert'
 
 const TITLE = '设备类型 - 检测类型 - 详情'
 
-const PageInspectionTypeDetail = () => {
+const PageInspectionItemEnumDetail = () => {
   const { activeRouteConfig } = useMenuAndRoutes()
 
   const { id = '' }: { id?: UUIDV4 } = useParams()
@@ -40,7 +41,7 @@ const PageInspectionTypeDetail = () => {
     (event: ChangeEvent<HTMLInputElement>, checked: boolean) => void
   >((_, checked) => setShouldContinue(checked))
 
-  const initialValue = initialInspectionTypesFormData()
+  const initialValue = initialInspectionTypeEnumFormData()
 
   const { mutate, isLoading } = useCreateInspectionTypesMutation({
     onSuccess() {
@@ -51,24 +52,36 @@ const PageInspectionTypeDetail = () => {
     },
   })
 
-  const onSubmit = useCallback<InspectionFormFn>(
+  const { refetch: refetchEquipmentType } = useEquipmentTypesByIdQuery({
+    id,
+  })
+
+  const onSubmit = useCallback<InspectionEnumFormFn>(
     async (values, formApi) => {
+      values.equipmentTypeId = id
+
       mutate(
         {
           input: values,
         },
         {
           onSuccess: data => {
+            refetchEquipmentType()
             if (shouldContinue) {
               formApi.reset()
             } else {
-              navigate(generatePath(ROUTES.equipmentDetail, { id: data.data?.id }))
+              navigate(
+                generatePath(ROUTES.equipmentInspectionTypeDetail, {
+                  id,
+                  itemId: data.data?.id,
+                })
+              )
             }
           },
         }
       )
     },
-    [mutate, navigate, shouldContinue]
+    [id, mutate, navigate, refetchEquipmentType, shouldContinue]
   )
 
   const breadcrumbs = useMemo(() => {
@@ -83,11 +96,8 @@ const PageInspectionTypeDetail = () => {
   return (
     <Page title={TITLE}>
       <HeaderBreadcrumbs heading={TITLE} links={breadcrumbs} />
-      <Alert severity="warning" sx={{ mb: 3 }}>
-        <AlertTitle>非开发人员不要修改</AlertTitle>
-        此功能不完善，数据修改需研发人员配合，否则可能导致系统崩溃。
-      </Alert>
-      <InspectionForm
+      <EditAlert />
+      <InspectionEnumForm
         isLoading={isLoading}
         equipmentTypeId={id}
         initialValue={initialValue}
@@ -105,4 +115,4 @@ const PageInspectionTypeDetail = () => {
   )
 }
 
-export default PageInspectionTypeDetail
+export default PageInspectionItemEnumDetail

@@ -3,6 +3,8 @@ import {
   ChangeEvent,
   CSSProperties,
   FocusEvent,
+  FormEvent,
+  FormEventHandler,
   ForwardedRef,
   forwardRef,
   useEffect,
@@ -11,6 +13,8 @@ import {
 } from 'react'
 
 import {
+  ComponentInputProps,
+  ComponentTextareaProps,
   StyledInput,
   StyledLabel,
   StyledTextarea,
@@ -21,10 +25,14 @@ import {
 interface InputComponentProps
   extends Omit<WrapperProps, 'onChange' | 'onInput' | 'onBlur' | 'onFocus'> {
   value?: string
+  inputProps?: ComponentInputProps | ComponentTextareaProps
   onChange?: (value: string) => void
-  onInput?: (value: string, e: ChangeEvent<HTMLInputElement>) => void
-  onBlur?: (e: FocusEvent<HTMLInputElement>) => void
-  onFocus?: (e: FocusEvent<HTMLInputElement>) => void
+  onInput?: (
+    value: string,
+    e: FormEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void
+  onBlur?: (e: FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  onFocus?: (e: FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => void
 }
 
 export interface InputEditableProps extends InputComponentProps {
@@ -38,6 +46,7 @@ export const InputEditable = forwardRef(
     {
       value: valueProps,
       multiline = false,
+      inputProps,
       onChange,
       onInput,
       onBlur,
@@ -59,18 +68,24 @@ export const InputEditable = forwardRef(
       return focus ? { visibility: 'hidden' } : { visibility: 'visible' }
     }, [focus])
 
-    const handleFocus = useMemoizedFn((e: FocusEvent<HTMLInputElement>) => {
-      setFocus.setTrue()
-      onFocus?.(e)
-    })
+    const handleFocus = useMemoizedFn(
+      (e: FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setFocus.setTrue()
+        onFocus?.(e)
+      }
+    )
 
-    const handleBlur = useMemoizedFn((e: FocusEvent<HTMLInputElement>) => {
-      setFocus.setFalse()
-      onBlur?.(e)
-    })
+    const handleBlur = useMemoizedFn(
+      (e: FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setFocus.setFalse()
+        onBlur?.(e)
+      }
+    )
 
-    const handleInput = useMemoizedFn((e: ChangeEvent<HTMLInputElement>) => {
-      const { value } = e.target
+    const handleInput = useMemoizedFn<
+      FormEventHandler<HTMLTextAreaElement> & FormEventHandler<HTMLInputElement>
+    >(e => {
+      const { value } = e.target as HTMLInputElement
       setValue(value)
       onInput?.(value, e)
     })
@@ -84,6 +99,8 @@ export const InputEditable = forwardRef(
     return (
       <Wrapper ref={ref} {...rest}>
         <Component
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          {...(inputProps as any)}
           type="text"
           value={value}
           onFocus={handleFocus}

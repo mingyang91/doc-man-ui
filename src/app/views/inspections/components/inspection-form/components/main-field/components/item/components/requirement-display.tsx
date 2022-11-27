@@ -11,7 +11,7 @@ import { produce } from 'immer'
 
 import { InspectionRequirement, InspectionTypeEnum } from 'm/presets'
 
-import { StyledTable } from './styled'
+import { StyledTable, StyledTablePaper } from './styled'
 
 import { InputEditable } from '@@/input-editable'
 
@@ -87,7 +87,7 @@ export const RequirementDisplay = ({
   })
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={StyledTablePaper}>
       <StyledTable>
         <colgroup>
           <col width="20%" />
@@ -103,6 +103,7 @@ export const RequirementDisplay = ({
             </TitleLevel2>
             <TableCell align="left" valign="middle">
               <InputEditable
+                multiline
                 value={value.acceptance.display}
                 onChange={onStateAcceptanceChange}
                 onBlur={onBlur}
@@ -115,6 +116,7 @@ export const RequirementDisplay = ({
             </TitleLevel2>
             <TableCell align="left" valign="middle">
               <InputEditable
+                multiline
                 value={value.state.display}
                 onChange={onStateDisplayChange}
                 onBlur={onBlur}

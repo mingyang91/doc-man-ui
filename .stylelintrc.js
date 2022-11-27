@@ -4,6 +4,7 @@ module.exports = {
     'stylelint-config-recess-order',
     'stylelint-config-prettier',
   ],
+  customSyntax: '@stylelint/postcss-css-in-js',
   rules: {
     'font-family-name-quotes': 'always-unless-keyword',
     'string-quotes': 'single',

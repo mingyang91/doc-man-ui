@@ -1,8 +1,8 @@
-import { IconButton, Stack, Tooltip, Typography } from '@mui/material'
+import { Button, IconButton, Stack, Tooltip, Typography } from '@mui/material'
 import { useCreation, useMemoizedFn } from 'ahooks'
 import { useMemo } from 'react'
-import { MdDelete, MdEdit, MdViewList } from 'react-icons/md'
-import { generatePath, useNavigate } from 'react-router-dom'
+import { MdAddCircle, MdDelete, MdEdit, MdViewList } from 'react-icons/md'
+import { generatePath, useNavigate, Link as RouteLink } from 'react-router-dom'
 
 import { ROUTES } from '@/routes'
 
@@ -26,6 +26,7 @@ type InspectionTypesData = Omit<
   | 'equipmentTypeId'
   | 'condition'
   | 'requirement'
+  | 'index'
 >
 
 type DeviceRawFields = Required<Omit<InspectionTypesData, 'id'>>
@@ -171,9 +172,35 @@ export const InspectionTypeList = ({
     [isDataLoading, isDeleteLoading]
   )
 
+  const createPath = useMemo(
+    () => generatePath(ROUTES.equipmentInspectionTypeCreate, { id }),
+    [id]
+  )
+
   return (
     <>
       <Typography variant="h6">此种设备类型可用检测项</Typography>
+      <Stack
+        direction="row"
+        spacing={2}
+        sx={{
+          marginTop: 4,
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}
+      >
+        <Stack direction="row" flex="1" spacing={2}>
+          <Button
+            variant="contained"
+            color="primary"
+            to={createPath}
+            component={RouteLink}
+            startIcon={<MdAddCircle />}
+          >
+            创建
+          </Button>
+        </Stack>
+      </Stack>
       <DataTable<InspectionTypesData>
         columns={columns}
         dataSource={dataSource || []}

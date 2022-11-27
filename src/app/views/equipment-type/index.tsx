@@ -10,7 +10,7 @@ import { useMessage } from 'h/use-snackbar-message'
 
 import {
   useDeleteEquipmentTypesMutation,
-  useEquipmentTypesListQuery
+  useEquipmentTypesListQuery,
 } from 'm/equipment-type/index.generated'
 
 import { DeviceTypeList } from './components/list'

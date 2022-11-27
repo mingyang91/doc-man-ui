@@ -37,6 +37,7 @@ export const EquipmentSearch = ({
 
   return (
     <Modal
+      title="从设备库选择设备"
       maxWidth="xl"
       isOpen={isOpen}
       onClose={onClose}
