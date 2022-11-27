@@ -1,13 +1,27 @@
-import { map, merge } from 'lodash-es'
+import { isEmpty, map, merge } from 'lodash-es'
 import { AVERAGE, STDEV } from '@formulajs/formulajs'
 import Big from 'big.js'
 
 import ruleJudgment from 'u/rule-judgment'
 
-import { Conclusions, UnitValue } from 'm/common'
-import { InspectionReportItem, InspectionRequirementChild } from 'm/presets'
+import {
+  Conclusions,
+  formatConclusion,
+  formatUnitValue,
+  UnitValue,
+} from 'm/common'
+import {
+  InspectionReportItem,
+  InspectionRequirementChild,
+  ReportRenderItem,
+} from 'm/presets'
 
-import { RORData, RORDataItem, RORDataItemCondition } from './type'
+import {
+  RORData,
+  RORDataItem,
+  RORDataItemCondition,
+  RORDataItemResult,
+} from './type'
 
 export const initialRORDataItem = (
   input: RORDataItem,
@@ -102,4 +116,42 @@ export const getRORConclusion = (
   return fn(result.map(item => item.result?.value))
     ? Conclusions.Good
     : Conclusions.Bad
+}
+
+const formatCondition = (condition?: RORDataItemCondition) => {
+  return condition
+    ? `${formatUnitValue(condition.voltage)},${formatUnitValue(
+        condition.current
+      )},${formatUnitValue(condition.timeProduct)}`
+    : ''
+}
+
+const formatResult = (result?: RORDataItemResult) => {
+  return result ? `${formatUnitValue(result)}` : ''
+}
+
+export const toAECResponseRenderItem = (
+  report: InspectionReportItem<RORData>
+): ReportRenderItem[] => {
+  const { data } = report
+
+  if (!data || isEmpty(data)) {
+    return []
+  }
+
+  return data.map((item, index) => {
+    const row: ReportRenderItem = {
+      conditionFactor: formatCondition(item.condition),
+      result: formatResult(item.result),
+      acceptanceRequire: report?.requirement?.acceptance?.display || '',
+      stateRequire: report?.requirement?.state?.display || '',
+      conclusion: formatConclusion(report?.conclusions),
+    }
+
+    if (index === 0) {
+      row.name = report.displayName
+    }
+
+    return row
+  })
 }

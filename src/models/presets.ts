@@ -40,7 +40,6 @@ export interface AddressField {
   countyName: string | null
   townName: string | null
   detail: string | null
-  postcode: string | null
 }
 
 // 序列号字段类型
@@ -71,4 +70,63 @@ export interface InspectionReportItem<
   requirement?: InspectionRequirement
   conclusions?: Conclusions
   consts: number[]
+}
+
+export interface InspectionReportDetail {
+  items: InspectionReportItem[]
+  id: UUIDV4
+  equipmentCode?: string | null
+  inspectionAddress: AddressField | null
+  equipmentRequester?: string | null
+  equipmentName?: string | null
+  equipmentType: ScalarJson
+  equipmentManufacturer?: string | null
+  equipmentModel?: string | null
+  equipmentSampleId?: string | null
+  equipmentSite?: string | null
+  inspectionBasis?: string | null
+  inspectionInstrument?: string | null
+  inspectionItem: InspectionType | null
+  createAt?: ScalarTz | null
+  updatedAt?: ScalarTz | null
+  serialNumber?: SerialNumber | null
+  inspectionDate?: ScalarTz | null
+}
+
+// Document 渲染项
+
+export interface ReportRenderDevice {
+  accordingTo?: string
+  address?: string
+  deviceNo?: string
+  equipment?: string
+  testItem?: string
+  model?: string
+  deviceName?: string
+  sampleName?: string
+  place?: string
+  requester?: string
+  sampleNo?: string
+  vendor?: string
+}
+
+export interface ReportRenderInfo {
+  reportNo?: string
+  date?: string
+}
+
+export interface ReportRenderItem {
+  name?: string
+  conditionFactor: string
+  defaultValue?: string
+  result: string
+  acceptanceRequire: string
+  stateRequire: string
+  conclusion: string
+}
+
+export type ReportRender = {
+  device: ReportRenderDevice
+  info?: ReportRenderInfo
+  [x: `items${number}`]: ReportRenderItem[]
 }
