@@ -67,7 +67,7 @@ const formatResult = (result?: DBLFAIFDataResult) => {
     : ''
 }
 
-export const toAECResponseRenderItem = (
+export const toDBLFAIFRenderItem = (
   report: InspectionReportItem<DBLFAIFData>
 ): ReportRenderItem[] => {
   return [

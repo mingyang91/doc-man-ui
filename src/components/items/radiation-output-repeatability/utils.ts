@@ -130,7 +130,7 @@ const formatResult = (result?: RORDataItemResult) => {
   return result ? `${formatUnitValue(result)}` : ''
 }
 
-export const toAECResponseRenderItem = (
+export const toRORRenderItem = (
   report: InspectionReportItem<RORData>
 ): ReportRenderItem[] => {
   const { data } = report

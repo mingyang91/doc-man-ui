@@ -4,10 +4,14 @@ import Big from 'big.js'
 
 import ruleJudgment from 'u/rule-judgment'
 
-import { InspectionRequirementChild } from 'm/presets'
-import { Conclusions } from 'm/common'
+import {
+  InspectionReportItem,
+  InspectionRequirementChild,
+  ReportRenderItem,
+} from 'm/presets'
+import { Conclusions, formatConclusion, formatUnitValue } from 'm/common'
 
-import { UHHVLData } from './type'
+import { UHHVLData, UHHVLDataCondition, UHHVLDataResult } from './type'
 
 export const initialUHHVLData = (input?: UHHVLData): Required<UHHVLData> => {
   return {
@@ -84,4 +88,31 @@ export const getUHHVLConclusion = (
   const fn = ruleJudgment(requirement.rule)
 
   return fn(result) ? Conclusions.Good : Conclusions.Bad
+}
+
+const formatCondition = (condition?: UHHVLDataCondition) => {
+  return condition
+    ? `${formatUnitValue(condition.voltage)},${formatUnitValue(
+        condition.current
+      )},${formatUnitValue(condition.timeProduct)}`
+    : ''
+}
+
+const formatResult = (result?: UHHVLDataResult) => {
+  return result ? `${formatUnitValue(result)}` : ''
+}
+
+export const toUHHVLRenderItem = (
+  report: InspectionReportItem<UHHVLData>
+): ReportRenderItem[] => {
+  return [
+    {
+      name: report.displayName,
+      conditionFactor: formatCondition(report.data?.condition),
+      result: formatResult(report.data?.result),
+      acceptanceRequire: report.requirement?.acceptance?.display || '',
+      stateRequire: report.requirement?.state?.display || '',
+      conclusion: formatConclusion(report?.conclusions),
+    },
+  ]
 }
