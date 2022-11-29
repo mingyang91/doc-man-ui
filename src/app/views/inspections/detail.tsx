@@ -16,6 +16,11 @@ import { useInspectionReportByIdQuery } from 'm/inspection-report/index.generate
 import { UUIDV4 } from 'm/presets'
 
 import { InspectionForm } from './components/inspection-form'
+import { InspectionDetail } from './components/inspection-detail'
+import {
+  InspectionReportData,
+  InspectionReportDataProvider,
+} from './components/inspection-detail/context'
 
 import { DetailCard } from '@@/detail-card'
 
@@ -33,20 +38,18 @@ const PageDetailInspectionReport = () => {
 
   const detail = useMemo(() => data?.detail, [data?.detail])
 
-  const editPath = generatePath(ROUTES.inspectionDetail, {
-    id,
-  })
-
   return (
     <Page title={TITLE}>
       <HeaderBreadcrumbs
         heading={TITLE}
         links={activeRouteConfig.breadcrumbs}
       />
-      {data ? (
-        <DetailCard>
-          <Grid container spacing={3}></Grid>
-        </DetailCard>
+      {data?.detail ? (
+        <InspectionReportDataProvider
+          value={data.detail as InspectionReportData}
+        >
+          <InspectionDetail />
+        </InspectionReportDataProvider>
       ) : isLoading ? (
         <SnackbarLoadingComponent />
       ) : (

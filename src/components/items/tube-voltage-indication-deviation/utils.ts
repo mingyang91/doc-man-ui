@@ -155,13 +155,15 @@ export const getTVIDConclusion = (
   return Conclusions.Bad
 }
 
-const formatFactor = (factor?: TVIDDataItemFactor) => {
+export const formatFactor = (factor?: TVIDDataItemFactor) => {
   return factor
-    ? `${formatUnitValue(factor.current)}${formatUnitValue(factor.timeProduct)}`
+    ? `${formatUnitValue(factor.current)},${formatUnitValue(
+        factor.timeProduct
+      )}`
     : ''
 }
 
-const formatResult = (input?: TVIDDataResult) => {
+export const formatResult = (input?: TVIDDataResult) => {
   return input
     ? `${formatUnitValue(input.percentage)}(${formatUnitValue(input.scalar)})`
     : ''

@@ -118,7 +118,7 @@ export const getRORConclusion = (
     : Conclusions.Bad
 }
 
-const formatCondition = (condition?: RORDataItemCondition) => {
+export const formatCondition = (condition?: RORDataItemCondition) => {
   return condition
     ? `${formatUnitValue(condition.voltage)},${formatUnitValue(
         condition.current
@@ -126,7 +126,7 @@ const formatCondition = (condition?: RORDataItemCondition) => {
     : ''
 }
 
-const formatResult = (result?: RORDataItemResult) => {
+export const formatResult = (result?: RORDataItemResult) => {
   return result ? `${formatUnitValue(result)}` : ''
 }
 
@@ -143,6 +143,7 @@ export const toRORRenderItem = (
     const row: ReportRenderItem = {
       conditionFactor: formatCondition(item.condition),
       result: formatResult(item.result),
+      defaultValue: '',
       acceptanceRequire: report?.requirement?.acceptance?.display || '',
       stateRequire: report?.requirement?.state?.display || '',
       conclusion: formatConclusion(report?.conclusions),

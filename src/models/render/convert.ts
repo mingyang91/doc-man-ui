@@ -7,9 +7,8 @@ import {
 } from 'm/presets'
 import { formatSerialNumber } from 'm/common'
 
-import { toUHVDRenderItem } from '../../components/items/useful-harness-verticality-deviation/utils'
-
 import { formatLocation } from '@@/location-selector/utils'
+import { toUHVDRenderItem } from '@@/items/useful-harness-verticality-deviation/utils'
 import { formatInspectiontype } from '@@/inspectiontype-selector'
 import { toRORRenderItem } from '@@/items/radiation-output-repeatability/utils'
 import { toTVIDRenderItem } from '@@/items/tube-voltage-indication-deviation/utils'

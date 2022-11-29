@@ -46,8 +46,6 @@ export const getDBLFAIFConclusion = (
     return Conclusions.Unknown
   }
 
-  console.log('getDBLFAIFConclusion', data, requirement)
-
   const fn = ruleJudgment(requirement.rule)
 
   return data.result.every(({ value }) => fn(value))
@@ -55,13 +53,13 @@ export const getDBLFAIFConclusion = (
     : Conclusions.Bad
 }
 
-const formatCondition = (condition?: DBLFAIFDataCondition) => {
+export const formatCondition = (condition?: DBLFAIFDataCondition) => {
   return condition
     ? `${condition.left}${condition.operator}${condition.right}`
     : ''
 }
 
-const formatResult = (result?: DBLFAIFDataResult) => {
+export const formatResult = (result?: DBLFAIFDataResult) => {
   return result
     ? `${result.map(item => `${item.label}: ${item.value}`).join('\r\n')}`
     : ''
@@ -74,6 +72,7 @@ export const toDBLFAIFRenderItem = (
     {
       name: report.displayName,
       conditionFactor: formatCondition(report.data?.condition),
+      defaultValue: '',
       result: formatResult(report.data?.result),
       acceptanceRequire: report.requirement?.acceptance?.display || '',
       stateRequire: report.requirement?.state?.display || '',

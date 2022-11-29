@@ -52,15 +52,16 @@ const PageInspectionEdit = () => {
 
   const submitForm = useCallback<FnSubmitInspectionReport>(
     async (values, formApi) => {
-      const updateValue = omit(values, ['creator'])
+      const updateValue = omit(values, ['creator', 'id'])
 
       updateValue.creatorId = values.creator?.id
 
       mutate({
+        id,
         data: updateValue,
       })
     },
-    [mutate, navigate]
+    [id, mutate]
   )
 
   return (

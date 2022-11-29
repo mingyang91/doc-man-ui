@@ -5,7 +5,7 @@ import { Conclusions } from './common'
 import { InspectionTypes } from './types'
 
 export type ScalarJson<T = any> = Record<string, T>
-export type ScalarTz = number
+export type ScalarTz = string | number
 export type UUIDV4 = string
 export type ScalarNumeric = number
 

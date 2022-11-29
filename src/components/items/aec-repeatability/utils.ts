@@ -90,11 +90,11 @@ export const getAECRepeatabilityConclusion = (
   return fn(`${result}`) ? Conclusions.Good : Conclusions.Bad
 }
 
-const formatCondition = (condition?: AECRepeatabilityDataCondition) => {
+export const formatCondition = (condition?: AECRepeatabilityDataCondition) => {
   return condition ? `${formatUnitValue(condition)}` : ''
 }
 
-const formatResult = (result?: AECRepeatabilityDataResult) => {
+export const formatResult = (result?: AECRepeatabilityDataResult) => {
   return result ? `${formatUnitValue(result)}` : ''
 }
 
@@ -105,6 +105,7 @@ export const toAECRepeatabilityRenderItem = (
     {
       name: report.displayName,
       conditionFactor: formatCondition(report.data?.condition),
+      defaultValue: '',
       result: formatResult(report.data?.result),
       acceptanceRequire: report.requirement?.acceptance?.display || '',
       stateRequire: report.requirement?.state?.display || '',

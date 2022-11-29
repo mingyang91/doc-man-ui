@@ -10,7 +10,12 @@ import {
 } from '@mui/material'
 import { useCreation } from 'ahooks'
 import { ChangeEventHandler, MouseEvent, useState } from 'react'
-import { MdDelete, MdEdit, MdUploadFile } from 'react-icons/md'
+import {
+  MdDelete,
+  MdEdit,
+  MdUploadFile,
+  MdOutlineMenuBook,
+} from 'react-icons/md'
 import { RiFileAddLine } from 'react-icons/ri'
 import { generatePath, Link as RouteLink, NavLink } from 'react-router-dom'
 
@@ -35,7 +40,12 @@ type InspectionReport = Required<ArrayItem<InspectionReportListQuery['list']>>
 
 type InspectionReportRowFields = Omit<
   InspectionReport,
-  'items' | 'id' | 'equipmentName' | 'serialNumber' | 'equipmentType'
+  | 'items'
+  | 'id'
+  | 'equipmentName'
+  | 'serialNumber'
+  | 'equipmentType'
+  | 'inspectionDate'
 >
 
 const columnMaps: {
@@ -235,12 +245,23 @@ export const InspectionReportList = ({
         field: 'uuid',
         title: '操作',
         align: 'center',
-        width: 150,
-        minWidth: 150,
+        width: 180,
+        minWidth: 180,
         fixed: 'right',
         render: ({ id }) => {
+          const path = generatePath(ROUTES.inspectionDetail, { id })
+
           return (
             <Stack spacing={2} direction="row" display="inline-flex">
+              <Tooltip title="上传附件">
+                <IconButton
+                  size="small"
+                  color="default"
+                  onClick={() => onUpload?.(id)}
+                >
+                  <MdUploadFile />
+                </IconButton>
+              </Tooltip>
               <Tooltip title="删除">
                 <IconButton
                   size="small"
@@ -259,13 +280,15 @@ export const InspectionReportList = ({
                   <MdEdit />
                 </IconButton>
               </Tooltip>
-              <Tooltip title="上传附件">
+
+              <Tooltip title="查看">
                 <IconButton
+                  component={RouteLink}
                   size="small"
-                  color="default"
-                  onClick={() => onUpload?.(id)}
+                  color="primary"
+                  to={path}
                 >
-                  <MdUploadFile />
+                  <MdOutlineMenuBook />
                 </IconButton>
               </Tooltip>
             </Stack>

@@ -111,11 +111,11 @@ export const getAECResponseConclusion = (
   return fn(data.result.value) ? Conclusions.Good : Conclusions.Bad
 }
 
-const formatCondition = (condition?: AECResponseDataCondition) => {
+export const formatCondition = (condition?: AECResponseDataCondition) => {
   return condition ? `${formatUnitValue(condition)}` : ''
 }
 
-const formatResult = (result?: AECResponseDataResult) => {
+export const formatResult = (result?: AECResponseDataResult) => {
   return result ? `${formatUnitValue(result)}` : ''
 }
 
@@ -126,6 +126,7 @@ export const toAECResponseRenderItem = (
     {
       name: report.displayName,
       conditionFactor: formatCondition(report.data?.condition),
+      defaultValue: '',
       result: formatResult(report.data?.result),
       acceptanceRequire: report.requirement?.acceptance?.display || '',
       stateRequire: report.requirement?.state?.display || '',

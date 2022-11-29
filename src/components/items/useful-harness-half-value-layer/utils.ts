@@ -90,7 +90,7 @@ export const getUHHVLConclusion = (
   return fn(result) ? Conclusions.Good : Conclusions.Bad
 }
 
-const formatCondition = (condition?: UHHVLDataCondition) => {
+export const formatCondition = (condition?: UHHVLDataCondition) => {
   return condition
     ? `${formatUnitValue(condition.voltage)},${formatUnitValue(
         condition.current
@@ -98,7 +98,7 @@ const formatCondition = (condition?: UHHVLDataCondition) => {
     : ''
 }
 
-const formatResult = (result?: UHHVLDataResult) => {
+export const formatResult = (result?: UHHVLDataResult) => {
   return result ? `${formatUnitValue(result)}` : ''
 }
 
@@ -110,6 +110,7 @@ export const toUHHVLRenderItem = (
       name: report.displayName,
       conditionFactor: formatCondition(report.data?.condition),
       result: formatResult(report.data?.result),
+      defaultValue: '',
       acceptanceRequire: report.requirement?.acceptance?.display || '',
       stateRequire: report.requirement?.state?.display || '',
       conclusion: formatConclusion(report?.conclusions),

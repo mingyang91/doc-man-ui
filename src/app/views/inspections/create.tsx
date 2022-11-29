@@ -12,7 +12,10 @@ import Page from 'd/components/page'
 
 import { useMessage } from 'h/use-snackbar-message'
 
-import { useCreateInspectionReportMutation } from 'm/inspection-report/index.generated'
+import {
+  useCreateInspectionReportMutation,
+  useInspectionReportListQuery,
+} from 'm/inspection-report/index.generated'
 
 import { InspectionForm } from './components/inspection-form'
 import { FnSubmitInspectionReport } from './components/inspection-form/utils'
@@ -26,6 +29,8 @@ const PageInspectionCreate = () => {
   const { pushSuccessMessage, pushErrorMessage } = useMessage()
 
   const [shouldContinue, setShouldContinue] = useState(false)
+
+  const { refetch } = useInspectionReportListQuery()
 
   const { mutate, isLoading } = useCreateInspectionReportMutation({
     onSuccess() {
@@ -51,10 +56,11 @@ const PageInspectionCreate = () => {
           data: insertValue,
         },
         {
-          onSuccess: data => {
+          onSuccess: async data => {
             if (shouldContinue) {
               formApi.reset()
             } else {
+              await refetch()
               navigate(
                 generatePath(ROUTES.equipmentDetail, { id: data.returning?.id })
               )
@@ -63,7 +69,7 @@ const PageInspectionCreate = () => {
         }
       )
     },
-    [mutate, navigate, shouldContinue]
+    [mutate, navigate, refetch, shouldContinue]
   )
 
   return (

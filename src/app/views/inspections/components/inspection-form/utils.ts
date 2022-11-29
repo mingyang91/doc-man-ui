@@ -49,7 +49,7 @@ export const initialInspectionFormData = (
       equipmentSite: '',
       inspectionAddress: initialLocationData(undefined, true) as AddressField,
       inspectionBasis: '',
-      inspectionDate: Date.now(),
+      inspectionDate: new Date().toUTCString(),
       inspectionInstrument: '',
       inspectionItem: {
         type: InspectionTypeEnum.None,

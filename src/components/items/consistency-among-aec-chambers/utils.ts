@@ -97,13 +97,15 @@ export const getConsistencyAmongAECChambers = (
   return fn(data.result.value) ? Conclusions.Good : Conclusions.Bad
 }
 
-const formatCondition = (
+export const formatCondition = (
   condition?: ConsistencyAmongAECChambersDataCondition
 ) => {
   return condition ? `${formatUnitValue(condition)}` : ''
 }
 
-const formatResult = (result?: ConsistencyAmongAECChambersDataResult) => {
+export const formatResult = (
+  result?: ConsistencyAmongAECChambersDataResult
+) => {
   return result ? `${formatUnitValue(result)}` : ''
 }
 
@@ -114,6 +116,7 @@ export const toConsistencyAmongAECChamberRenderItem = (
     {
       name: report.displayName,
       conditionFactor: formatCondition(report.data?.condition),
+      defaultValue: '',
       result: formatResult(report.data?.result),
       acceptanceRequire: report.requirement?.acceptance?.display || '',
       stateRequire: report.requirement?.state?.display || '',

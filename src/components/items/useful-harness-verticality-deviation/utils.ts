@@ -46,13 +46,13 @@ export const getUHVDConclusion = (
   return fn(data.result?.value) ? Conclusions.Good : Conclusions.Bad
 }
 
-const formatCondition = (condition?: UHVDDataCondition) => {
+export const formatCondition = (condition?: UHVDDataCondition) => {
   return condition
     ? `${condition.left}${condition.operator}${condition.right}`
     : ''
 }
 
-const formatResult = (result?: UHVDDataResult) => {
+export const formatResult = (result?: UHVDDataResult) => {
   return result ? `${formatUnitValue(result)}` : ''
 }
 
@@ -63,6 +63,7 @@ export const toUHVDRenderItem = (
     {
       name: report.displayName,
       conditionFactor: formatCondition(report.data?.condition),
+      defaultValue: '',
       result: formatResult(report.data?.result),
       acceptanceRequire: report.requirement?.acceptance?.display || '',
       stateRequire: report.requirement?.state?.display || '',
