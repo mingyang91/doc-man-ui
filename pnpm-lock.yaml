@@ -102,7 +102,6 @@ specifiers:
   short-uuid: ^4.2.0
   simplebar: ^5.3.8
   simplebar-react: ^2.4.1
-  store2: ^2.14.2
   stylelint: ^14.10.0
   stylelint-config-prettier: ^9.0.3
   stylelint-config-recess-order: ^3.0.0
@@ -171,7 +170,6 @@ dependencies:
   short-uuid: 4.2.0
   simplebar: 5.3.9
   simplebar-react: 2.4.3_biqbaboplfbrettd7655fr4n2y
-  store2: 2.14.2
   stylis: 4.1.2
   stylis-plugin-rtl: 2.1.1_stylis@4.1.2
   use-immer: 0.7.0_immer@9.0.15+react@18.2.0
@@ -12677,10 +12675,6 @@ packages:
   /statuses/2.0.1:
     resolution: {integrity: sha512-RwNA9Z/7PrK06rYLIzFMlaF+l73iwpzsqRIFgbMLbTcLD6cOao82TaWefPXQvB2fOC4AjuYSEndS7N/mTCbkdQ==}
     engines: {node: '>= 0.8'}
-
-  /store2/2.14.2:
-    resolution: {integrity: sha512-siT1RiqlfQnGqgT/YzXVUNsom9S0H1OX+dpdGN1xkyYATo4I6sep5NmsRD/40s3IIOvlCq6akxkqG82urIZW1w==}
-    dev: false
 
   /streamsearch/1.1.0:
     resolution: {integrity: sha512-Mcc5wHehp9aXz1ax6bZUyY5afg9u2rv5cqQI3mRrYkGC8rW2hM02jWuwjtL++LS5qinSyhj2QfLyNsuc+VsExg==}

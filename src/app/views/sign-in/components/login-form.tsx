@@ -39,6 +39,7 @@ const loginValidate = makeValidate<LoginFormData>(
     username: Yup.string().required('请填写登录名').trim('登录名不能有空格'),
     password: Yup.string().required('请输入密码'),
     remember: Yup.boolean().optional(),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   }) as any // 类型总是报错
 )
 export default function LoginForm() {
@@ -60,7 +61,7 @@ export default function LoginForm() {
     await signIn(username, password, () => {
       const from = assertLocationState(location.state)
         ? location.state.from
-        : '/'
+        : '/dashboard'
 
       navigate(from, { replace: true })
     })

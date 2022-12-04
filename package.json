@@ -104,7 +104,6 @@
     "short-uuid": "^4.2.0",
     "simplebar": "^5.3.8",
     "simplebar-react": "^2.4.1",
-    "store2": "^2.14.2",
     "stylis": "^4.1.1",
     "stylis-plugin-rtl": "^2.1.1",
     "use-immer": "^0.7.0",
