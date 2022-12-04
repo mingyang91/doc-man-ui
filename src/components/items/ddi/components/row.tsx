@@ -1,26 +1,27 @@
-import { Box, TableRow, TableCell, Button, SxProps, Theme } from '@mui/material'
-import { useMemo } from 'react'
+import { Theme, SxProps, TableRow, TableCell, Box, Button } from '@mui/material'
 import { useBoolean, useMemoizedFn } from 'ahooks'
-import { isNil } from 'lodash-es'
 import { produce } from 'immer'
+import { isNil } from 'lodash-es'
+import { useMemo } from 'react'
 
 import { TextFieldWithUnit } from 'd/components/text-field-with-unit'
 
 import { UnitValue } from 'm/common'
 
-import { UHHVLData } from '../type'
-import { initialUHHVLData } from '../utils'
+import { DdiData } from '../type'
+import { formatResult, initialDdiData } from '../utils'
 import { CalcModal, CalcModalProps } from './calc-modal'
 
-export interface UHHVLRowProps {
-  value: UHHVLData
-  onChange: (value: UHHVLData) => void
+export interface DdiRowProps {
+  name: string
+  value: DdiData
+  onChange: (value: DdiData) => void
 }
 
-export const UHHVLRow = ({ value, onChange }: UHHVLRowProps) => {
+export const DdiRow = ({ name, value, onChange }: DdiRowProps) => {
   const [open, setOpen] = useBoolean(false)
 
-  const finalValue = useMemo(() => initialUHHVLData(value), [value])
+  const finalValue = useMemo(() => initialDdiData(value), [value])
 
   const fieldSx = useMemo<SxProps<Theme>>(
     () => ({
@@ -32,9 +33,9 @@ export const UHHVLRow = ({ value, onChange }: UHHVLRowProps) => {
 
   const ResultText = useMemo(
     () =>
-      isNil(finalValue.result?.value)
+      isNil(finalValue.result)
         ? '点击填写结果'
-        : `${finalValue.result.value}${finalValue.result.unit}`,
+        : formatResult(finalValue.result),
     [finalValue.result]
   )
 
@@ -51,10 +52,10 @@ export const UHHVLRow = ({ value, onChange }: UHHVLRowProps) => {
   )
 
   const onConditionChange = useMemoizedFn(
-    (value: UnitValue, type: 'voltage' | 'current' | 'timeProduct') => {
+    (value: UnitValue, type: 'voltage' | 'current' | 'value') => {
       onChange(
         produce(finalValue, draft => {
-          draft.condition[type] = value
+          draft.condition.value = value
         })
       )
     }
@@ -63,7 +64,16 @@ export const UHHVLRow = ({ value, onChange }: UHHVLRowProps) => {
   return (
     <>
       <TableRow>
-        <TableCell>
+        <TableCell align="center">
+          <Box display="flex">
+            <TextFieldWithUnit
+              variant="standard"
+              sx={fieldSx}
+              label="值"
+              value={finalValue.condition.value}
+              onChange={value => onConditionChange(value, 'value')}
+            />
+          </Box>
           <Box display="flex">
             <TextFieldWithUnit
               sx={fieldSx}
@@ -78,13 +88,6 @@ export const UHHVLRow = ({ value, onChange }: UHHVLRowProps) => {
               label="电流"
               value={finalValue.condition.current}
               onChange={value => onConditionChange(value, 'current')}
-            />
-            <TextFieldWithUnit
-              variant="standard"
-              sx={fieldSx}
-              label="时间"
-              value={finalValue.condition.timeProduct}
-              onChange={value => onConditionChange(value, 'timeProduct')}
             />
           </Box>
         </TableCell>

@@ -16,7 +16,11 @@ import {
 import { InspectionItem } from './components/item'
 import { SelectInspectItems } from './components/select-inspect-items'
 
-export const MainField = () => {
+export interface MainFieldProps {
+  isEdit?: boolean
+}
+
+export const MainField = ({ isEdit }: MainFieldProps) => {
   const {
     input: { value: equipmentType = null },
   } = useField<InspectionReportFormData['equipmentType']>('equipmentType')
@@ -58,10 +62,10 @@ export const MainField = () => {
   }, [data?.list, input.value])
 
   useEffect(() => {
-    if (!inspectionItemsEqual(using, input.value)) {
+    if (!inspectionItemsEqual(using, input.value) && !isEdit) {
       input.onChange(using)
     }
-  }, [input, using])
+  }, [input, isEdit, using])
 
   if (isLoading) {
     return (

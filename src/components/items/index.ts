@@ -58,4 +58,5 @@ export const ItemComponents: Record<
         /* webpackChunkName: "items/deviation-between-light-field-and-irradiation-field" */ './deviation-between-light-field-and-irradiation-field/index'
       )
   ),
+  Ddi: lazy(() => import(/* webpackChunkName: "items/ddi" */ './ddi/index')),
 }

@@ -113,7 +113,7 @@ export const InspectionForm = ({
                   <Typography variant="h5" sx={{ px: 3 }}>
                     详细信息
                   </Typography>
-                  <MainField />
+                  <MainField isEdit={isEdit} />
                 </Stack>
               </DetailCard>
               <Stack
