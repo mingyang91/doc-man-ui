@@ -2,10 +2,14 @@ import { isNil, merge } from 'lodash-es'
 
 import ruleJudgment from 'u/rule-judgment'
 
-import { Conclusions } from 'm/common'
-import { InspectionReportItem, InspectionRequirementChild } from 'm/presets'
+import { Conclusions, formatConclusion } from 'm/common'
+import {
+  InspectionReportItem,
+  InspectionRequirementChild,
+  ReportRenderItem,
+} from 'm/presets'
 
-import { DBLFAIFData, DBLFAIFDataResult } from './type'
+import { DBLFAIFData, DBLFAIFDataCondition, DBLFAIFDataResult } from './type'
 
 export const initialDBLFAIFDataResult = (result?: DBLFAIFDataResult) => {
   const initialResult: DBLFAIFDataResult = [
@@ -42,11 +46,37 @@ export const getDBLFAIFConclusion = (
     return Conclusions.Unknown
   }
 
-  console.log('getDBLFAIFConclusion', data, requirement)
-
   const fn = ruleJudgment(requirement.rule)
 
   return data.result.every(({ value }) => fn(value))
     ? Conclusions.Good
     : Conclusions.Bad
+}
+
+export const formatCondition = (condition?: DBLFAIFDataCondition) => {
+  return condition
+    ? `${condition.left}${condition.operator}${condition.right}`
+    : ''
+}
+
+export const formatResult = (result?: DBLFAIFDataResult) => {
+  return result
+    ? `${result.map(item => `${item.label}: ${item.value}`).join('\r\n')}`
+    : ''
+}
+
+export const toDBLFAIFRenderItem = (
+  report: InspectionReportItem<DBLFAIFData>
+): ReportRenderItem[] => {
+  return [
+    {
+      name: report.displayName,
+      conditionFactor: formatCondition(report.data?.condition),
+      defaultValue: '',
+      result: formatResult(report.data?.result),
+      acceptanceRequire: report.requirement?.acceptance?.display || '',
+      stateRequire: report.requirement?.state?.display || '',
+      conclusion: formatConclusion(report?.conclusions),
+    },
+  ]
 }

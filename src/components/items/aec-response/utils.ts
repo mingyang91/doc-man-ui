@@ -4,10 +4,19 @@ import Big from 'big.js'
 
 import ruleJudgment from 'u/rule-judgment'
 
-import { InspectionRequirementChild } from 'm/presets'
-import { Conclusions } from 'm/common'
+import {
+  InspectionReportItem,
+  InspectionRequirementChild,
+  ReportRenderItem,
+} from 'm/presets'
+import { Conclusions, formatConclusion, formatUnitValue } from 'm/common'
 
-import { AECResponseData, AECResponseDataInput } from './type'
+import {
+  AECResponseData,
+  AECResponseDataCondition,
+  AECResponseDataInput,
+  AECResponseDataResult,
+} from './type'
 
 export const initialAECResponseData = (
   input?: AECResponseData
@@ -100,4 +109,28 @@ export const getAECResponseConclusion = (
   const fn = ruleJudgment(requirement.rule)
 
   return fn(data.result.value) ? Conclusions.Good : Conclusions.Bad
+}
+
+export const formatCondition = (condition?: AECResponseDataCondition) => {
+  return condition ? `${formatUnitValue(condition)}` : ''
+}
+
+export const formatResult = (result?: AECResponseDataResult) => {
+  return result ? `${formatUnitValue(result)}` : ''
+}
+
+export const toAECResponseRenderItem = (
+  report: InspectionReportItem<AECResponseData>
+): ReportRenderItem[] => {
+  return [
+    {
+      name: report.displayName,
+      conditionFactor: formatCondition(report.data?.condition),
+      defaultValue: '',
+      result: formatResult(report.data?.result),
+      acceptanceRequire: report.requirement?.acceptance?.display || '',
+      stateRequire: report.requirement?.state?.display || '',
+      conclusion: formatConclusion(report?.conclusions),
+    },
+  ]
 }

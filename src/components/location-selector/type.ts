@@ -19,6 +19,6 @@ export type SelectorProps = {
   onBlur?: () => void
 }
 
-export type LocationValue = Omit<AddressField, 'postcode'>
+export type LocationValue = AddressField
 
 export type OnChange = (value: LocationValue) => void

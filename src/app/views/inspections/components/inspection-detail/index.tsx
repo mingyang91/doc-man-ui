@@ -1,20 +1,109 @@
-import { useCallback, useMemo } from 'react'
-import { generatePath, useNavigate, useParams } from 'react-router-dom'
-import { omit } from 'lodash-es'
-import { Snackbar, Unstable_Grid2 as Grid } from '@mui/material'
+import { Unstable_Grid2 as Grid } from '@mui/material'
 
-import { InspectionReportByIdQuery } from 'm/inspection-report/index.generated'
+import { FieldLine, FieldHeader, FieldContent } from 'd/components/data-display'
+
+import { fDate } from 'u/format-time'
+
+import { InspectionType } from 'm/presets'
+
+import { InspectionDetailHeader } from './components/header'
+import { useInspectionReportData } from './context'
+import { InspectionDetailBody } from './components/body'
 
 import { DetailCard } from '@@/detail-card'
+import { formatInspectiontype } from '@@/inspectiontype-selector'
+import { formatLocation } from '@@/location-selector/utils'
+import { LocationValue } from '@@/location-selector'
 
-export interface InspectionDetailProps {
-  data: InspectionReportByIdQuery['detail']
-}
+export const InspectionDetail = () => {
+  const data = useInspectionReportData()
 
-export const InspectionDetail = ({ data }: InspectionDetailProps) => {
   return (
-    <DetailCard>
-      <Grid container spacing={3}></Grid>
-    </DetailCard>
+    <>
+      <InspectionDetailHeader />
+      <DetailCard>
+        <Grid container spacing={3}>
+          <Grid xs={12} sm={6}>
+            <FieldLine>
+              <FieldHeader>委托单位</FieldHeader>
+              <FieldContent>{data?.equipmentName}</FieldContent>
+            </FieldLine>
+          </Grid>
+          <Grid xs={12} sm={6}>
+            <FieldLine>
+              <FieldHeader>检测地址</FieldHeader>
+              <FieldContent>
+                {formatLocation(data?.inspectionAddress as LocationValue, true)}
+              </FieldContent>
+            </FieldLine>
+          </Grid>
+          <Grid xs={12} sm={6}>
+            <FieldLine>
+              <FieldHeader>设备名称</FieldHeader>
+              <FieldContent>{data?.equipmentName}</FieldContent>
+            </FieldLine>
+          </Grid>
+          <Grid xs={12} sm={6}>
+            <FieldLine>
+              <FieldHeader>样品标识</FieldHeader>
+              <FieldContent>{data?.equipmentSampleId}</FieldContent>
+            </FieldLine>
+          </Grid>
+          <Grid xs={12} sm={6}>
+            <FieldLine>
+              <FieldHeader>设备型号</FieldHeader>
+              <FieldContent>{data?.equipmentModel}</FieldContent>
+            </FieldLine>
+          </Grid>
+          <Grid xs={12} sm={6}>
+            <FieldLine>
+              <FieldHeader>设备编号</FieldHeader>
+              <FieldContent>{data?.equipmentCode}</FieldContent>
+            </FieldLine>
+          </Grid>
+          <Grid xs={12} sm={6}>
+            <FieldLine>
+              <FieldHeader>制造厂商</FieldHeader>
+              <FieldContent>{data?.equipmentManufacturer}</FieldContent>
+            </FieldLine>
+          </Grid>
+          <Grid xs={12} sm={6}>
+            <FieldLine>
+              <FieldHeader>设备场所</FieldHeader>
+              <FieldContent>{data?.equipmentSite}</FieldContent>
+            </FieldLine>
+          </Grid>
+          <Grid xs={12}>
+            <FieldLine>
+              <FieldHeader>检测依据</FieldHeader>
+              <FieldContent>{data?.inspectionBasis}</FieldContent>
+            </FieldLine>
+          </Grid>
+          <Grid xs={12}>
+            <FieldLine>
+              <FieldHeader>检测仪器</FieldHeader>
+              <FieldContent>{data?.inspectionInstrument}</FieldContent>
+            </FieldLine>
+          </Grid>
+          <Grid xs={12} sm={6}>
+            <FieldLine>
+              <FieldHeader>检测项目</FieldHeader>
+              <FieldContent>
+                {formatInspectiontype(data?.inspectionItem as InspectionType)}
+              </FieldContent>
+            </FieldLine>
+          </Grid>
+          <Grid xs={12} sm={6}>
+            <FieldLine>
+              <FieldHeader>检测日期</FieldHeader>
+              <FieldContent>
+                {data?.inspectionDate ? fDate(data.inspectionDate) : ' - '}
+              </FieldContent>
+            </FieldLine>
+          </Grid>
+        </Grid>
+      </DetailCard>
+      <InspectionDetailBody />
+    </>
   )
 }

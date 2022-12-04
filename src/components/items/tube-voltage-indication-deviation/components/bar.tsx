@@ -1,4 +1,4 @@
-import { Box, Button, TableCell, TableFooter, TableRow } from '@mui/material'
+import { Button, TableCell, TableFooter, TableRow } from '@mui/material'
 import { MdAddCircle } from 'react-icons/md'
 
 import Iconify from 'd/components/iconify'

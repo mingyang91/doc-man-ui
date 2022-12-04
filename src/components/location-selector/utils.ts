@@ -56,7 +56,7 @@ export const createValidateSchema = () =>
   })
 
 export const formatLocation = (
-  location?: LocationValue,
+  location?: LocationValue | null,
   withDetail = false
 ) => {
   if (!location) {

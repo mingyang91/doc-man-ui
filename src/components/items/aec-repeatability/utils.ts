@@ -4,10 +4,18 @@ import Big from 'big.js'
 
 import ruleJudgment from 'u/rule-judgment'
 
-import { InspectionRequirementChild } from 'm/presets'
-import { Conclusions } from 'm/common'
+import {
+  InspectionReportItem,
+  InspectionRequirementChild,
+  ReportRenderItem,
+} from 'm/presets'
+import { Conclusions, formatConclusion, formatUnitValue } from 'm/common'
 
-import { AECRepeatabilityData } from './type'
+import {
+  AECRepeatabilityData,
+  AECRepeatabilityDataCondition,
+  AECRepeatabilityDataResult,
+} from './type'
 
 export const initialAECRepeatabilityData = (
   input?: AECRepeatabilityData
@@ -80,4 +88,28 @@ export const getAECRepeatabilityConclusion = (
   const fn = ruleJudgment(requirement.rule)
 
   return fn(`${result}`) ? Conclusions.Good : Conclusions.Bad
+}
+
+export const formatCondition = (condition?: AECRepeatabilityDataCondition) => {
+  return condition ? `${formatUnitValue(condition)}` : ''
+}
+
+export const formatResult = (result?: AECRepeatabilityDataResult) => {
+  return result ? `${formatUnitValue(result)}` : ''
+}
+
+export const toAECRepeatabilityRenderItem = (
+  report: InspectionReportItem<AECRepeatabilityData>
+): ReportRenderItem[] => {
+  return [
+    {
+      name: report.displayName,
+      conditionFactor: formatCondition(report.data?.condition),
+      defaultValue: '',
+      result: formatResult(report.data?.result),
+      acceptanceRequire: report.requirement?.acceptance?.display || '',
+      stateRequire: report.requirement?.state?.display || '',
+      conclusion: formatConclusion(report?.conclusions),
+    },
+  ]
 }

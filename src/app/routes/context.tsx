@@ -410,13 +410,13 @@ export const routes: RouteView[] = [
         ],
       },
       {
-        id: 'device-detail',
+        id: 'inspections-detail',
         path: ROUTES.inspectionDetail,
         isRequireAuth: true,
         Component: lazy(
           () =>
             import(
-              /* webpackChunkName: "views/inspections/detail" */ '@/views/inspections/index'
+              /* webpackChunkName: "views/inspections/detail" */ '@/views/inspections/detail'
             )
         ),
         layout: 'admin',
@@ -454,7 +454,7 @@ export const routes: RouteView[] = [
         Component: lazy(
           () =>
             import(
-              /* webpackChunkName: "views/inspections/edit" */ '@/views/inspections/index'
+              /* webpackChunkName: "views/inspections/edit" */ '@/views/inspections/edit'
             )
         ),
         layout: 'admin',

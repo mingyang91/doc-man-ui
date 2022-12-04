@@ -11,8 +11,6 @@ import {
   Typography,
 } from '@mui/material'
 
-import { TextFieldWithUnit } from 'd/components/text-field-with-unit'
-
 import { InspectionReportItem } from 'm/presets'
 
 import { DBLFAIFData } from './type'
@@ -20,7 +18,6 @@ import { DBLFAIFHeader } from './components/header'
 import { DBLFAIFCondition } from './components/condition'
 import { DBLFAIFConclusion } from './components/conclusion'
 import { initialDBLFAIFData } from './utils'
-import { DBLFAIFValueItem } from './components/value-item'
 import { DBLFAIFDataResultInput } from './components/result-input'
 
 /**

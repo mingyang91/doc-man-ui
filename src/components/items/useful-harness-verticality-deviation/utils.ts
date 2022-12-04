@@ -2,10 +2,14 @@ import { isNil, merge } from 'lodash-es'
 
 import ruleJudgment from 'u/rule-judgment'
 
-import { Conclusions } from 'm/common'
-import { InspectionReportItem, InspectionRequirementChild } from 'm/presets'
+import { Conclusions, formatConclusion, formatUnitValue } from 'm/common'
+import {
+  InspectionReportItem,
+  InspectionRequirementChild,
+  ReportRenderItem,
+} from 'm/presets'
 
-import { UHVDData } from './type'
+import { UHVDData, UHVDDataCondition, UHVDDataResult } from './type'
 
 export const initialUHVDData = (
   input?: InspectionReportItem<UHVDData>
@@ -40,4 +44,30 @@ export const getUHVDConclusion = (
   const fn = ruleJudgment(requirement.rule)
 
   return fn(data.result?.value) ? Conclusions.Good : Conclusions.Bad
+}
+
+export const formatCondition = (condition?: UHVDDataCondition) => {
+  return condition
+    ? `${condition.left}${condition.operator}${condition.right}`
+    : ''
+}
+
+export const formatResult = (result?: UHVDDataResult) => {
+  return result ? `${formatUnitValue(result)}` : ''
+}
+
+export const toUHVDRenderItem = (
+  report: InspectionReportItem<UHVDData>
+): ReportRenderItem[] => {
+  return [
+    {
+      name: report.displayName,
+      conditionFactor: formatCondition(report.data?.condition),
+      defaultValue: '',
+      result: formatResult(report.data?.result),
+      acceptanceRequire: report.requirement?.acceptance?.display || '',
+      stateRequire: report.requirement?.state?.display || '',
+      conclusion: formatConclusion(report?.conclusions),
+    },
+  ]
 }

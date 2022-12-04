@@ -6,6 +6,8 @@ import { produce } from 'immer'
 
 import { TextFieldWithUnit } from 'd/components/text-field-with-unit'
 
+import { UnitValue } from 'm/common'
+
 import { UHHVLData } from '../type'
 import { initialUHHVLData } from '../utils'
 import { CalcModal, CalcModalProps } from './calc-modal'
@@ -48,6 +50,16 @@ export const UHHVLRow = ({ value, onChange }: UHHVLRowProps) => {
     }
   )
 
+  const onConditionChange = useMemoizedFn(
+    (value: UnitValue, type: 'voltage' | 'current' | 'timeProduct') => {
+      onChange(
+        produce(finalValue, draft => {
+          draft.condition[type] = value
+        })
+      )
+    }
+  )
+
   return (
     <>
       <TableRow>
@@ -58,18 +70,21 @@ export const UHHVLRow = ({ value, onChange }: UHHVLRowProps) => {
               variant="standard"
               label="电压"
               value={finalValue.condition.voltage}
+              onChange={value => onConditionChange(value, 'voltage')}
             />
             <TextFieldWithUnit
               variant="standard"
               sx={fieldSx}
               label="电流"
               value={finalValue.condition.current}
+              onChange={value => onConditionChange(value, 'current')}
             />
             <TextFieldWithUnit
               variant="standard"
               sx={fieldSx}
               label="时间"
               value={finalValue.condition.timeProduct}
+              onChange={value => onConditionChange(value, 'timeProduct')}
             />
           </Box>
         </TableCell>

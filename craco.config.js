@@ -10,10 +10,6 @@ const isDevelopment = process.env.NODE_ENV === 'development'
  */
 module.exports = {
   webpack: {
-    alias: {
-      'store2/on': 'store2/src/store.on.js',
-      'store2/cache': 'store2/src/cache.on.js',
-    },
     plugins: {
       add: [
         new ProvidePlugin({

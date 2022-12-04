@@ -7,7 +7,7 @@ import {
   Typography,
 } from '@mui/material'
 import { useCreation, useMemoizedFn } from 'ahooks'
-import { MdAddCircle, MdDelete, MdViewList } from 'react-icons/md'
+import { MdAddCircle, MdDelete, MdOutlineMenuBook } from 'react-icons/md'
 import {
   generatePath,
   Link as RouteLink,
@@ -140,7 +140,7 @@ export const DeviceTypeList = ({
                   color="primary"
                   onClick={() => toDetail(id)}
                 >
-                  <MdViewList />
+                  <MdOutlineMenuBook />
                 </IconButton>
               </Tooltip>
             </Stack>

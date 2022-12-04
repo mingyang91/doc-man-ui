@@ -1,6 +1,5 @@
-import { IconButton, Link, Stack, Tooltip, Typography } from '@mui/material'
+import { Link, Typography } from '@mui/material'
 import { useMemo, MouseEvent } from 'react'
-import { MdCheckCircle } from 'react-icons/md'
 import { generatePath, Link as RouteLink } from 'react-router-dom'
 import { useMemoizedFn } from 'ahooks'
 import { RowDataType } from 'rsuite-table'
@@ -122,7 +121,7 @@ export const SearchResult = ({
       //   },
       // },
     ],
-    [onSelect]
+    []
   )
 
   const onRowClick = useMemoizedFn(

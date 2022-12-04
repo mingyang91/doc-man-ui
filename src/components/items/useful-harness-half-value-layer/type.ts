@@ -13,7 +13,7 @@ export type UHHVLDataResult = UnitValue
 
 export interface UHHVLDataInput {
   values: number[]
-  unit: 'mmAl'
+  unit: string
 }
 
 export interface UHHVLData {

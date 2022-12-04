@@ -19,7 +19,7 @@ import { useImmer } from 'use-immer'
 import { InspectionType, InspectionTypeEnum } from 'm/presets'
 
 import { OnChange } from '../type'
-import { initialInspectiontypeData } from '../utils'
+import { initialInspectiontypeData, inspectionTypeOptions } from '../utils'
 
 type OnSelectChange = (
   event: SelectChangeEvent<InspectionTypeEnum>,
@@ -101,10 +101,11 @@ export const InspectiontypeSelector = ({
           onFocus={() => handleChangeFocus(0, true)}
           onBlur={() => handleChangeFocus(0, false)}
         >
-          <MenuItem value={InspectionTypeEnum.None}>无</MenuItem>
-          <MenuItem value={InspectionTypeEnum.Acceptance}>验收检测</MenuItem>
-          <MenuItem value={InspectionTypeEnum.State}>状态检测</MenuItem>
-          <MenuItem value={InspectionTypeEnum.Other}>其他</MenuItem>
+          {inspectionTypeOptions.map(option => (
+            <MenuItem key={option[0]} value={option[0]}>
+              {option[1]}
+            </MenuItem>
+          ))}
         </Select>
         {value?.type !== InspectionTypeEnum.None && (
           <TextField

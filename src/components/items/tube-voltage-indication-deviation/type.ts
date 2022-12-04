@@ -3,7 +3,7 @@ import { UnitValue } from 'm/common'
 // 检测条件
 
 // 加载因素
-interface TVIDDataItemFactor {
+export interface TVIDDataItemFactor {
   current: UnitValue // 电流
   timeProduct: UnitValue // 电流时间积
 }

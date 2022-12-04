@@ -1,5 +1,3 @@
-import { UnitValue } from 'm/common'
-
 // 检测条件
 
 // 加载因素

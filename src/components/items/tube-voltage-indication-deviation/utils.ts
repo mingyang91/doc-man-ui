@@ -1,13 +1,23 @@
-import { map, merge } from 'lodash-es'
+import { isEmpty, map, merge } from 'lodash-es'
 import { AVERAGE } from '@formulajs/formulajs'
 import Big from 'big.js'
 
 import ruleJudgment from 'u/rule-judgment'
 
-import { Conclusions } from 'm/common'
-import { InspectionReportItem, InspectionRequirementChild } from 'm/presets'
+import { Conclusions, formatUnitValue, formatConclusion } from 'm/common'
+import {
+  InspectionReportItem,
+  InspectionRequirementChild,
+  ReportRenderItem,
+} from 'm/presets'
 
-import { TVIDData, TVIDDataCondition, TVIDDataItem } from './type'
+import {
+  TVIDData,
+  TVIDDataCondition,
+  TVIDDataItem,
+  TVIDDataResult,
+  TVIDDataItemFactor,
+} from './type'
 
 export const initialTVIDDataItem = (
   input: TVIDDataItem,
@@ -124,7 +134,6 @@ export const calculateTVIDItemResult = (
     }
   }
 }
-
 export const getTVIDConclusion = (
   result: TVIDData,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -144,4 +153,45 @@ export const getTVIDConclusion = (
   }
 
   return Conclusions.Bad
+}
+
+export const formatFactor = (factor?: TVIDDataItemFactor) => {
+  return factor
+    ? `${formatUnitValue(factor.current)},${formatUnitValue(
+        factor.timeProduct
+      )}`
+    : ''
+}
+
+export const formatResult = (input?: TVIDDataResult) => {
+  return input
+    ? `${formatUnitValue(input.percentage)}(${formatUnitValue(input.scalar)})`
+    : ''
+}
+
+export const toTVIDRenderItem = (
+  report: InspectionReportItem<TVIDData>
+): ReportRenderItem[] => {
+  const { data } = report
+
+  if (!data || isEmpty(data)) {
+    return []
+  }
+
+  return data.map((item, index) => {
+    const row: ReportRenderItem = {
+      conditionFactor: formatFactor(item.condition?.factor),
+      defaultValue: formatUnitValue(item.condition?.presets),
+      result: formatResult(item.result),
+      acceptanceRequire: report?.requirement?.acceptance?.display || '',
+      stateRequire: report?.requirement?.state?.display || '',
+      conclusion: formatConclusion(report?.conclusions),
+    }
+
+    if (index === 0) {
+      row.name = report.displayName
+    }
+
+    return row
+  })
 }

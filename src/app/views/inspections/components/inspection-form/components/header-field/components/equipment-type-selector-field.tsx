@@ -20,7 +20,7 @@ import {
 } from '@@/equipmenttype-selector'
 
 export const EquipmentTypeSelectorElement = ({
-  input: { onChange, ...restFieldProps },
+  input: { onChange, value, ...restFieldProps },
   meta: { touched, error },
   ...restProps
 }: EquipmentTypeSelectorElementProps) => {
@@ -33,7 +33,10 @@ export const EquipmentTypeSelectorElement = ({
   const isError = useMemo(() => !!(touched && error), [error, touched])
 
   const handleChange = useMemoizedFn<(value: EquipmentType) => void>(
-    async value => {
+    async nextValue => {
+      if (nextValue.id === value.id || !value) {
+        return
+      }
       if (!isEmpty(items)) {
         const confirmed = await confirm({
           title: '检测项变更确认',
@@ -41,10 +44,10 @@ export const EquipmentTypeSelectorElement = ({
         })
 
         if (confirmed) {
-          onChange?.(value)
+          onChange?.(nextValue)
         }
       } else {
-        onChange?.(value)
+        onChange?.(nextValue)
       }
     }
   )
@@ -53,6 +56,7 @@ export const EquipmentTypeSelectorElement = ({
     <EquipmentTypeSelector
       {...restFieldProps}
       {...restProps}
+      value={value}
       error={isError}
       helperText={error}
       onChange={handleChange}

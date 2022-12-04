@@ -33,6 +33,7 @@ export type InspectionReportHeaderFragment = {
   equipmentSite?: string | null
   inspectionBasis?: string | null
   inspectionInstrument?: string | null
+  inspectionDate?: ScalarTz | null
   inspectionItem: ScalarJson
   createAt?: ScalarTz | null
   updatedAt?: ScalarTz | null
@@ -65,6 +66,7 @@ export type InspectionReportFragment = {
   equipmentSite?: string | null
   inspectionBasis?: string | null
   inspectionInstrument?: string | null
+  inspectionDate?: ScalarTz | null
   inspectionItem: ScalarJson
   createAt?: ScalarTz | null
   updatedAt?: ScalarTz | null
@@ -107,6 +109,7 @@ export type InspectionReportListQuery = {
     equipmentSite?: string | null
     inspectionBasis?: string | null
     inspectionInstrument?: string | null
+    inspectionDate?: ScalarTz | null
     inspectionItem: ScalarJson
     createAt?: ScalarTz | null
     updatedAt?: ScalarTz | null
@@ -142,6 +145,7 @@ export type InspectionReportByIdQuery = {
     equipmentSite?: string | null
     inspectionBasis?: string | null
     inspectionInstrument?: string | null
+    inspectionDate?: ScalarTz | null
     inspectionItem: ScalarJson
     createAt?: ScalarTz | null
     updatedAt?: ScalarTz | null
@@ -176,6 +180,7 @@ export type CreateInspectionReportMutation = {
     equipmentSite?: string | null
     inspectionBasis?: string | null
     inspectionInstrument?: string | null
+    inspectionDate?: ScalarTz | null
     inspectionItem: ScalarJson
     createAt?: ScalarTz | null
     updatedAt?: ScalarTz | null
@@ -211,6 +216,7 @@ export type UpdateInspectionReportByIdMutation = {
     equipmentSite?: string | null
     inspectionBasis?: string | null
     inspectionInstrument?: string | null
+    inspectionDate?: ScalarTz | null
     inspectionItem: ScalarJson
     createAt?: ScalarTz | null
     updatedAt?: ScalarTz | null
@@ -248,6 +254,7 @@ export const InspectionReportHeaderFragmentDoc = `
   equipmentSite
   inspectionBasis
   inspectionInstrument
+  inspectionDate
   inspectionItem
   createAt
   updatedAt
