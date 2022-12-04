@@ -2,7 +2,7 @@ import { isNil, merge } from 'lodash-es'
 
 import ruleJudgment from 'u/rule-judgment'
 
-import { Conclusions, formatConclusion, formatUnitValue } from 'm/common'
+import { Conclusions, formatConclusion } from 'm/common'
 import {
   InspectionReportItem,
   InspectionRequirementChild,

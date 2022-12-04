@@ -53,7 +53,7 @@ export const Info = () => {
             justifyContent: 'space-around',
           }}
         >
-          <Button component={RouterLink} to={ROUTES.dashboard} onClick={logout}>
+          <Button component={RouterLink} to={ROUTES.dashboard}>
             进入系统
           </Button>
           <Button size="medium" onClick={logout}>

@@ -109,6 +109,16 @@ export const InspectionEnumForm = ({
             </Field>
           </Grid>
           <Grid xs={12} md={6}>
+            <TextField
+              name="index"
+              label="序号"
+              type="number"
+              required
+              fullWidth
+              helperText="用于排序, 数字越小越靠前, 序号不是唯一的"
+            />
+          </Grid>
+          <Grid xs={12} md={6}>
             <Stack direction="column" alignItems="flex-start" spacing={1}>
               <Typography variant="body1" fontWeight="600">
                 常量列表

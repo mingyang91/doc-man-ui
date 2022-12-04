@@ -1,5 +1,4 @@
 import {
-  Paper,
   styled,
   TableBody,
   TableCell,

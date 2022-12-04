@@ -1,6 +1,5 @@
 import { useBoolean, useMemoizedFn } from 'ahooks'
 import {
-  ChangeEvent,
   CSSProperties,
   FocusEvent,
   FormEvent,

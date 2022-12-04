@@ -1,7 +1,7 @@
 import { Box, TableRow, TableCell, Button, SxProps, Theme } from '@mui/material'
 import { useEffect, useMemo } from 'react'
-import { useBoolean, useMemoizedFn, useUpdateEffect } from 'ahooks'
-import { isEqual, isNil } from 'lodash-es'
+import { useBoolean, useMemoizedFn } from 'ahooks'
+import { isNil } from 'lodash-es'
 import { useImmer } from 'use-immer'
 
 import { TextFieldWithUnit } from 'd/components/text-field-with-unit'

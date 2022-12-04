@@ -71,12 +71,12 @@ export const InspectionItemRow = ({ value }: InspectionItemRowProps) => {
           }
 
           return index ? (
-            <TableRow key={index}>
+            <TableRow key={`${item.name}-${index}`}>
               {conditionCell}
               {resultCell}
             </TableRow>
           ) : (
-            <TableRow key={index}>
+            <TableRow key={`${item.name}-${index}`}>
               <TableCell rowSpan={rowSpan}>{value.displayName}</TableCell>
               {conditionCell}
               {resultCell}

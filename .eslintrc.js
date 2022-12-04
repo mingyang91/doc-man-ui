@@ -41,6 +41,12 @@ module.exports = {
   },
   overrides: [
     {
+      files: ['src//models/**/*.ts?(x)'],
+      rules: {
+        '@typescript-eslint/no-unused-vars': ['off'],
+      },
+    },
+    {
       files: ['src/**/*.ts?(x)'],
       parser: '@typescript-eslint/parser',
       parserOptions: {

@@ -1,4 +1,5 @@
 import { Stack, TableCell, Box } from '@mui/material'
+import { Fragment } from 'react'
 
 import { InspectionReportItem } from 'm/presets'
 
@@ -15,13 +16,13 @@ export const CellResult = ({ data }: InspectionReportItem<DBLFAIFData>) => {
   return (
     <TableCell align="center">
       {data?.result
-        ? data?.result.map(item => (
-            <>
+        ? data?.result.map((item, index) => (
+            <Fragment key={`${item.value}-${index}`}>
               <Stack direction="row" alignContent="space-between">
                 <Box width="50%">{item.label}:</Box>
                 <Box width="50%">{item.value}</Box>
               </Stack>
-            </>
+            </Fragment>
           ))
         : ''}
     </TableCell>

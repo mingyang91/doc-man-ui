@@ -1,7 +1,7 @@
 import { useField } from 'react-final-form'
 import { useDeepCompareEffect } from 'ahooks'
 import { useMemo, useState } from 'react'
-import { Button, Stack, Tooltip, Typography } from '@mui/material'
+import { Button, Stack, Typography } from '@mui/material'
 
 import { Conclusions, conclusionMap } from 'm/common'
 import { InspectionRequirement, InspectionTypeEnum } from 'm/presets'

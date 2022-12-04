@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { unstable_NO_STORAGE_VALUE } from 'jotai/utils'
 
-import { Cache, SessionStorageCacheStorage } from 'u/cache'
+import { Cache, LocalStorageCacheStorage } from 'u/cache'
 
 import { LS_KEY_PREFIX, SESSION_KEY } from './const'
 
@@ -21,7 +21,7 @@ export const sessionStore = new Cache<
 >({
   keyPrefix: LS_KEY_PREFIX,
   defaultTTL: 1000 * 60 * 60 * 24,
-  storage: new SessionStorageCacheStorage(),
+  storage: new LocalStorageCacheStorage(),
 })
 
 export const setAuthToken = (value: string) => {

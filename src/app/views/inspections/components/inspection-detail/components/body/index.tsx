@@ -27,7 +27,7 @@ export const InspectionDetailBody = () => {
           <TableHeader />
           <TableBody>
             {items.map((item, index) => (
-              <InspectionItemRow key={item.name} value={item} />
+              <InspectionItemRow key={`${item.name}-${index}`} value={item} />
             ))}
           </TableBody>
         </Table>

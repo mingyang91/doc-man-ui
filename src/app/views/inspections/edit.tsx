@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { omit } from 'lodash-es'
 import { useCallback, useMemo } from 'react'
 
@@ -24,7 +24,6 @@ import {
 const TITLE = `检验检测报告 - 编辑`
 
 const PageInspectionEdit = () => {
-  const navigate = useNavigate()
   const { activeRouteConfig } = useMenuAndRoutes()
 
   const { id }: { id?: UUIDV4 } = useParams()
