@@ -15,6 +15,7 @@ import {
 import { useDeleteInspectionTypesMutation } from 'm/equipment-type/index.generated'
 import { UUIDV4 } from 'm/presets'
 import { InspectionTypes } from 'm/types'
+import { formatInspectionType } from 'm/common'
 
 import { useConfirm } from '@@/confirm'
 
@@ -48,6 +49,14 @@ const columnMaps: {
     minWidth: 120,
     render: ({ displayName }) => (
       <Typography variant="body1">{displayName}</Typography>
+    ),
+  },
+  type: {
+    field: 'type',
+    title: '检测类型',
+    width: 90,
+    render: ({ type }) => (
+      <Typography variant="body1">{formatInspectionType(type)}</Typography>
     ),
   },
   formula: {

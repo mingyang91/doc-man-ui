@@ -49,10 +49,10 @@ export const InspectionDetailHeader = () => {
   const { mutate, isLoading } = useRenderDevice({
     onSuccess(data, variable) {
       window.open(data, '_blank', 'opener=null')
-      pushSuccessMessage('检验检测报告已生成,请下载')
+      pushSuccessMessage('设备检验检测已生成,请下载')
     },
     onError(error) {
-      pushErrorMessage(`生成检验检测报告失败: ${(error as Error).message}`)
+      pushErrorMessage(`生成设备检验检测失败: ${(error as Error).message}`)
     },
   })
 

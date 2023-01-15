@@ -17,10 +17,10 @@ import {
   useInspectionReportListQuery,
 } from 'm/inspection-report/index.generated'
 
-import { InspectionForm } from './components/inspection-form'
 import { FnSubmitInspectionReport } from './components/inspection-form/utils'
+import { InspectionStep } from './components/steps'
 
-const TITLE = `检验检测报告 - 创建`
+const TITLE = `设备检验检测 - 创建`
 
 const PageInspectionCreate = () => {
   const navigate = useNavigate()
@@ -32,7 +32,7 @@ const PageInspectionCreate = () => {
 
   const { refetch } = useInspectionReportListQuery()
 
-  const { mutate, isLoading } = useCreateInspectionReportMutation({
+  const { mutate } = useCreateInspectionReportMutation({
     onSuccess() {
       pushSuccessMessage(`创建成功`)
     },
@@ -78,7 +78,7 @@ const PageInspectionCreate = () => {
         heading={TITLE}
         links={activeRouteConfig.breadcrumbs}
       />
-      <InspectionForm isLoading={isLoading} submitForm={submitForm} />
+      <InspectionStep submitForm={submitForm} />
       <FormGroup>
         <FormControlLabel
           control={

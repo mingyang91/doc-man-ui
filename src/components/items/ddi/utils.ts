@@ -2,14 +2,8 @@ import { isNull, merge } from 'lodash-es'
 import { AVERAGE } from '@formulajs/formulajs'
 import Big from 'big.js'
 
-import ruleJudgment from 'u/rule-judgment'
-
-import {
-  InspectionReportItem,
-  InspectionRequirementChild,
-  ReportRenderItem,
-} from 'm/presets'
-import { Conclusions, formatConclusion, formatUnitValue } from 'm/common'
+import { InspectionReportItem, ReportRenderItem } from 'm/presets'
+import { formatConclusion, formatUnitValue } from 'm/common'
 
 import { DdiData, DdiDataCondition, DdiDataResult } from './type'
 
@@ -106,4 +100,20 @@ export const formatCondition = (condition?: DdiDataCondition) => {
   return `(${formatUnitValue(condition.value)})\r\n${formatUnitValue(
     condition.voltage
   )} ${formatUnitValue(condition.current)}`
+}
+
+export const toDdiRenderItem = (
+  report: InspectionReportItem<DdiData>
+): ReportRenderItem[] => {
+  return [
+    {
+      name: report.displayName,
+      conditionFactor: formatCondition(report.data?.condition),
+      result: formatResult(report.data?.result),
+      defaultValue: '',
+      acceptanceRequire: report.requirement?.acceptance?.display || '',
+      stateRequire: report.requirement?.state?.display || '',
+      conclusion: formatConclusion(report?.conclusions),
+    },
+  ]
 }

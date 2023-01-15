@@ -4,23 +4,23 @@ import { FieldRenderProps } from 'react-final-form'
 import { InspectionType } from 'm/presets'
 
 import {
-  InspectiontypeSelector,
-  InspectiontypeSelectorProps,
+  InspectionItemTypeSelector,
+  InspectionItemTypeSelectorProps,
 } from './component'
 
-export interface InspectiontypeSelectorElementProps
+export interface InspectionItemTypeSelectorElementProps
   extends FieldRenderProps<InspectionType>,
-    InspectiontypeSelectorProps {}
+    InspectionItemTypeSelectorProps {}
 
-export const InspectiontypeSelectorElement = ({
+export const InspectionItemTypeSelectorElement = ({
   input,
   meta: { touched, error },
   ...restProps
-}: InspectiontypeSelectorElementProps) => {
+}: InspectionItemTypeSelectorElementProps) => {
   const isError = useMemo(() => !!(touched && error), [error, touched])
 
   return (
-    <InspectiontypeSelector
+    <InspectionItemTypeSelector
       {...restProps}
       {...input}
       isError={isError}

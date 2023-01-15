@@ -9,7 +9,7 @@ import { formatSerialNumber } from 'm/common'
 
 import { formatLocation } from '@@/location-selector/utils'
 import { toUHVDRenderItem } from '@@/items/useful-harness-verticality-deviation/utils'
-import { formatInspectiontype } from '@@/inspectiontype-selector'
+import { formatInspectionType } from '@@/inspection-item-type-selector'
 import { toRORRenderItem } from '@@/items/radiation-output-repeatability/utils'
 import { toTVIDRenderItem } from '@@/items/tube-voltage-indication-deviation/utils'
 import { toConsistencyAmongAECChamberRenderItem } from '@@/items/consistency-among-aec-chambers/utils'
@@ -27,7 +27,7 @@ export const convertToRenderParam = (
       address: formatLocation(input?.inspectionAddress),
       deviceNo: input?.equipmentCode || '',
       equipment: input?.inspectionInstrument || '',
-      testItem: formatInspectiontype(input?.inspectionItem),
+      testItem: formatInspectionType(input?.inspectionItem),
       model: input?.equipmentModel || '',
       deviceName: input?.equipmentName || '',
       sampleName: input?.equipmentSampleId || '',
@@ -40,9 +40,11 @@ export const convertToRenderParam = (
       reportNo: formatSerialNumber(input?.serialNumber),
       date: input?.inspectionDate ? fDate(input?.inspectionDate) : '',
     },
+    items1: [],
+    items2: [],
   }
 
-  input.items.forEach((item, index) => {
+  input.items1.forEach((item, index) => {
     let itemResult: ReportRenderItem[] = []
 
     switch (item.name) {
@@ -72,7 +74,11 @@ export const convertToRenderParam = (
         break
     }
 
-    result[`items${index + 1}`] = itemResult
+    if (item.type === '1') {
+      result.items1.push(...itemResult)
+    } else {
+      result.items2.push(...itemResult)
+    }
   })
 
   return result

@@ -9,7 +9,9 @@ export const inspectionTypeOptions = [
   [InspectionTypeEnum.Other, '其他'],
 ] as const
 
-export const initialInspectiontypeData = (input?: InspectionType) => {
+export const initialInspectionItemTypeData = (
+  input?: InspectionType
+): InspectionType => {
   return merge(
     {
       type: InspectionTypeEnum.None,
@@ -19,7 +21,7 @@ export const initialInspectiontypeData = (input?: InspectionType) => {
   )
 }
 
-export const formatInspectiontype = (input?: InspectionType | null) => {
+export const formatInspectionType = (input?: InspectionType | null) => {
   const value = input?.type || InspectionTypeEnum.None
   return inspectionTypeOptions.find(item => item[0] === value)?.[1] || ''
 }

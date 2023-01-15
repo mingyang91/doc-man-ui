@@ -389,7 +389,7 @@ export const routes: RouteView[] = [
         id: 'inspections-list',
         path: ROUTES.inspectionList,
         isRequireAuth: true,
-        title: '检验检测报告',
+        title: '设备检验检测',
         icon: RiFile2Fill,
         isMenu: true,
         activePaths: [
@@ -406,7 +406,7 @@ export const routes: RouteView[] = [
         layout: 'admin',
         breadcrumbs: [
           { name: '报告管理' },
-          { name: '检验检测报告', href: ROUTES.inspectionList },
+          { name: '设备检验检测', href: ROUTES.inspectionList },
         ],
       },
       {
@@ -422,7 +422,7 @@ export const routes: RouteView[] = [
         layout: 'admin',
         breadcrumbs: [
           { name: '报告管理' },
-          { name: '检验检测报告', href: ROUTES.inspectionList },
+          { name: '设备检验检测', href: ROUTES.inspectionList },
           { name: '详情' },
         ],
       },
@@ -430,7 +430,7 @@ export const routes: RouteView[] = [
         id: 'inspections-create',
         path: ROUTES.inspectionCreate,
         isRequireAuth: true,
-        title: '检验检测报告 - 新增',
+        title: '设备检验检测 - 新增',
         icon: RiFile2Fill,
         Component: lazy(
           () =>
@@ -441,7 +441,7 @@ export const routes: RouteView[] = [
         layout: 'admin',
         breadcrumbs: [
           { name: '报告管理' },
-          { name: '检验检测报告', href: ROUTES.inspectionList },
+          { name: '设备检验检测', href: ROUTES.inspectionList },
           { name: '新增' },
         ],
       },
@@ -449,7 +449,7 @@ export const routes: RouteView[] = [
         id: 'inspections-edit',
         path: ROUTES.inspectionEdit,
         isRequireAuth: true,
-        title: '检验检测报告 - 编辑',
+        title: '设备检验检测 - 编辑',
         icon: RiFile2Fill,
         Component: lazy(
           () =>
@@ -460,7 +460,7 @@ export const routes: RouteView[] = [
         layout: 'admin',
         breadcrumbs: [
           { name: '报告管理' },
-          { name: '检验检测报告', href: ROUTES.inspectionList },
+          { name: '设备检验检测', href: ROUTES.inspectionList },
           { name: '编辑' },
         ],
       },

@@ -3,7 +3,6 @@ import { ReactNode } from 'react'
 
 // ----------------------------------------------------------------------
 
-// eslint-disable-next-line import/extensions
 const loadFeatures = () =>
   import(/* webpackChunkName: "motion-lazy-container" */ './features').then(
     res => res.default

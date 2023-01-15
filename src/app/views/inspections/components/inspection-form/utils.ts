@@ -1,14 +1,16 @@
-import { find, isEqual, isEqualWith, merge } from 'lodash-es'
+import { find, groupBy, isEqual, isEqualWith, merge } from 'lodash-es'
 import { FormApi, SubmissionErrors } from 'final-form'
 
 import {
   AddressField,
   EquipmentType,
   InspectionReportItem,
+  InspectionRequirement,
   InspectionType,
   InspectionTypeEnum,
 } from 'm/presets'
 import { InspectionReport } from 'm/types'
+import { InspectionTypesByEquipmentQuery } from 'm/equipment-type/index.generated'
 
 import { initialEquipmentTypeData } from '@@/equipmenttype-selector'
 import { LocationValue } from '@@/location-selector'
@@ -17,12 +19,20 @@ import { initialLocationData } from '@@/location-selector/utils'
 export interface InspectionReportFormData
   extends Omit<
     InspectionReport,
-    'id' | 'inspectionAddress' | 'equipmentType' | 'items' | 'items_aggregate'
+    | 'id'
+    | 'inspectionAddress'
+    | 'equipmentType'
+    | 'presetsItems'
+    | 'items1'
+    | 'items2'
+    | 'items_aggregate'
   > {
   inspectionAddress?: LocationValue
   inspectionItem: InspectionType
   equipmentType: EquipmentType
-  items: InspectionReportItem[]
+  presetsItems: InspectionReportItem[]
+  items1: InspectionReportItem[]
+  items2: InspectionReportItem[]
 }
 
 export type FnSubmitInspectionReport = (
@@ -55,7 +65,9 @@ export const initialInspectionFormData = (
         type: InspectionTypeEnum.None,
         text: '',
       } as InspectionType,
-      items: [] as InspectionReportFormData['items'],
+      presetsItems: [] as InspectionReportItem[],
+      items1: [] as InspectionReportFormData['items1'],
+      items2: [] as InspectionReportFormData['items2'],
     },
     input
   )
@@ -78,16 +90,44 @@ export const groupInspectionReportItems = (
   return { using, notInUse }
 }
 
-export const inspectionItemsEqual = (
-  items1: InspectionReportItem[],
-  items2: InspectionReportItem[]
+export const groupInspectionReportItemsByType = (
+  items: InspectionReportItem[]
 ) => {
-  return isEqualWith(items1, items2, (a, b) => {
+  const obj = groupBy(items, 'type') as {
+    1: InspectionReportItem[]
+    2: InspectionReportItem[]
+  }
+
+  return {
+    items1: obj[1] || [],
+    items2: obj[2] || [],
+  }
+}
+
+export const transformToReportItems = (
+  list: InspectionTypesByEquipmentQuery['list']
+) => {
+  return list.map(item => ({
+    name: item.name,
+    displayName: item.displayName,
+    consts: item.consts as number[],
+    requirement: item.requirement as InspectionRequirement,
+    condition: item.condition,
+    type: item.type,
+    data: {},
+  }))
+}
+
+export const inspectionItemsEqual = (
+  itemsA: InspectionReportItem[],
+  itemsB: InspectionReportItem[]
+) => {
+  return isEqualWith(itemsA, itemsB, (a, b) => {
     if (a.length !== b.length) {
       return false
     }
 
-    if (a.length === 0) {
+    if (a.length === 0 && b.length === 0) {
       return true
     }
 

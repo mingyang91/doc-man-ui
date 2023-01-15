@@ -8,6 +8,7 @@ fragment InspectionTypes on inspection_types {
   id
   name
   displayName
+  type
   comment
   condition
   formula
@@ -20,6 +21,7 @@ fragment InspectionTypes on inspection_types {
 fragment InspectionTypesHeader on inspection_types {
   name
   displayName
+  type
   id
   formula
   comment

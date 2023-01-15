@@ -3,6 +3,7 @@ import {
   Box,
   Button,
   ButtonGroup,
+  MenuItem,
   Stack,
   Typography,
   Unstable_Grid2 as Grid,
@@ -10,7 +11,7 @@ import {
 import { FormApi, SubmissionErrors } from 'final-form'
 import arrayMutators from 'final-form-arrays'
 import { isEmpty } from 'lodash-es'
-import { TextField } from 'mui-rff'
+import { TextField, Select } from 'mui-rff'
 import { Field, Form } from 'react-final-form'
 import { FieldArray } from 'react-final-form-arrays'
 import { MdAddCircle, MdDelete } from 'react-icons/md'
@@ -93,6 +94,12 @@ export const InspectionEnumForm = ({
               required
               fullWidth
             />
+          </Grid>
+          <Grid xs={12} md={6}>
+            <Select name="type" label="检测类型" required fullWidth>
+              <MenuItem value="1">通用检测项目</MenuItem>
+              <MenuItem value="2">专用检测项目</MenuItem>
+            </Select>
           </Grid>
           <Grid xs={12} md={6}>
             <Field name="condition">

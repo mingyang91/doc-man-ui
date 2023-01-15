@@ -1,11 +1,23 @@
-import { Button, MenuItem, MenuList, Paper, Popover } from '@mui/material'
+import {
+  Button,
+  Checkbox,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  MenuItem,
+  MenuList,
+  Paper,
+  Popover,
+} from '@mui/material'
 import { useMemoizedFn } from 'ahooks'
 import {
   bindPopover,
   bindTrigger,
   usePopupState,
 } from 'material-ui-popup-state/hooks'
-import { memo, MouseEvent } from 'react'
+import { ChangeEvent, memo, MouseEvent } from 'react'
 import { useFieldArray } from 'react-final-form-arrays'
 import { MdAddCircle } from 'react-icons/md'
 
@@ -28,18 +40,53 @@ export const SelectInspectItems = memo(
       popupId: 'data-inspection-item-add',
     })
 
-    const { fields } = useFieldArray<InspectionReportItem>('items')
+    const { fields: fieldsItem1 } =
+      useFieldArray<InspectionReportItem>('items1')
+
+    const { fields: fieldsItem2 } =
+      useFieldArray<InspectionReportItem>('items2')
+
+    const isChecked = useMemoizedFn((value: InspectionReportItem) => {
+      return (
+        fieldsItem1.value.some(item => item.name === value.name) ||
+        fieldsItem2.value.some(item => item.name === value.name)
+      )
+    })
+
+    const onCheckedCallback = useMemoizedFn((value: InspectionReportItem) => {
+      if (value.type === '1') {
+        fieldsItem1.push(value)
+      } else {
+        fieldsItem2.push(value)
+      }
+    })
+
+    const onUncheckedCallback = useMemoizedFn((value: InspectionReportItem) => {
+      if (value.type === '1') {
+        fieldsItem1.remove(
+          fieldsItem1.value.findIndex(item => item.name === value.name)
+        )
+      } else {
+        fieldsItem2.remove(
+          fieldsItem2.value.findIndex(item => item.name === value.name)
+        )
+      }
+    })
 
     const onCheck = useMemoizedFn(
-      (e: MouseEvent<HTMLLIElement>, value: InspectionReportItem) => {
-        fields.push(value)
-        popupState.setOpen(false)
+      (value: InspectionReportItem, checked: boolean) => {
+        if (checked) {
+          onCheckedCallback(value)
+        } else {
+          onUncheckedCallback(value)
+        }
       }
     )
 
     return (
       <>
         <Button
+          variant="contained"
           startIcon={<Iconify icon={MdAddCircle} />}
           {...bindTrigger(popupState)}
         >
@@ -47,13 +94,28 @@ export const SelectInspectItems = memo(
         </Button>
         <Popover {...bindPopover(popupState)}>
           <Paper>
-            <MenuList>
+            <List>
               {options.map(option => (
-                <MenuItem key={option.name} onClick={e => onCheck(e, option)}>
-                  {option.name || option.displayName}
-                </MenuItem>
+                <ListItem key={option.name} disablePadding>
+                  <ListItemButton dense>
+                    <ListItemIcon>
+                      <Checkbox
+                        edge="start"
+                        checked={isChecked(option)}
+                        tabIndex={-1}
+                        disableRipple
+                        inputProps={{ 'aria-labelledby': '' }}
+                        onChange={(_, checked) => onCheck(option, checked)}
+                      />
+                    </ListItemIcon>
+                    <ListItemText
+                      id={option.name}
+                      primary={option.displayName || option.name}
+                    />
+                  </ListItemButton>
+                </ListItem>
               ))}
-            </MenuList>
+            </List>
           </Paper>
         </Popover>
       </>

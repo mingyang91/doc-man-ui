@@ -41,8 +41,8 @@ const PageDevice = () => {
   })
 
   const [list, total] = useMemo(
-    () => [data?.list || [], data?.total || { aggregate: { count: 0 } }],
-    [data?.list, data?.total]
+    () => [data?.list || [], data?.total?.aggregate?.count || 0],
+    [data?.list, data?.total?.aggregate?.count]
   )
 
   const { mutate: deleteEquipmentById, isLoading: isDeleteLoading } =
@@ -106,7 +106,7 @@ const PageDevice = () => {
           dataSource={list}
           page={page}
           pageSize={pageSize}
-          total={total.aggregate?.count}
+          total={total}
           onPageChange={onPageChange}
           onPageSizeChange={onPageSizeChange}
           onEdit={onEdit}

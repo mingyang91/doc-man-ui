@@ -10,7 +10,7 @@ import { DetailCard } from '@@/detail-card'
 export const InspectionDetailBody = () => {
   const data = useInspectionReportData()
 
-  const items = useMemo(() => data?.items || [], [data?.items])
+  const items = useMemo(() => data?.items1 || [], [data?.items1])
 
   return (
     <DetailCard sx={{ marginBlockStart: 3 }}>

@@ -22,6 +22,7 @@ export type InspectionTypesFragment = {
   id: UUIDV4
   name: string
   displayName: string
+  type: string
   comment?: string | null
   condition: ScalarJson
   formula?: string | null
@@ -38,6 +39,7 @@ export type InspectionTypesFragmentVariables = Types.Exact<{
 export type InspectionTypesHeaderFragment = {
   name: string
   displayName: string
+  type: string
   id: UUIDV4
   formula?: string | null
   comment?: string | null
@@ -57,6 +59,7 @@ export type InspectionTypesListQuery = {
     id: UUIDV4
     name: string
     displayName: string
+    type: string
     comment?: string | null
     condition: ScalarJson
     formula?: string | null
@@ -76,6 +79,7 @@ export type InspectionTypesDetailQuery = {
     id: UUIDV4
     name: string
     displayName: string
+    type: string
     comment?: string | null
     condition: ScalarJson
     formula?: string | null
@@ -95,6 +99,7 @@ export type InspectionTypesByEquipmentQuery = {
     id: UUIDV4
     name: string
     displayName: string
+    type: string
     comment?: string | null
     condition: ScalarJson
     formula?: string | null
@@ -114,6 +119,7 @@ export type CreateInspectionTypesMutation = {
     id: UUIDV4
     name: string
     displayName: string
+    type: string
     comment?: string | null
     condition: ScalarJson
     formula?: string | null
@@ -134,6 +140,7 @@ export type UpdateInspectionTypesByIdMutation = {
     id: UUIDV4
     name: string
     displayName: string
+    type: string
     comment?: string | null
     condition: ScalarJson
     formula?: string | null
@@ -190,6 +197,7 @@ export type EquipmentTypesByIdQuery = {
     items: Array<{
       name: string
       displayName: string
+      type: string
       id: UUIDV4
       formula?: string | null
       comment?: string | null
@@ -240,6 +248,7 @@ export const InspectionTypesFragmentDoc = `
   id
   name
   displayName
+  type
   comment
   condition
   formula
@@ -253,6 +262,7 @@ export const InspectionTypesHeaderFragmentDoc = `
     fragment InspectionTypesHeader on inspection_types {
   name
   displayName
+  type
   id
   formula
   comment

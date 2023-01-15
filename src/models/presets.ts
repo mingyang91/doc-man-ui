@@ -65,21 +65,24 @@ export interface InspectionRequirement {
 // 检测项类型约束
 export interface InspectionReportItem<
   Data extends Record<string, any> | Array<Record<string, any>> = any
-> extends Omit<InspectionTypes, 'id' | 'requirement' | 'consts' | 'data'> {
+> {
+  name: string
+  displayName: string
+  type: string
   data?: Data
+  condition: any
   requirement?: InspectionRequirement
   conclusions?: Conclusions
   consts: number[]
 }
 
 export interface InspectionReportDetail {
-  items: InspectionReportItem[]
   id: UUIDV4
   equipmentCode?: string | null
   inspectionAddress: AddressField | null
   equipmentRequester?: string | null
   equipmentName?: string | null
-  equipmentType: ScalarJson
+  equipmentType: EquipmentType | null
   equipmentManufacturer?: string | null
   equipmentModel?: string | null
   equipmentSampleId?: string | null
@@ -91,6 +94,8 @@ export interface InspectionReportDetail {
   updatedAt?: ScalarTz | null
   serialNumber?: SerialNumber | null
   inspectionDate?: ScalarTz | null
+  items1: InspectionReportItem[]
+  items2: InspectionReportItem[]
 }
 
 // Document 渲染项
@@ -128,5 +133,6 @@ export interface ReportRenderItem {
 export type ReportRender = {
   device: ReportRenderDevice
   info?: ReportRenderInfo
-  [x: `items${number}`]: ReportRenderItem[]
+  items1: ReportRenderItem[]
+  items2: ReportRenderItem[]
 }

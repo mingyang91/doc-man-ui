@@ -53,7 +53,9 @@ export type InspectionReportHeaderFragmentVariables = Types.Exact<{
 }>
 
 export type InspectionReportFragment = {
-  items: ScalarJson
+  presetsItems: ScalarJson
+  items1: ScalarJson
+  items2: ScalarJson
   id: UUIDV4
   equipmentCode?: string | null
   inspectionAddress: ScalarJson
@@ -96,7 +98,9 @@ export type InspectionReportListQueryVariables = Types.Exact<{
 
 export type InspectionReportListQuery = {
   list: Array<{
-    items: ScalarJson
+    presetsItems: ScalarJson
+    items1: ScalarJson
+    items2: ScalarJson
     id: UUIDV4
     equipmentCode?: string | null
     inspectionAddress: ScalarJson
@@ -132,7 +136,9 @@ export type InspectionReportByIdQueryVariables = Types.Exact<{
 
 export type InspectionReportByIdQuery = {
   detail?: {
-    items: ScalarJson
+    presetsItems: ScalarJson
+    items1: ScalarJson
+    items2: ScalarJson
     id: UUIDV4
     equipmentCode?: string | null
     inspectionAddress: ScalarJson
@@ -167,7 +173,9 @@ export type CreateInspectionReportMutationVariables = Types.Exact<{
 
 export type CreateInspectionReportMutation = {
   returning?: {
-    items: ScalarJson
+    presetsItems: ScalarJson
+    items1: ScalarJson
+    items2: ScalarJson
     id: UUIDV4
     equipmentCode?: string | null
     inspectionAddress: ScalarJson
@@ -203,7 +211,9 @@ export type UpdateInspectionReportByIdMutationVariables = Types.Exact<{
 
 export type UpdateInspectionReportByIdMutation = {
   returning?: {
-    items: ScalarJson
+    presetsItems: ScalarJson
+    items1: ScalarJson
+    items2: ScalarJson
     id: UUIDV4
     equipmentCode?: string | null
     inspectionAddress: ScalarJson
@@ -267,7 +277,9 @@ export const InspectionReportHeaderFragmentDoc = `
 export const InspectionReportFragmentDoc = `
     fragment InspectionReport on inspection_report {
   ...InspectionReportHeader
-  items
+  presetsItems
+  items1
+  items2
 }
     `
 export const InspectionReportListDocument = `

@@ -13,7 +13,6 @@ module.exports = {
   },
   plugins: ['@emotion', 'react', 'react-hooks'],
   extends: [
-    'plugin:import/recommended',
     'plugin:jsx-a11y/recommended',
     'plugin:react/jsx-runtime',
     'plugin:react/recommended',
@@ -30,24 +29,10 @@ module.exports = {
     'sort-imports': 'off',
     'no-use-before-define': 'off',
     'space-before-function-paren': 'off',
-    '@typescript-eslint/ban-types': 'warn',
-    '@typescript-eslint/no-explicit-any': [
-      'warn',
-      {
-        fixToUnknown: false,
-        ignoreRestArgs: true,
-      },
-    ],
   },
   overrides: [
     {
-      files: ['src//models/**/*.ts?(x)'],
-      rules: {
-        '@typescript-eslint/no-unused-vars': ['off'],
-      },
-    },
-    {
-      files: ['src/**/*.ts?(x)'],
+      files: ['src/**/*.ts', 'src/**/*.tsx'],
       parser: '@typescript-eslint/parser',
       parserOptions: {
         sourceType: 'module',
@@ -59,8 +44,9 @@ module.exports = {
       plugins: ['@typescript-eslint'],
       extends: [
         'plugin:@typescript-eslint/recommended',
-        'prettier',
+        'plugin:import/warnings',
         'plugin:import/typescript',
+        'prettier',
       ],
       rules: {
         'default-case': 'off',
@@ -96,6 +82,14 @@ module.exports = {
           },
         ],
         'no-useless-constructor': 'off',
+        '@typescript-eslint/ban-types': 'warn',
+        '@typescript-eslint/no-explicit-any': [
+          'warn',
+          {
+            fixToUnknown: false,
+            ignoreRestArgs: true,
+          },
+        ],
         '@typescript-eslint/no-useless-constructor': 'warn',
         'import/no-extraneous-dependencies': [
           'error',
@@ -170,10 +164,24 @@ module.exports = {
             'newlines-between': 'always',
           },
         ],
+        'import/named': ['off'],
       },
+      overrides: [
+        {
+          files: ['src/models/**/*.ts', 'src/models/**/*.tsx'],
+          rules: {
+            '@typescript-eslint/no-unused-vars': 'off',
+          },
+        },
+      ],
     },
     {
-      files: ['*.test.ts(x)?', '__test__/**/*.ts?(x)'],
+      files: [
+        '*.test.ts',
+        '*.test.tsx',
+        '__test__/**/*.ts',
+        '__test__/**/*.tsx',
+      ],
       env: {
         jest: true,
       },
@@ -181,7 +189,15 @@ module.exports = {
       extends: ['plugin:jest/recommended'],
     },
     {
-      files: ['*.cjs', '*.cts', 'craco.config.js', 'commitlint.config.js'],
+      files: [
+        '*.cjs',
+        '*.cts',
+        'craco.config.js',
+        'commitlint.config.js',
+        '.eslintrc.js',
+        '.prettierrc.js',
+        '.stylelintrc.js',
+      ],
       env: {
         commonjs: true,
       },
@@ -202,6 +218,7 @@ module.exports = {
     react: {
       version: 'detect',
     },
+    'import/ignore': ['node_modules', '\\.(json|css|less|scss|sass)$'],
     'import/parsers': {
       '@typescript-eslint/parser': ['.ts', '.tsx'],
     },
@@ -214,7 +231,6 @@ module.exports = {
         project: './tsconfig.json',
       },
     },
-    'import/ignore': ['\\.(com|css|less|sass|scss|json)$'],
     'import/cache': {
       lifetime: 1000,
     },

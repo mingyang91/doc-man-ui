@@ -19,6 +19,7 @@ import Page from 'd/components/page'
 
 import { useInspectionTypesDetailQuery } from 'm/equipment-type/index.generated'
 import { UUIDV4 } from 'm/presets'
+import { formatInspectionType } from 'm/common'
 
 import { EditAlert } from './components/alert'
 
@@ -73,6 +74,14 @@ const PageInspectionTypeDetail = () => {
               <FieldLine>
                 <FieldHeader>名称</FieldHeader>
                 <FieldContent>{memoData.displayName || '未填写'}</FieldContent>
+              </FieldLine>
+            </Grid>
+            <Grid xs={12} sm={6}>
+              <FieldLine>
+                <FieldHeader>检测项类型</FieldHeader>
+                <FieldContent>
+                  {formatInspectionType(memoData.type)}
+                </FieldContent>
               </FieldLine>
             </Grid>
             <Grid xs={12} sm={6}>

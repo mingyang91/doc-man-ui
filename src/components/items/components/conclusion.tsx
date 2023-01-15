@@ -12,7 +12,7 @@ import { StyledConclusion } from './styled'
 export interface BaseConclusionProps {
   itemFieldName: string
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  getConclusionMethod: (data: any, requirement: any) => Conclusions
+  getConclusionMethod?: (data: any, requirement: any) => Conclusions
 }
 
 export const BaseConclusion = ({
@@ -53,11 +53,13 @@ export const BaseConclusion = ({
       setInterConclusion(Conclusions.Unknown)
     }
 
-    const requirement =
-      inputInspectionItem.value === InspectionTypeEnum.State
-        ? inputRequirement.value.state
-        : inputRequirement.value.acceptance
-    setInterConclusion(getConclusionMethod(inputData.value, requirement))
+    if (getConclusionMethod) {
+      const requirement =
+        inputInspectionItem.value === InspectionTypeEnum.State
+          ? inputRequirement.value.state
+          : inputRequirement.value.acceptance
+      setInterConclusion(getConclusionMethod(inputData.value, requirement))
+    }
   }, [
     inputData.value,
     inputInspectionItem.value,

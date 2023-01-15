@@ -23,9 +23,10 @@ export const useRoutePagination = () => {
   }, [searchParams])
 
   const onPageChange = useCallback(
-    (_: MouseEvent<HTMLButtonElement> | null, page: number) => {
+    (_: MouseEvent<HTMLButtonElement> | null, page = 1) => {
+      console.log('onPageChange', page)
       setSearchParams({
-        page: `${page}`,
+        page: `${page + 1}`,
         pageSize: `${pageSize}`,
       })
     },

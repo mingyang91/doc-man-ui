@@ -19,14 +19,14 @@ import { useImmer } from 'use-immer'
 import { InspectionType, InspectionTypeEnum } from 'm/presets'
 
 import { OnChange } from '../type'
-import { initialInspectiontypeData, inspectionTypeOptions } from '../utils'
+import { initialInspectionItemTypeData, inspectionTypeOptions } from '../utils'
 
 type OnSelectChange = (
   event: SelectChangeEvent<InspectionTypeEnum>,
   child: ReactNode
 ) => void
 
-export interface InspectiontypeSelectorProps
+export interface InspectionItemTypeSelectorProps
   extends Omit<FormControlProps, 'value' | 'onChange'> {
   id?: string
   isError?: boolean
@@ -37,7 +37,7 @@ export interface InspectiontypeSelectorProps
   sx?: SxProps<Theme>
 }
 
-export const InspectiontypeSelector = ({
+export const InspectionItemTypeSelector = ({
   id,
   label = '检测类型',
   value: valueProps,
@@ -45,13 +45,13 @@ export const InspectiontypeSelector = ({
   isError,
   helperText,
   ...restProps
-}: InspectiontypeSelectorProps) => {
+}: InspectionItemTypeSelectorProps) => {
   const [focused, setFocused] = useImmer([false, false])
 
   const focusState = focused.some(Boolean)
 
   const [value, setValue] = useImmer<InspectionType>(() =>
-    initialInspectiontypeData(valueProps)
+    initialInspectionItemTypeData(valueProps)
   )
 
   const onSelectChange = useMemoizedFn<OnSelectChange>(e => {

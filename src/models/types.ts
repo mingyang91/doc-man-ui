@@ -1133,8 +1133,11 @@ export interface InspectionReport {
   inspectionInstrument?: Maybe<Scalars['String']>
   /** 检测类型 */
   inspectionItem: Scalars['jsonb']
-  /** 检测项，数据结构是 inspection_report_enum[] */
-  items: Scalars['jsonb']
+  /** 通用检测项，数据结构是 inspection_report_enum[] */
+  items1: Scalars['jsonb']
+  /** 专用检测项，数据结构是 inspection_report_enum[] */
+  items2: Scalars['jsonb']
+  presetsItems: Scalars['jsonb']
   /** 序列号 */
   serialNumber?: Maybe<Scalars['jsonb']>
   updatedAt?: Maybe<Scalars['timestamptz']>
@@ -1156,7 +1159,17 @@ export interface InspectionReportInspectionItemArgs {
 }
 
 /** 设备检验检测报告 */
-export interface InspectionReportItemsArgs {
+export interface InspectionReportItems1Args {
+  path?: InputMaybe<Scalars['String']>
+}
+
+/** 设备检验检测报告 */
+export interface InspectionReportItems2Args {
+  path?: InputMaybe<Scalars['String']>
+}
+
+/** 设备检验检测报告 */
+export interface InspectionReportPresetsItemsArgs {
   path?: InputMaybe<Scalars['String']>
 }
 
@@ -1215,8 +1228,11 @@ export interface InspectionReportAppendInput {
   inspectionAddress?: InputMaybe<Scalars['jsonb']>
   /** 检测类型 */
   inspectionItem?: InputMaybe<Scalars['jsonb']>
-  /** 检测项，数据结构是 inspection_report_enum[] */
-  items?: InputMaybe<Scalars['jsonb']>
+  /** 通用检测项，数据结构是 inspection_report_enum[] */
+  items1?: InputMaybe<Scalars['jsonb']>
+  /** 专用检测项，数据结构是 inspection_report_enum[] */
+  items2?: InputMaybe<Scalars['jsonb']>
+  presetsItems?: InputMaybe<Scalars['jsonb']>
   /** 序列号 */
   serialNumber?: InputMaybe<Scalars['jsonb']>
 }
@@ -1262,7 +1278,9 @@ export interface InspectionReportBoolExp {
   inspectionDate?: InputMaybe<TimestamptzComparisonExp>
   inspectionInstrument?: InputMaybe<StringComparisonExp>
   inspectionItem?: InputMaybe<JsonbComparisonExp>
-  items?: InputMaybe<JsonbComparisonExp>
+  items1?: InputMaybe<JsonbComparisonExp>
+  items2?: InputMaybe<JsonbComparisonExp>
+  presetsItems?: InputMaybe<JsonbComparisonExp>
   serialNumber?: InputMaybe<JsonbComparisonExp>
   updatedAt?: InputMaybe<TimestamptzComparisonExp>
 }
@@ -1283,8 +1301,11 @@ export interface InspectionReportDeleteAtPathInput {
   inspectionAddress?: InputMaybe<Array<Scalars['String']>>
   /** 检测类型 */
   inspectionItem?: InputMaybe<Array<Scalars['String']>>
-  /** 检测项，数据结构是 inspection_report_enum[] */
-  items?: InputMaybe<Array<Scalars['String']>>
+  /** 通用检测项，数据结构是 inspection_report_enum[] */
+  items1?: InputMaybe<Array<Scalars['String']>>
+  /** 专用检测项，数据结构是 inspection_report_enum[] */
+  items2?: InputMaybe<Array<Scalars['String']>>
+  presetsItems?: InputMaybe<Array<Scalars['String']>>
   /** 序列号 */
   serialNumber?: InputMaybe<Array<Scalars['String']>>
 }
@@ -1297,8 +1318,11 @@ export interface InspectionReportDeleteElemInput {
   inspectionAddress?: InputMaybe<Scalars['Int']>
   /** 检测类型 */
   inspectionItem?: InputMaybe<Scalars['Int']>
-  /** 检测项，数据结构是 inspection_report_enum[] */
-  items?: InputMaybe<Scalars['Int']>
+  /** 通用检测项，数据结构是 inspection_report_enum[] */
+  items1?: InputMaybe<Scalars['Int']>
+  /** 专用检测项，数据结构是 inspection_report_enum[] */
+  items2?: InputMaybe<Scalars['Int']>
+  presetsItems?: InputMaybe<Scalars['Int']>
   /** 序列号 */
   serialNumber?: InputMaybe<Scalars['Int']>
 }
@@ -1311,8 +1335,11 @@ export interface InspectionReportDeleteKeyInput {
   inspectionAddress?: InputMaybe<Scalars['String']>
   /** 检测类型 */
   inspectionItem?: InputMaybe<Scalars['String']>
-  /** 检测项，数据结构是 inspection_report_enum[] */
-  items?: InputMaybe<Scalars['String']>
+  /** 通用检测项，数据结构是 inspection_report_enum[] */
+  items1?: InputMaybe<Scalars['String']>
+  /** 专用检测项，数据结构是 inspection_report_enum[] */
+  items2?: InputMaybe<Scalars['String']>
+  presetsItems?: InputMaybe<Scalars['String']>
   /** 序列号 */
   serialNumber?: InputMaybe<Scalars['String']>
 }
@@ -1358,8 +1385,11 @@ export interface InspectionReportInsertInput {
   inspectionInstrument?: InputMaybe<Scalars['String']>
   /** 检测类型 */
   inspectionItem?: InputMaybe<Scalars['jsonb']>
-  /** 检测项，数据结构是 inspection_report_enum[] */
-  items?: InputMaybe<Scalars['jsonb']>
+  /** 通用检测项，数据结构是 inspection_report_enum[] */
+  items1?: InputMaybe<Scalars['jsonb']>
+  /** 专用检测项，数据结构是 inspection_report_enum[] */
+  items2?: InputMaybe<Scalars['jsonb']>
+  presetsItems?: InputMaybe<Scalars['jsonb']>
   /** 序列号 */
   serialNumber?: InputMaybe<Scalars['jsonb']>
   updatedAt?: InputMaybe<Scalars['timestamptz']>
@@ -1523,7 +1553,9 @@ export interface InspectionReportOrderBy {
   inspectionDate?: InputMaybe<OrderBy>
   inspectionInstrument?: InputMaybe<OrderBy>
   inspectionItem?: InputMaybe<OrderBy>
-  items?: InputMaybe<OrderBy>
+  items1?: InputMaybe<OrderBy>
+  items2?: InputMaybe<OrderBy>
+  presetsItems?: InputMaybe<OrderBy>
   serialNumber?: InputMaybe<OrderBy>
   updatedAt?: InputMaybe<OrderBy>
 }
@@ -1542,8 +1574,11 @@ export interface InspectionReportPrependInput {
   inspectionAddress?: InputMaybe<Scalars['jsonb']>
   /** 检测类型 */
   inspectionItem?: InputMaybe<Scalars['jsonb']>
-  /** 检测项，数据结构是 inspection_report_enum[] */
-  items?: InputMaybe<Scalars['jsonb']>
+  /** 通用检测项，数据结构是 inspection_report_enum[] */
+  items1?: InputMaybe<Scalars['jsonb']>
+  /** 专用检测项，数据结构是 inspection_report_enum[] */
+  items2?: InputMaybe<Scalars['jsonb']>
+  presetsItems?: InputMaybe<Scalars['jsonb']>
   /** 序列号 */
   serialNumber?: InputMaybe<Scalars['jsonb']>
 }
@@ -1583,7 +1618,11 @@ export enum InspectionReportSelectColumn {
   /** column name */
   INSPECTIONITEM = 'inspectionItem',
   /** column name */
-  ITEMS = 'items',
+  ITEMS1 = 'items1',
+  /** column name */
+  ITEMS2 = 'items2',
+  /** column name */
+  PRESETSITEMS = 'presetsItems',
   /** column name */
   SERIALNUMBER = 'serialNumber',
   /** column name */
@@ -1624,8 +1663,11 @@ export interface InspectionReportSetInput {
   inspectionInstrument?: InputMaybe<Scalars['String']>
   /** 检测类型 */
   inspectionItem?: InputMaybe<Scalars['jsonb']>
-  /** 检测项，数据结构是 inspection_report_enum[] */
-  items?: InputMaybe<Scalars['jsonb']>
+  /** 通用检测项，数据结构是 inspection_report_enum[] */
+  items1?: InputMaybe<Scalars['jsonb']>
+  /** 专用检测项，数据结构是 inspection_report_enum[] */
+  items2?: InputMaybe<Scalars['jsonb']>
+  presetsItems?: InputMaybe<Scalars['jsonb']>
   /** 序列号 */
   serialNumber?: InputMaybe<Scalars['jsonb']>
   updatedAt?: InputMaybe<Scalars['timestamptz']>
@@ -1709,8 +1751,11 @@ export interface InspectionReportStreamCursorValueInput {
   inspectionInstrument?: InputMaybe<Scalars['String']>
   /** 检测类型 */
   inspectionItem?: InputMaybe<Scalars['jsonb']>
-  /** 检测项，数据结构是 inspection_report_enum[] */
-  items?: InputMaybe<Scalars['jsonb']>
+  /** 通用检测项，数据结构是 inspection_report_enum[] */
+  items1?: InputMaybe<Scalars['jsonb']>
+  /** 专用检测项，数据结构是 inspection_report_enum[] */
+  items2?: InputMaybe<Scalars['jsonb']>
+  presetsItems?: InputMaybe<Scalars['jsonb']>
   /** 序列号 */
   serialNumber?: InputMaybe<Scalars['jsonb']>
   updatedAt?: InputMaybe<Scalars['timestamptz']>
@@ -1763,7 +1808,11 @@ export enum InspectionReportUpdateColumn {
   /** column name */
   INSPECTIONITEM = 'inspectionItem',
   /** column name */
-  ITEMS = 'items',
+  ITEMS1 = 'items1',
+  /** column name */
+  ITEMS2 = 'items2',
+  /** column name */
+  PRESETSITEMS = 'presetsItems',
   /** column name */
   SERIALNUMBER = 'serialNumber',
   /** column name */
@@ -1848,6 +1897,7 @@ export interface InspectionTypes {
   name: Scalars['String']
   /** 指标要求 */
   requirement: Scalars['jsonb']
+  type: Scalars['String']
 }
 
 /** 检测项目枚举 */
@@ -1958,6 +2008,7 @@ export interface InspectionTypesBoolExp {
   index?: InputMaybe<IntComparisonExp>
   name?: InputMaybe<StringComparisonExp>
   requirement?: InputMaybe<JsonbComparisonExp>
+  type?: InputMaybe<StringComparisonExp>
 }
 
 /** unique or primary key constraints on table "inspection_types" */
@@ -2034,6 +2085,7 @@ export interface InspectionTypesInsertInput {
   name?: InputMaybe<Scalars['String']>
   /** 指标要求 */
   requirement?: InputMaybe<Scalars['jsonb']>
+  type?: InputMaybe<Scalars['String']>
 }
 
 /** aggregate max on columns */
@@ -2050,6 +2102,7 @@ export interface InspectionTypesMaxFields {
   index?: Maybe<Scalars['Int']>
   /** 检测项名称，用于与实际检测报告中的检测项对应 */
   name?: Maybe<Scalars['String']>
+  type?: Maybe<Scalars['String']>
 }
 
 /** order by max() on columns of table "inspection_types" */
@@ -2066,6 +2119,7 @@ export interface InspectionTypesMaxOrderBy {
   index?: InputMaybe<OrderBy>
   /** 检测项名称，用于与实际检测报告中的检测项对应 */
   name?: InputMaybe<OrderBy>
+  type?: InputMaybe<OrderBy>
 }
 
 /** aggregate min on columns */
@@ -2082,6 +2136,7 @@ export interface InspectionTypesMinFields {
   index?: Maybe<Scalars['Int']>
   /** 检测项名称，用于与实际检测报告中的检测项对应 */
   name?: Maybe<Scalars['String']>
+  type?: Maybe<Scalars['String']>
 }
 
 /** order by min() on columns of table "inspection_types" */
@@ -2098,6 +2153,7 @@ export interface InspectionTypesMinOrderBy {
   index?: InputMaybe<OrderBy>
   /** 检测项名称，用于与实际检测报告中的检测项对应 */
   name?: InputMaybe<OrderBy>
+  type?: InputMaybe<OrderBy>
 }
 
 /** response of any mutation on the table "inspection_types" */
@@ -2129,6 +2185,7 @@ export interface InspectionTypesOrderBy {
   index?: InputMaybe<OrderBy>
   name?: InputMaybe<OrderBy>
   requirement?: InputMaybe<OrderBy>
+  type?: InputMaybe<OrderBy>
 }
 
 /** primary key columns input for table: inspection_types */
@@ -2172,6 +2229,8 @@ export enum InspectionTypesSelectColumn {
   NAME = 'name',
   /** column name */
   REQUIREMENT = 'requirement',
+  /** column name */
+  TYPE = 'type',
 }
 
 /** input type for updating data in table "inspection_types" */
@@ -2196,6 +2255,7 @@ export interface InspectionTypesSetInput {
   name?: InputMaybe<Scalars['String']>
   /** 指标要求 */
   requirement?: InputMaybe<Scalars['jsonb']>
+  type?: InputMaybe<Scalars['String']>
 }
 
 /** aggregate stddev on columns */
@@ -2258,6 +2318,7 @@ export interface InspectionTypesStreamCursorValueInput {
   name?: InputMaybe<Scalars['String']>
   /** 指标要求 */
   requirement?: InputMaybe<Scalars['jsonb']>
+  type?: InputMaybe<Scalars['String']>
 }
 
 /** aggregate sum on columns */
@@ -2294,6 +2355,8 @@ export enum InspectionTypesUpdateColumn {
   NAME = 'name',
   /** column name */
   REQUIREMENT = 'requirement',
+  /** column name */
+  TYPE = 'type',
 }
 
 export interface InspectionTypesUpdates {

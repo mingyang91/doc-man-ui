@@ -11,7 +11,7 @@ import { useInspectionReportData } from './context'
 import { InspectionDetailBody } from './components/body'
 
 import { DetailCard } from '@@/detail-card'
-import { formatInspectiontype } from '@@/inspectiontype-selector'
+import { formatInspectionType } from '@@/inspection-item-type-selector'
 import { formatLocation } from '@@/location-selector/utils'
 import { LocationValue } from '@@/location-selector'
 
@@ -89,7 +89,7 @@ export const InspectionDetail = () => {
             <FieldLine>
               <FieldHeader>检测项目</FieldHeader>
               <FieldContent>
-                {formatInspectiontype(data?.inspectionItem as InspectionType)}
+                {formatInspectionType(data?.inspectionItem as InspectionType)}
               </FieldContent>
             </FieldLine>
           </Grid>

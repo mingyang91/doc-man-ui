@@ -231,6 +231,7 @@ export const EquipmentList = ({
   dataSource = [],
   pageSize = 10,
   page = 0,
+  total = 0,
   onPageSizeChange,
   onPageChange,
   onRemove,
@@ -356,25 +357,27 @@ export const EquipmentList = ({
         checkedItems={checkedItems}
         onCheckedChange={setCheckedItems}
       />
-      <TablePagination
-        component="div"
-        showFirstButton
-        showLastButton
-        labelRowsPerPage="每页显示"
-        rowsPerPageOptions={[
-          { label: '10条', value: 10 },
-          { label: '20条', value: 20 },
-          { label: '50条', value: 50 },
-        ]}
-        labelDisplayedRows={({ from, to, count }) =>
-          `共 ${count} 条，当前第 ${from} 至 ${to} 条数据。`
-        }
-        count={dataSource.length}
-        page={page}
-        onPageChange={onPageChange}
-        rowsPerPage={pageSize}
-        onRowsPerPageChange={onPageSizeChange}
-      />
+      {!isLoading && (
+        <TablePagination
+          component="div"
+          showFirstButton
+          showLastButton
+          labelRowsPerPage="每页显示"
+          rowsPerPageOptions={[
+            { label: '10条', value: 10 },
+            { label: '20条', value: 20 },
+            { label: '50条', value: 50 },
+          ]}
+          labelDisplayedRows={({ from, to, count }) =>
+            `共 ${count} 条，当前第 ${from} 至 ${to} 条数据。`
+          }
+          count={total}
+          page={page}
+          onPageChange={onPageChange}
+          rowsPerPage={pageSize}
+          onRowsPerPageChange={onPageSizeChange}
+        />
+      )}
     </>
   )
 }

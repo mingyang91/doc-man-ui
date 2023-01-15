@@ -8,15 +8,12 @@ import HeaderBreadcrumbs from 'd/components/header-breadcrumbs'
 import Page from 'd/components/page'
 
 import { useInspectionReportByIdQuery } from 'm/inspection-report/index.generated'
-import { UUIDV4 } from 'm/presets'
+import { InspectionReportDetail, UUIDV4 } from 'm/presets'
 
 import { InspectionDetail } from './components/inspection-detail'
-import {
-  InspectionReportData,
-  InspectionReportDataProvider,
-} from './components/inspection-detail/context'
+import { InspectionReportDataProvider } from './components/inspection-detail/context'
 
-const TITLE = `检验检测报告 - 详情`
+const TITLE = `设备检验检测 - 详情`
 
 const PageDetailInspectionReport = () => {
   const { activeRouteConfig } = useMenuAndRoutes()
@@ -35,7 +32,7 @@ const PageDetailInspectionReport = () => {
       />
       {data?.detail ? (
         <InspectionReportDataProvider
-          value={data.detail as InspectionReportData}
+          value={data.detail as unknown as InspectionReportDetail}
         >
           <InspectionDetail />
         </InspectionReportDataProvider>
