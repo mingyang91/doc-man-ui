@@ -19,7 +19,6 @@ import type {
 import * as Types from '../types'
 import { UserInfoFragmentDoc } from '../public.generated'
 
-
 export type InspectionReportHeaderFragment = {
   id: UUIDV4
   equipmentCode?: string | null

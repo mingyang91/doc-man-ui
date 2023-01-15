@@ -22,7 +22,6 @@ import {
   UserInfoFragmentDoc,
 } from '../public.generated'
 
-
 export type EquipmentListQueryVariables = Types.Exact<{
   limit?: Types.InputMaybe<Types.Scalars['Int']>
   offset?: Types.InputMaybe<Types.Scalars['Int']>

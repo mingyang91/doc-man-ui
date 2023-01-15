@@ -1,9 +1,7 @@
-import { useMemo, useState } from 'react'
-import { useMemoizedFn } from 'ahooks'
-import { useImmer } from 'use-immer'
+import { useState } from 'react'
 
-import { getInspectionTypesByEquipment } from 'm/equipment-type'
 import { EquipmentType, InspectionReportItem, InspectionType } from 'm/presets'
+import { useInspectionTypesByEquipmentQuery } from 'm/equipment-type/index.generated'
 
 import {
   FnSubmitInspectionReport,
@@ -12,13 +10,8 @@ import {
 } from '../inspection-form/utils'
 import { EquipmentTypeStep } from './components/equipment-type-step'
 import { InspectionTypeValueProvider } from './context/equipment-type-value'
-import {
-  InspectionReportItemsValueProvider,
-  useInspectionReportItemsValue,
-} from './context/inspection-type-items-value'
+import { InspectionReportItemsValueProvider } from './context/inspection-type-items-value'
 import { InspectionForm } from '../inspection-form'
-
-import { initialInspectionItemTypeData } from '@@/inspection-item-type-selector/utils'
 
 export interface InspectionStepProps {
   submitForm?: FnSubmitInspectionReport
@@ -34,47 +27,64 @@ export const InspectionStep = ({ submitForm }: InspectionStepProps) => {
   )
 }
 
+type Step = EquimentTypeStep | LoadingStep | InspectionFormStep
+
+type EquimentTypeStep = {
+  name: 'EquimentType'
+}
+
+type LoadingStep = {
+  name: 'Loading'
+  equipmentType: EquipmentType
+  inspectionItem: InspectionType
+}
+
+type InspectionFormStep = {
+  name: 'InspectionForm'
+  equipmentType: EquipmentType
+  inspectionItem: InspectionType
+  presetsItems: InspectionReportItem[]
+  items1: InspectionReportItem[]
+  items2: InspectionReportItem[]
+}
+
 const InspectionStepInner = ({ submitForm }: InspectionStepProps) => {
-  const [step, setStep] = useState(0)
+  const [step, setStep] = useState<Step>({ name: 'EquimentType' })
 
-  const [initialData, setInitialData] = useImmer({
-    equipmentType: {
-      id: '',
-      name: '',
-      displayName: '',
-    } as EquipmentType,
-    inspectionItem: initialInspectionItemTypeData(),
-    presetsItems: [] as InspectionReportItem[],
-    items1: [] as InspectionReportItem[],
-    items2: [] as InspectionReportItem[],
-  })
-
-  const handleEquipmentTypeValue = useMemoizedFn(
-    async (equipmentType: EquipmentType, inspectionType: InspectionType) => {
-      const list = await getInspectionTypesByEquipment(equipmentType.id)
-
-      setInitialData(draft => {
-        const items = transformToReportItems(list)
-        const { items1, items2 } = groupInspectionReportItemsByType(items)
-
-        console.log('setInitialData', items)
-
-        draft.equipmentType = equipmentType
-        draft.inspectionItem = inspectionType
-        draft.presetsItems = items
-        draft.items1 = items1
-        draft.items2 = items2
-      })
-      setStep(1)
-    }
+  const equipmentTypeId = step.name === 'Loading' ? step.equipmentType.id : ''
+  const { data, isLoading } = useInspectionTypesByEquipmentQuery(
+    { equipmentTypeId },
+    { enabled: step.name === 'Loading' }
   )
 
-  return (
-    <>
-      {step === 0 && <EquipmentTypeStep onNext={handleEquipmentTypeValue} />}
-      {step === 1 && (
-        <InspectionForm submitForm={submitForm} data={initialData} />
-      )}
-    </>
-  )
+  if (step.name === 'Loading' && !isLoading && data !== undefined) {
+    const items = transformToReportItems(data.list || [])
+    const { items1, items2 } = groupInspectionReportItemsByType(items)
+    setStep({
+      ...step,
+      name: 'InspectionForm',
+      presetsItems: items,
+      items1,
+      items2,
+    })
+  }
+
+  switch (step.name) {
+    case 'EquimentType':
+      return (
+        <EquipmentTypeStep
+          onNext={(equipmentType, inspectionItem) =>
+            setStep({
+              name: 'Loading',
+              equipmentType,
+              inspectionItem,
+            })
+          }
+        />
+      )
+    case 'Loading':
+      return <>LOADING</>
+    case 'InspectionForm':
+      return <InspectionForm submitForm={submitForm} data={step} />
+  }
 }

@@ -57,8 +57,6 @@ export const InspectionForm = ({
     })
   }, [data, isEdit, userInfo?.id])
 
-  console.log(data, initialValues)
-
   return (
     <IsEditProvider value={isEdit}>
       <Form<InspectionReportFormData>
