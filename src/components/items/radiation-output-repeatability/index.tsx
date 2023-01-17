@@ -1,5 +1,9 @@
-import { FieldRenderProps, Field } from 'react-final-form'
-import { FieldArray, FieldArrayRenderProps } from 'react-final-form-arrays'
+import { FieldRenderProps, Field, useField } from 'react-final-form'
+import {
+  FieldArray,
+  FieldArrayRenderProps,
+  useFieldArray,
+} from 'react-final-form-arrays'
 import { useEffect } from 'react'
 import { isEmpty } from 'lodash-es'
 import {
@@ -11,14 +15,19 @@ import {
 } from '@mui/material'
 import { useMemoizedFn } from 'ahooks'
 
-import { InspectionReportItem } from 'm/presets'
+import {
+  InspectionReportItem,
+  InspectionRequirement,
+  InspectionTypeEnum,
+} from 'm/presets'
+import { Conclusions } from 'm/common'
 
 import { RORData, RORDataItem } from './type'
-import { initialRORData, initialRORDataItem } from './utils'
+import { getRORConclusion, initialRORData, initialRORDataItem } from './utils'
 import { RORItemHeader } from './components/header'
 import { RORItem } from './components/item'
 import { RORBar } from './components/bar'
-import { RORConclusion } from './components/conclusion'
+import { NewConclusion } from '../components/new-conclusion'
 
 /**
  * Radiation Output Repeatability
@@ -44,6 +53,16 @@ const RORField = ({
     (fields: FieldArrayRenderProps<RORDataItem, HTMLElement>['fields']) => {
       fields.push(initialRORDataItem({}, value.data?.length || 0))
     }
+  )
+
+  const { input: conclusion } = useField<Conclusions>(`${name}.conclusions`, {
+    defaultValue: Conclusions.Unknown,
+  })
+  const { input: inputInspectionItem } =
+    useField<InspectionTypeEnum>('inspectionItem')
+  const { fields: inputData } = useFieldArray<RORDataItem>(`${name}.data`)
+  const { input: inputRequirement } = useField<InspectionRequirement>(
+    `${name}.requirement`
   )
 
   return (
@@ -81,7 +100,13 @@ const RORField = ({
           </TableContainer>
         )}
       </FieldArray>
-      <RORConclusion name={name} />
+      <NewConclusion<RORData>
+        conclusions={conclusion.value}
+        inspectionItem={inputInspectionItem.value}
+        data={Array.from(inputData.value)}
+        requirement={inputRequirement.value}
+        getConclusionMethod={getRORConclusion}
+      />
       {touched && error && (
         <Typography component="div" color="error">
           {error}

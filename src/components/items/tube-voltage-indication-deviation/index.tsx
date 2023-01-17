@@ -1,5 +1,5 @@
-import { FieldRenderProps, Field } from 'react-final-form'
-import { FieldArray } from 'react-final-form-arrays'
+import { FieldRenderProps, Field, useField } from 'react-final-form'
+import { FieldArray, useFieldArray } from 'react-final-form-arrays'
 import { useEffect } from 'react'
 import { isEmpty } from 'lodash-es'
 import {
@@ -10,14 +10,23 @@ import {
   Typography,
 } from '@mui/material'
 
-import { InspectionReportItem } from 'm/presets'
+import {
+  InspectionReportItem,
+  InspectionRequirement,
+  InspectionTypeEnum,
+} from 'm/presets'
+import { Conclusions } from 'm/common'
 
 import { TVIDData, TVIDDataItem } from './type'
 import { TVIDItem } from './components/item/index'
 import { TVIDBar } from './components/bar'
-import { initialTVIDData, initialTVIDDataItem } from './utils'
+import {
+  getTVIDConclusion,
+  initialTVIDData,
+  initialTVIDDataItem,
+} from './utils'
 import { TVIDItemHeader } from './components/header'
-import { TVIDConclusion } from './components/conclusion'
+import { NewConclusion } from '../components/new-conclusion'
 
 /**
  * Tube Voltage Indication Deviation
@@ -38,6 +47,18 @@ const TVIDField = ({
       })
     }
   }, [onChange, value, value.data])
+
+  const { input: conclusion } = useField<Conclusions>(`${name}.conclusions`, {
+    defaultValue: Conclusions.Unknown,
+  })
+  const { input: inputInspectionItem } =
+    useField<InspectionTypeEnum>('inspectionItem')
+  const { fields: inputData } = useFieldArray<TVIDDataItem>(`${name}.data`)
+  const { input: inputRequirement } = useField<InspectionRequirement>(
+    `${name}.requirement`
+  )
+
+  console.log('???', inputData)
 
   return (
     <>
@@ -85,7 +106,13 @@ const TVIDField = ({
           </TableContainer>
         )}
       </FieldArray>
-      <TVIDConclusion name={name} />
+      <NewConclusion<TVIDData>
+        conclusions={conclusion.value}
+        inspectionItem={inputInspectionItem.value}
+        data={Array.from(inputData.value)}
+        requirement={inputRequirement.value}
+        getConclusionMethod={getTVIDConclusion}
+      />
       {touched && error && (
         <Typography component="div" color="error">
           {error}
