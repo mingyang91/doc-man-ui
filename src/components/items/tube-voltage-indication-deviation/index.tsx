@@ -58,7 +58,8 @@ const TVIDField = ({
     `${name}.requirement`
   )
 
-  console.log('???', inputData)
+  // FIX: value will be empty object when fields is empty list
+  const fixData = Array.from(inputData.value)
 
   return (
     <>
@@ -109,9 +110,10 @@ const TVIDField = ({
       <NewConclusion<TVIDData>
         conclusions={conclusion.value}
         inspectionItem={inputInspectionItem.value}
-        data={Array.from(inputData.value)}
+        data={fixData}
         requirement={inputRequirement.value}
         getConclusionMethod={getTVIDConclusion}
+        onUseSuggestion={inter => conclusion.onChange(inter)}
       />
       {touched && error && (
         <Typography component="div" color="error">

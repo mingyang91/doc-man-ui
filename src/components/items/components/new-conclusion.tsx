@@ -17,6 +17,7 @@ export interface NewConclusionProps<T> {
   inspectionItem: InspectionTypeEnum
   data: T
   requirement: InspectionRequirement
+  onUseSuggestion?: (conclusions: Conclusions) => void
   getConclusionMethod: (
     data: T,
     requirement: InspectionRequirementChild
@@ -28,6 +29,7 @@ export function NewConclusion<T>({
   inspectionItem: inputInspectionItem,
   data: inputData,
   requirement: inputRequirement,
+  onUseSuggestion,
   getConclusionMethod,
 }: NewConclusionProps<T>) {
   const [interConclusion, setInterConclusion] =
@@ -35,10 +37,10 @@ export function NewConclusion<T>({
 
   const isDifferent = interConclusion !== inputConclusion
 
-  const onChange = () => {
-    // TODO: need refactory
-    console.error('need refactory')
-    // inputConclusion.onChange(interConclusion)
+  const onClick = () => {
+    if (onUseSuggestion) {
+      onUseSuggestion(interConclusion)
+    }
   }
 
   useDeepCompareEffect(() => {
@@ -69,7 +71,7 @@ export function NewConclusion<T>({
       </Typography>
       {isDifferent && (
         <Stack direction="row" spacing={1}>
-          <Button variant="text" onClick={onChange}>
+          <Button variant="text" onClick={onClick}>
             使用建议
           </Button>
           <Typography variant="body2" className="suggest">
