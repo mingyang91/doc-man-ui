@@ -58,6 +58,8 @@ const TVIDField = ({
     `${name}.requirement`
   )
 
+  console.debug('TVIDField.fields', fields)
+
   return (
     <>
       {/* <HighlightSyntax code={JSON.stringify(value, null, 2)} /> */}
