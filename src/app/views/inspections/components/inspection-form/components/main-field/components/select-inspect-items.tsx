@@ -6,8 +6,6 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  MenuItem,
-  MenuList,
   Paper,
   Popover,
 } from '@mui/material'
@@ -17,7 +15,7 @@ import {
   bindTrigger,
   usePopupState,
 } from 'material-ui-popup-state/hooks'
-import { ChangeEvent, memo, MouseEvent } from 'react'
+import { memo } from 'react'
 import { useFieldArray } from 'react-final-form-arrays'
 import { MdAddCircle } from 'react-icons/md'
 

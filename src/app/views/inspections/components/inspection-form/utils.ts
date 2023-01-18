@@ -114,7 +114,7 @@ export const transformToReportItems = (
     requirement: item.requirement as InspectionRequirement,
     condition: item.condition,
     type: item.type,
-    data: {},
+    data: item.data,
   }))
 }
 
