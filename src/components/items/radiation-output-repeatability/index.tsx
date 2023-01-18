@@ -60,49 +60,45 @@ const RORField = ({
   })
   const { input: inputInspectionItem } =
     useField<InspectionTypeEnum>('inspectionItem')
-  const { fields: inputData } = useFieldArray<RORDataItem>(`${name}.data`)
+  const { fields } = useFieldArray<RORDataItem>(`${name}.data`)
   const { input: inputRequirement } = useField<InspectionRequirement>(
     `${name}.requirement`
   )
 
   // FIX: value will be empty object when fields is empty list
-  const fixData = Array.from(inputData.value)
+  const fixData = Array.from(fields.value)
 
   return (
     <>
-      <FieldArray<RORDataItem> name={`${name}.data`}>
-        {({ fields }) => (
-          <TableContainer
-            component={Card}
-            elevation={1}
-            sx={{ paddingY: 3, marginY: 3 }}
-          >
-            <Table>
-              <colgroup>
-                <col width="20%" />
-                <col width="50%" />
-                <col width="30%" />
-              </colgroup>
-              <RORItemHeader />
-              <TableBody>
-                {fields.map((name, index) => (
-                  <Field name={name} key={name}>
-                    {({ input }) => (
-                      <RORItem
-                        index={index}
-                        value={input.value}
-                        onChange={input.onChange}
-                        onRemove={() => fields.remove(index)}
-                      />
-                    )}
-                  </Field>
-                ))}
-              </TableBody>
-              <RORBar onAdd={() => onAdd(fields)} />
-            </Table>
-          </TableContainer>
-        )}
-      </FieldArray>
+      <TableContainer
+        component={Card}
+        elevation={1}
+        sx={{ paddingY: 3, marginY: 3 }}
+      >
+        <Table>
+          <colgroup>
+            <col width="20%" />
+            <col width="50%" />
+            <col width="30%" />
+          </colgroup>
+          <RORItemHeader />
+          <TableBody>
+            {fields.map((name, index) => (
+              <Field name={name} key={name}>
+                {({ input }) => (
+                  <RORItem
+                    index={index}
+                    value={input.value}
+                    onChange={input.onChange}
+                    onRemove={() => fields.remove(index)}
+                  />
+                )}
+              </Field>
+            ))}
+          </TableBody>
+          <RORBar onAdd={() => onAdd(fields)} />
+        </Table>
+      </TableContainer>
       <NewConclusion<RORData>
         conclusions={conclusion.value}
         inspectionItem={inputInspectionItem.value}
