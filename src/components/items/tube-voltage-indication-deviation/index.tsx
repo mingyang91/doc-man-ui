@@ -58,9 +58,6 @@ const TVIDField = ({
     `${name}.requirement`
   )
 
-  // FIX: value will be empty object when fields is empty list
-  const fixData = Array.from(fields.value)
-
   return (
     <>
       {/* <HighlightSyntax code={JSON.stringify(value, null, 2)} /> */}
@@ -102,7 +99,7 @@ const TVIDField = ({
       <NewConclusion<TVIDData>
         conclusions={conclusion.value}
         inspectionItem={inputInspectionItem.value}
-        data={fixData}
+        data={fields.value}
         requirement={inputRequirement.value}
         getConclusionMethod={getTVIDConclusion}
         onUseSuggestion={inter => conclusion.onChange(inter)}

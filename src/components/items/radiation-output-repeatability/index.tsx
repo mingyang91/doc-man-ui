@@ -61,9 +61,6 @@ const RORField = ({
     `${name}.requirement`
   )
 
-  // FIX: value will be empty object when fields is empty list
-  const fixData = Array.from(fields.value)
-
   return (
     <>
       <TableContainer
@@ -98,7 +95,7 @@ const RORField = ({
       <NewConclusion<RORData>
         conclusions={conclusion.value}
         inspectionItem={inputInspectionItem.value}
-        data={fixData}
+        data={fields.value}
         requirement={inputRequirement.value}
         getConclusionMethod={getRORConclusion}
         onUseSuggestion={inter => conclusion.onChange(inter)}
