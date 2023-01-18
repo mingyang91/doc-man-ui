@@ -9,8 +9,6 @@ import {
   transformToReportItems,
 } from '../inspection-form/utils'
 import { EquipmentTypeStep } from './components/equipment-type-step'
-import { InspectionTypeValueProvider } from './context/equipment-type-value'
-import { InspectionReportItemsValueProvider } from './context/inspection-type-items-value'
 import { InspectionForm } from '../inspection-form'
 
 export interface InspectionStepProps {
@@ -18,38 +16,7 @@ export interface InspectionStepProps {
 }
 
 export const InspectionStep = ({ submitForm }: InspectionStepProps) => {
-  return (
-    <InspectionTypeValueProvider>
-      <InspectionReportItemsValueProvider>
-        <InspectionStepInner submitForm={submitForm} />
-      </InspectionReportItemsValueProvider>
-    </InspectionTypeValueProvider>
-  )
-}
-
-type Step = EquimentTypeStep | LoadingStep | InspectionFormStep
-
-type EquimentTypeStep = {
-  name: 'EquimentType'
-}
-
-type LoadingStep = {
-  name: 'Loading'
-  equipmentType: EquipmentType
-  inspectionItem: InspectionType
-}
-
-type InspectionFormStep = {
-  name: 'InspectionForm'
-  equipmentType: EquipmentType
-  inspectionItem: InspectionType
-  presetsItems: InspectionReportItem[]
-  items1: InspectionReportItem[]
-  items2: InspectionReportItem[]
-}
-
-const InspectionStepInner = ({ submitForm }: InspectionStepProps) => {
-  const [step, setStep] = useState<Step>({ name: 'EquimentType' })
+  const [step, setStep] = useState<Step>({ name: 'EquipmentType' })
 
   const equipmentTypeId = step.name === 'Loading' ? step.equipmentType.id : ''
   const { data, isLoading } = useInspectionTypesByEquipmentQuery(
@@ -70,7 +37,7 @@ const InspectionStepInner = ({ submitForm }: InspectionStepProps) => {
   }
 
   switch (step.name) {
-    case 'EquimentType':
+    case 'EquipmentType':
       return (
         <EquipmentTypeStep
           onNext={(equipmentType, inspectionItem) =>
@@ -87,4 +54,25 @@ const InspectionStepInner = ({ submitForm }: InspectionStepProps) => {
     case 'InspectionForm':
       return <InspectionForm submitForm={submitForm} data={step} />
   }
+}
+
+type Step = EquipmentTypeStep | LoadingStep | InspectionFormStep
+
+type EquipmentTypeStep = {
+  name: 'EquipmentType'
+}
+
+type LoadingStep = {
+  name: 'Loading'
+  equipmentType: EquipmentType
+  inspectionItem: InspectionType
+}
+
+type InspectionFormStep = {
+  name: 'InspectionForm'
+  equipmentType: EquipmentType
+  inspectionItem: InspectionType
+  presetsItems: InspectionReportItem[]
+  items1: InspectionReportItem[]
+  items2: InspectionReportItem[]
 }
