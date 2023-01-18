@@ -40,11 +40,8 @@ const TVIDField = ({
   meta: { touched, error },
 }: TVIDFieldProps) => {
   useEffect(() => {
-    if (isEmpty(value.data)) {
-      onChange({
-        ...value,
-        data: initialTVIDData(value, value.consts),
-      })
+    if (isEmpty(value.data) && !!value.data) {
+      value.data.push(...initialTVIDData(value, value.consts))
     }
   }, [onChange, value, value.data])
 
