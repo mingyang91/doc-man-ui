@@ -19,7 +19,6 @@ import type {
 import * as Types from '../types'
 import { UserInfoFragmentDoc } from '../public.generated'
 
-
 export type UserListQueryVariables = Types.Exact<{
   limit?: Types.InputMaybe<Types.Scalars['Int']>
   offset?: Types.InputMaybe<Types.Scalars['Int']>

@@ -25,7 +25,9 @@ fragment InspectionReportHeader on inspection_report {
 
 fragment InspectionReport on inspection_report {
   ...InspectionReportHeader
-  items
+  presetsItems
+  items1
+  items2
 }
 
 query InspectionReportList(

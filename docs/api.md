@@ -30,7 +30,7 @@ curl --location --request POST 'http://localhost:9000/api/render?template=1' \
         "reportNo": "FYS-2022-H-XXXX",
         "date": "2022年04月25日"
     },
-    "items1": [
+    "items1": [ // 通用检测项
         {
             "name": "管电压指示的偏离",
             "conditionFactor": "100 mA,0.125s",
@@ -41,7 +41,7 @@ curl --location --request POST 'http://localhost:9000/api/render?template=1' \
             "conclusion": "合格"
         }
     ],
-    "items2": [
+    "items2": [ // 专用检测项
         {
             "name": "探测器剂量指示(DDI)",
             "conditionFactor": "（10μGy）\n70kV, 10mAs",
@@ -55,3 +55,8 @@ curl --location --request POST 'http://localhost:9000/api/render?template=1' \
 }'
 
 ```
+
+检测项选择的字段名称为专用字段
+
+通用专用检测项标识分开
+

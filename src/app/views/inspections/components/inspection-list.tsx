@@ -40,7 +40,9 @@ type InspectionReport = Required<ArrayItem<InspectionReportListQuery['list']>>
 
 type InspectionReportRowFields = Omit<
   InspectionReport,
-  | 'items'
+  | 'items1'
+  | 'items2'
+  | 'presetsItems'
   | 'id'
   | 'equipmentName'
   | 'serialNumber'
@@ -339,25 +341,27 @@ export const InspectionReportList = ({
         loading={isLoading}
         rowHeight={72}
       />
-      <TablePagination
-        component="div"
-        showFirstButton
-        showLastButton
-        labelRowsPerPage="每页显示"
-        rowsPerPageOptions={[
-          { label: '10条', value: 10 },
-          { label: '20条', value: 20 },
-          { label: '50条', value: 50 },
-        ]}
-        labelDisplayedRows={({ from, to, count }) =>
-          `共 ${count} 条，当前第 ${from} 至 ${to} 条数据。`
-        }
-        count={dataSource.length}
-        page={page}
-        onPageChange={onPageChange}
-        rowsPerPage={pageSize}
-        onRowsPerPageChange={onPageSizeChange}
-      />
+      {!isLoading && (
+        <TablePagination
+          component="div"
+          showFirstButton
+          showLastButton
+          labelRowsPerPage="每页显示"
+          rowsPerPageOptions={[
+            { label: '10条', value: 10 },
+            { label: '20条', value: 20 },
+            { label: '50条', value: 50 },
+          ]}
+          labelDisplayedRows={({ from, to, count }) =>
+            `共 ${count} 条，当前第 ${from} 至 ${to} 条数据。`
+          }
+          count={dataSource.length}
+          page={page}
+          onPageChange={onPageChange}
+          rowsPerPage={pageSize}
+          onRowsPerPageChange={onPageSizeChange}
+        />
+      )}
     </>
   )
 }

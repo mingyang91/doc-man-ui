@@ -2,6 +2,7 @@ import { createContext, useContext } from 'react'
 
 import {
   EquipmentType,
+  InspectionReportDetail,
   InspectionReportItem,
   InspectionType,
   ScalarTz,
@@ -32,9 +33,8 @@ export interface InspectionReportData {
   serialNumber?: SerialNumber | null
 }
 
-const InspectionReportDataContext = createContext<InspectionReportData | null>(
-  null
-)
+const InspectionReportDataContext =
+  createContext<InspectionReportDetail | null>(null)
 
 InspectionReportDataContext.displayName = 'InspectionReportData'
 

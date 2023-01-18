@@ -2,23 +2,11 @@ const CracoSwcPlugin = require('craco-swc')
 const { CracoAliasPlugin } = require('react-app-alias')
 const { URL } = require('url')
 
-const { ProvidePlugin } = require('webpack')
-
 const isDevelopment = process.env.NODE_ENV === 'development'
 /**
  * @type {import('@craco/craco/dist/types/config').CracoConfig}
  */
 module.exports = {
-  webpack: {
-    plugins: {
-      add: [
-        new ProvidePlugin({
-          'window.store': 'store2',
-          store: 'store2',
-        }),
-      ],
-    },
-  },
   plugins: [
     {
       plugin: CracoSwcPlugin,

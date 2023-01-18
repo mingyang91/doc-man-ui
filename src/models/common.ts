@@ -46,3 +46,7 @@ export const formatSerialNumber = (serialNumber?: SerialNumber | null) => {
     ? `${serialNumber?.prefix}-${serialNumber?.year}-${serialNumber?.number}`
     : ''
 }
+
+export const formatInspectionType = (type?: string) => {
+  return type === '1' ? '通用检测项目' : '专用检测项目'
+}

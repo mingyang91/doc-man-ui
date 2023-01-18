@@ -46,12 +46,12 @@ request.interceptors.response.use(response => {
   return response
 })
 
-const fetcher = <TData, TVariables>(
-  query: TData,
+export const fetcher = <TData, TVariables>(
+  query: string,
   variables: TVariables,
   options?: AxiosRequestHeaders
 ) => {
-  return request.post(
+  return request.post<TData>(
     '/v1/graphql',
     {
       query,
@@ -68,7 +68,11 @@ export const useFetch = <TData, TVariables>(
   options?: AxiosRequestHeaders
 ): ((variables?: TVariables) => Promise<TData>) => {
   return async (variables?: TVariables) => {
-    const response = await fetcher(query, variables, options)
+    const response = await fetcher<{ data: TData }, TVariables | undefined>(
+      query,
+      variables,
+      options
+    )
     return response.data.data
   }
 }

@@ -1,7 +1,7 @@
 import { DatePicker, TextField } from 'mui-rff'
 import { Field } from 'react-final-form'
 
-import { InspectiontypeSelectorElement } from '@@/inspectiontype-selector/components/form-element'
+import { InspectionItemTypeSelectorElement } from '@@/inspection-item-type-selector/components/form-element'
 
 export const BaseFields = () => {
   return (
@@ -41,10 +41,11 @@ export const BaseFields = () => {
         fullWidth
       />
       <Field
-        component={InspectiontypeSelectorElement}
+        component={InspectionItemTypeSelectorElement}
         name="inspectionItem"
         label="检测项目"
         fullWidth
+        readOnly
       />
       <DatePicker
         name="inspectionDate"

@@ -18,7 +18,7 @@ import {
 
 import { InspectionReportList } from './components/inspection-list'
 
-const TITLE = `检验检测报告 - 列表`
+const TITLE = `设备检验检测 - 列表`
 
 const PageInspection = () => {
   const navigate = useNavigate()

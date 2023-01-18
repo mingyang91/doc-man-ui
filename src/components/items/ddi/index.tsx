@@ -1,7 +1,13 @@
 import { FieldRenderProps, Field } from 'react-final-form'
 import { useEffect } from 'react'
 import { isEmpty } from 'lodash-es'
-import { Card, Table, TableBody, TableContainer } from '@mui/material'
+import {
+  Card,
+  Table,
+  TableBody,
+  TableContainer,
+  Typography,
+} from '@mui/material'
 
 import { InspectionReportItem } from 'm/presets'
 
@@ -9,6 +15,7 @@ import { DdiData } from './type'
 import { initialDdiData } from './utils'
 import { DdiHeader } from './components/header'
 import { DdiRow } from './components/row'
+import { DdiConclusion } from './components/conclusion'
 
 /**
  * DDI
@@ -55,6 +62,12 @@ const DdiField = ({
           </TableContainer>
         )}
       </Field>
+      <DdiConclusion name={name} />
+      {touched && error && (
+        <Typography component="div" color="error">
+          {error}
+        </Typography>
+      )}
     </>
   )
 }

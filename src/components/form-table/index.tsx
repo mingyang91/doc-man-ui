@@ -3,7 +3,7 @@ import { ReactNode } from 'react'
 
 import { FormTableHeader } from './components/header'
 
-export type FnSubmit<D, I> = (values: D) => Promise<void>
+export type FnSubmit<D> = (values: D) => Promise<void>
 
 export type FormTableProps = {
   children?: ReactNode

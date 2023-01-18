@@ -100,7 +100,8 @@ module.exports = {
   },
   hooks: {
     afterAllFileWrite: [
-      'pnpm exec prettier --write "src/models/" && pnpm exec eslint --fix --ext .tsx,.ts  "./src/models/"',
+      'pnpm exec prettier-eslint --write ',
+      'pnpm exec eslint --fix --ext .tsx,.ts',
     ],
   },
 }
