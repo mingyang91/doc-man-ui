@@ -141,16 +141,13 @@ export const toRORRenderItem = (
 
   return data.map((item, index) => {
     const row: ReportRenderItem = {
+      name: index === 0 ? report.displayName : '',
       conditionFactor: formatCondition(item.condition),
       result: formatResult(item.result),
       defaultValue: '',
       acceptanceRequire: report?.requirement?.acceptance?.display || '',
       stateRequire: report?.requirement?.state?.display || '',
       conclusion: formatConclusion(report?.conclusions),
-    }
-
-    if (index === 0) {
-      row.name = report.displayName
     }
 
     return row

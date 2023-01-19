@@ -180,16 +180,13 @@ export const toTVIDRenderItem = (
 
   return data.map((item, index) => {
     const row: ReportRenderItem = {
+      name: index === 0 ? report.displayName : '',
       conditionFactor: formatFactor(item.condition?.factor),
       defaultValue: formatUnitValue(item.condition?.presets),
       result: formatResult(item.result),
       acceptanceRequire: report?.requirement?.acceptance?.display || '',
       stateRequire: report?.requirement?.state?.display || '',
       conclusion: formatConclusion(report?.conclusions),
-    }
-
-    if (index === 0) {
-      row.name = report.displayName
     }
 
     return row
