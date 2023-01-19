@@ -1,6 +1,6 @@
 import { useMemoizedFn } from 'ahooks'
 import { produce } from 'immer'
-import { useMemo } from 'react'
+import { useMemo, FC } from 'react'
 import { Field, FieldProps, FieldRenderProps, useField } from 'react-final-form'
 
 import {
@@ -14,16 +14,13 @@ import { RequirementDisplay } from './components/requirement-display'
 import { StyledWrapper } from './components/styled'
 
 import { DefaultItem, ItemComponents } from '@@/items'
+import { ItemComponentProps } from '@@/items/common/type'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface InspectionItemProps {
   index: number
   removable: boolean
   fieldName: string
-  props?: FieldProps<
-    InspectionReportItem,
-    FieldRenderProps<InspectionReportItem>
-  >
   onRemove?: (index: number) => void
 }
 
@@ -32,7 +29,6 @@ export const InspectionItem = ({
   onRemove,
   removable,
   fieldName,
-  props,
 }: InspectionItemProps) => {
   const {
     input: { value, onChange },
@@ -43,7 +39,10 @@ export const InspectionItem = ({
   } = useField<InspectionType>('inspectionType')
 
   const Component = useMemo(
-    () => ItemComponents[value.name] || DefaultItem,
+    () =>
+      (
+        ItemComponents as unknown as Record<string, FC<ItemComponentProps<any>>>
+      )[value.name] || DefaultItem,
     [value.name]
   )
 
@@ -57,6 +56,7 @@ export const InspectionItem = ({
     }
   )
 
+  console.log('InspectionItem', value.data)
   return (
     <StyledWrapper>
       <Header removable={removable} onRemove={() => onRemove?.(index)}>
@@ -69,7 +69,12 @@ export const InspectionItem = ({
           onChange={handleRequirementChange}
         />
       )}
-      <Field name={fieldName} component={Component} {...props} />
+      <Component
+        name={fieldName}
+        inspectionItem={inspectionType.type}
+        requirement={value.requirement!}
+        item={value}
+      />
     </StyledWrapper>
   )
 }

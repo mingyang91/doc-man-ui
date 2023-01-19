@@ -1,6 +1,7 @@
 import { useDeepCompareEffect } from 'ahooks'
 import { useState } from 'react'
 import { Button, Stack, Typography } from '@mui/material'
+import { useField } from 'react-final-form'
 
 import { Conclusions, conclusionMap } from 'm/common'
 import {
@@ -13,11 +14,10 @@ import { ConclusionSelect } from './conclusion-select'
 import { StyledConclusion } from './styled'
 
 export interface NewConclusionProps<T> {
-  conclusions: Conclusions
+  name: string
   inspectionItem: InspectionTypeEnum
   data: T
   requirement: InspectionRequirement
-  onUseSuggestion?: (conclusions: Conclusions) => void
   getConclusionMethod: (
     data: T,
     requirement: InspectionRequirementChild
@@ -25,23 +25,21 @@ export interface NewConclusionProps<T> {
 }
 
 export function NewConclusion<T>({
-  conclusions: inputConclusion,
+  name,
   inspectionItem: inputInspectionItem,
   data: inputData,
   requirement: inputRequirement,
-  onUseSuggestion,
   getConclusionMethod,
 }: NewConclusionProps<T>) {
-  const [interConclusion, setInterConclusion] =
-    useState<Conclusions>(inputConclusion)
+  const [interConclusion, setInterConclusion] = useState<Conclusions>(
+    Conclusions.Unknown
+  )
 
-  const isDifferent = interConclusion !== inputConclusion
+  const { input: conclusion } = useField<Conclusions>(`${name}.conclusions`, {
+    initialValue: Conclusions.Unknown,
+  })
 
-  const onClick = () => {
-    if (onUseSuggestion) {
-      onUseSuggestion(interConclusion)
-    }
-  }
+  const isDifferent = interConclusion !== conclusion.value
 
   useDeepCompareEffect(() => {
     if (
@@ -71,7 +69,10 @@ export function NewConclusion<T>({
       </Typography>
       {isDifferent && (
         <Stack direction="row" spacing={1}>
-          <Button variant="text" onClick={onClick}>
+          <Button
+            variant="text"
+            onClick={() => conclusion.onChange(interConclusion)}
+          >
             使用建议
           </Button>
           <Typography variant="body2" className="suggest">
@@ -79,7 +80,10 @@ export function NewConclusion<T>({
           </Typography>
         </Stack>
       )}
-      <ConclusionSelect value={inputConclusion} />
+      <ConclusionSelect
+        value={conclusion.value}
+        onChange={setInterConclusion}
+      />
     </StyledConclusion>
   )
 }

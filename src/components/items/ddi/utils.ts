@@ -2,8 +2,14 @@ import { isNull, merge } from 'lodash-es'
 import { AVERAGE } from '@formulajs/formulajs'
 import Big from 'big.js'
 
-import { InspectionReportItem, ReportRenderItem } from 'm/presets'
-import { formatConclusion, formatUnitValue } from 'm/common'
+import ruleJudgment from 'u/rule-judgment'
+
+import {
+  InspectionReportItem,
+  InspectionRequirementChild,
+  ReportRenderItem,
+} from 'm/presets'
+import { Conclusions, formatConclusion, formatUnitValue } from 'm/common'
 
 import { DdiData, DdiDataCondition, DdiDataResult } from './type'
 
@@ -116,4 +122,17 @@ export const toDdiRenderItem = (
       conclusion: formatConclusion(report?.conclusions),
     },
   ]
+}
+
+export function getDdiConclusion(
+  data: DdiData,
+  requirement: InspectionRequirementChild
+) {
+  if (!data.result?.percentage || isNaN(data.result.percentage.value)) {
+    return Conclusions.Unknown
+  }
+
+  const fn = ruleJudgment(requirement.rule)
+
+  return fn(data.result.percentage.value) ? Conclusions.Good : Conclusions.Bad
 }

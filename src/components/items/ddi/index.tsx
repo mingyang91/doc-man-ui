@@ -1,6 +1,5 @@
-import { FieldRenderProps, Field } from 'react-final-form'
-import { useEffect } from 'react'
-import { isEmpty } from 'lodash-es'
+import { Field } from 'react-final-form'
+import { useMemo } from 'react'
 import {
   Card,
   Table,
@@ -12,63 +11,69 @@ import {
 import { InspectionReportItem } from 'm/presets'
 
 import { DdiData } from './type'
-import { initialDdiData } from './utils'
+import { getDdiConclusion, initialDdiData } from './utils'
 import { DdiHeader } from './components/header'
 import { DdiRow } from './components/row'
-import { DdiConclusion } from './components/conclusion'
+import { ItemComponentProps } from '../common/type'
+import { NewConclusion } from '../components/new-conclusion'
 
 /**
  * DDI
  * 探测器剂量指示(DDI)
  */
-type DdiFieldProps = FieldRenderProps<InspectionReportItem<DdiData>>
+type DdiFieldProps = ItemComponentProps<DdiData>
 
 const DdiField = ({
-  input: { name, value, onChange, onBlur, onFocus },
-  meta: { touched, error },
+  name,
+  inspectionItem,
+  requirement,
+  item,
 }: DdiFieldProps) => {
-  useEffect(() => {
-    if (isEmpty(value.data)) {
-      onChange({
-        ...value,
-        data: initialDdiData(value.data),
-      })
-    }
-  }, [onChange, value])
+  const initial = useMemo(() => initialDdiData(item.data), [])
 
   return (
-    <>
-      <Field<DdiData> name={`${name}.data`}>
-        {({ input }) => (
-          <TableContainer
-            component={Card}
-            elevation={1}
-            sx={{ paddingY: 3, marginY: 3 }}
-          >
-            <Table>
-              <colgroup>
-                <col width="50%" />
-                <col width="50%" />
-              </colgroup>
-              <DdiHeader />
-              <TableBody>
-                <DdiRow
-                  name={`${name}.data`}
-                  value={input.value}
-                  onChange={input.onChange}
-                />
-              </TableBody>
-            </Table>
-          </TableContainer>
-        )}
-      </Field>
-      <DdiConclusion name={name} />
-      {touched && error && (
-        <Typography component="div" color="error">
-          {error}
-        </Typography>
+    <Field<InspectionReportItem<DdiData>> name={name}>
+      {({ input, meta: { touched, error } }) => (
+        <>
+          <Field<DdiData> name={`${name}.data`} initialValue={initial}>
+            {({ input }) => (
+              <TableContainer
+                component={Card}
+                elevation={1}
+                sx={{ paddingY: 3, marginY: 3 }}
+              >
+                <Table>
+                  <colgroup>
+                    <col width="50%" />
+                    <col width="50%" />
+                  </colgroup>
+                  <DdiHeader />
+                  <TableBody>
+                    <DdiRow
+                      name={`${name}.data`}
+                      value={input.value}
+                      onChange={input.onChange}
+                    />
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            )}
+          </Field>
+          <NewConclusion<DdiData>
+            name={name}
+            inspectionItem={inspectionItem}
+            data={input.value.data || initial}
+            requirement={requirement}
+            getConclusionMethod={getDdiConclusion}
+          />
+          {touched && error && (
+            <Typography component="div" color="error">
+              {error}
+            </Typography>
+          )}
+        </>
       )}
-    </>
+    </Field>
   )
 }
 

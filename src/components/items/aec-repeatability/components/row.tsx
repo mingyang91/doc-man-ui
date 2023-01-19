@@ -21,7 +21,7 @@ export const AECRepeatabilityRow = ({
 }: AECRepeatabilityRowProps) => {
   const [open, setOpen] = useBoolean(false)
 
-  const finalValue = useMemo(() => initialAECRepeatabilityData(value), [value])
+  const finalValue = useMemo(() => initialAECRepeatabilityData(value), [])
 
   const fieldSx = useMemo<SxProps<Theme>>(
     () => ({

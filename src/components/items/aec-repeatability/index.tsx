@@ -1,6 +1,5 @@
-import { FieldRenderProps, Field } from 'react-final-form'
-import { useEffect } from 'react'
-import { isEmpty } from 'lodash-es'
+import { Field } from 'react-final-form'
+import { useMemo } from 'react'
 import {
   Card,
   Table,
@@ -12,64 +11,74 @@ import {
 import { InspectionReportItem } from 'm/presets'
 
 import { AECRepeatabilityData } from './type'
-import { initialAECRepeatabilityData } from './utils'
+import {
+  getAECRepeatabilityConclusion,
+  initialAECRepeatabilityData,
+} from './utils'
 import { AECRepeatabilityHeader } from './components/header'
 import { AECRepeatabilityRow } from './components/row'
-import { AECRepeatabilityConclusion } from './components/conclusion'
+import { ItemComponentProps } from '../common/type'
+import { NewConclusion } from '../components/new-conclusion'
 
 /**
  * AECRepeatabilityField
  * AEC重复性
  */
-type AECRepeatabilityFieldProps = FieldRenderProps<
-  InspectionReportItem<AECRepeatabilityData>
->
+type AECRepeatabilityProps = ItemComponentProps<AECRepeatabilityData>
 
 const AECRepeatabilityField = ({
-  input: { name, value, onChange, onBlur, onFocus },
-  meta: { touched, error },
-}: AECRepeatabilityFieldProps) => {
-  useEffect(() => {
-    if (isEmpty(value.data)) {
-      onChange({
-        ...value,
-        data: initialAECRepeatabilityData(value.data),
-      })
-    }
-  }, [onChange, value, value.data])
+  name,
+  inspectionItem,
+  requirement,
+  item,
+}: AECRepeatabilityProps) => {
+  const initial = useMemo(() => initialAECRepeatabilityData(item.data), [])
 
   return (
-    <>
-      <Field<AECRepeatabilityData> name={`${name}.data`}>
-        {({ input }) => (
-          <TableContainer
-            component={Card}
-            elevation={1}
-            sx={{ paddingY: 3, marginY: 3 }}
+    <Field<InspectionReportItem<AECRepeatabilityData>> name={name}>
+      {({ input, meta: { touched, error } }) => (
+        <>
+          <Field<AECRepeatabilityData>
+            name={`${name}.data`}
+            initialValue={initial}
           >
-            <Table>
-              <colgroup>
-                <col width="50%" />
-                <col width="50%" />
-              </colgroup>
-              <AECRepeatabilityHeader />
-              <TableBody>
-                <AECRepeatabilityRow
-                  value={input.value}
-                  onChange={input.onChange}
-                />
-              </TableBody>
-            </Table>
-          </TableContainer>
-        )}
-      </Field>
-      <AECRepeatabilityConclusion name={name} />
-      {touched && error && (
-        <Typography component="div" color="error">
-          {error}
-        </Typography>
+            {({ input }) => (
+              <TableContainer
+                component={Card}
+                elevation={1}
+                sx={{ paddingY: 3, marginY: 3 }}
+              >
+                <Table>
+                  <colgroup>
+                    <col width="50%" />
+                    <col width="50%" />
+                  </colgroup>
+                  <AECRepeatabilityHeader />
+                  <TableBody>
+                    <AECRepeatabilityRow
+                      value={input.value}
+                      onChange={input.onChange}
+                    />
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            )}
+          </Field>
+          <NewConclusion<AECRepeatabilityData>
+            name={name}
+            inspectionItem={inspectionItem}
+            data={input.value.data || initial}
+            requirement={requirement}
+            getConclusionMethod={getAECRepeatabilityConclusion}
+          />
+          {touched && error && (
+            <Typography component="div" color="error">
+              {error}
+            </Typography>
+          )}
+        </>
       )}
-    </>
+    </Field>
   )
 }
 

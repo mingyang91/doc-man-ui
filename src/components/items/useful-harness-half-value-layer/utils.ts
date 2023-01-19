@@ -78,9 +78,10 @@ export const calculateUHHVLData = (values: string[]) => {
 }
 
 export const getUHHVLConclusion = (
-  result: number,
+  input: UHHVLData,
   requirement: InspectionRequirementChild
 ) => {
+  const result = input.result?.value
   if (!result || isNaN(result)) {
     return Conclusions.Unknown
   }

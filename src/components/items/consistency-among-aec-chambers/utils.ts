@@ -1,4 +1,4 @@
-import { merge } from 'lodash-es'
+import { merge, round } from 'lodash-es'
 import { AVERAGE, MAX } from '@formulajs/formulajs'
 import Big from 'big.js'
 
@@ -51,7 +51,7 @@ export const calculateConsistencyAmongAECChambersData = (
   input: ConsistencyAmongAECChambersDataInput
 ) => {
   if (input.values.some(value => isNaN(Number(value)) || Number(value) === 0)) {
-    console.log('calculateConsistencyAmongAECChambersData', input)
+    console.debug('calculateConsistencyAmongAECChambersData', input)
     return {
       value: 0,
       unit: '%',
@@ -59,22 +59,24 @@ export const calculateConsistencyAmongAECChambersData = (
   }
 
   try {
-    const avg = new Big(AVERAGE(input.values))
+    const avg = AVERAGE(input.values)
     const internalNums = input.values.map((value, index) => {
-      return new Big(input.values[index]).minus(avg).div(avg)
+      return (input.values[index] - avg) / avg
     })
-    const internalNumsAvg = new Big(AVERAGE(internalNums))
+    console.debug(
+      'calculateConsistencyAmongAECChambersData',
+      AVERAGE(internalNums)
+    )
+    const internalNumsAvg = AVERAGE(internalNums)
 
-    const result = new Big(MAX(internalNumsAvg.toNumber(), avg.toNumber()))
-      .times(100)
-      .round(3)
+    const result = MAX(internalNumsAvg, avg) * 100
 
     return {
-      value: result.toNumber(),
+      value: round(result, 3),
       unit: '%',
     }
   } catch (e) {
-    console.log('calculateConsistencyAmongAECChambersResult Error', e)
+    console.error('calculateConsistencyAmongAECChambersResult Error', e)
 
     return {
       value: 0,

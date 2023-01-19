@@ -21,7 +21,7 @@ export interface DdiRowProps {
 export const DdiRow = ({ name, value, onChange }: DdiRowProps) => {
   const [open, setOpen] = useBoolean(false)
 
-  const finalValue = useMemo(() => initialDdiData(value), [value])
+  const finalValue = useMemo(() => initialDdiData(value), [])
 
   const fieldSx = useMemo<SxProps<Theme>>(
     () => ({
