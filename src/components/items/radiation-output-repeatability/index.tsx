@@ -1,6 +1,6 @@
 import { FieldRenderProps, Field, useField } from 'react-final-form'
 import { FieldArrayRenderProps, useFieldArray } from 'react-final-form-arrays'
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import { isEmpty } from 'lodash-es'
 import {
   Card,
@@ -33,17 +33,10 @@ import { NewConclusion } from '../components/new-conclusion'
 type RORFieldProps = FieldRenderProps<InspectionReportItem<RORData>>
 
 const RORField = ({
-  input: { name, value, onChange, onBlur, onFocus },
+  input: { name, value },
   meta: { touched, error },
 }: RORFieldProps) => {
-  useEffect(() => {
-    if (isEmpty(value.data)) {
-      onChange({
-        ...value,
-        data: initialRORData(value),
-      })
-    }
-  }, [onChange, value, value.data])
+  const initial = useMemo(() => initialRORData(value), [])
 
   const onAdd = useMemoizedFn(
     (fields: FieldArrayRenderProps<RORDataItem, HTMLElement>['fields']) => {
@@ -56,7 +49,9 @@ const RORField = ({
   })
   const { input: inputInspectionItem } =
     useField<InspectionTypeEnum>('inspectionItem')
-  const { fields } = useFieldArray<RORDataItem>(`${name}.data`)
+  const { fields } = useFieldArray<RORDataItem>(`${name}.data`, {
+    defaultValue: initial,
+  })
   const { input: inputRequirement } = useField<InspectionRequirement>(
     `${name}.requirement`
   )

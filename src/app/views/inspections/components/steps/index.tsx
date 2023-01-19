@@ -1,5 +1,7 @@
 import { useState } from 'react'
 
+import { Loading } from 'd/components/loading-screen'
+
 import { EquipmentType, InspectionReportItem, InspectionType } from 'm/presets'
 import { useInspectionTypesByEquipmentQuery } from 'm/equipment-type/index.generated'
 
@@ -50,7 +52,7 @@ export const InspectionStep = ({ submitForm }: InspectionStepProps) => {
         />
       )
     case 'Loading':
-      return <>LOADING</>
+      return <Loading />
     case 'InspectionForm':
       return <InspectionForm submitForm={submitForm} data={step} />
   }

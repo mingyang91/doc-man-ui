@@ -1,7 +1,5 @@
 import { FieldRenderProps, Field, useField } from 'react-final-form'
 import { useFieldArray } from 'react-final-form-arrays'
-import { useEffect } from 'react'
-import { isEmpty } from 'lodash-es'
 import {
   Card,
   Table,
@@ -9,6 +7,7 @@ import {
   TableContainer,
   Typography,
 } from '@mui/material'
+import { useEffect, useMemo } from 'react'
 
 import {
   InspectionReportItem,
@@ -36,21 +35,18 @@ import { NewConclusion } from '../components/new-conclusion'
 type TVIDFieldProps = FieldRenderProps<InspectionReportItem<TVIDData>>
 
 const TVIDField = ({
-  input: { name, value, onChange, onBlur, onFocus },
+  input: { name, value },
   meta: { touched, error },
 }: TVIDFieldProps) => {
-  useEffect(() => {
-    if (isEmpty(value.data) && !!value.data) {
-      value.data.push(...initialTVIDData(value, value.consts))
-    }
-  }, [onChange, value, value.data])
-
+  const initial = useMemo(() => initialTVIDData(value, value.consts), [])
   const { input: conclusion } = useField<Conclusions>(`${name}.conclusions`, {
     defaultValue: Conclusions.Unknown,
   })
   const { input: inputInspectionItem } =
     useField<InspectionTypeEnum>('inspectionItem')
-  const { fields } = useFieldArray<TVIDDataItem>(`${name}.data`)
+  const { fields } = useFieldArray<TVIDDataItem>(`${name}.data`, {
+    defaultValue: initial,
+  })
   const { input: inputRequirement } = useField<InspectionRequirement>(
     `${name}.requirement`
   )
