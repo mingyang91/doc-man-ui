@@ -39,6 +39,7 @@ specifiers:
   '@types/react-lazy-load-image-component': ^1.5.2
   '@types/react-syntax-highlighter': ^15.5.5
   '@types/react-test-renderer': ^18.0.0
+  '@types/regression': ^2.0.2
   '@typescript-eslint/eslint-plugin': ^5.33.1
   '@typescript-eslint/parser': ^5.33.1
   ahooks: ^3.7.0
@@ -97,6 +98,7 @@ specifiers:
   react-scripts: 5.0.1
   react-simple-code-editor: ^0.13.1
   react-test-renderer: ^18.2.0
+  regression: ^2.0.1
   rsuite-table: ^5.6.1
   rule-judgment: ^1.1.5
   short-uuid: ^4.2.0
@@ -129,6 +131,7 @@ dependencies:
   '@testing-library/jest-dom': 5.16.5
   '@testing-library/react': 13.4.0_biqbaboplfbrettd7655fr4n2y
   '@testing-library/user-event': 13.5.0_znccgeejomvff3jrsk3ljovfpu
+  '@types/regression': 2.0.2
   ahooks: 3.7.1_react@18.2.0
   axios: 0.27.2
   big.js: 6.2.1
@@ -165,6 +168,7 @@ dependencies:
   react-router-dom: 6.4.1_biqbaboplfbrettd7655fr4n2y
   react-scripts: 5.0.1_viegeqxdbldi3zys3lt3nt6one
   react-simple-code-editor: 0.13.1_biqbaboplfbrettd7655fr4n2y
+  regression: 2.0.1
   rsuite-table: 5.7.2_v2m5e27vhdewzwhryxwfaorcca
   rule-judgment: 1.1.5_lodash@4.17.21
   short-uuid: 4.2.0
@@ -4300,6 +4304,10 @@ packages:
       '@types/prop-types': 15.7.5
       '@types/scheduler': 0.16.2
       csstype: 3.1.1
+
+  /@types/regression/2.0.2:
+    resolution: {integrity: sha512-i7KOGl6xdkfpq5+p2ooC+/XFIRUMkYymZ29SD8p+Ko9lesKGUsh6860ey3YM7Y+ZG7kEDGcjzyLO3sOhozqEeA==}
+    dev: false
 
   /@types/resolve/1.17.1:
     resolution: {integrity: sha512-yy7HuzQhj0dhGpD8RLXSZWEkLsV9ibvxvi6EiJ3bkqLAO1RGo0WbkWQiwpRlSFymTJRz0d3k5LM3kkx8ArDbLw==}
@@ -11998,6 +12006,10 @@ packages:
     hasBin: true
     dependencies:
       jsesc: 0.5.0
+
+  /regression/2.0.1:
+    resolution: {integrity: sha512-A4XYsc37dsBaNOgEjkJKzfJlE394IMmUPlI/p3TTI9u3T+2a+eox5Pr/CPUqF0eszeWZJPAc6QkroAhuUpWDJQ==}
+    dev: false
 
   /relateurl/0.2.7:
     resolution: {integrity: sha512-G08Dxvm4iDN3MLM0EsP62EDV9IuhXPR6blNz6Utcp7zyV3tr4HVNINt6MpaRWbxoOHT3Q7YN2P+jaHX8vUbgog==}

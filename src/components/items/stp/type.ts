@@ -2,13 +2,17 @@ import { UnitValue } from 'm/common'
 
 // 检测条件
 export interface StpDataCondition {
-  values: string[]
+  values: UnitValue[]
 }
 
 export type StpDataResult = number
 
+export interface Point {
+  x: number
+  y: number
+}
 export interface StpDataInput {
-  values: number[]
+  points: Point[]
 }
 
 export interface StpData {

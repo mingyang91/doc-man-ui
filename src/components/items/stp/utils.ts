@@ -1,23 +1,29 @@
 import { merge } from 'lodash-es'
 
-import { InspectionReportItem, ReportRenderItem } from 'm/presets'
-import { formatConclusion } from 'm/common'
+import ruleJudgment from 'u/rule-judgment'
+
+import {
+  InspectionReportItem,
+  InspectionRequirementChild,
+  ReportRenderItem,
+} from 'm/presets'
+import { Conclusions, formatConclusion } from 'm/common'
 
 import { StpData, StpDataCondition, StpDataInput, StpDataResult } from './type'
 
-export const initialStpData = (
+export function initialStpData(
   input?: InspectionReportItem<StpData>
-): Required<StpData> => {
+): Required<StpData> {
   return {
     condition: merge<StpDataCondition, StpDataCondition | undefined>(
       {
         values: [],
       },
-      input?.condition as StpDataCondition | undefined
+      input?.condition
     ),
     input: merge<StpDataInput, StpDataInput | undefined>(
       {
-        values: [],
+        points: [],
       },
       input?.data?.input
     ),
@@ -27,13 +33,13 @@ export const initialStpData = (
 
 export const formatCondition = (condition?: StpDataCondition) => {
   if (condition) {
-    return condition.values.join(' / ')
+    return condition.values.map(v => `${v.value}${v.unit}`).join('/')
   }
   return ''
 }
 
 export const formatResult = (result?: StpDataResult) => {
-  return result ? `${result}` : ''
+  return result !== undefined ? `${result}` : ''
 }
 
 export const toStpRenderItem = (
@@ -50,4 +56,17 @@ export const toStpRenderItem = (
       conclusion: formatConclusion(report?.conclusions),
     },
   ]
+}
+
+export function getSTPConclusion(
+  data: StpData,
+  requirement: InspectionRequirementChild
+): Conclusions {
+  if (data.result === undefined || isNaN(data.result)) {
+    return Conclusions.Unknown
+  }
+
+  const fn = ruleJudgment(requirement.rule)
+
+  return fn(data.result) ? Conclusions.Good : Conclusions.Bad
 }
