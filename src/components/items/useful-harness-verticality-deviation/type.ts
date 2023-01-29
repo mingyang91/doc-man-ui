@@ -12,7 +12,7 @@ export interface UHVDDataCondition {
 
 export type UHVDDataResult = UnitValue
 
-export interface UHVDData {
+export type UHVDData = {
   condition?: UHVDDataCondition
   result?: UHVDDataResult
 }

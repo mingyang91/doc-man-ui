@@ -1,5 +1,5 @@
 import { Box, Typography } from '@mui/material'
-import { FieldArray } from 'react-final-form-arrays'
+import { useFieldArray } from 'react-final-form-arrays'
 
 import {
   InspectionReportItem,
@@ -21,25 +21,28 @@ export const ItemFields = ({
   name,
 }: ItemFieldsProps) => {
   const removable = inspectionType.type !== InspectionTypeEnum.Acceptance
+  const { fields } =
+    useFieldArray<InspectionReportItem<Record<string, unknown>>>(name)
+  const results: Record<string, Record<string, unknown>> = fields.value.reduce(
+    (obj, next) => ({ ...obj, [next.name]: next.data }),
+    {}
+  )
 
   return (
     <>
       <Box>
         <Typography variant="h5">{title}</Typography>
       </Box>
-      <FieldArray<InspectionReportItem> name={name}>
-        {({ fields }) =>
-          fields.map((name, index) => (
-            <InspectionItem
-              key={name}
-              index={index}
-              fieldName={name}
-              removable={removable}
-              onRemove={fields.remove}
-            />
-          ))
-        }
-      </FieldArray>
+      {fields.map((name, index) => (
+        <InspectionItem
+          key={name}
+          index={index}
+          fieldName={name}
+          removable={removable}
+          onRemove={fields.remove}
+          results={results}
+        />
+      ))}
     </>
   )
 }

@@ -2,7 +2,6 @@
 import { FilterQuery, QuerySelector } from 'u/rule-judgment'
 
 import { Conclusions } from './common'
-import { InspectionTypes } from './types'
 
 export type ScalarJson<T = any> = Record<string, T>
 export type ScalarTz = string | number
@@ -63,9 +62,7 @@ export interface InspectionRequirement {
 }
 
 // 检测项类型约束
-export interface InspectionReportItem<
-  Data extends Record<string, any> | Array<Record<string, any>> = any
-> {
+export interface InspectionReportItem<Data extends Record<string, unknown>> {
   name: string
   displayName: string
   type: string
@@ -94,8 +91,8 @@ export interface InspectionReportDetail {
   updatedAt?: ScalarTz | null
   serialNumber?: SerialNumber | null
   inspectionDate?: ScalarTz | null
-  items1: InspectionReportItem[]
-  items2: InspectionReportItem[]
+  items1: InspectionReportItem<Record<string, unknown>>[]
+  items2: InspectionReportItem<Record<string, unknown>>[]
 }
 
 // Document 渲染项

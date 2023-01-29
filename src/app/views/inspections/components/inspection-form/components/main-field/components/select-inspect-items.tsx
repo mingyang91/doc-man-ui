@@ -28,7 +28,7 @@ import { InspectionReportItem } from 'm/presets'
  */
 
 export type SelectInspectItemsProps = {
-  options: InspectionReportItem[]
+  options: InspectionReportItem<Record<string, unknown>>[]
 }
 
 export const SelectInspectItems = memo(
@@ -39,40 +39,49 @@ export const SelectInspectItems = memo(
     })
 
     const { fields: fieldsItem1 } =
-      useFieldArray<InspectionReportItem>('items1')
+      useFieldArray<InspectionReportItem<Record<string, unknown>>>('items1')
 
     const { fields: fieldsItem2 } =
-      useFieldArray<InspectionReportItem>('items2')
+      useFieldArray<InspectionReportItem<Record<string, unknown>>>('items2')
 
-    const isChecked = useMemoizedFn((value: InspectionReportItem) => {
-      return (
-        fieldsItem1.value.some(item => item.name === value.name) ||
-        fieldsItem2.value.some(item => item.name === value.name)
-      )
-    })
-
-    const onCheckedCallback = useMemoizedFn((value: InspectionReportItem) => {
-      if (value.type === '1') {
-        fieldsItem1.push(value)
-      } else {
-        fieldsItem2.push(value)
-      }
-    })
-
-    const onUncheckedCallback = useMemoizedFn((value: InspectionReportItem) => {
-      if (value.type === '1') {
-        fieldsItem1.remove(
-          fieldsItem1.value.findIndex(item => item.name === value.name)
-        )
-      } else {
-        fieldsItem2.remove(
-          fieldsItem2.value.findIndex(item => item.name === value.name)
+    const isChecked = useMemoizedFn(
+      (value: InspectionReportItem<Record<string, unknown>>) => {
+        return (
+          fieldsItem1.value.some(item => item.name === value.name) ||
+          fieldsItem2.value.some(item => item.name === value.name)
         )
       }
-    })
+    )
+
+    const onCheckedCallback = useMemoizedFn(
+      (value: InspectionReportItem<Record<string, unknown>>) => {
+        if (value.type === '1') {
+          fieldsItem1.push(value)
+        } else {
+          fieldsItem2.push(value)
+        }
+      }
+    )
+
+    const onUncheckedCallback = useMemoizedFn(
+      (value: InspectionReportItem<Record<string, unknown>>) => {
+        if (value.type === '1') {
+          fieldsItem1.remove(
+            fieldsItem1.value.findIndex(item => item.name === value.name)
+          )
+        } else {
+          fieldsItem2.remove(
+            fieldsItem2.value.findIndex(item => item.name === value.name)
+          )
+        }
+      }
+    )
 
     const onCheck = useMemoizedFn(
-      (value: InspectionReportItem, checked: boolean) => {
+      (
+        value: InspectionReportItem<Record<string, unknown>>,
+        checked: boolean
+      ) => {
         if (checked) {
           onCheckedCallback(value)
         } else {

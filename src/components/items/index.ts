@@ -1,8 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { FC, lazy } from 'react'
-import { FieldRenderProps } from 'react-final-form'
-
-import { InspectionReportItem } from 'm/presets'
+import { lazy } from 'react'
 
 export { DefaultItem } from './common/component'
 
@@ -57,4 +54,10 @@ export const ItemComponents = {
   ),
   Ddi: lazy(() => import(/* webpackChunkName: "items/ddi" */ './ddi/index')),
   Stp: lazy(() => import(/* webpackChunkName: "items/stp" */ './stp/index')),
+  ResponseUniformity: lazy(
+    () =>
+      import(
+        /* webpackChunkName: "items/response-uniformity" */ './response-uniformity/index'
+      )
+  ),
 }

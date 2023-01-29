@@ -13,7 +13,7 @@ import {
 import { LocationValue } from '@@/location-selector'
 
 export interface InspectionReportData {
-  items: InspectionReportItem[]
+  items: InspectionReportItem<Record<string, unknown>>[]
   id: UUIDV4
   equipmentCode?: string | null
   inspectionAddress: LocationValue

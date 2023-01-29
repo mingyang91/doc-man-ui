@@ -46,7 +46,7 @@ import { UHHVLData } from '@@/items/useful-harness-half-value-layer/type'
 import { DBLFAIFData } from '@@/items/deviation-between-light-field-and-irradiation-field/type'
 
 interface InspectionItemRowProps {
-  value: InspectionReportItem
+  value: InspectionReportItem<Record<string, unknown>>
 }
 
 export const InspectionItemRow = ({ value }: InspectionItemRowProps) => {

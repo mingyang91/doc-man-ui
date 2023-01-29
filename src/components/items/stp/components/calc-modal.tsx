@@ -22,7 +22,7 @@ export interface CalcModalProps
   extends Omit<ModalProps, 'isOpen' | 'onConfirm'> {
   condition?: StpDataCondition
   input?: StpDataInput
-  result: StpDataResult
+  result?: StpDataResult
   onConfirm(input: StpDataInput, result: StpDataResult): void
   onClose(): void
 }
@@ -37,11 +37,12 @@ export function CalcModal({
   const title = `信号传递特性（STP） @ ${formatCondition(condition)}`
 
   const [points, setPoints] = useImmer<Point[]>(
-    condition?.values.map(() => ({ x: 0, y: 0 })) || []
+    input?.points || condition?.values.map(() => ({ x: 0, y: 0 })) || []
   )
+  console.debug('STP', points, input?.points, condition?.values)
 
-  const r2 = useMemo(
-    () => linear(points.map(({ x, y }) => [x, y])).r2,
+  const calcResult = useMemo(
+    () => linear(points.map(({ x, y }) => [x, y])),
     [points]
   )
 
@@ -50,7 +51,7 @@ export function CalcModal({
       {
         points,
       },
-      r2
+      calcResult
     )
   })
 
@@ -114,7 +115,7 @@ export function CalcModal({
                 </TableCell>
                 {index === 0 ? (
                   <TableCell rowSpan={condition?.values.length || 1}>
-                    {`R² = ${r2}`}
+                    {`R² = ${calcResult.r2}`}
                   </TableCell>
                 ) : null}
               </TableRow>

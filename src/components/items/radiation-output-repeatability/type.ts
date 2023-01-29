@@ -24,4 +24,6 @@ export interface RORDataItem {
   result?: RORDataItemResult
 }
 
-export type RORData = RORDataItem[]
+export type RORData = {
+  items: RORDataItem[]
+}

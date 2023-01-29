@@ -1,7 +1,7 @@
 import { useMemoizedFn } from 'ahooks'
 import { produce } from 'immer'
 import { useMemo, FC } from 'react'
-import { Field, FieldProps, FieldRenderProps, useField } from 'react-final-form'
+import { useField } from 'react-final-form'
 
 import {
   InspectionReportItem,
@@ -12,6 +12,7 @@ import {
 import { Header } from './components/header'
 import { RequirementDisplay } from './components/requirement-display'
 import { StyledWrapper } from './components/styled'
+import { InspectionResults } from '../../../../utils'
 
 import { DefaultItem, ItemComponents } from '@@/items'
 import { ItemComponentProps } from '@@/items/common/type'
@@ -22,6 +23,7 @@ export interface InspectionItemProps {
   removable: boolean
   fieldName: string
   onRemove?: (index: number) => void
+  results: InspectionResults
 }
 
 export const InspectionItem = ({
@@ -29,10 +31,11 @@ export const InspectionItem = ({
   onRemove,
   removable,
   fieldName,
+  results,
 }: InspectionItemProps) => {
   const {
     input: { value, onChange },
-  } = useField<InspectionReportItem>(fieldName)
+  } = useField<InspectionReportItem<Record<string, unknown>>>(fieldName)
 
   const {
     input: { value: inspectionType },
@@ -41,7 +44,10 @@ export const InspectionItem = ({
   const Component = useMemo(
     () =>
       (
-        ItemComponents as unknown as Record<string, FC<ItemComponentProps<any>>>
+        ItemComponents as unknown as Record<
+          string,
+          FC<ItemComponentProps<Record<string, unknown>>>
+        >
       )[value.name] || DefaultItem,
     [value.name]
   )
@@ -56,7 +62,6 @@ export const InspectionItem = ({
     }
   )
 
-  console.log('InspectionItem', value.data)
   return (
     <StyledWrapper>
       <Header removable={removable} onRemove={() => onRemove?.(index)}>
@@ -74,6 +79,7 @@ export const InspectionItem = ({
         inspectionItem={inspectionType.type}
         requirement={value.requirement!}
         item={value}
+        results={results}
       />
     </StyledWrapper>
   )

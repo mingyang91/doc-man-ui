@@ -9,7 +9,7 @@ export interface AECRepeatabilityDataInput {
   values: number[]
 }
 
-export interface AECRepeatabilityData {
+export type AECRepeatabilityData = {
   condition?: AECRepeatabilityDataCondition
   input?: AECRepeatabilityDataInput
   result?: AECRepeatabilityDataResult

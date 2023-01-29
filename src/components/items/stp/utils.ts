@@ -9,11 +9,9 @@ import {
 } from 'm/presets'
 import { Conclusions, formatConclusion } from 'm/common'
 
-import { StpData, StpDataCondition, StpDataInput, StpDataResult } from './type'
+import { StpData, StpDataCondition, StpDataResult } from './type'
 
-export function initialStpData(
-  input?: InspectionReportItem<StpData>
-): Required<StpData> {
+export function initialStpData(input?: InspectionReportItem<StpData>): StpData {
   return {
     condition: merge<StpDataCondition, StpDataCondition | undefined>(
       {
@@ -21,13 +19,10 @@ export function initialStpData(
       },
       input?.condition
     ),
-    input: merge<StpDataInput, StpDataInput | undefined>(
-      {
-        points: [],
-      },
-      input?.data?.input
-    ),
-    result: input?.data?.result ?? 0,
+    input: {
+      points: input?.condition.values.map(() => ({ x: 0, y: 0 })),
+    },
+    result: input?.data?.result,
   }
 }
 
@@ -39,7 +34,7 @@ export const formatCondition = (condition?: StpDataCondition) => {
 }
 
 export const formatResult = (result?: StpDataResult) => {
-  return result !== undefined ? `${result}` : ''
+  return result !== undefined ? `${result.r2}` : ''
 }
 
 export const toStpRenderItem = (
@@ -62,11 +57,11 @@ export function getSTPConclusion(
   data: StpData,
   requirement: InspectionRequirementChild
 ): Conclusions {
-  if (data.result === undefined || isNaN(data.result)) {
+  if (data.result?.r2 === undefined || isNaN(data.result.r2)) {
     return Conclusions.Unknown
   }
 
   const fn = ruleJudgment(requirement.rule)
 
-  return fn(data.result) ? Conclusions.Good : Conclusions.Bad
+  return fn(data.result.r2) ? Conclusions.Good : Conclusions.Bad
 }

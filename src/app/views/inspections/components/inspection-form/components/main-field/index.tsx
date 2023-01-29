@@ -8,7 +8,7 @@ import { ItemFields } from './components/item-fields'
 
 export interface MainFieldProps {
   inspectionItemType?: InspectionReportFormData['inspectionItem'] | null
-  presetsItems?: InspectionReportItem[]
+  presetsItems?: InspectionReportItem<Record<string, unknown>>[]
 }
 
 export const MainField = ({

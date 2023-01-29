@@ -71,7 +71,11 @@ const TVIDField = ({ name, inspectionItem, requirement, item }: TVIDProps) => {
               <TVIDBar
                 onAdd={() =>
                   fields.push(
-                    initialTVIDDataItem({}, item.consts, item.data?.length || 0)
+                    initialTVIDDataItem(
+                      {},
+                      item.consts,
+                      item.data?.items.length || 0
+                    )
                   )
                 }
               />
@@ -80,7 +84,7 @@ const TVIDField = ({ name, inspectionItem, requirement, item }: TVIDProps) => {
           <NewConclusion<TVIDData>
             name={name}
             inspectionItem={inspectionItem}
-            data={fields.value}
+            data={{ items: fields.value }}
             requirement={requirement}
             getConclusionMethod={getTVIDConclusion}
           />

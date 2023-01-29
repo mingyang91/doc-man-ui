@@ -17,7 +17,7 @@ export interface AECResponseDataInput {
   1: AECResponseDataInputItem
 }
 
-export interface AECResponseData {
+export type AECResponseData = {
   condition?: AECResponseDataCondition
   input?: AECResponseDataInput
   result?: AECResponseDataResult

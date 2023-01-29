@@ -74,7 +74,7 @@ type InspectionFormStep = {
   name: 'InspectionForm'
   equipmentType: EquipmentType
   inspectionItem: InspectionType
-  presetsItems: InspectionReportItem[]
-  items1: InspectionReportItem[]
-  items2: InspectionReportItem[]
+  presetsItems: InspectionReportItem<Record<string, unknown>>[]
+  items1: InspectionReportItem<Record<string, unknown>>[]
+  items2: InspectionReportItem<Record<string, unknown>>[]
 }

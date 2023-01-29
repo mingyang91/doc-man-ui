@@ -16,7 +16,7 @@ export interface UHHVLDataInput {
   unit: string
 }
 
-export interface UHHVLData {
+export type UHHVLData = {
   condition?: UHHVLDataCondition
   input?: UHHVLDataInput
   result?: UHHVLDataResult

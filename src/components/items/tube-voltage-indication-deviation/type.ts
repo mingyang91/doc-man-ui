@@ -34,4 +34,4 @@ export interface TVIDDataItem {
   result?: TVIDDataResult
 }
 
-export type TVIDData = TVIDDataItem[]
+export type TVIDData = { items: TVIDDataItem[] }

@@ -5,7 +5,10 @@ export interface StpDataCondition {
   values: UnitValue[]
 }
 
-export type StpDataResult = number
+export type StpDataResult = {
+  r2: number
+  equation: number[]
+}
 
 export interface Point {
   x: number
@@ -15,7 +18,7 @@ export interface StpDataInput {
   points: Point[]
 }
 
-export interface StpData {
+export type StpData = {
   condition?: StpDataCondition
   input?: StpDataInput
   result?: StpDataResult

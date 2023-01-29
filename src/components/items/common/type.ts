@@ -1,3 +1,5 @@
+import { InspectionResults } from '@/views/inspections/components/inspection-form/utils'
+
 import {
   InspectionTypeEnum,
   InspectionRequirement,
@@ -10,12 +12,10 @@ export interface InspectionCommonProps {
   fieldName: string
 }
 
-export type ItemComponentProps<
-  T extends Record<string, R> | Record<string, R>[],
-  R = any
-> = {
+export type ItemComponentProps<T extends Record<string, R>, R = unknown> = {
   name: string
   inspectionItem: InspectionTypeEnum
   requirement: InspectionRequirement
   item: InspectionReportItem<T>
+  results: InspectionResults
 }

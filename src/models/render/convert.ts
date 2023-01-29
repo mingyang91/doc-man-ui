@@ -2,6 +2,7 @@ import { fDate } from 'u/format-time'
 
 import {
   InspectionReportDetail,
+  InspectionReportItem,
   ReportRender,
   ReportRenderItem,
 } from 'm/presets'
@@ -17,6 +18,8 @@ import { toUHHVLRenderItem } from '@@/items/useful-harness-half-value-layer/util
 import { toAECRepeatabilityRenderItem } from '@@/items/aec-repeatability/utils'
 import { toAECResponseRenderItem } from '@@/items/aec-response/utils'
 import { toDBLFAIFRenderItem } from '@@/items/deviation-between-light-field-and-irradiation-field/utils'
+import { RORData } from '@@/items/radiation-output-repeatability/type'
+import { TVIDData } from '@@/items/tube-voltage-indication-deviation/type'
 
 export const convertToRenderParam = (
   input: InspectionReportDetail
@@ -44,15 +47,15 @@ export const convertToRenderParam = (
     items2: [],
   }
 
-  input.items1.forEach((item, index) => {
+  input.items1.forEach(item => {
     let itemResult: ReportRenderItem[] = []
 
     switch (item.name) {
       case 'radiationOutputRepeatability':
-        itemResult = toRORRenderItem(item)
+        itemResult = toRORRenderItem(item as InspectionReportItem<RORData>)
         break
       case 'tubeVoltageIndicationDeviation':
-        itemResult = toTVIDRenderItem(item)
+        itemResult = toTVIDRenderItem(item as InspectionReportItem<TVIDData>)
         break
       case 'ConsistencyAmongAECChambers':
         itemResult = toConsistencyAmongAECChamberRenderItem(item)

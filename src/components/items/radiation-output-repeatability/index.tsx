@@ -32,12 +32,12 @@ const RORField = ({ name, inspectionItem, requirement, item }: RORProps) => {
 
   const onAdd = useMemoizedFn(
     (fields: FieldArrayRenderProps<RORDataItem, HTMLElement>['fields']) => {
-      fields.push(initialRORDataItem({}, item.data?.length || 0))
+      fields.push(initialRORDataItem({}, item.data?.items.length || 0))
     }
   )
 
   const { fields } = useFieldArray<RORDataItem>(`${name}.data`, {
-    initialValue: initial,
+    initialValue: initial.items,
   })
 
   return (
@@ -76,7 +76,7 @@ const RORField = ({ name, inspectionItem, requirement, item }: RORProps) => {
           <NewConclusion<RORData>
             name={name}
             inspectionItem={inspectionItem}
-            data={fields.value}
+            data={{ items: fields.value }}
             requirement={requirement}
             getConclusionMethod={getRORConclusion}
           />

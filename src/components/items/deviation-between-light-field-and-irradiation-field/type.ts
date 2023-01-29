@@ -15,7 +15,7 @@ export type DBLFAIFDataResultItem = {
 
 export type DBLFAIFDataResult = DBLFAIFDataResultItem[]
 
-export interface DBLFAIFData {
+export type DBLFAIFData = {
   condition?: DBLFAIFDataCondition
   result?: DBLFAIFDataResult
 }

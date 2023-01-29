@@ -1,24 +1,29 @@
-import { TableRow, TableCell, Box, Button, SxProps, Theme } from '@mui/material'
+import {
+  TableRow,
+  TableCell,
+  Box,
+  Button,
+  SxProps,
+  Theme,
+  TextField,
+} from '@mui/material'
 import { useBoolean, useMemoizedFn } from 'ahooks'
 import produce from 'immer'
 import { isNil } from 'lodash-es'
 import { useMemo } from 'react'
 
-import { TextFieldWithUnit } from 'd/components/text-field-with-unit'
-
-import { UnitValue } from 'm/common'
-
-import { StpData } from '../type'
-import { formatResult, initialStpData } from '../utils'
+import { RUData, RUDataInput } from '../type'
+import { formatResult } from '../utils'
 import { CalcModal, CalcModalProps } from './calc-modal'
 
-export interface STPRowProps {
+export interface RURowProps {
   name: string
-  value: StpData
-  onChange(value: StpData): void
+  value: RUData
+  equation?: [number, number] // from STP
+  onChange(value: RUData): void
 }
 
-export function STPRow({ name, value, onChange }: STPRowProps) {
+export function RURow({ value, equation, onChange }: RURowProps) {
   const [open, setOpen] = useBoolean(false)
 
   const fieldSx = useMemo<SxProps<Theme>>(
@@ -33,7 +38,7 @@ export function STPRow({ name, value, onChange }: STPRowProps) {
     () =>
       isNil(value.result)
         ? '点击填写结果'
-        : `R² = ` + formatResult(value.result),
+        : `CV = ` + formatResult(value.result),
     [value.result]
   )
 
@@ -42,38 +47,39 @@ export function STPRow({ name, value, onChange }: STPRowProps) {
       onChange(
         produce(value, draft => {
           draft.input = input
-          draft.result = { r2: result.r2, equation: result.equation }
+          draft.result = result
         })
       )
       setOpen.setFalse()
     }
   )
 
-  const onConditionChange = useMemoizedFn((uv: UnitValue, index: number) => {
+  const onConditionChange = useMemoizedFn((data: string) => {
     onChange(
       produce(value, draft => {
-        if (draft.condition?.values[index]) {
-          draft.condition!.values[index] = uv
+        if (draft.condition?.item) {
+          draft.condition.item = data
         }
       })
     )
   })
 
+  const input: RUDataInput | undefined = value.input
+    ? { ...value.input, equation }
+    : undefined
   return (
     <>
       <TableRow>
         <TableCell align="center">
-          {value.condition?.values.map((v, index) => (
-            <Box display="flex" key={index}>
-              <TextFieldWithUnit
-                variant="standard"
-                sx={fieldSx}
-                label="辐射"
-                value={v}
-                onChange={value => onConditionChange(value, index)}
-              />
-            </Box>
-          ))}
+          <Box display="flex">
+            <TextField
+              variant="standard"
+              sx={fieldSx}
+              label="辐射"
+              value={value.condition?.item}
+              onChange={evt => onConditionChange(evt.target.value)}
+            />
+          </Box>
         </TableCell>
         <TableCell>
           <Button
@@ -88,8 +94,8 @@ export function STPRow({ name, value, onChange }: STPRowProps) {
       {open && (
         <CalcModal
           condition={value.condition}
-          input={value.input}
-          result={value.result}
+          input={input}
+          result={value.result || 0}
           onConfirm={onConfirm}
           onClose={setOpen.setFalse}
         />

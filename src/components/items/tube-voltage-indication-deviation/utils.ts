@@ -141,14 +141,16 @@ export const getTVIDConclusion = (
 ) => {
   if (
     !result ||
-    result.some(item => !item.result || isNaN(item.result.percentage.value))
+    result.items.some(
+      item => !item.result || isNaN(item.result.percentage.value)
+    )
   ) {
     return Conclusions.Unknown
   }
 
   const fn = ruleJudgment(requirement)
 
-  if (result.map(item => item.result).every(fn)) {
+  if (result.items.map(item => item.result).every(fn)) {
     return Conclusions.Good
   }
 
@@ -172,13 +174,13 @@ export const formatResult = (input?: TVIDDataResult) => {
 export const toTVIDRenderItem = (
   report: InspectionReportItem<TVIDData>
 ): ReportRenderItem[] => {
-  const { data } = report
+  const { data: { items } = {} } = report
 
-  if (!data || isEmpty(data)) {
+  if (!items || isEmpty(items)) {
     return []
   }
 
-  return data.map((item, index) => {
+  return items.map((item, index) => {
     const row: ReportRenderItem = {
       name: index === 0 ? report.displayName : '',
       conditionFactor: formatFactor(item.condition?.factor),

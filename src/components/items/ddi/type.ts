@@ -17,7 +17,7 @@ export interface DdiDataInput {
   baseValue: number
 }
 
-export interface DdiData {
+export type DdiData = {
   condition?: DdiDataCondition
   input?: DdiDataInput
   result?: DdiDataResult

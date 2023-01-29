@@ -10,7 +10,7 @@ export interface ConsistencyAmongAECChambersDataInput {
   values: number[]
 }
 
-export interface ConsistencyAmongAECChambersData {
+export type ConsistencyAmongAECChambersData = {
   condition?: ConsistencyAmongAECChambersDataCondition
   input?: ConsistencyAmongAECChambersDataInput
   result?: ConsistencyAmongAECChambersDataResult

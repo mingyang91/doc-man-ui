@@ -64,9 +64,13 @@ export const initialRORDataItem = (
 export const initialRORData = (
   input: InspectionReportItem<RORData>
 ): Required<RORData> => {
-  return map(input.condition as RORDataItemCondition[], (condition, index) => {
-    return initialRORDataItem({ condition }, index)
-  })
+  const items = map(
+    input.condition as RORDataItemCondition[],
+    (condition, index) => {
+      return initialRORDataItem({ condition }, index)
+    }
+  )
+  return { items }
 }
 
 export const calculateRORItemResult = (
@@ -106,14 +110,14 @@ export const getRORConclusion = (
 ): Conclusions => {
   if (
     !result ||
-    result.some(item => !item.result || isNaN(item.result.value))
+    result.items.some(item => !item.result || isNaN(item.result.value))
   ) {
     return Conclusions.Unknown
   }
 
   const fn = ruleJudgment(requirement.rule)
 
-  return fn(result.map(item => item.result?.value))
+  return fn(result.items.map(item => item.result?.value))
     ? Conclusions.Good
     : Conclusions.Bad
 }
@@ -133,13 +137,13 @@ export const formatResult = (result?: RORDataItemResult) => {
 export const toRORRenderItem = (
   report: InspectionReportItem<RORData>
 ): ReportRenderItem[] => {
-  const { data } = report
+  const { data: { items } = {} } = report
 
-  if (!data || isEmpty(data)) {
+  if (!items || isEmpty(items)) {
     return []
   }
 
-  return data.map((item, index) => {
+  return items.map((item, index) => {
     const row: ReportRenderItem = {
       name: index === 0 ? report.displayName : '',
       conditionFactor: formatCondition(item.condition),
