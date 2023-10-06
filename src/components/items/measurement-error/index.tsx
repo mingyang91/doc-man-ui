@@ -1,9 +1,20 @@
 import { Field } from 'react-final-form'
-import { Button, Card, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow, TextField } from '@mui/material'
+import {
+  Button,
+  Card,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableFooter,
+  TableHead,
+  TableRow,
+  TextField,
+} from '@mui/material'
 import { useFieldArray } from 'react-final-form-arrays'
 import { useMemo } from 'react'
 import { MdAddCircle, MdDelete } from 'react-icons/md'
-import update from 'immutability-helper';
+import update from 'immutability-helper'
 
 import Iconify from 'd/components/iconify'
 
@@ -13,24 +24,27 @@ import { ItemComponentProps } from '../common/type'
 import { MEData, MEDataItem, MEDataItemInput, MEDataItemResult } from './type'
 import { initialMEData, initialMEDataItem } from './utils'
 
-
-
 type MEProps = ItemComponentProps<MEData>
 
-export default function MEField({ name, inspectionItem, requirement, item }: MEProps) {
+export default function MEField({
+  name,
+  inspectionItem,
+  requirement,
+  item,
+}: MEProps) {
   const initial = useMemo(() => initialMEData(), [])
   const { fields } = useFieldArray<MEDataItem>(`${name}.data`, {
     initialValue: initial,
   })
-  console.debug('MEField.fields', fields)
 
-	return (
+  return (
     <Field<InspectionReportItem<MEData>> name={name}>
       {({ meta: { touched, error } }) => (
         <TableContainer
           component={Card}
           elevation={1}
-          sx={{ paddingY: 3, marginY: 3 }}>
+          sx={{ paddingY: 3, marginY: 3 }}
+        >
           <Table>
             <colgroup>
               <col width="10%" />
@@ -40,18 +54,18 @@ export default function MEField({ name, inspectionItem, requirement, item }: MEP
               <col width="15%" />
             </colgroup>
             <TableHead>
-      <TableRow>
-        <TableCell align="center"> - </TableCell>
-        <TableCell>预设</TableCell>
-        <TableCell>测量</TableCell>
-        <TableCell>偏差</TableCell>
-        <TableCell>偏差（%）</TableCell>
-      </TableRow>
-    </TableHead>
+              <TableRow>
+                <TableCell align="center"> - </TableCell>
+                <TableCell>预设</TableCell>
+                <TableCell>测量</TableCell>
+                <TableCell>偏差</TableCell>
+                <TableCell>偏差（%）</TableCell>
+              </TableRow>
+            </TableHead>
             <TableBody>
               {fields.map((name, index) => (
                 <Field name={name} key={name}>
-                  {({input}) => (
+                  {({ input }) => (
                     <MEItem
                       value={input.value}
                       onChange={input.onChange}
@@ -77,8 +91,10 @@ interface MEItemProps {
   onRemove: () => void
 }
 
-function calculateResult(input?: MEDataItemInput): MEDataItemResult | undefined {
-  if (input === undefined || input.preset === "" || input.measured === "") {
+function calculateResult(
+  input?: MEDataItemInput
+): MEDataItemResult | undefined {
+  if (input === undefined || input.preset === '' || input.measured === '') {
     return undefined
   }
 
@@ -95,7 +111,7 @@ function updateResult(value: MEDataItem): MEDataItem {
   }
 }
 
-const MEItem = ({value, onChange, onRemove}: MEItemProps) => {
+const MEItem = ({ value, onChange, onRemove }: MEItemProps) => {
   // onConfirm memorized function
   return (
     <TableRow>
@@ -112,20 +128,36 @@ const MEItem = ({value, onChange, onRemove}: MEItemProps) => {
         <TextField
           value={value.input?.preset}
           label="预设"
-          type='number'
-          onChange={evt => onChange(updateResult(update(value, {input: {preset: { $set: evt.target.value } }})))}
+          type="number"
+          onChange={evt =>
+            onChange(
+              updateResult(
+                update(value, { input: { preset: { $set: evt.target.value } } })
+              )
+            )
+          }
         />
       </TableCell>
       <TableCell>
         <TextField
           value={value.input?.measured}
           label="测量"
-          type='number'
-          onChange={evt => onChange(updateResult(update(value, {input: {measured: { $set: evt.target.value } }})))}
-          />
+          type="number"
+          onChange={evt =>
+            onChange(
+              updateResult(
+                update(value, {
+                  input: { measured: { $set: evt.target.value } },
+                })
+              )
+            )
+          }
+        />
       </TableCell>
       <TableCell>{value.result?.deviation.toFixed(2)}</TableCell>
-      <TableCell>{value.result ? (value.result?.percentage * 100).toFixed(2) + "%" : ""}</TableCell>
+      <TableCell>
+        {value.result ? (value.result?.percentage * 100).toFixed(2) : '-'}%
+      </TableCell>
     </TableRow>
   )
 }

@@ -12,6 +12,7 @@ export const CellSideButton = styled(IconButton, {
     | 'info'
     | 'success'
     | 'warning'
+// @ts-expect-error: TS2769
 }>(({ theme, color = 'default' }) => [
   {
     position: 'absolute',

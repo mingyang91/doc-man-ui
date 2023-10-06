@@ -61,4 +61,5 @@ export const ItemComponents = {
       )
   ),
   MeasurementError: lazy(() => import(/* webpackChunkName: "items/measurement-error" */ './measurement-error/index')),
+  HighContrastResolution: lazy(() => import(/* webpackChunkName: "items/high-contrast-resolution" */ './high-contrast-resolution/index')),
 }
