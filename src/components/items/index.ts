@@ -60,4 +60,5 @@ export const ItemComponents = {
         /* webpackChunkName: "items/response-uniformity" */ './response-uniformity/index'
       )
   ),
+  MeasurementError: lazy(() => import(/* webpackChunkName: "items/measurement-error" */ './measurement-error/index')),
 }

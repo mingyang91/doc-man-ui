@@ -73,11 +73,11 @@ export const initialTVIDDataItem = (
 }
 
 export const initialTVIDData = (
-  input: InspectionReportItem<TVIDData>,
+  conditions: TVIDDataCondition[],
   consts: number[]
 ) => {
   return map<TVIDDataCondition, TVIDDataItem>(
-    input.condition as TVIDDataCondition[],
+    conditions,
     (condition, index) => {
       return initialTVIDDataItem({ condition }, consts, index)
     }

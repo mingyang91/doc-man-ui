@@ -31,7 +31,7 @@ import { ItemComponentProps } from '../common/type'
 type TVIDProps = ItemComponentProps<TVIDData>
 
 const TVIDField = ({ name, inspectionItem, requirement, item }: TVIDProps) => {
-  const initial = useMemo(() => initialTVIDData(item, item.consts), [])
+  const initial = useMemo(() => initialTVIDData(item.condition, item.consts), [item.condition, item.consts])
   const { fields } = useFieldArray<TVIDDataItem>(`${name}.data`, {
     initialValue: initial,
   })
