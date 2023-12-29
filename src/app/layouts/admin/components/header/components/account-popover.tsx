@@ -10,15 +10,17 @@ import { IconButtonAnimate } from 'd/components/animate'
 import { Avatar } from 'd/components/avatar'
 import MenuPopover from 'd/components/menu-popover'
 
+import i18n from 'strings/i18n'
+
 // ----------------------------------------------------------------------
 
 const MENU_OPTIONS = [
   {
-    label: '账号信息',
+    label: i18n.t('账号信息'),
     linkTo: '/account/profile',
   },
   {
-    label: '账号设置',
+    label: i18n.t('账号设置'),
     linkTo: '/account/settings',
   },
 ]
@@ -106,7 +108,7 @@ export const AccountPopover = () => {
         <Divider sx={{ borderStyle: 'dashed' }} />
 
         <MenuItem sx={{ m: 1 }} onClick={handleLogout}>
-          退出登录
+          {i18n.t('退出登录')}
         </MenuItem>
       </MenuPopover>
     </>

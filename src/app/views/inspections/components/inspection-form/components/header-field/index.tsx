@@ -12,6 +12,7 @@ import {
 import { useIsEdit } from '../../context/is-edit'
 
 import { LocationSelectorElement } from '@@/location-selector'
+import i18n from 'strings/i18n'
 
 export interface HeaderFieldProps extends GridProps {
   initialSerialNumber?: SerialNumber
@@ -31,7 +32,7 @@ export const HeaderField = ({
         variant="filled"
         InputProps={{ readOnly: true }}
         label=" "
-        value="保存后可编号"
+        value={i18n.t('保存后可编号')}
       />
     )
   }, [isEdit, initialSerialNumber])
@@ -54,7 +55,7 @@ export const HeaderField = ({
         <Field
           component={LocationSelectorElement}
           name="inspectionAddress"
-          label="检测地址"
+          label={i18n.t('地址')}
           fullWidth
           newLineForDetail={false}
         />

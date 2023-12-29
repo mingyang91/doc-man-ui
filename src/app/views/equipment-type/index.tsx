@@ -15,7 +15,10 @@ import {
 
 import { DeviceTypeList } from './components/list'
 
-const TITLE = '设备类型'
+import i18n from 'strings/i18n'
+
+
+const TITLE = i18n.t('设备类型')
 
 const PageDeviceType = () => {
   const { activeRouteConfig } = useMenuAndRoutes()
@@ -42,7 +45,7 @@ const PageDeviceType = () => {
       await deleteDeviceTypeById({
         id: uuid,
       })
-      pushSuccessMessage('删除成功')
+      pushSuccessMessage(i18n.t('成功'))
     },
     [deleteDeviceTypeById, pushSuccessMessage]
   )

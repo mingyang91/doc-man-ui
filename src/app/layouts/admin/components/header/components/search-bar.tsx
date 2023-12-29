@@ -14,6 +14,8 @@ import { IconButtonAnimate } from 'd/components/animate'
 
 import cssStyles from 'u/css-styles'
 
+import i18n from 'strings/i18n'
+
 // ----------------------------------------------------------------------
 
 const APPBAR_MOBILE = 64
@@ -76,7 +78,7 @@ export const SearchBar = () => {
               sx={{ mr: 1, fontWeight: 'fontWeightBold' }}
             />
             <Button variant="contained" onClick={handleClose}>
-              搜索
+              {i18n.t('搜索')}
             </Button>
           </SearchBarStyle>
         </Slide>

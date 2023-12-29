@@ -17,6 +17,8 @@ import {
 } from '../type'
 import { CommonMessage } from './common'
 
+import i18n from 'strings/i18n'
+
 export const SnackbarMessageDefault = forwardRef<
   HTMLDivElement,
   SnackbarMessageDefaultProps
@@ -180,7 +182,7 @@ export const SnackbarLoadingComponent = forwardRef<
 >((props, ref) => (
   <Snackbar open ref={ref}>
     <CommonMessage
-      message="正在加载..."
+      message={`${i18n.t('加载中')}...`}
       {...props}
       type="info"
       icon={<CircularProgress />}

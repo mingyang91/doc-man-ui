@@ -18,6 +18,9 @@ import { MdOutlineArrowDropDown } from 'react-icons/md'
 import { ConsumerSelectorValue, SelectorProps } from '../type'
 import { Dropdown } from './dropdown'
 
+import i18n from 'strings/i18n'
+
+
 export interface ConsumerSelectorProps
   extends SelectorProps,
     Omit<TextFieldProps, 'value' | 'onChange' | 'onBlur' | 'onFocus'> {
@@ -31,7 +34,7 @@ export const ConsumerSelector = forwardRef<
   (
     {
       id: idProps,
-      label = '客户',
+      label = i18n.t('客户'),
       isRequired,
       isError,
       error,
@@ -132,7 +135,7 @@ export const ConsumerSelector = forwardRef<
           onClick={handleClick}
           onFocus={handleFocus}
           inputRef={ref}
-          placeholder="请选择客户"
+          placeholder={i18n.t("请选择客户")}
         />
         <Dropdown
           anchorEl={anchorEl}

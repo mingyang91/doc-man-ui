@@ -22,6 +22,8 @@ import { ConsumerSelectorElement } from '@@/consumer-selector'
 import { ConsumerSelectorValue } from '@@/consumer-selector/type'
 import { EquipmentTypeSelectorElement } from '@@/equipmenttype-selector'
 import { LocationSelectorElement } from '@@/location-selector'
+import i18n from 'strings/i18n'
+
 
 export type FnSubmitEquipment = (
   values: EquipmentFormData,
@@ -67,7 +69,7 @@ export const DeviceForm = ({
             <Field
               component={ConsumerSelectorElement}
               name="client"
-              label="委托单位"
+              label={i18n.t('委托单位')}
               fullWidth
               isRequired
             />
@@ -75,7 +77,7 @@ export const DeviceForm = ({
           <Grid xs={12} md={6}>
             <TextField
               name="equipmentName"
-              label="设备名称"
+              label={i18n.t('设备名称')}
               type="text"
               required
               fullWidth
@@ -85,7 +87,7 @@ export const DeviceForm = ({
             <Field
               component={LocationSelectorElement}
               name="address"
-              label="检测地址"
+              label={i18n.t('地址')}
               required
               fullWidth
               newLineForDetail={false}
@@ -94,7 +96,7 @@ export const DeviceForm = ({
           <Grid xs={12} md={6}>
             <Field
               name="equipmentTypeId"
-              label="设备类型"
+              label={i18n.t('设备类型')}
               required
               fullWidth
               component={EquipmentTypeSelectorElement}
@@ -103,7 +105,7 @@ export const DeviceForm = ({
           <Grid xs={12} md={6}>
             <TextField
               name="equipmentSampleId"
-              label="样品标识"
+              label={i18n.t('样品标识')}
               type="text"
               fullWidth
             />
@@ -111,7 +113,7 @@ export const DeviceForm = ({
           <Grid xs={12} md={6}>
             <TextField
               name="equipmentModel"
-              label="设备型号"
+              label={i18n.t('设备型号')}
               type="text"
               fullWidth
             />
@@ -119,7 +121,7 @@ export const DeviceForm = ({
           <Grid xs={12} md={6}>
             <TextField
               name="equipmentCode"
-              label="设备编号"
+              label={i18n.t('设备编号')}
               type="text"
               fullWidth
             />
@@ -127,7 +129,7 @@ export const DeviceForm = ({
           <Grid xs={12} md={6}>
             <TextField
               name="equipmentManufacturer"
-              label="制造厂商"
+              label={i18n.t('制造厂商')}
               type="text"
               fullWidth
             />
@@ -135,7 +137,7 @@ export const DeviceForm = ({
           <Grid xs={12} md={6}>
             <TextField
               name="equipmentSite"
-              label="设备场所"
+              label={i18n.t('设备场所')}
               type="text"
               fullWidth
             />
@@ -143,7 +145,7 @@ export const DeviceForm = ({
           <Grid xs={12} md={6}>
             <TextField
               name="inspectionInstrument"
-              label="检测仪器"
+              label={i18n.t('检测仪器')}
               type="text"
               fullWidth
             />
@@ -151,7 +153,7 @@ export const DeviceForm = ({
           <Grid xs={12}>
             <TextField
               name="comment"
-              label="备注"
+              label={i18n.t('备注')}
               type="text"
               fullWidth
               multiline
@@ -169,7 +171,7 @@ export const DeviceForm = ({
                 loading={submitting || isLoading}
                 onClick={handleSubmit}
               >
-                {!isEdit ? '新增设备' : '保存更改'}
+                {!isEdit ? i18n.t('新增') : i18n.t('保存')}
               </LoadingButton>
             </Box>
           </Grid>

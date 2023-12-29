@@ -12,6 +12,8 @@ import { FindEquipmentResult, FindEquipmentRow } from '../utils'
 import { FindEquipmentForm } from './form'
 import { SearchResult } from './result'
 
+import i18n from 'strings/i18n'
+
 export interface EquipmentSearchProps {
   onSelect: (value: FindEquipmentRow) => void
 }
@@ -37,7 +39,7 @@ export const EquipmentSearch = ({
 
   return (
     <Modal
-      title="从设备库选择设备"
+      title={i18n.t('从设备库选择设备')}
       maxWidth="xl"
       isOpen={isOpen}
       onClose={onClose}

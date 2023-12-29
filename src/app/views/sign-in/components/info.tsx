@@ -15,13 +15,15 @@ import { Avatar } from 'd/components/avatar'
 
 import { ContentStyle } from './styled'
 
+import i18n from 'strings/i18n'
+
 export const Info = () => {
   const { logout, userInfo } = useAuth()
 
   return (
     <ContentStyle>
       <Typography variant="h4" gutterBottom>
-        欢迎您，{userInfo?.username}
+        {i18n.t('欢迎您')}，{userInfo?.username}
       </Typography>
 
       <Card sx={{ maxWidth: 340 }}>
@@ -54,10 +56,10 @@ export const Info = () => {
           }}
         >
           <Button component={RouterLink} to={ROUTES.dashboard}>
-            进入系统
+            {i18n.t('进入系统')}
           </Button>
           <Button size="medium" onClick={logout}>
-            退出登录
+            {i18n.t('退出登录')}
           </Button>
         </CardActions>
       </Card>

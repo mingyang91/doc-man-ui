@@ -24,6 +24,8 @@ import { BaseLocationValue, SelectorProps } from '../type'
 import { filterOptions } from '../utils'
 import { SelectTextField } from './base'
 
+import i18n from 'strings/i18n'
+
 export interface SelectorCountyProps<
   T,
   Multiple extends boolean | undefined,
@@ -129,7 +131,7 @@ export const SelectorCounty = ({
       loading={isLoading}
       options={options}
       renderInput={params => (
-        <SelectTextField {...params} placeholder="县级" error={isError} />
+        <SelectTextField {...params} placeholder={i18n.t('县级')} error={isError} />
       )}
       value={value}
       inputValue={inputValue}

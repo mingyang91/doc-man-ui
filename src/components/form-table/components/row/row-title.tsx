@@ -4,6 +4,8 @@ import { RiAddFill } from 'react-icons/ri'
 
 import { CellSideButton } from './cell-side-button'
 
+import i18n from 'strings/i18n'
+
 export interface RowTitleProps {
   children?: ReactNode
   onAdd?: MouseEventHandler<HTMLButtonElement>
@@ -14,7 +16,7 @@ export const RowTitle = memo(({ children, onAdd }: RowTitleProps) => {
     <>
       <Typography align="center">{children}</Typography>
       {onAdd && (
-        <CellSideButton aria-label="添加一项" color="primary" onClick={onAdd}>
+        <CellSideButton aria-label={i18n.t('新增')} color="primary" onClick={onAdd}>
           <RiAddFill />
         </CellSideButton>
       )}

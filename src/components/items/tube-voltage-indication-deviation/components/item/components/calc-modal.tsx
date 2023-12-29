@@ -22,6 +22,8 @@ import {
 } from '../../../type'
 import { calculateTVIDItemResult } from '../../../utils'
 
+import i18n from 'strings/i18n'
+
 const StyledBox = styled(Box)(({ theme }) => ({
   width: '60vw',
   maxWidth: '960px',
@@ -98,9 +100,9 @@ export const CalcModal = ({
           </colgroup>
           <TableHead>
             <TableRow>
-              <TableCell component="th">实测值({input.unit})</TableCell>
-              <TableCell component="th">校准因子</TableCell>
-              <TableCell component="th">结果</TableCell>
+              <TableCell component="th">{i18n.t('实测值')}({input.unit})</TableCell>
+              <TableCell component="th">{i18n.t('校准因子')}</TableCell>
+              <TableCell component="th">{i18n.t('结果')}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

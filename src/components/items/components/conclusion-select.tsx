@@ -3,6 +3,8 @@ import { useControllableValue, useMemoizedFn } from 'ahooks'
 
 import { Conclusions } from 'm/common'
 
+import i18n from 'strings/i18n'
+
 export interface SelectProps {
   value?: Conclusions
   onChange?: (value: Conclusions) => void
@@ -24,10 +26,10 @@ export const ConclusionSelect = (props: SelectProps) => {
       defaultValue={Conclusions.Unknown}
     >
       <MenuItem value={Conclusions.Unknown} defaultChecked>
-        未知
+        {i18n.t('未知')}
       </MenuItem>
-      <MenuItem value={Conclusions.Good}>合格</MenuItem>
-      <MenuItem value={Conclusions.Bad}>不合格</MenuItem>
+      <MenuItem value={Conclusions.Good}>{i18n.t('合格')}</MenuItem>
+      <MenuItem value={Conclusions.Bad}>{i18n.t('不合格')}</MenuItem>
     </Select>
   )
 }

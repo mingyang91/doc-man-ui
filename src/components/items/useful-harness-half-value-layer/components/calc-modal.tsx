@@ -18,6 +18,8 @@ import { Modal, ModalProps } from 'd/components/modal'
 import { UHHVLDataCondition, UHHVLDataInput, UHHVLDataResult } from '../type'
 import { calculateUHHVLData } from '../utils'
 
+import i18n from 'strings/i18n'
+
 const StyledBox = styled(Box)(({ theme }) => ({
   width: '60vw',
   maxWidth: '960px',
@@ -89,8 +91,8 @@ export const CalcModal = ({
           </colgroup>
           <TableHead>
             <TableRow>
-              <TableCell component="th">测量值</TableCell>
-              <TableCell component="th">结果</TableCell>
+              <TableCell component="th">{i18n.t('测量值')}</TableCell>
+              <TableCell component="th">{i18n.t('结果')}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

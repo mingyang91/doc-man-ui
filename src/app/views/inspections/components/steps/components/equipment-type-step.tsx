@@ -9,6 +9,7 @@ import { StepItem } from './styled'
 
 import { EquipmentTypeSelector } from '@@/equipmenttype-selector'
 import { InspectionItemTypeSelector } from '@@/inspection-item-type-selector'
+import i18n from 'strings/i18n'
 
 export interface EquipmentTypeStepProps {
   onNext: (equipmentType: EquipmentType, inspectionType: InspectionType) => void
@@ -42,17 +43,17 @@ export const EquipmentTypeStep = ({ onNext }: EquipmentTypeStepProps) => {
     () => (
       <>
         <Typography variant="h5" component="span">
-          请选择设备类型
+          {i18n.t('请选择设备类型')}
         </Typography>
         <Tooltip
           arrow
           placement="top"
           title={
             <>
-              <p>为什么要选择设备类型？</p>
+              <p>{i18n.t('为什么要选择设备类型？')}</p>
               <ul>
-                <li>设备类型决定了该设备有哪些可用的检测项</li>
-                <li>请注意，设备类型一旦选中，则不可再更改</li>
+                <li>{i18n.t('设备类型决定了该设备有哪些可用的检测项目')}</li>
+                <li>{i18n.t('请注意，设备类型一旦选中，则不可再更改')}</li>
               </ul>
             </>
           }
@@ -74,7 +75,7 @@ export const EquipmentTypeStep = ({ onNext }: EquipmentTypeStepProps) => {
           onClick={onClickNext}
           disabled={nextDisabled}
         >
-          下一步
+          {i18n.t('下一步')}
         </Button>
       </>
     ),
@@ -90,7 +91,7 @@ export const EquipmentTypeStep = ({ onNext }: EquipmentTypeStepProps) => {
         minWidth="360px"
       >
         <EquipmentTypeSelector
-          label="设备类型"
+          label={i18n.t("设备类型")}
           value={equipmentTypeValue}
           onChange={setEquipmentTypeValue}
         />

@@ -44,12 +44,15 @@ import { AECResponseData } from '@@/items/aec-response/type'
 import { ConsistencyAmongAECChambersData } from '@@/items/consistency-among-aec-chambers/type'
 import { UHHVLData } from '@@/items/useful-harness-half-value-layer/type'
 import { DBLFAIFData } from '@@/items/deviation-between-light-field-and-irradiation-field/type'
+import i18n from 'strings/i18n'
+
 
 interface InspectionItemRowProps {
   value: InspectionReportItem<Record<string, unknown>>
 }
 
 export const InspectionItemRow = ({ value }: InspectionItemRowProps) => {
+  console.info('inspection item: ', value.name)
   if (isArray(value.data)) {
     const rowSpan = value.data.length
 
@@ -67,6 +70,9 @@ export const InspectionItemRow = ({ value }: InspectionItemRowProps) => {
             case 'radiationOutputRepeatability':
               conditionCell = <RORCellCondition {...(item as RORDataItem)} />
               resultCell = <RORCellResult {...(item as RORDataItem)} />
+              break
+            default:
+              console.warn('Unknown inspection item: ', value.name)
               break
           }
 
@@ -161,6 +167,9 @@ export const InspectionItemRow = ({ value }: InspectionItemRowProps) => {
       resultCell = (
         <DBLFAIFCellResult {...(value as InspectionReportItem<DBLFAIFData>)} />
       )
+      break
+    default:
+      console.warn('Unknown inspection item: ', value.name)
       break
   }
 

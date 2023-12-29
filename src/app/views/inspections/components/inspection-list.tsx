@@ -35,6 +35,8 @@ import { InspectionReportListQuery } from 'm/inspection-report/index.generated'
 import { AddressField, InspectionType } from 'm/presets'
 
 import { formatLocation } from '@@/location-selector/utils'
+import i18n from 'strings/i18n'
+
 
 type InspectionReport = Required<ArrayItem<InspectionReportListQuery['list']>>
 
@@ -55,7 +57,7 @@ const columnMaps: {
 } = {
   equipmentRequester: {
     field: 'equipmentRequester',
-    title: '委托单位',
+    title: i18n.t('委托单位'),
     width: 270,
     minWidth: 240,
     fixed: 'left',
@@ -65,7 +67,7 @@ const columnMaps: {
   },
   equipmentCode: {
     field: 'equipmentCode',
-    title: '设备信息',
+    title: i18n.t('设备详情'),
     width: 150,
     minWidth: 150,
     flexGrow: 1,
@@ -79,12 +81,12 @@ const columnMaps: {
         <>
           <Typography variant="body1" component="span">
             <Link component={RouteLink} to={path}>
-              {equipmentCode || '无编号'}
+              {equipmentCode || i18n.t('无编号')}
             </Link>
           </Typography>{' '}
           -{' '}
           <Typography variant="body1" component="span">
-            {equipmentName || '未命名设备'}
+            {equipmentName || i18n.t('未命名设备')}
           </Typography>
         </>
       )
@@ -92,7 +94,7 @@ const columnMaps: {
   },
   inspectionAddress: {
     field: 'inspectionAddress',
-    title: '检测地址',
+    title: i18n.t('地址'),
     width: 150,
     minWidth: 100,
     flexGrow: 2,
@@ -106,7 +108,7 @@ const columnMaps: {
   },
   inspectionBasis: {
     field: 'inspectionBasis',
-    title: '检测依据',
+    title: i18n.t('检测依据'),
     width: 100,
     minWidth: 100,
     flexGrow: 1,
@@ -116,7 +118,7 @@ const columnMaps: {
   },
   equipmentSampleId: {
     field: 'equipmentSampleId',
-    title: '样品标识',
+    title: i18n.t('样品标识'),
     width: 100,
     minWidth: 100,
     flexGrow: 1,
@@ -126,7 +128,7 @@ const columnMaps: {
   },
   equipmentManufacturer: {
     field: 'equipmentManufacturer',
-    title: '制造厂商',
+    title: i18n.t('制造厂商'),
     width: 80,
     minWidth: 80,
     flexGrow: 1,
@@ -136,7 +138,7 @@ const columnMaps: {
   },
   equipmentModel: {
     field: 'equipmentModel',
-    title: '设备型号',
+    title: i18n.t('设备型号'),
     width: 80,
     minWidth: 80,
     flexGrow: 1,
@@ -146,7 +148,7 @@ const columnMaps: {
   },
   equipmentSite: {
     field: 'equipmentSite',
-    title: '设备场所',
+    title: i18n.t('设备场所'),
     width: 80,
     minWidth: 80,
     flexGrow: 1,
@@ -156,7 +158,7 @@ const columnMaps: {
   },
   inspectionInstrument: {
     field: 'inspectionInstrument',
-    title: '检测仪器',
+    title: i18n.t('检测仪器'),
     width: 80,
     minWidth: 80,
     flexGrow: 1,
@@ -166,7 +168,7 @@ const columnMaps: {
   },
   inspectionItem: {
     field: 'inspectionItem',
-    title: '检测项目',
+    title: i18n.t('检测项目'),
     width: 80,
     minWidth: 80,
     flexGrow: 1,
@@ -182,21 +184,21 @@ const columnMaps: {
   },
   createAt: {
     field: 'createAt',
-    title: '创建时间',
+    title: i18n.t('创建时间'),
     width: 120,
     minWidth: 120,
     render: ({ createAt }) => (createAt ? fDateTime(createAt) : ' - '),
   },
   updatedAt: {
     field: 'updatedAt',
-    title: '更新时间',
+    title: i18n.t('更新时间'),
     width: 120,
     minWidth: 120,
     render: ({ updatedAt }) => (updatedAt ? fDateTime(updatedAt) : ' - '),
   },
   creator: {
     field: 'creator',
-    title: '创建人',
+    title: i18n.t('创建人'),
     width: 60,
     minWidth: 60,
     render: ({ creator }) => (creator ? creator.displayName : ' - '),
@@ -245,7 +247,7 @@ export const InspectionReportList = ({
     const right: ColumnProps<InspectionReport>[] = [
       {
         field: 'uuid',
-        title: '操作',
+        title: i18n.t('操作'),
         align: 'center',
         width: 180,
         minWidth: 180,
@@ -255,7 +257,7 @@ export const InspectionReportList = ({
 
           return (
             <Stack spacing={2} direction="row" display="inline-flex">
-              <Tooltip title="上传附件">
+              <Tooltip title={i18n.t('上传附件')}>
                 <IconButton
                   size="small"
                   color="default"
@@ -264,7 +266,7 @@ export const InspectionReportList = ({
                   <MdUploadFile />
                 </IconButton>
               </Tooltip>
-              <Tooltip title="删除">
+              <Tooltip title={i18n.t('删除')}>
                 <IconButton
                   size="small"
                   color="error"
@@ -273,7 +275,7 @@ export const InspectionReportList = ({
                   <MdDelete />
                 </IconButton>
               </Tooltip>
-              <Tooltip title="编辑">
+              <Tooltip title={i18n.t('编辑')}>
                 <IconButton
                   size="small"
                   color="primary"
@@ -283,7 +285,7 @@ export const InspectionReportList = ({
                 </IconButton>
               </Tooltip>
 
-              <Tooltip title="查看">
+              <Tooltip title={i18n.t('查看')}>
                 <IconButton
                   component={RouteLink}
                   size="small"
@@ -324,7 +326,7 @@ export const InspectionReportList = ({
             component={NavLink}
             startIcon={<RiFileAddLine />}
           >
-            创建
+            {i18n.t('新增')}
           </Button>
         </Stack>
         <Box position="relative">
@@ -346,14 +348,14 @@ export const InspectionReportList = ({
           component="div"
           showFirstButton
           showLastButton
-          labelRowsPerPage="每页显示"
+          labelRowsPerPage={i18n.t('每页显示')}
           rowsPerPageOptions={[
-            { label: '10条', value: 10 },
-            { label: '20条', value: 20 },
-            { label: '50条', value: 50 },
+            { label: '10 ' + i18n.t('行'), value: 10 },
+            { label: '20 ' + i18n.t('行'), value: 20 },
+            { label: '50 ' + i18n.t('行'), value: 50 },
           ]}
           labelDisplayedRows={({ from, to, count }) =>
-            `共 ${count} 条，当前第 ${from} 至 ${to} 条数据。`
+          `${i18n.t('总量')} ${count} ${i18n.t('行')}, ${i18n.t('当前范围')}: [${from} - ${to}]`
           }
           count={dataSource.length}
           page={page}

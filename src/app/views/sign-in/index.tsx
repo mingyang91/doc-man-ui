@@ -12,6 +12,8 @@ import { Info } from './components/info'
 import { Login } from './components/login'
 import { HeaderStyle, RootStyle, SectionStyle } from './components/styled'
 
+import i18n from 'strings/i18n'
+
 export const SignIn = () => {
   const smUp = useResponsive('up', 'sm')
   const mdUp = useResponsive('up', 'md')
@@ -26,9 +28,9 @@ export const SignIn = () => {
 
           {smUp && (
             <Typography variant="body2" sx={{ mt: { md: -2 } }}>
-              没有账号？{' '}
+              {i18n.t('没有账号？')}{' '}
               <Link variant="subtitle2" component={RouterLink} to="/register">
-                注册一个
+                {i18n.t('注册一个')}
               </Link>
             </Typography>
           )}
@@ -37,7 +39,7 @@ export const SignIn = () => {
         {mdUp && (
           <SectionStyle>
             <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
-              欢迎回村，请登录
+              {i18n.t('欢迎回村，请登录')}
             </Typography>
             <img
               src="/assets/illustrations/illustration_login.png"

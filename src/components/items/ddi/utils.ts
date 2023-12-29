@@ -13,6 +13,8 @@ import { Conclusions, formatConclusion, formatUnitValue } from 'm/common'
 
 import { DdiData, DdiDataCondition, DdiDataResult } from './type'
 
+import i18n from 'strings/i18n'
+
 export const initialDdiData = (input?: DdiData): Required<DdiData> => {
   return {
     condition: merge<DdiDataCondition, DdiDataCondition | undefined>(
@@ -43,7 +45,7 @@ export const initialDdiData = (input?: DdiData): Required<DdiData> => {
       {
         scalar: undefined,
         percentage: undefined,
-        description: '平均像素值',
+        description: i18n.t('平均像素值'),
       },
       input?.result
     ),

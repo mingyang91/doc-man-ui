@@ -18,6 +18,8 @@ import { InspectionTypes } from 'm/types'
 import { formatInspectionType } from 'm/common'
 
 import { useConfirm } from '@@/confirm'
+import i18n from 'strings/i18n'
+
 
 type InspectionTypesData = Omit<
   InspectionTypes,
@@ -37,14 +39,14 @@ const columnMaps: {
 } = {
   name: {
     field: 'name',
-    title: '检测项标识',
+    title: i18n.t('检测项标识'),
     flexGrow: 1,
     minWidth: 120,
     render: ({ name }) => <Typography variant="body1">{name}</Typography>,
   },
   displayName: {
     field: 'displayName',
-    title: '检测项名称',
+    title: i18n.t('检测项名称'),
     flexGrow: 1,
     minWidth: 120,
     render: ({ displayName }) => (
@@ -53,7 +55,7 @@ const columnMaps: {
   },
   type: {
     field: 'type',
-    title: '检测类型',
+    title: i18n.t('检测类型'),
     width: 90,
     render: ({ type }) => (
       <Typography variant="body1">{formatInspectionType(type)}</Typography>
@@ -61,14 +63,14 @@ const columnMaps: {
   },
   formula: {
     field: 'formula',
-    title: '计算公式',
+    title: i18n.t('计算公式'),
     width: 120,
     minWidth: 120,
     render: ({ formula }) => <Typography variant="body1">{formula}</Typography>,
   },
   comment: {
     field: 'comment',
-    title: '备注',
+    title: i18n.t('备注'),
     width: 120,
     minWidth: 120,
     render: ({ comment }) => <Typography variant="body1">{comment}</Typography>,
@@ -83,7 +85,7 @@ export interface InspectionTypeListProps {
 }
 
 /**
- * 设备类型中的检测项列表
+ * 设备类型中的检测项目列表
  */
 export const InspectionTypeList = ({
   id,
@@ -105,7 +107,7 @@ export const InspectionTypeList = ({
   const handleRemove = useMemoizedFn<(uuid: string, name?: string) => void>(
     async (uuid, name) => {
       const confirmed = await confirm({
-        title: `确认删除 设备 ${name || '未命名'} 吗？`,
+        title: `确认删除 设备 ${name || i18n.t('未命名')} 吗？`,
         content: '此操作不可逆，可能会影响设备列表数据，请谨慎!',
       })
 
@@ -136,11 +138,11 @@ export const InspectionTypeList = ({
         flexGrow: 1,
         width: 140,
         minWidth: 140,
-        title: '操作',
+        title: i18n.t('操作'),
         render: ({ id, displayName }) => {
           return (
             <Stack spacing={2} direction="row">
-              <Tooltip title="删除">
+              <Tooltip title={i18n.t('删除')}>
                 <IconButton
                   size="small"
                   color="error"
@@ -149,7 +151,7 @@ export const InspectionTypeList = ({
                   <MdDelete />
                 </IconButton>
               </Tooltip>
-              <Tooltip title="编辑">
+              <Tooltip title={i18n.t('编辑')}>
                 <IconButton
                   size="small"
                   color="primary"
@@ -158,7 +160,7 @@ export const InspectionTypeList = ({
                   <MdEdit />
                 </IconButton>
               </Tooltip>
-              <Tooltip title="详情">
+              <Tooltip title={i18n.t('详情')}>
                 <IconButton
                   size="small"
                   color="primary"
@@ -188,7 +190,7 @@ export const InspectionTypeList = ({
 
   return (
     <>
-      <Typography variant="h6">此种设备类型可用检测项</Typography>
+      <Typography variant="h6">{i18n.t('可用检测项目')}</Typography>
       <Stack
         direction="row"
         spacing={2}
@@ -206,7 +208,7 @@ export const InspectionTypeList = ({
             component={RouteLink}
             startIcon={<MdAddCircle />}
           >
-            创建
+            {i18n.t('新增')}
           </Button>
         </Stack>
       </Stack>

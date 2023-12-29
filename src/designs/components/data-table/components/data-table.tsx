@@ -5,6 +5,9 @@ import { renderColumns } from './render-columns'
 import { Table } from './styled'
 import { DataTableProps } from './type'
 
+import i18n from 'strings/i18n'
+
+
 export const DataTable = <D extends {}>({
   affixHeader = true,
   autoHeight = true,
@@ -18,8 +21,8 @@ export const DataTable = <D extends {}>({
   checkedItems,
   onCheckedChange,
   locale = {
-    emptyMessage: '暂无数据',
-    loading: '加载中...',
+    emptyMessage: i18n.t('暂无数据'),
+    loading: `${i18n.t('加载中')}...`,
   },
   ...restProps
 }: DataTableProps<D>) => {

@@ -6,6 +6,8 @@ import { InspectionReportFormData } from '../../utils'
 import { SelectInspectItems } from './components/select-inspect-items'
 import { ItemFields } from './components/item-fields'
 
+import i18n from 'strings/i18n'
+
 export interface MainFieldProps {
   inspectionItemType?: InspectionReportFormData['inspectionItem'] | null
   presetsItems?: InspectionReportItem<Record<string, unknown>>[]
@@ -22,14 +24,14 @@ export const MainField = ({
       </Box>
       <ItemFields
         name="items1"
-        title="通用检测项"
+        title={i18n.t('通用检测项目')}
         inspectionType={
           inspectionItemType as InspectionReportFormData['inspectionItem']
         }
       />
       <ItemFields
         name="items2"
-        title="专用检测项"
+        title={i18n.t('专用检测项目')}
         inspectionType={
           inspectionItemType as InspectionReportFormData['inspectionItem']
         }

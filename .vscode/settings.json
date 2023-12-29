@@ -28,8 +28,8 @@
   "[css]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.codeActionsOnSave": {
-      "source.formatDocument": true,
-      "source.fixAll.stylelint": true,
+      "source.formatDocument": "explicit",
+      "source.fixAll.stylelint": "explicit"
     }
   },
   "[javascript]": {
@@ -60,5 +60,14 @@
       "source.fixAll.eslint": true,
     }
   },
-  "prettier-config.tool": "pnpm"
+  "prettier-config.tool": "pnpm",
+  "files.watcherExclude": {
+    "**/target": true
+  },
+  "[javascript][javascriptreact][typescript][typescriptreact]": {
+    "editor.codeActionsOnSave": {
+      "source.formatDocument": "explicit",
+      "source.fixAll.eslint": "explicit"
+    }
+  }
 }

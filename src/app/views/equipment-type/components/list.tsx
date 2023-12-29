@@ -26,6 +26,8 @@ import {
 import { EquipmentTypesListQuery } from 'm/equipment-type/index.generated'
 
 import { useConfirm } from '@@/confirm'
+import i18n from 'strings/i18n'
+
 
 export type EquipmentTypesListData = ArrayItem<EquipmentTypesListQuery['data']>
 
@@ -38,7 +40,7 @@ const columnMaps: {
 } = {
   displayName: {
     field: 'displayName',
-    title: '设备类型',
+    title: i18n.t('设备类型'),
     width: 180,
     minWidth: 180,
     fixed: 'left',
@@ -48,7 +50,7 @@ const columnMaps: {
   },
   name: {
     field: 'name',
-    title: '类型标识',
+    title: i18n.t('类型标识'),
     width: 120,
     minWidth: 120,
     flexGrow: 1,
@@ -56,14 +58,14 @@ const columnMaps: {
   },
   comment: {
     field: 'comment',
-    title: '备注',
+    title: i18n.t('备注'),
     width: 120,
     minWidth: 120,
     flexGrow: 1,
   },
   inspectionItems: {
     field: 'inspectionItems',
-    title: '检测项',
+    title: i18n.t('检测项目'),
     width: 70,
     minWidth: 70,
     render: ({ id, inspectionItems }) => (
@@ -95,7 +97,7 @@ export const DeviceTypeList = ({
   const handleRemove = useMemoizedFn<(uuid: string, name?: string) => void>(
     async (uuid, name) => {
       confirm({
-        title: `确认删除 设备类型 ${name || '未命名'} 吗？`,
+        title: `确认删除 设备类型 ${name || i18n.t('未命名')} 吗？`,
         content: '此操作不可逆，可能会影响设备列表数据，请谨慎!',
       }).then(confirmed => {
         confirmed && onRemove?.(uuid)
@@ -119,12 +121,12 @@ export const DeviceTypeList = ({
         width: 120,
         minWidth: 120,
         fixed: 'right',
-        title: '操作',
+        title: i18n.t('操作'),
         render: ({ id, displayName, inspectionItems }) => {
           return (
             <Stack spacing={2} direction="row">
               {inspectionItems?.length ? null : (
-                <Tooltip title="删除">
+                <Tooltip title={i18n.t('删除')}>
                   <IconButton
                     size="small"
                     color="error"
@@ -134,7 +136,7 @@ export const DeviceTypeList = ({
                   </IconButton>
                 </Tooltip>
               )}
-              <Tooltip title="查看检测项">
+              <Tooltip title={i18n.t('查看')}>
                 <IconButton
                   size="small"
                   color="primary"
@@ -170,7 +172,7 @@ export const DeviceTypeList = ({
             component={RouterLink}
             to={ROUTES.equipmentTypeCreate}
           >
-            创建新设备类型
+            {i18n.t('新增')}
           </Button>
         </Stack>
       </Stack>

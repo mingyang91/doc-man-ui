@@ -22,6 +22,8 @@ import { InspectionReportDetail } from 'm/presets'
 
 import { useInspectionReportData } from '../context'
 
+import i18n from 'strings/i18n'
+
 const StyledField = styled('section')(({ theme }) => ({
   position: 'relative',
   marginInlineEnd: theme.spacing(2),
@@ -52,7 +54,7 @@ export const InspectionDetailHeader = () => {
       pushSuccessMessage('设备检验检测已生成,请下载')
     },
     onError(error) {
-      pushErrorMessage(`生成设备检验检测失败: ${(error as Error).message}`)
+      pushErrorMessage(`失败: ${(error as Error).message}`)
     },
   })
 
@@ -71,7 +73,7 @@ export const InspectionDetailHeader = () => {
           to={editPath}
           startIcon={<Iconify icon={MdEdit} />}
         >
-          编辑
+          {i18n.t('编辑')}
         </Button>
       </Grid>
       <Grid
@@ -82,14 +84,14 @@ export const InspectionDetailHeader = () => {
         alignItems="center"
       >
         <StyledField>
-          设备类型: {data?.equipmentType?.displayName || ' - '}
+          {i18n.t('设备类型')}: {data?.equipmentType?.displayName || ' - '}
         </StyledField>
         <LoadingButton
           onClick={onClickReport}
           loading={isLoading}
           startIcon={<Iconify icon={MdPrint} />}
         >
-          生成报告
+          {i18n.t('生成报告')}
         </LoadingButton>
       </Grid>
     </Grid>

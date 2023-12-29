@@ -26,6 +26,9 @@ import { SelectorCounty } from './selector-county'
 import { SelectorProvince } from './selector-province'
 import { SelectorTown } from './selector-town'
 
+import i18n from 'strings/i18n'
+
+
 type BaseSelector = AutocompleteProps<
   BaseLocationValue,
   boolean | undefined,
@@ -57,7 +60,7 @@ export interface LocationSelectorProps
 export const LocationSelector = ({
   name,
   id,
-  label = '地址',
+  label = i18n.t('地址'),
   value: valueProps,
   onChange,
   componentProps,
@@ -188,7 +191,7 @@ export const LocationSelector = ({
     const textfieldDetail = (
       <TextField
         error={isError}
-        placeholder="详细地址"
+        placeholder={i18n.t("地址")}
         fullWidth
         sx={{ '& .MuiInputBase-root': { marginTop: '8px' } }}
         value={value.detail || ''}

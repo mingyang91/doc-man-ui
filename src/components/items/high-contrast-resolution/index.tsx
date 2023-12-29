@@ -13,6 +13,9 @@ import { HCRData, HCRDataItem } from "./type"
 import { ItemComponentProps } from "../common/type"
 import { initialHCRData, initialHCRDataItem } from "./utils"
 
+import i18n from 'strings/i18n'
+
+
 
 type HCRFieldProps = ItemComponentProps<HCRData>
 export default function HCRField({ name, inspectionItem, requirement, item}: HCRFieldProps) {
@@ -39,9 +42,9 @@ export default function HCRField({ name, inspectionItem, requirement, item}: HCR
             <TableHead>
               <TableRow>
                 <TableCell align="center"> - </TableCell>
-                <TableCell>测量</TableCell>
-                <TableCell>基线</TableCell>
-                <TableCell>检测结果</TableCell>
+                <TableCell>{i18n.t('测量')}</TableCell>
+                <TableCell>{i18n.t('基线')}</TableCell>
+                <TableCell>{i18n.t('检测结果')}</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -69,18 +72,18 @@ export default function HCRField({ name, inspectionItem, requirement, item}: HCR
 function HCRItem({ value, onChange, onRemove }: { value: HCRDataItem, onChange: (value: HCRDataItem) => void, onRemove: () => void }) {
   return (
     <TableRow>
-      <TableCell>
+      <TableCell align="center">
         <Button
           variant="text"
           startIcon={<Iconify icon={MdAddCircle} />}
           onClick={onRemove}
         >
-          删除
+          {i18n.t('删除')}
         </Button>
       </TableCell>
       <TableCell>
         <TextField
-          label="测量"
+          label={i18n.t('测量')}
           type="number"
           value={value.input?.measured}
           onChange={event => onChange(updateResult(update(value, { input: { measured: { $set: event.target.value } } })))}
@@ -88,7 +91,7 @@ function HCRItem({ value, onChange, onRemove }: { value: HCRDataItem, onChange: 
       </TableCell>
       <TableCell>
         <TextField
-          label="基线"
+          label={i18n.t('基线')}
           type="number"
           value={value.input?.baseline}
           onChange={event => onChange(updateResult(update(value, { input: { baseline: { $set: event.target.value } } })))}
@@ -119,7 +122,7 @@ const Footer = ({ onAdd }: { onAdd: () => void }) => {
           startIcon={<Iconify icon={MdAddCircle} />}
           onClick={onAdd}
         >
-          增加
+          {i18n.t('新增')}
         </Button>
       </TableCell>
     </TableRow>

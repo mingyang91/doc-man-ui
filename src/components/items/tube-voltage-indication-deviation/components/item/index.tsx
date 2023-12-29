@@ -12,6 +12,9 @@ import { TVIDDataItem } from '../../type'
 import { initialTVIDDataItem } from '../../utils'
 import { CalcModal, CalcModalProps } from './components/calc-modal'
 
+import i18n from 'strings/i18n'
+
+
 export interface TVIDItemProps {
   index: number
   value: TVIDDataItem
@@ -42,7 +45,7 @@ export const TVIDItem = ({
   const ResultText = useMemo(
     () =>
       isNil(finalValue.result?.scalar?.value)
-        ? '点击填写结果'
+        ? i18n.t('点击填写结果')
         : `${finalValue.result.percentage.value}${finalValue.result.percentage.unit}(${finalValue.result.scalar.value}${finalValue.result.scalar.unit})`,
     [finalValue.result]
   )
@@ -67,7 +70,7 @@ export const TVIDItem = ({
           startIcon={<Iconify icon={MdDelete} />}
           onClick={onRemove}
         >
-          删除此项
+          {i18n.t('删除')}
         </Button>
       </TableCell>
       <TableCell>
@@ -75,19 +78,19 @@ export const TVIDItem = ({
           <TextFieldWithUnit
             sx={fieldSx}
             variant="standard"
-            label="管电流"
+            label={i18n.t('管电流')}
             value={finalValue.condition.factor.current}
           />
           <TextFieldWithUnit
             variant="standard"
             sx={fieldSx}
-            label="时间积"
+            label={i18n.t('时间积')}
             value={finalValue.condition.factor.timeProduct}
           />
           <TextFieldWithUnit
             variant="standard"
             sx={fieldSx}
-            label="预设值"
+            label={i18n.t('预设值')}
             value={finalValue.condition.presets}
           />
         </Box>

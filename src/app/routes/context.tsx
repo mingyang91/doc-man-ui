@@ -13,6 +13,9 @@ import { SignIn } from '@/views/sign-in/index'
 
 import type { RouteView } from './index'
 
+import i18n from 'strings/i18n'
+
+
 export const ROUTES = {
   default: '/', // 默认路由
   demo: '/demo', // demo 页，没啥用
@@ -22,11 +25,11 @@ export const ROUTES = {
   equipmentTypeDetail: '/equipment-types/detail/:id', // 设备类型详情
   equipmentTypeCreate: '/equipment-types/create', // 设备类型创建
   equipmentInspectionTypeDetail:
-    '/equipment-types/detail/:id/inspection-enums/:itemId/detail', // 设备类型检测项详情
+    '/equipment-types/detail/:id/inspection-enums/:itemId/detail', // 设备类型检测项目详情
   equipmentInspectionTypeEdit:
-    '/equipment-types/detail/:id/inspection-enums/:itemId/edit', // 设备类型检测项编辑
+    '/equipment-types/detail/:id/inspection-enums/:itemId/edit', // 设备类型检测项目编辑
   equipmentInspectionTypeCreate:
-    '/equipment-types/detail/:id/inspection-enums/create', // 设备类型检测项创建
+    '/equipment-types/detail/:id/inspection-enums/create', // 设备类型检测项目创建
   consumerList: '/consumer', // 委托单位列表
   consumerDetail: '/consumer/detail/:id', // 委托单位详情
   consumerEdit: '/consumer/edit/:id', // 委托单位编辑
@@ -69,7 +72,7 @@ export const routes: RouteView[] = [
     id: 'dashboard',
     path: ROUTES.dashboard,
     isRequireAuth: true,
-    title: '首页',
+    title: i18n.t('首页'),
     icon: RiHomeSmile2Fill,
     activePaths: [ROUTES.default],
     isMenu: true,
@@ -78,20 +81,19 @@ export const routes: RouteView[] = [
         import(/* webpackChunkName: "views/dashboard" */ '@/views/dashboard')
     ),
     layout: 'admin',
-    breadcrumbs: [{ name: '首页' }],
+    breadcrumbs: [{ name: i18n.t('首页') }],
   },
   {
     id: 'meta-root',
-    title: '客户关系',
+    title: i18n.t('客户关系'),
     icon: RiHomeSmile2Fill,
     isMenu: true,
     isGroupTitle: true,
     submodule: [
-      /*  委托单位 */
       {
         id: 'meta-consumer-list',
         path: ROUTES.consumerList,
-        title: '委托单位',
+        title: i18n.t('委托单位'),
         icon: RiFile2Fill,
         isMenu: true,
         isRequireAuth: true,
@@ -101,8 +103,8 @@ export const routes: RouteView[] = [
           ROUTES.consumerCreate,
         ],
         breadcrumbs: [
-          { name: '元数据' },
-          { name: '委托单位', href: ROUTES.consumerList },
+          { name: i18n.t('元数据') },
+          { name: i18n.t('委托单位'), href: ROUTES.consumerList },
         ],
         layout: 'admin',
         Component: lazy(
@@ -124,16 +126,16 @@ export const routes: RouteView[] = [
         ),
         layout: 'admin',
         breadcrumbs: [
-          { name: '元数据' },
-          { name: '委托单位', href: ROUTES.consumerList },
-          { name: '详情' },
+          { name: i18n.t('元数据') },
+          { name: i18n.t('委托单位'), href: ROUTES.consumerList },
+          { name: i18n.t('详情') },
         ],
       },
       {
         id: 'meta-consumer-create',
         path: ROUTES.consumerCreate,
         isRequireAuth: true,
-        title: '委托单位 - 新增',
+        title: `${i18n.t('委托单位')} - ${i18n.t('新增')}`,
         icon: RiFile2Fill,
         Component: lazy(
           () =>
@@ -143,16 +145,16 @@ export const routes: RouteView[] = [
         ),
         layout: 'admin',
         breadcrumbs: [
-          { name: '元数据' },
-          { name: '委托单位', href: ROUTES.consumerList },
-          { name: '新增' },
+          { name: i18n.t('元数据') },
+          { name: i18n.t('委托单位'), href: ROUTES.consumerList },
+          { name: i18n.t('新增') },
         ],
       },
       {
         id: 'meta-consumer-edit',
         path: ROUTES.consumerEdit,
         isRequireAuth: true,
-        title: '设备管理 - 编辑',
+        title: `${i18n.t('设备管理')} - ${i18n.t('编辑')}`,
         icon: RiFile2Fill,
         Component: lazy(
           () =>
@@ -162,16 +164,16 @@ export const routes: RouteView[] = [
         ),
         layout: 'admin',
         breadcrumbs: [
-          { name: '元数据' },
-          { name: '设备管理', href: ROUTES.consumerList },
-          { name: '编辑' },
+          { name: i18n.t('元数据') },
+          { name: i18n.t('设备管理'), href: ROUTES.consumerList },
+          { name: i18n.t('编辑') },
         ],
       },
     ],
   },
   {
     id: 'equipment-root',
-    title: '设备数据',
+    title: i18n.t('设备数据'),
     icon: RiHomeSmile2Fill,
     isMenu: true,
     isGroupTitle: true,
@@ -180,7 +182,7 @@ export const routes: RouteView[] = [
       {
         id: 'equipment-type-list',
         path: ROUTES.equipmentTypeList,
-        title: '设备类型',
+        title: i18n.t('设备类型'),
         icon: RiFile2Fill,
         isMenu: true,
         isRequireAuth: true,
@@ -192,8 +194,8 @@ export const routes: RouteView[] = [
           ROUTES.equipmentInspectionTypeCreate,
         ],
         breadcrumbs: [
-          { name: '设备数据' },
-          { name: '设备类型', href: ROUTES.equipmentTypeList },
+          { name: i18n.t('设备数据') },
+          { name: i18n.t('设备类型'), href: ROUTES.equipmentTypeList },
         ],
         layout: 'admin',
         Component: lazy(
@@ -209,9 +211,9 @@ export const routes: RouteView[] = [
         title: '设备类型 - 详情',
         isRequireAuth: true,
         breadcrumbs: [
-          { name: '设备数据' },
-          { name: '设备类型', href: ROUTES.equipmentTypeList },
-          { name: '详情' },
+          { name: i18n.t('设备数据') },
+          { name: i18n.t('设备类型'), href: ROUTES.equipmentTypeList },
+          { name: i18n.t('详情') },
         ],
         layout: 'admin',
         Component: lazy(
@@ -227,9 +229,9 @@ export const routes: RouteView[] = [
         title: '设备类型 - 新增',
         isRequireAuth: true,
         breadcrumbs: [
-          { name: '设备数据' },
-          { name: '设备类型', href: ROUTES.equipmentTypeList },
-          { name: '新增' },
+          { name: i18n.t('设备数据') },
+          { name: i18n.t('设备类型'), href: ROUTES.equipmentTypeList },
+          { name: i18n.t('新增') },
         ],
         layout: 'admin',
         Component: lazy(
@@ -242,13 +244,13 @@ export const routes: RouteView[] = [
       {
         id: 'equipment-type-inspection',
         path: ROUTES.equipmentInspectionTypeDetail,
-        title: '设备类型 - 检测项 - 查看',
+        title: '设备类型 - 检测项目 - 查看',
         isRequireAuth: true,
         breadcrumbs: [
-          { name: '设备数据' },
-          { name: '设备类型', href: ROUTES.equipmentTypeList },
-          { name: '详情' },
-          { name: '检测项 - 查看' },
+          { name: i18n.t('设备数据') },
+          { name: i18n.t('设备类型'), href: ROUTES.equipmentTypeList },
+          { name: i18n.t('详情') },
+          { name: '检测项目 - 查看' },
         ],
         layout: 'admin',
         Component: lazy(
@@ -261,13 +263,13 @@ export const routes: RouteView[] = [
       {
         id: 'equipment-type-inspection-edit',
         path: ROUTES.equipmentInspectionTypeEdit,
-        title: '设备类型 - 检测项 - 编辑',
+        title: '设备类型 - 检测项目 - 编辑',
         isRequireAuth: true,
         breadcrumbs: [
-          { name: '设备数据' },
-          { name: '设备类型', href: ROUTES.equipmentTypeList },
-          { name: '详情' },
-          { name: '检测项 - 编辑' },
+          { name: i18n.t('设备数据') },
+          { name: i18n.t('设备类型'), href: ROUTES.equipmentTypeList },
+          { name: i18n.t('详情') },
+          { name: '检测项目 - 编辑' },
         ],
         layout: 'admin',
         Component: lazy(
@@ -280,13 +282,13 @@ export const routes: RouteView[] = [
       {
         id: 'equipment-type-inspection-create',
         path: ROUTES.equipmentInspectionTypeCreate,
-        title: '设备类型 - 检测项 - 新增',
+        title: '设备类型 - 检测项目 - 新增',
         isRequireAuth: true,
         breadcrumbs: [
-          { name: '设备数据' },
-          { name: '设备类型', href: ROUTES.equipmentTypeList },
-          { name: '详情' },
-          { name: '检测项 - 编辑' },
+          { name: i18n.t('设备数据') },
+          { name: i18n.t('设备类型'), href: ROUTES.equipmentTypeList },
+          { name: i18n.t('详情') },
+          { name: '检测项目 - 编辑' },
         ],
         layout: 'admin',
         Component: lazy(
@@ -296,11 +298,11 @@ export const routes: RouteView[] = [
             )
         ),
       },
-      /* 设备管理 */
+      /* {i18n.t('设备管理')} */
       {
         id: 'equipment-list',
         path: ROUTES.equipmentList,
-        title: '设备管理',
+        title: i18n.t('设备管理'),
         icon: RiFile2Fill,
         isMenu: true,
         isRequireAuth: true,
@@ -310,8 +312,8 @@ export const routes: RouteView[] = [
           ROUTES.equipmentCreate,
         ],
         breadcrumbs: [
-          { name: '设备数据' },
-          { name: '设备管理', href: ROUTES.equipmentList },
+          { name: i18n.t('设备数据') },
+          { name: i18n.t('设备管理'), href: ROUTES.equipmentList },
         ],
         layout: 'admin',
         Component: lazy(
@@ -333,16 +335,16 @@ export const routes: RouteView[] = [
         ),
         layout: 'admin',
         breadcrumbs: [
-          { name: '设备数据' },
-          { name: '设备管理', href: ROUTES.equipmentList },
-          { name: '设备详情' },
+          { name: i18n.t('设备数据') },
+          { name: i18n.t('设备管理'), href: ROUTES.equipmentList },
+          { name: i18n.t('设备详情') },
         ],
       },
       {
         id: 'meta-device-create',
         path: ROUTES.equipmentCreate,
         isRequireAuth: true,
-        title: '设备管理 - 新增',
+        title: `{i18n.t('设备管理')} - 新增`,
         icon: RiFile2Fill,
         Component: lazy(
           () =>
@@ -352,16 +354,16 @@ export const routes: RouteView[] = [
         ),
         layout: 'admin',
         breadcrumbs: [
-          { name: '设备数据' },
-          { name: '设备管理', href: ROUTES.equipmentList },
-          { name: '新增' },
+          { name: i18n.t('设备数据') },
+          { name: i18n.t('设备管理'), href: ROUTES.equipmentList },
+          { name: i18n.t('新增') },
         ],
       },
       {
         id: 'meta-device-edit',
         path: ROUTES.equipmentEdit,
         isRequireAuth: true,
-        title: '设备管理 - 编辑',
+        title: `${i18n.t('设备管理')} - 编辑`,
         icon: RiFile2Fill,
         Component: lazy(
           () =>
@@ -371,16 +373,16 @@ export const routes: RouteView[] = [
         ),
         layout: 'admin',
         breadcrumbs: [
-          { name: '设备数据' },
-          { name: '设备管理', href: ROUTES.equipmentList },
-          { name: '编辑' },
+          { name: i18n.t('设备数据') },
+          { name: i18n.t('设备管理'), href: ROUTES.equipmentList },
+          { name: i18n.t('编辑') },
         ],
       },
     ],
   },
   {
     id: 'report-root',
-    title: '报告管理',
+    title: i18n.t('报告管理'),
     icon: RiArtboard2Fill,
     isMenu: true,
     isGroupTitle: true,
@@ -389,7 +391,7 @@ export const routes: RouteView[] = [
         id: 'inspections-list',
         path: ROUTES.inspectionList,
         isRequireAuth: true,
-        title: '设备检验检测',
+        title: i18n.t('设备检验检测'),
         icon: RiFile2Fill,
         isMenu: true,
         activePaths: [
@@ -405,8 +407,8 @@ export const routes: RouteView[] = [
         ),
         layout: 'admin',
         breadcrumbs: [
-          { name: '报告管理' },
-          { name: '设备检验检测', href: ROUTES.inspectionList },
+          { name: i18n.t('报告管理') },
+          { name: i18n.t('设备检验检测'), href: ROUTES.inspectionList },
         ],
       },
       {
@@ -421,9 +423,9 @@ export const routes: RouteView[] = [
         ),
         layout: 'admin',
         breadcrumbs: [
-          { name: '报告管理' },
-          { name: '设备检验检测', href: ROUTES.inspectionList },
-          { name: '详情' },
+          { name: i18n.t('报告管理') },
+          { name: i18n.t('设备检验检测'), href: ROUTES.inspectionList },
+          { name: i18n.t('详情') },
         ],
       },
       {
@@ -440,9 +442,9 @@ export const routes: RouteView[] = [
         ),
         layout: 'admin',
         breadcrumbs: [
-          { name: '报告管理' },
-          { name: '设备检验检测', href: ROUTES.inspectionList },
-          { name: '新增' },
+          { name: i18n.t('报告管理') },
+          { name: i18n.t('设备检验检测'), href: ROUTES.inspectionList },
+          { name: i18n.t('新增') },
         ],
       },
       {
@@ -459,9 +461,9 @@ export const routes: RouteView[] = [
         ),
         layout: 'admin',
         breadcrumbs: [
-          { name: '报告管理' },
-          { name: '设备检验检测', href: ROUTES.inspectionList },
-          { name: '编辑' },
+          { name: i18n.t('报告管理') },
+          { name: i18n.t('设备检验检测'), href: ROUTES.inspectionList },
+          { name: i18n.t('编辑') },
         ],
       },
     ],

@@ -18,8 +18,9 @@ import { UUIDV4 } from 'm/presets'
 import { DetailCard, DetailCardFooter } from '@@/detail-card'
 import { LocationValue } from '@@/location-selector'
 import { formatLocation } from '@@/location-selector/utils'
+import i18n from 'strings/i18n'
 
-const TITLE = `委托单位 - 详情`
+const TITLE = `${i18n.t('委托单位')} - ${i18n.t('详情')}`
 
 const PageDetailConsumer = () => {
   const { activeRouteConfig } = useMenuAndRoutes()
@@ -47,13 +48,13 @@ const PageDetailConsumer = () => {
           <Grid container spacing={3}>
             <Grid xs={12} sm={6}>
               <FieldLine>
-                <FieldHeader>委托单位</FieldHeader>
+                <FieldHeader>{i18n.t('委托单位')}</FieldHeader>
                 <FieldContent>{detail?.name}</FieldContent>
               </FieldLine>
             </Grid>
             <Grid xs={12}>
               <FieldLine>
-                <FieldHeader>检测地址</FieldHeader>
+                <FieldHeader>{i18n.t('地址')}</FieldHeader>
                 <FieldContent>
                   {formatLocation(detail?.address as LocationValue, true)}
                 </FieldContent>
@@ -61,7 +62,7 @@ const PageDetailConsumer = () => {
             </Grid>
             <Grid xs={12} sm={6}>
               <FieldLine>
-                <FieldHeader>创建日期</FieldHeader>
+                <FieldHeader>{i18n.t('创建时间')}</FieldHeader>
                 <FieldContent>
                   {detail?.createdAt && fDate(detail.createdAt)}
                 </FieldContent>
@@ -69,7 +70,7 @@ const PageDetailConsumer = () => {
             </Grid>
             <Grid xs={12} sm={6}>
               <FieldLine>
-                <FieldHeader>更新日期</FieldHeader>
+                <FieldHeader>{i18n.t('更新时间')}</FieldHeader>
                 <FieldContent>
                   {detail?.updatedAt && fDate(detail.updatedAt)}
                 </FieldContent>
@@ -77,7 +78,7 @@ const PageDetailConsumer = () => {
             </Grid>
             <Grid xs={12}>
               <FieldLine>
-                <FieldHeader>备注</FieldHeader>
+                <FieldHeader>{i18n.t('备注')}</FieldHeader>
                 <FieldContent>{detail?.comment}</FieldContent>
               </FieldLine>
             </Grid>
@@ -90,7 +91,7 @@ const PageDetailConsumer = () => {
                 to={editPath}
                 startIcon={<MdEdit />}
               >
-                编辑
+                {i18n.t('编辑')}
               </Button>
             }
           />
@@ -100,7 +101,7 @@ const PageDetailConsumer = () => {
       ) : (
         isError && (
           <Snackbar open>
-            <CommonMessage type="error" description="获取数据错误" />
+            <CommonMessage type="error" description={i18n.t('获取数据错误')} />
           </Snackbar>
         )
       )}

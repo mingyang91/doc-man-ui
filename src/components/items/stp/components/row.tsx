@@ -12,6 +12,9 @@ import { StpData } from '../type'
 import { formatResult, initialStpData } from '../utils'
 import { CalcModal, CalcModalProps } from './calc-modal'
 
+import i18n from 'strings/i18n'
+
+
 export interface STPRowProps {
   name: string
   value: StpData
@@ -32,7 +35,7 @@ export function STPRow({ name, value, onChange }: STPRowProps) {
   const ResultText = useMemo(
     () =>
       isNil(value.result)
-        ? '点击填写结果'
+        ? i18n.t('点击填写结果')
         : `R² = ` + formatResult(value.result),
     [value.result]
   )
@@ -68,7 +71,7 @@ export function STPRow({ name, value, onChange }: STPRowProps) {
               <TextFieldWithUnit
                 variant="standard"
                 sx={fieldSx}
-                label="辐射"
+                label={i18n.t('辐射')}
                 value={v}
                 onChange={value => onConditionChange(value, index)}
               />

@@ -6,6 +6,9 @@ import { DialogProps } from 'd/components/dialog'
 
 import { createContainer } from 'u/create-container'
 
+import i18n from 'strings/i18n'
+
+
 type DialogConfigProps = Omit<DialogProps, 'isOpen'>
 
 export interface ConfirmFunctionArgs extends DialogConfigProps {
@@ -39,8 +42,8 @@ const ConfirmContainer = createContainer(function useConfirmContainer({
   })
 
   const confirm = useMemoizedFn<ConfirmFunction>((args = {}) => {
-    args.confirmText = args.confirmText ?? '确定'
-    args.cancelText = args.cancelText ?? '取消'
+    args.confirmText = args.confirmText ?? i18n.t('确定')
+    args.cancelText = args.cancelText ?? i18n.t('取消')
 
     setDialogProps(() => ({
       ...dialogProps,

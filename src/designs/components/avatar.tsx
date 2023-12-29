@@ -3,6 +3,7 @@ import {
   AvatarProps as MuiAvatarProps,
 } from '@mui/material'
 
+
 function stringToColor(string: string) {
   let hash = 0
   let i

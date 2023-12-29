@@ -10,6 +10,9 @@ import {
 } from '@mui/material'
 import { ReactNode } from 'react'
 
+import i18n from 'strings/i18n'
+
+
 export interface DialogProps
   extends Omit<DialogPrimitiveProps, 'open' | 'onClose'> {
   isOpen: boolean
@@ -27,8 +30,8 @@ export const Dialog = ({
   isOpen,
   title,
   content,
-  confirmText = '确认',
-  cancelText = '取消',
+  confirmText = i18n.t('确认'),
+  cancelText = i18n.t('取消'),
   onConfirm,
   onCancel,
   dividers,

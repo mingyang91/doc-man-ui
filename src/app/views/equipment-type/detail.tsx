@@ -15,6 +15,7 @@ import { Fields } from './components/fields'
 import { InspectionTypeList } from './components/inspection-enum-list'
 
 import { DetailCard } from '@@/detail-card'
+import i18n from 'strings/i18n'
 
 const TITLE = '设备类型 - 详情'
 
@@ -65,7 +66,7 @@ const PageDetail = () => {
       ) : (
         isError && (
           <Snackbar open>
-            <CommonMessage type="error" description="获取数据错误" />
+            <CommonMessage type="error" description={i18n.t('获取数据错误')} />
           </Snackbar>
         )
       )}

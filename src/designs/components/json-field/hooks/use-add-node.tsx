@@ -10,6 +10,8 @@ import { NodeData, NodeTypes, PrimitiveValue } from '../type'
 import { addNewNode } from '../utils/tree-utils'
 
 import { useConfirm } from '@@/confirm'
+import i18n from 'strings/i18n'
+
 
 interface AddNewNodeFormProps {
   data?: NodeData
@@ -94,7 +96,7 @@ export const useAddNewNode = () => {
 
   const handleAddNewNode = async (isArrayItem: boolean, index?: number) => {
     const isConfirmed = await confirm({
-      title: '新增键值对',
+      title: i18n.t('新增键值对'),
       customRender: () => (
         <AddNewNodeForm
           data={data}
@@ -103,8 +105,8 @@ export const useAddNewNode = () => {
           onChange={setData}
         />
       ),
-      confirmText: '确定',
-      cancelText: '取消',
+      confirmText: i18n.t('确定'),
+      cancelText: i18n.t('取消'),
     })
 
     const result = cloneDeep(data)

@@ -16,7 +16,9 @@ import { useCreateEquipmentMutation } from 'm/equipment/index.generated'
 
 import { DeviceForm, FnSubmitEquipment } from './components/equipment-form'
 
-const TITLE = `设备 - 创建`
+import i18n from 'strings/i18n'
+
+const TITLE = `${i18n.t('设备')} - ${i18n.t('新增')}`
 
 const PageInspectionCreate = () => {
   const { activeRouteConfig } = useMenuAndRoutes()
@@ -29,10 +31,10 @@ const PageInspectionCreate = () => {
 
   const { mutate, isLoading } = useCreateEquipmentMutation({
     onSuccess() {
-      pushSuccessMessage(`创建成功`)
+      pushSuccessMessage(`成功`)
     },
     onError(error) {
-      pushErrorMessage(`创建失败: ${(error as Error).message}`)
+      pushErrorMessage(`失败: ${(error as Error).message}`)
     },
   })
 
@@ -79,7 +81,7 @@ const PageInspectionCreate = () => {
           control={
             <Checkbox checked={shouldContinue} onChange={onContinueChange} />
           }
-          label="创建后继续"
+          label={i18n.t("创建后继续")}
         />
       </FormGroup>
     </Page>

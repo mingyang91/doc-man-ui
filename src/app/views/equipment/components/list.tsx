@@ -30,6 +30,8 @@ import { AddressField } from 'm/presets'
 
 import { useConfirm } from '@@/confirm'
 import { formatLocation } from '@@/location-selector/utils'
+import i18n from 'strings/i18n'
+
 
 type EquipmentData = ArrayItem<EquipmentListQuery['list']>
 
@@ -53,7 +55,7 @@ const columnMaps: {
   },
   client: {
     field: 'client',
-    title: '委托单位',
+    title: i18n.t('委托单位'),
     width: 180,
     minWidth: 180,
     fixed: 'left',
@@ -65,7 +67,7 @@ const columnMaps: {
   },
   equipmentCode: {
     field: 'equipmentCode',
-    title: '设备信息',
+    title: i18n.t('设备详情'),
     width: 220,
     minWidth: 200,
     fixed: 'left',
@@ -78,12 +80,12 @@ const columnMaps: {
         <>
           <Typography variant="body1" component="span">
             <Link component={RouteLink} to={path}>
-              {equipmentCode || '无编号'}
+              {equipmentCode || i18n.t('无编号')}
             </Link>
           </Typography>{' '}
           -{' '}
           <Typography variant="body1" component="span">
-            {equipmentName || '未命名设备'}
+            {equipmentName || i18n.t('未命名设备')}
           </Typography>
         </>
       )
@@ -91,7 +93,7 @@ const columnMaps: {
   },
   address: {
     field: 'address',
-    title: '检测地址',
+    title: i18n.t('地址'),
     width: 150,
     minWidth: 100,
     flexGrow: 2,
@@ -105,7 +107,7 @@ const columnMaps: {
   },
   equipmentType: {
     field: 'equipmentType',
-    title: '设备类型',
+    title: i18n.t('设备类型'),
     width: 100,
     minWidth: 100,
     flexGrow: 1,
@@ -125,7 +127,7 @@ const columnMaps: {
   },
   equipmentManufacturer: {
     field: 'equipmentManufacturer',
-    title: '制造厂商',
+    title: i18n.t('制造厂商'),
     width: 80,
     minWidth: 80,
     flexGrow: 1,
@@ -135,7 +137,7 @@ const columnMaps: {
   },
   equipmentModel: {
     field: 'equipmentModel',
-    title: '设备型号',
+    title: i18n.t('设备型号'),
     width: 80,
     minWidth: 80,
     flexGrow: 1,
@@ -145,7 +147,7 @@ const columnMaps: {
   },
   equipmentSampleId: {
     field: 'equipmentSampleId',
-    title: '样品标识',
+    title: i18n.t('样品标识'),
     width: 100,
     minWidth: 100,
     flexGrow: 1,
@@ -155,7 +157,7 @@ const columnMaps: {
   },
   inspectionInstrument: {
     field: 'inspectionInstrument',
-    title: '检测仪器',
+    title: i18n.t('检测仪器'),
     width: 80,
     minWidth: 80,
     flexGrow: 1,
@@ -165,7 +167,7 @@ const columnMaps: {
   },
   equipmentSite: {
     field: 'equipmentSite',
-    title: '设备场所',
+    title: i18n.t('设备场所'),
     width: 80,
     minWidth: 80,
     flexGrow: 1,
@@ -175,21 +177,21 @@ const columnMaps: {
   },
   createdAt: {
     field: 'createdAt',
-    title: '创建时间',
+    title: i18n.t('创建时间'),
     width: 120,
     minWidth: 120,
     render: ({ createdAt }) => (createdAt ? fDateTime(createdAt) : ' - '),
   },
   updatedAt: {
     field: 'updatedAt',
-    title: '更新时间',
+    title: i18n.t('更新时间'),
     width: 120,
     minWidth: 120,
     render: ({ updatedAt }) => (updatedAt ? fDateTime(updatedAt) : ' - '),
   },
   creator: {
     field: 'creator',
-    title: '创建人',
+    title: i18n.t('创建人'),
     width: 80,
     minWidth: 80,
     render: ({ creator }) => (
@@ -198,7 +200,7 @@ const columnMaps: {
   },
   comment: {
     field: 'comment',
-    title: '备注',
+    title: i18n.t('备注'),
     width: 200,
     minWidth: 200,
     render: ({ comment }) => <Typography variant="body1">{comment}</Typography>,
@@ -249,7 +251,7 @@ export const EquipmentList = ({
   const handleRemove = useMemoizedFn<(uuid: string, name?: string) => void>(
     async (uuid, name) => {
       confirm({
-        title: `确认删除 设备 ${name || '未命名'} 吗？`,
+        title: `确认删除 设备 ${name || i18n.t('未命名')} 吗？`,
         content: '此操作不可逆，可能会影响设备列表数据，请谨慎!',
       }).then(confirmed => {
         confirmed && onRemove?.(uuid)
@@ -271,11 +273,11 @@ export const EquipmentList = ({
         width: 120,
         minWidth: 180,
         fixed: 'right',
-        title: '操作',
+        title: i18n.t('操作'),
         render: ({ id, equipmentName }) => {
           return (
             <Stack spacing={2} direction="row">
-              <Tooltip title="删除">
+              <Tooltip title={i18n.t('删除')}>
                 <IconButton
                   size="small"
                   color="error"
@@ -284,7 +286,7 @@ export const EquipmentList = ({
                   <MdDelete />
                 </IconButton>
               </Tooltip>
-              <Tooltip title="编辑">
+              <Tooltip title={i18n.t('编辑')}>
                 <IconButton
                   size="small"
                   color="primary"
@@ -328,7 +330,7 @@ export const EquipmentList = ({
             component={RouteLink}
             startIcon={<MdAddCircle />}
           >
-            创建
+            {i18n.t('新增')}
           </Button>
           {isBulkActionEnabled && (
             <Button
@@ -337,7 +339,7 @@ export const EquipmentList = ({
               startIcon={<MdDelete />}
               onClick={handleBulkRemove}
             >
-              批量删除
+              {i18n.t('批量删除')}
             </Button>
           )}
         </Stack>
@@ -362,14 +364,14 @@ export const EquipmentList = ({
           component="div"
           showFirstButton
           showLastButton
-          labelRowsPerPage="每页显示"
+          labelRowsPerPage={i18n.t('每页显示')}
           rowsPerPageOptions={[
-            { label: '10条', value: 10 },
-            { label: '20条', value: 20 },
-            { label: '50条', value: 50 },
+            { label: '10 ' + i18n.t('行'), value: 10 },
+            { label: '20 ' + i18n.t('行'), value: 20 },
+            { label: '50 ' + i18n.t('行'), value: 50 },
           ]}
           labelDisplayedRows={({ from, to, count }) =>
-            `共 ${count} 条，当前第 ${from} 至 ${to} 条数据。`
+            `${i18n.t('总量')} ${count} ${i18n.t('行')}, ${i18n.t('当前范围')}: [${from} - ${to}]`
           }
           count={total}
           page={page}

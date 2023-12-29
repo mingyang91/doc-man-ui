@@ -13,7 +13,9 @@ import { InspectionReportDetail, UUIDV4 } from 'm/presets'
 import { InspectionDetail } from './components/inspection-detail'
 import { InspectionReportDataProvider } from './components/inspection-detail/context'
 
-const TITLE = `设备检验检测 - 详情`
+import i18n from 'strings/i18n'
+
+const TITLE = `${i18n.t('设备检验检测')} - ${i18n.t('详情')}`
 
 const PageDetailInspectionReport = () => {
   const { activeRouteConfig } = useMenuAndRoutes()
@@ -41,7 +43,7 @@ const PageDetailInspectionReport = () => {
       ) : (
         isError && (
           <Snackbar open>
-            <CommonMessage type="error" description="获取数据错误" />
+            <CommonMessage type="error" description={i18n.t('获取数据错误')} />
           </Snackbar>
         )
       )}

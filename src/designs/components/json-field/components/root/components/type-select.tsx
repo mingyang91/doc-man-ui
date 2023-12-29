@@ -12,6 +12,8 @@ import Iconify from 'd/components/iconify'
 import { NodeTypes } from '../../../type'
 import { TypeAndIcons } from '../../../utils/icons'
 
+import i18n from 'strings/i18n'
+
 interface TypeSelectProps {
   value: NodeTypes.array | NodeTypes.object
   onChange?: (value: NodeTypes.array | NodeTypes.object) => void
@@ -26,8 +28,8 @@ export const TypeSelect = ({ value, onChange }: TypeSelectProps) => {
 
   return (
     <FormControl component="section" variant="outlined" fullWidth>
-      <InputLabel>JSON 格式</InputLabel>
-      <Select label="JSON 格式" value={value} onChange={handleChange}>
+      <InputLabel>{i18n.t('JSON 格式')}</InputLabel>
+      <Select label={i18n.t('JSON 格式')} value={value} onChange={handleChange}>
         <MenuItem value={NodeTypes.array}>
           <Iconify icon={TypeAndIcons[NodeTypes.array]} /> 数组
         </MenuItem>

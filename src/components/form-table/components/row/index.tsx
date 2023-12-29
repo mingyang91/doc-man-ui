@@ -3,6 +3,8 @@ import { memo, ReactNode } from 'react'
 
 import { Conclusions } from 'm/common'
 
+import i18n from 'strings/i18n'
+
 const Td = memo(
   styled(TableCell)({
     position: 'relative',
@@ -38,9 +40,9 @@ interface FormDetailRowProps {
 const ConclusionsViews: {
   [key in Conclusions]: JSX.Element
 } = {
-  [Conclusions.Good]: <Chip label="合格" color="success" />,
-  [Conclusions.Bad]: <Chip label="不合格" color="error" />,
-  [Conclusions.Unknown]: <Chip label="未知" color="default" />,
+  [Conclusions.Good]: <Chip label={i18n.t('合格')} color="success" />,
+  [Conclusions.Bad]: <Chip label={i18n.t('不合格')} color="error" />,
+  [Conclusions.Unknown]: <Chip label={i18n.t('未知')} color="default" />,
 }
 
 const defaultRequirementRender = (text?: string) => (

@@ -24,6 +24,8 @@ import { useImmerReducer } from 'use-immer'
 
 import Iconify from 'd/components/iconify'
 
+import i18n from 'strings/i18n'
+
 type OnChange = (event: ChangeEvent<HTMLInputElement>, checked: boolean) => void
 
 type DataColumnItem = {
@@ -158,9 +160,9 @@ export const DataColumnSelector = ({
 
   return (
     <>
-      <Tooltip title="过滤数据项">
+      <Tooltip title={i18n.t('过滤数据项')}>
         <IconButton
-          aria-label="过滤"
+          aria-label={i18n.t('过滤')}
           color="default"
           {...bindTrigger(popupState)}
           sx={sx}
@@ -184,7 +186,7 @@ export const DataColumnSelector = ({
                   onChange={onAllCheckChange}
                 />
               </ListItemIcon>
-              <ListItemText primary="全选" />
+              <ListItemText primary={i18n.t("全选")} />
             </ListItemButton>
           </ListItem>
           {children}

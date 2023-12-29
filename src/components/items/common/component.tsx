@@ -7,6 +7,8 @@ import { isDevelopment } from 'com/const'
 
 import { ItemComponentProps } from './type'
 
+import i18n from 'strings/i18n'
+
 type DefaultItemProps = ItemComponentProps<{}>
 
 // 如果没有匹配到组件，用这个fallback，只提供显示，不提供编辑
@@ -23,7 +25,7 @@ export const DefaultItem = ({ item }: DefaultItemProps) => {
   return (
     <>
       <Typography variant="body1" component="section" flex="1">
-        未知的检测项类型，数据如下
+        {i18n.t('未知的检测项目类型，数据如下')}
       </Typography>
       <HighlightSyntax code={stringify} />
     </>

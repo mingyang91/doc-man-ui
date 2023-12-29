@@ -18,6 +18,8 @@ import { StyledBox } from 'd/components/json-field/components/node/components/st
 import { Point, RUDataCondition, RUDataInput, RUDataResult } from '../type'
 import { formatCondition } from '../utils'
 
+import i18n from 'strings/i18n'
+
 export interface CalcModalProps
   extends Omit<ModalProps, 'isOpen' | 'onConfirm'> {
   condition?: RUDataCondition
@@ -56,7 +58,7 @@ function Lack({ onClose }: LackProps) {
       onClose={onClose}
       onConfirm={onClose}
     >
-      <StyledBox>需先计算 STP 后才可以使用此公式</StyledBox>
+      <StyledBox>{i18n.t('需先计算 STP 后才可以使用此公式')}</StyledBox>
     </Modal>
   )
 }
@@ -67,7 +69,7 @@ function Fulfilled({
   onClose,
   onConfirm,
 }: FulfilledCalcModalProps) {
-  const title = `响应均匀性 @ ${formatCondition(condition)}`
+  const title = `${i18n.t('响应均匀性')} @ ${formatCondition(condition)}`
 
   const [points, setPoints] = useImmer<Point[]>(input?.points || [])
 
@@ -122,19 +124,19 @@ function Fulfilled({
         </colgroup>
         <TableHead>
           <TableRow>
-            <TableCell component="th">函数关系</TableCell>
+            <TableCell component="th">{i18n.t('函数关系')}</TableCell>
             {input?.points.map((p, idx) => (
               <TableCell component="th" key={idx}>
                 {p.position}
               </TableCell>
             ))}
-            <TableCell component="th">总和</TableCell>
-            <TableCell component="th">平均</TableCell>
+            <TableCell component="th">{i18n.t('总和')}</TableCell>
+            <TableCell component="th">{i18n.t('平均')}</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           <TableRow>
-            <TableCell>像素值</TableCell>
+            <TableCell>{i18n.t('像素值')}</TableCell>
             {points.map((p, idx) => (
               <TableCell key={idx}>
                 <Box>
@@ -153,7 +155,7 @@ function Fulfilled({
             <TableCell>{avgByPixels.toFixed(2)}</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell rowSpan={2}>线性响应</TableCell>
+            <TableCell rowSpan={2}>{i18n.t('线性响应')}</TableCell>
             {predictX.map((predict, idx) => (
               <TableCell key={idx}>{predict.toFixed(2)}</TableCell>
             ))}
@@ -168,7 +170,7 @@ function Fulfilled({
             <TableCell>{halfOfSqrtOfSum.toFixed(8)}</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell>变异系数CV (%)</TableCell>
+            <TableCell>{i18n.t('变异系数CV (%)')}</TableCell>
             <TableCell
               style={{ textAlign: 'right' }}
               colSpan={2 + points.length}

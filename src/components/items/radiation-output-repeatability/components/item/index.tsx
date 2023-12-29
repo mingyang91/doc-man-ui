@@ -12,6 +12,9 @@ import { RORDataItem } from '../../type'
 import { initialRORDataItem } from '../../utils'
 import { CalcModal, CalcModalProps } from './components/calc-modal'
 
+import i18n from 'strings/i18n'
+
+
 export interface RORItemProps {
   index: number
   value: RORDataItem
@@ -38,7 +41,7 @@ export const RORItem = ({ index, value, onChange, onRemove }: RORItemProps) => {
   const ResultText = useMemo(
     () =>
       isNil(finalValue.result?.value)
-        ? '点击填写结果'
+        ? i18n.t('点击填写结果')
         : `${finalValue.result.value}${finalValue.result.unit}`,
     [finalValue.result]
   )
@@ -63,7 +66,7 @@ export const RORItem = ({ index, value, onChange, onRemove }: RORItemProps) => {
           startIcon={<Iconify icon={MdDelete} />}
           onClick={onRemove}
         >
-          删除此项
+          {i18n.t('删除')}
         </Button>
       </TableCell>
       <TableCell>
@@ -71,19 +74,19 @@ export const RORItem = ({ index, value, onChange, onRemove }: RORItemProps) => {
           <TextFieldWithUnit
             sx={fieldSx}
             variant="standard"
-            label="电压"
+            label={i18n.t('电压')}
             value={finalValue.condition.voltage}
           />
           <TextFieldWithUnit
             variant="standard"
             sx={fieldSx}
-            label="电流"
+            label={i18n.t('电流')}
             value={finalValue.condition.current}
           />
           <TextFieldWithUnit
             variant="standard"
             sx={fieldSx}
-            label="时间积"
+            label={i18n.t('时间积')}
             value={finalValue.condition.timeProduct}
           />
         </Box>

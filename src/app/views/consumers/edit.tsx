@@ -18,7 +18,9 @@ import { UUIDV4 } from 'm/presets'
 import { ConsumerForm, FnSubmitClient } from './components/consumer-form'
 import { ConsumerFormData } from './components/consumer-form/utils'
 
-const TITLE = `委托单位 - 编辑`
+import i18n from 'strings/i18n'
+
+const TITLE = `${i18n.t('委托单位')} - 编辑`
 
 const PageConsumerEdit = () => {
   const { activeRouteConfig } = useMenuAndRoutes()
@@ -33,10 +35,10 @@ const PageConsumerEdit = () => {
 
   const { mutate, isLoading } = useUpdateClientsByIdMutation({
     onSuccess() {
-      pushSuccessMessage(`更新委托单位成功`)
+      pushSuccessMessage(`成功`)
     },
     onError(error) {
-      pushErrorMessage(`更新委托单位失败: ${(error as Error).message}`)
+      pushErrorMessage(`失败: ${(error as Error).message}`)
     },
   })
 

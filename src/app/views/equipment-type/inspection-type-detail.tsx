@@ -24,6 +24,8 @@ import { formatInspectionType } from 'm/common'
 import { EditAlert } from './components/alert'
 
 import { DetailCard } from '@@/detail-card'
+import i18n from 'strings/i18n'
+
 
 const TITLE = '设备类型 - 检测类型 - 详情'
 
@@ -66,19 +68,19 @@ const PageInspectionTypeDetail = () => {
           <Grid container spacing={3}>
             <Grid xs={12} sm={6}>
               <FieldLine>
-                <FieldHeader>标识符</FieldHeader>
+                <FieldHeader>{i18n.t('标识符')}</FieldHeader>
                 <FieldContent>{memoData.name}</FieldContent>
               </FieldLine>
             </Grid>
             <Grid xs={12} sm={6}>
               <FieldLine>
-                <FieldHeader>名称</FieldHeader>
-                <FieldContent>{memoData.displayName || '未填写'}</FieldContent>
+                <FieldHeader>{i18n.t('名称')}</FieldHeader>
+                <FieldContent>{memoData.displayName || i18n.t('未填写')}</FieldContent>
               </FieldLine>
             </Grid>
             <Grid xs={12} sm={6}>
               <FieldLine>
-                <FieldHeader>检测项类型</FieldHeader>
+                <FieldHeader>{i18n.t('检测项目类型')}</FieldHeader>
                 <FieldContent>
                   {formatInspectionType(memoData.type)}
                 </FieldContent>
@@ -86,7 +88,7 @@ const PageInspectionTypeDetail = () => {
             </Grid>
             <Grid xs={12} sm={6}>
               <FieldLine>
-                <FieldHeader>检测条件预设</FieldHeader>
+                <FieldHeader>{i18n.t('检测条件预设')}</FieldHeader>
                 <FieldContent>
                   <HighlightSyntax
                     code={JSON.stringify(memoData.condition, null, 2)}
@@ -97,16 +99,16 @@ const PageInspectionTypeDetail = () => {
 
             <Grid xs={12}>
               <FieldLine>
-                <FieldHeader>状态检测</FieldHeader>
+                <FieldHeader>{i18n.t('状态检测')}</FieldHeader>
                 <FieldContent>
                   <Typography component="h5" variant="subtitle1">
-                    描述
+                    {i18n.t('描述')}
                   </Typography>
                   <StyledDescription>
                     {memoData.requirement?.state?.display}
                   </StyledDescription>
                   <Typography component="h5" variant="subtitle1">
-                    代码
+                    {i18n.t('代码')}
                   </Typography>
                   <HighlightSyntax
                     code={JSON.stringify(
@@ -118,16 +120,16 @@ const PageInspectionTypeDetail = () => {
                 </FieldContent>
               </FieldLine>
               <FieldLine>
-                <FieldHeader>验收检测</FieldHeader>
+                <FieldHeader>{i18n.t('验收检测')}</FieldHeader>
                 <FieldContent>
                   <Typography component="h5" variant="subtitle1">
-                    描述
+                    {i18n.t('描述')}
                   </Typography>
                   <StyledDescription>
                     {memoData.requirement?.acceptance?.display}
                   </StyledDescription>
                   <Typography component="h5" variant="subtitle1">
-                    代码
+                    {i18n.t('代码')}
                   </Typography>
                   <HighlightSyntax
                     code={JSON.stringify(
@@ -141,10 +143,10 @@ const PageInspectionTypeDetail = () => {
             </Grid>
             <Grid xs={12} sm={6}>
               <FieldLine>
-                <FieldHeader>公式</FieldHeader>
+                <FieldHeader>{i18n.t('公式')}</FieldHeader>
                 <FieldContent>
                   <HighlightSyntax
-                    code={memoData.formula || '未填写'}
+                    code={memoData.formula || i18n.t('未填写')}
                     language="excel"
                   />
                 </FieldContent>
@@ -152,7 +154,7 @@ const PageInspectionTypeDetail = () => {
             </Grid>
             <Grid xs={12} sm={6}>
               <FieldLine>
-                <FieldHeader>常量列表</FieldHeader>
+                <FieldHeader>{i18n.t('常量列表')}</FieldHeader>
                 <FieldContent>
                   <HighlightSyntax
                     code={JSON.stringify(memoData.consts, null, 2)}
@@ -162,7 +164,7 @@ const PageInspectionTypeDetail = () => {
             </Grid>
             <Grid xs={12}>
               <FieldLine>
-                <FieldHeader>备注</FieldHeader>
+                <FieldHeader>{i18n.t('备注')}</FieldHeader>
                 <FieldContent>{memoData.comment || ' - '}</FieldContent>
               </FieldLine>
             </Grid>
@@ -173,7 +175,7 @@ const PageInspectionTypeDetail = () => {
       ) : (
         isError && (
           <Snackbar open>
-            <CommonMessage type="error" description="获取数据错误" />
+            <CommonMessage type="error" description={i18n.t('获取数据错误')} />
           </Snackbar>
         )
       )}

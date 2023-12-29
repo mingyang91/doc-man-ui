@@ -12,6 +12,8 @@ import { StyledRootBox } from './components/styled'
 import { TypeSelect } from './components/type-select'
 
 import { useConfirm } from '@@/confirm'
+import i18n from 'strings/i18n'
+
 
 interface JsonFieldProps {
   label?: string
@@ -46,10 +48,10 @@ export const JsonField = forwardRef<HTMLDivElement, JsonFieldProps>(
 
           if (nodeData.value.length > 0) {
             const result = await confirm({
-              title: '确定要更改根数据类型吗？',
-              content: '此举会导致数据全部丢失，请确认是否继续。',
-              confirmText: '确认',
-              cancelText: '取消',
+              title: i18n.t('确定要更改根数据类型吗？'),
+              content: i18n.t('此举会导致数据全部丢失，请确认是否继续。'),
+              confirmText: i18n.t('确认'),
+              cancelText: i18n.t('取消'),
             })
 
             if (result) {

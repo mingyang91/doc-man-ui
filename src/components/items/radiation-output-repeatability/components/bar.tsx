@@ -3,6 +3,8 @@ import { MdAddCircle } from 'react-icons/md'
 
 import Iconify from 'd/components/iconify'
 
+import i18n from 'strings/i18n'
+
 export interface RORBarProps {
   onAdd: () => void
 }
@@ -17,7 +19,7 @@ export const RORBar = ({ onAdd }: RORBarProps) => {
             startIcon={<Iconify icon={MdAddCircle} />}
             onClick={onAdd}
           >
-            增加
+            {i18n.t('新增')}
           </Button>
         </TableCell>
       </TableRow>

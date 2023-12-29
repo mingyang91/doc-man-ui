@@ -16,6 +16,8 @@ import {
 } from './utils'
 
 import { LocationSelectorElement } from '@@/location-selector'
+import i18n from 'strings/i18n'
+
 
 export type FnSubmitClient = (
   values: ConsumerFormData,
@@ -49,7 +51,7 @@ export const ConsumerForm = ({
       {({ pristine, submitting, handleSubmit }) => (
         <Grid container spacing={3}>
           <Grid xs={12} md={6}>
-            <TextField name="name" label="单位名称" fullWidth required />
+            <TextField name="name" label={i18n.t('单位名称')} fullWidth required />
           </Grid>
           <Grid xs={12}>
             <Field
@@ -62,7 +64,7 @@ export const ConsumerForm = ({
           <Grid xs={12}>
             <TextField
               name="comment"
-              label="备注"
+              label={i18n.t('备注')}
               type="text"
               fullWidth
               multiline
@@ -80,7 +82,7 @@ export const ConsumerForm = ({
                 loading={submitting}
                 onClick={handleSubmit}
               >
-                {!isEdit ? '新增设备' : '保存更改'}
+                {!isEdit ? i18n.t('新增') : i18n.t('保存')}
               </LoadingButton>
             </Box>
           </Grid>

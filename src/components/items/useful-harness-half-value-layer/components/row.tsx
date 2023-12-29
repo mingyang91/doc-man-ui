@@ -12,6 +12,9 @@ import { UHHVLData } from '../type'
 import { initialUHHVLData } from '../utils'
 import { CalcModal, CalcModalProps } from './calc-modal'
 
+import i18n from 'strings/i18n'
+
+
 export interface UHHVLRowProps {
   value: UHHVLData
   onChange: (value: UHHVLData) => void
@@ -33,7 +36,7 @@ export const UHHVLRow = ({ value, onChange }: UHHVLRowProps) => {
   const ResultText = useMemo(
     () =>
       isNil(finalValue.result?.value)
-        ? '点击填写结果'
+        ? i18n.t('点击填写结果')
         : `${finalValue.result.value}${finalValue.result.unit}`,
     [finalValue.result]
   )
@@ -68,21 +71,21 @@ export const UHHVLRow = ({ value, onChange }: UHHVLRowProps) => {
             <TextFieldWithUnit
               sx={fieldSx}
               variant="standard"
-              label="电压"
+              label={i18n.t('电压')}
               value={finalValue.condition.voltage}
               onChange={value => onConditionChange(value, 'voltage')}
             />
             <TextFieldWithUnit
               variant="standard"
               sx={fieldSx}
-              label="电流"
+              label={i18n.t('电流')}
               value={finalValue.condition.current}
               onChange={value => onConditionChange(value, 'current')}
             />
             <TextFieldWithUnit
               variant="standard"
               sx={fieldSx}
-              label="时间"
+              label={i18n.t('时间')}
               value={finalValue.condition.timeProduct}
               onChange={value => onConditionChange(value, 'timeProduct')}
             />

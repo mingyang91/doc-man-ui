@@ -28,6 +28,8 @@ import { IsEditProvider } from './context/is-edit'
 
 import { DetailCard } from '@@/detail-card'
 import { initialInspectionItemTypeData } from '@@/inspection-item-type-selector/utils'
+import i18n from 'strings/i18n'
+
 
 interface InspectionFormProps extends DomainFormProps {
   initialInspectionTypes?: InspectionTypesByEquipmentQuery['list']
@@ -86,7 +88,7 @@ export const InspectionForm = ({
               <Grid xs={12} lg={12} xl={4}>
                 <DetailCard>
                   <Stack direction="column" spacing={3} alignItems="stretch">
-                    <Typography variant="h5">基本信息</Typography>
+                    <Typography variant="h5">{i18n.t('基本信息')}</Typography>
                     <BaseFields />
                   </Stack>
                 </DetailCard>
@@ -108,7 +110,7 @@ export const InspectionForm = ({
                     loading={submitting || isLoading}
                     onClick={handleSubmit}
                   >
-                    {!isEdit ? '提交报告' : '保存更改'}
+                    {!isEdit ? i18n.t('提交报告') : i18n.t('保存')}
                   </LoadingButton>
                 </Stack>
               </Grid>
@@ -117,7 +119,7 @@ export const InspectionForm = ({
                 <DetailCard sx={{ px: 0, py: 3 }}>
                   <Stack direction="column" spacing={2} alignItems="stretch">
                     <Typography variant="h5" sx={{ px: 3 }}>
-                      详细信息
+                      {i18n.t('详情')}
                     </Typography>
                     <InspectionTypeProvider
                       initialState={{
@@ -149,7 +151,7 @@ export const InspectionForm = ({
                     loading={submitting || isLoading}
                     onClick={handleSubmit}
                   >
-                    {!isEdit ? '提交报告' : '保存更改'}
+                    {!isEdit ? i18n.t('提交报告') : i18n.t('保存')}
                   </LoadingButton>
                 </Stack>
               </Grid>

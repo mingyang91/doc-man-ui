@@ -21,6 +21,7 @@ import { DdiDataCondition, DdiDataInput, DdiDataResult } from '../type'
 import { calculateDdiData, formatCondition } from '../utils'
 
 import { InputEditable } from '@@/input-editable'
+import i18n from 'strings/i18n'
 
 const StyledBox = styled(Box)(({ theme }) => ({
   width: '60vw',
@@ -118,15 +119,15 @@ export const CalcModal = ({
           </colgroup>
           <TableHead>
             <TableRow>
-              <TableCell component="th">测量值</TableCell>
-              <TableCell component="th">结果</TableCell>
+              <TableCell component="th">{i18n.t('测量值')}</TableCell>
+              <TableCell component="th">{i18n.t('结果')}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             <TableRow>
               <TableCell>
                 <TextField
-                  label="基线"
+                  label={i18n.t('基线')}
                   value={value.baseValue}
                   onChange={onInputBaseValue}
                 />

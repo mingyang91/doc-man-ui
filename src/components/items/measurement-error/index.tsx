@@ -24,6 +24,8 @@ import { ItemComponentProps } from '../common/type'
 import { MEData, MEDataItem, MEDataItemInput, MEDataItemResult } from './type'
 import { initialMEData, initialMEDataItem } from './utils'
 
+import i18n from 'strings/i18n'
+
 type MEProps = ItemComponentProps<MEData>
 
 export default function MEField({
@@ -56,10 +58,10 @@ export default function MEField({
             <TableHead>
               <TableRow>
                 <TableCell align="center"> - </TableCell>
-                <TableCell>预设</TableCell>
-                <TableCell>测量</TableCell>
-                <TableCell>偏差</TableCell>
-                <TableCell>偏差（%）</TableCell>
+                <TableCell>{i18n.t('预设')}</TableCell>
+                <TableCell>{i18n.t('测量')}</TableCell>
+                <TableCell>{i18n.t('偏差')}</TableCell>
+                <TableCell>{i18n.t('偏差（%）')}</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -121,13 +123,13 @@ const MEItem = ({ value, onChange, onRemove }: MEItemProps) => {
           startIcon={<Iconify icon={MdDelete} />}
           onClick={onRemove}
         >
-          删除
+          {i18n.t('删除')}
         </Button>
       </TableCell>
       <TableCell>
         <TextField
           value={value.input?.preset}
-          label="预设"
+          label={i18n.t('预设')}
           type="number"
           onChange={evt =>
             onChange(
@@ -141,7 +143,7 @@ const MEItem = ({ value, onChange, onRemove }: MEItemProps) => {
       <TableCell>
         <TextField
           value={value.input?.measured}
-          label="测量"
+          label={i18n.t('测量')}
           type="number"
           onChange={evt =>
             onChange(
@@ -171,7 +173,7 @@ const Footer = ({ onAdd }: { onAdd: () => void }) => {
           startIcon={<Iconify icon={MdAddCircle} />}
           onClick={onAdd}
         >
-          增加
+          {i18n.t('新增')}
         </Button>
       </TableCell>
     </TableRow>

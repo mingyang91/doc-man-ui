@@ -13,6 +13,8 @@ import {
 import { ConclusionSelect } from './conclusion-select'
 import { StyledConclusion } from './styled'
 
+import i18n from 'strings/i18n'
+
 export interface NewConclusionProps<T> {
   name: string
   inspectionItem: InspectionTypeEnum
@@ -65,7 +67,7 @@ export function NewConclusion<T>({
   return (
     <StyledConclusion>
       <Typography variant="body1" className="typo">
-        结论：
+        {i18n.t('结论')}：
       </Typography>
       {isDifferent && (
         <Stack direction="row" spacing={1}>
@@ -73,7 +75,7 @@ export function NewConclusion<T>({
             variant="text"
             onClick={() => conclusion.onChange(interConclusion)}
           >
-            使用建议
+            {i18n.t('使用建议')}
           </Button>
           <Typography variant="body2" className="suggest">
             {conclusionMap[interConclusion]}

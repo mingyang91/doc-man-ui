@@ -7,6 +7,7 @@ import { EquipmentType } from 'm/presets'
 import { useEquipmentTypeOptions } from '../hooks'
 
 import { DropdownLoading } from '@@/utils'
+import i18n from 'strings/i18n'
 
 export interface EquipmentTypeSelectorProps
   extends Omit<TextFieldProps, 'value' | 'onChange'> {
@@ -46,7 +47,7 @@ export const EquipmentTypeSelector = forwardRef<
       ref={ref}
     >
       {isError ? (
-        <>加载失败，请刷新页面...</>
+        <>{i18n.t('加载失败，请刷新页面')}</>
       ) : isLoading || !equipmentTypeList ? (
         <DropdownLoading />
       ) : (

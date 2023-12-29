@@ -13,6 +13,7 @@ import { InspectionRequirement, InspectionTypeEnum } from 'm/presets'
 import { StyledTable, StyledTablePaper } from './styled'
 
 import { InputEditable } from '@@/input-editable'
+import i18n from 'strings/i18n'
 
 const TitleRoot = styled(TableCell)(({ theme }) => ({
   fontWeight: 'bold',
@@ -95,10 +96,10 @@ export const RequirementDisplay = ({
         <TableBody>
           <Row active={type === InspectionTypeEnum.Acceptance}>
             <TitleRoot rowSpan={2} align="center" valign="middle">
-              指标要求
+              {i18n.t('检测指标要求')}
             </TitleRoot>
             <TitleLevel2 align="center" valign="middle">
-              验收检测
+              {i18n.t('验收检测')}
             </TitleLevel2>
             <TableCell align="left" valign="middle">
               <InputEditable
@@ -111,7 +112,7 @@ export const RequirementDisplay = ({
           </Row>
           <Row active={type === InspectionTypeEnum.State}>
             <TitleLevel2 align="center" valign="middle">
-              状态检测
+              {i18n.t('状态检测')}
             </TitleLevel2>
             <TableCell align="left" valign="middle">
               <InputEditable

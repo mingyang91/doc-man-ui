@@ -35,6 +35,7 @@ import { isInclude, isOptionEqualToValue } from '../utils'
 
 import { LocationValue } from '@@/location-selector'
 import { formatLocation } from '@@/location-selector/utils'
+import i18n from 'strings/i18n'
 
 const StyledPopper = styled(Popper)(({ theme }) => ({
   border: `1px solid ${theme.palette.mode === 'light' ? '#e1e4e8' : '#30363d'}`,
@@ -250,7 +251,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
                 fontWeight: 600,
               }}
             >
-              搜索以选择客户
+              {i18n.t('搜索以选择客户')}
             </Box>
             <Autocomplete<ConsumerSelectorValue>
               open
@@ -260,7 +261,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
               disableCloseOnSelect
               PopperComponent={AutocompletePopperComponent}
               renderTags={() => null}
-              noOptionsText="搜索结果为空"
+              noOptionsText={i18n.t('搜索结果为空')}
               loading={isLoading}
               renderOption={renderOption}
               options={options}
@@ -274,7 +275,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
                   inputProps={params.inputProps}
                   // eslint-disable-next-line jsx-a11y/no-autofocus
                   autoFocus
-                  placeholder="输入客户名称进行精确搜索"
+                  placeholder={i18n.t('输入客户名称进行精确搜索')}
                 />
               )}
             />

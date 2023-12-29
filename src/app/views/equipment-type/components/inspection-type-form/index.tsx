@@ -27,6 +27,9 @@ import {
   InspectionTypeEnumFormData,
 } from './utils'
 
+import i18n from 'strings/i18n'
+
+
 export type InspectionEnumFormFn = (
   value: InspectionTypeEnumFormData,
   form: FormApi<InspectionTypeEnumFormData>,
@@ -71,7 +74,7 @@ export const InspectionEnumForm = ({
           <Grid xs={12} md={6}>
             <TextField
               name="name"
-              label="标识符"
+              label={i18n.t('标识符')}
               type="text"
               required
               fullWidth
@@ -80,7 +83,7 @@ export const InspectionEnumForm = ({
           <Grid xs={12} md={6}>
             <TextField
               name="displayName"
-              label="检测项名称"
+              label={i18n.t('检测项名称')}
               type="text"
               required
               fullWidth
@@ -89,16 +92,16 @@ export const InspectionEnumForm = ({
           <Grid xs={12} md={6}>
             <TextField
               name="formula"
-              label="计算公式"
+              label={i18n.t('计算公式')}
               type="text"
               required
               fullWidth
             />
           </Grid>
           <Grid xs={12} md={6}>
-            <Select name="type" label="检测类型" required fullWidth>
-              <MenuItem value="1">通用检测项目</MenuItem>
-              <MenuItem value="2">专用检测项目</MenuItem>
+            <Select name="type" label={i18n.t('检测类型')} required fullWidth>
+              <MenuItem value="1">{i18n.t('通用检测项目')}</MenuItem>
+              <MenuItem value="2">{i18n.t('专用检测项目')}</MenuItem>
             </Select>
           </Grid>
           <Grid xs={12} md={6}>
@@ -106,7 +109,7 @@ export const InspectionEnumForm = ({
               {({ input, meta }) => (
                 <JsonEditor
                   sx={{ width: '100%' }}
-                  label="检测条件"
+                  label={i18n.t('检测条件')}
                   value={input.value}
                   onChange={input.onChange}
                   helperText={meta.error}
@@ -118,7 +121,7 @@ export const InspectionEnumForm = ({
           <Grid xs={12} md={6}>
             <TextField
               name="index"
-              label="序号"
+              label={i18n.t('序号')}
               type="number"
               required
               fullWidth
@@ -128,7 +131,7 @@ export const InspectionEnumForm = ({
           <Grid xs={12} md={6}>
             <Stack direction="column" alignItems="flex-start" spacing={1}>
               <Typography variant="body1" fontWeight="600">
-                常量列表
+                {i18n.t('常量列表')}
               </Typography>
               <Stack
                 direction="column"
@@ -154,7 +157,7 @@ export const InspectionEnumForm = ({
                             sx={{ flex: 1 }}
                           />
                           <Button
-                            title="删除"
+                            title={i18n.t('删除')}
                             sx={{ display: 'flex', height: '40px' }}
                             color="error"
                             onClick={() => fields.remove(index)}
@@ -168,7 +171,7 @@ export const InspectionEnumForm = ({
                           color="primary"
                           variant="contained"
                           size="medium"
-                          title="增加一条"
+                          title={i18n.t('增加一条')}
                           onClick={() => fields.push(0)}
                         >
                           <Iconify icon={MdAddCircle} />
@@ -187,7 +190,7 @@ export const InspectionEnumForm = ({
             <TextField
               name="requirement.state.display"
               fullWidth
-              label="状态检测合格条件描述"
+              label={i18n.t('状态检测合格条件描述')}
               type="text"
             />
           </Grid>
@@ -196,7 +199,7 @@ export const InspectionEnumForm = ({
               {({ input, meta }) => (
                 <JsonEditor
                   sx={{ width: '100%' }}
-                  label="状态检测合格条件代码"
+                  label={i18n.t('状态检测合格条件代码')}
                   value={input.value}
                   onChange={input.onChange}
                   helperText={meta.error}
@@ -209,7 +212,7 @@ export const InspectionEnumForm = ({
             <TextField
               name="requirement.acceptance.display"
               fullWidth
-              label="验收检测合格条件描述"
+              label={i18n.t('验收检测合格条件描述')}
               type="text"
             />
           </Grid>
@@ -218,7 +221,7 @@ export const InspectionEnumForm = ({
               {({ input, meta }) => (
                 <JsonEditor
                   sx={{ width: '100%' }}
-                  label="验收检测合格条件代码"
+                  label={i18n.t('验收检测合格条件代码')}
                   value={input.value}
                   onChange={input.onChange}
                   helperText={meta.error}
@@ -232,7 +235,7 @@ export const InspectionEnumForm = ({
               {({ input, meta }) => (
                 <JsonEditor
                   sx={{ width: '100%' }}
-                  label="数据"
+                  label={i18n.t('数据')}
                   value={input.value}
                   onChange={input.onChange}
                   helperText={meta.error}
@@ -244,7 +247,7 @@ export const InspectionEnumForm = ({
           <Grid xs={12} md={6}>
             <TextField
               name="comment"
-              label="备注"
+              label={i18n.t('备注')}
               type="text"
               fullWidth
               multiline
@@ -270,7 +273,7 @@ export const InspectionEnumForm = ({
                 loading={submitting || isLoading}
                 onClick={handleSubmit}
               >
-                {!isEdit ? '新增检测类型' : '保存检测类型'}
+                {!isEdit ? i18n.t('新增检测类型') : i18n.t('保存检测类型')}
               </LoadingButton>
             </Box>
           </Grid>

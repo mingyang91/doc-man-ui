@@ -12,6 +12,9 @@ import { DdiData } from '../type'
 import { formatResult, initialDdiData } from '../utils'
 import { CalcModal, CalcModalProps } from './calc-modal'
 
+import i18n from 'strings/i18n'
+
+
 export interface DdiRowProps {
   name: string
   value: DdiData
@@ -34,7 +37,7 @@ export const DdiRow = ({ name, value, onChange }: DdiRowProps) => {
   const ResultText = useMemo(
     () =>
       isNil(finalValue.result)
-        ? '点击填写结果'
+        ? i18n.t('点击填写结果')
         : formatResult(finalValue.result),
     [finalValue.result]
   )
@@ -69,7 +72,7 @@ export const DdiRow = ({ name, value, onChange }: DdiRowProps) => {
             <TextFieldWithUnit
               variant="standard"
               sx={fieldSx}
-              label="值"
+              label={i18n.t('值')}
               value={finalValue.condition.value}
               onChange={value => onConditionChange(value, 'value')}
             />
@@ -78,14 +81,14 @@ export const DdiRow = ({ name, value, onChange }: DdiRowProps) => {
             <TextFieldWithUnit
               sx={fieldSx}
               variant="standard"
-              label="电压"
+              label={i18n.t('电压')}
               value={finalValue.condition.voltage}
               onChange={value => onConditionChange(value, 'voltage')}
             />
             <TextFieldWithUnit
               variant="standard"
               sx={fieldSx}
-              label="电流"
+              label={i18n.t('电流')}
               value={finalValue.condition.current}
               onChange={value => onConditionChange(value, 'current')}
             />

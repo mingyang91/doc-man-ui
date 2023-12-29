@@ -24,6 +24,8 @@ import {
 import { initialInspectionTypeEnumFormData } from './components/inspection-type-form/utils'
 import { EditAlert } from './components/alert'
 
+import i18n from 'strings/i18n'
+
 const TITLE = '设备类型 - 检测类型 - 详情'
 
 const PageInspectionItemEnumDetail = () => {
@@ -45,10 +47,10 @@ const PageInspectionItemEnumDetail = () => {
 
   const { mutate, isLoading } = useCreateInspectionTypesMutation({
     onSuccess() {
-      pushSuccessMessage(`创建检测类型成功`)
+      pushSuccessMessage(`成功`)
     },
     onError(error) {
-      pushErrorMessage(`创建检测类型失败: ${(error as Error).message}`)
+      pushErrorMessage(`失败: ${(error as Error).message}`)
     },
   })
 
@@ -108,7 +110,7 @@ const PageInspectionItemEnumDetail = () => {
           control={
             <Checkbox checked={shouldContinue} onChange={onContinueChange} />
           }
-          label="创建后继续"
+          label={i18n.t('创建后继续')}
         />
       </FormGroup>
     </Page>

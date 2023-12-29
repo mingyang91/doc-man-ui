@@ -16,6 +16,9 @@ import { RUData, RUDataInput } from '../type'
 import { formatResult } from '../utils'
 import { CalcModal, CalcModalProps } from './calc-modal'
 
+import i18n from 'strings/i18n'
+
+
 export interface RURowProps {
   name: string
   value: RUData
@@ -37,7 +40,7 @@ export function RURow({ value, equation, onChange }: RURowProps) {
   const ResultText = useMemo(
     () =>
       isNil(value.result)
-        ? '点击填写结果'
+        ? i18n.t('点击填写结果')
         : `CV = ` + formatResult(value.result),
     [value.result]
   )
@@ -75,7 +78,7 @@ export function RURow({ value, equation, onChange }: RURowProps) {
             <TextField
               variant="standard"
               sx={fieldSx}
-              label="辐射"
+              label={i18n.t('辐射')}
               value={value.condition?.item}
               onChange={evt => onConditionChange(evt.target.value)}
             />

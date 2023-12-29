@@ -18,7 +18,10 @@ import {
 
 import { InspectionReportList } from './components/inspection-list'
 
-const TITLE = `设备检验检测 - 列表`
+import i18n from 'strings/i18n'
+
+
+const TITLE = `${i18n.t('设备检验检测')} - ${i18n.t('列表')}`
 
 const PageInspection = () => {
   const navigate = useNavigate()
@@ -63,7 +66,7 @@ const PageInspection = () => {
       await deleteInspectionReportList({
         id: uuid,
       })
-      pushSuccessMessage('删除成功')
+      pushSuccessMessage(i18n.t('成功'))
     },
     [deleteInspectionReportList, pushSuccessMessage]
   )

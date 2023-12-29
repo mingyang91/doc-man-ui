@@ -18,6 +18,8 @@ import { UUIDV4 } from 'm/presets'
 import { DetailCard, DetailCardFooter } from '@@/detail-card'
 import { LocationValue } from '@@/location-selector'
 import { formatLocation } from '@@/location-selector/utils'
+import i18n from 'strings/i18n'
+
 
 const TITLE = '设备 - 详情'
 
@@ -48,69 +50,69 @@ const PageDetailDevice = () => {
             {/* line 1 */}
             <Grid xs={12} sm={6}>
               <FieldLine>
-                <FieldHeader>委托单位</FieldHeader>
-                <FieldContent>{detail?.client?.name || '未填写'}</FieldContent>
+                <FieldHeader>{i18n.t('委托单位')}</FieldHeader>
+                <FieldContent>{detail?.client?.name || i18n.t('未填写')}</FieldContent>
               </FieldLine>
             </Grid>
             <Grid xs={12} sm={6}>
               <FieldLine>
-                <FieldHeader>设备名称</FieldHeader>
-                <FieldContent>{detail?.equipmentName || '未填写'}</FieldContent>
+                <FieldHeader>{i18n.t('设备名称')}</FieldHeader>
+                <FieldContent>{detail?.equipmentName || i18n.t('未填写')}</FieldContent>
               </FieldLine>
             </Grid>
             {/* line 2 */}
             <Grid xs={12}>
               <FieldLine>
-                <FieldHeader>检测地址</FieldHeader>
+                <FieldHeader>{i18n.t('地址')}</FieldHeader>
                 <FieldContent>
                   {formatLocation(detail?.address as LocationValue, true) ||
-                    '未填写'}
+                    i18n.t('未填写')}
                 </FieldContent>
               </FieldLine>
             </Grid>
             {/* line 3 */}
             <Grid xs={12} sm={6}>
               <FieldLine>
-                <FieldHeader>样品标识</FieldHeader>
+                <FieldHeader>{i18n.t('样品标识')}</FieldHeader>
                 <FieldContent>{detail?.equipmentSampleId}</FieldContent>
               </FieldLine>
             </Grid>
             <Grid xs={12} sm={6}>
               <FieldLine>
-                <FieldHeader>设备型号</FieldHeader>
+                <FieldHeader>{i18n.t('设备型号')}</FieldHeader>
                 <FieldContent>{detail?.equipmentModel}</FieldContent>
               </FieldLine>
             </Grid>
             {/* line 4 */}
             <Grid xs={12} sm={6}>
               <FieldLine>
-                <FieldHeader>设备编号</FieldHeader>
+                <FieldHeader>{i18n.t('设备编号')}</FieldHeader>
                 <FieldContent>{detail?.equipmentCode}</FieldContent>
               </FieldLine>
             </Grid>
             <Grid xs={12} sm={6}>
               <FieldLine>
-                <FieldHeader>制造厂商</FieldHeader>
+                <FieldHeader>{i18n.t('制造厂商')}</FieldHeader>
                 <FieldContent>{detail?.equipmentManufacturer}</FieldContent>
               </FieldLine>
             </Grid>
             {/* line 5 */}
             <Grid xs={12} sm={6}>
               <FieldLine>
-                <FieldHeader>设备场所</FieldHeader>
+                <FieldHeader>{i18n.t('设备场所')}</FieldHeader>
                 <FieldContent>{detail?.equipmentSite}</FieldContent>
               </FieldLine>
             </Grid>
             <Grid xs={12} sm={6}>
               <FieldLine>
-                <FieldHeader>检测仪器</FieldHeader>
+                <FieldHeader>{i18n.t('检测仪器')}</FieldHeader>
                 <FieldContent>{detail?.inspectionInstrument}</FieldContent>
               </FieldLine>
             </Grid>
             {/* line 6 */}
             <Grid xs={12} sm={6}>
               <FieldLine>
-                <FieldHeader>创建日期</FieldHeader>
+                <FieldHeader>{i18n.t('创建时间')}</FieldHeader>
                 <FieldContent>
                   {detail?.createdAt && fDate(detail.createdAt)}
                 </FieldContent>
@@ -118,7 +120,7 @@ const PageDetailDevice = () => {
             </Grid>
             <Grid xs={12} sm={6}>
               <FieldLine>
-                <FieldHeader>更新日期</FieldHeader>
+                <FieldHeader>{i18n.t('更新时间')}</FieldHeader>
                 <FieldContent>
                   {detail?.updatedAt && fDate(detail.updatedAt)}
                 </FieldContent>
@@ -127,8 +129,8 @@ const PageDetailDevice = () => {
             {/* line 7 */}
             <Grid xs={12}>
               <FieldLine>
-                <FieldHeader>备注</FieldHeader>
-                <FieldContent>{detail?.comment || '无'}</FieldContent>
+                <FieldHeader>{i18n.t('备注')}</FieldHeader>
+                <FieldContent>{detail?.comment || i18n.t('无')}</FieldContent>
               </FieldLine>
             </Grid>
           </Grid>
@@ -140,7 +142,7 @@ const PageDetailDevice = () => {
                 to={editPath}
                 startIcon={<MdEdit />}
               >
-                编辑
+                {i18n.t('编辑')}
               </Button>
             }
           />
@@ -150,7 +152,7 @@ const PageDetailDevice = () => {
       ) : (
         isError && (
           <Snackbar open>
-            <CommonMessage type="error" description="获取数据错误" />
+            <CommonMessage type="error" description={i18n.t('获取数据错误')} />
           </Snackbar>
         )
       )}

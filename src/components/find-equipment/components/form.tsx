@@ -12,6 +12,7 @@ import { FindEquipmentQueryVariables } from 'm/equipment/index.generated'
 import { FindEquipmentFormData, transformToVariables } from '../utils'
 
 import { ConsumerSelectorElement } from '@@/consumer-selector'
+import i18n from 'strings/i18n'
 
 interface FindEquipmentFormProps {
   onChange: (value: FindEquipmentQueryVariables) => void
@@ -50,18 +51,18 @@ export const FindEquipmentForm = ({ onChange }: FindEquipmentFormProps) => {
             <Field
               component={ConsumerSelectorElement}
               name="client"
-              label="委托单位"
+              label={i18n.t('委托单位')}
               fullWidth
             />
           </Grid>
           <Grid xs={6} md={6}>
-            <TextField name="equipmentName" label="设备名称" fullWidth />
+            <TextField name="equipmentName" label={i18n.t('设备名称')} fullWidth />
           </Grid>
           <Grid xs={6} md={6}>
-            <TextField name="equipmentCode" label="设备编号" fullWidth />
+            <TextField name="equipmentCode" label={i18n.t('设备编号')} fullWidth />
           </Grid>
           <Grid xs={6} md={6}>
-            <TextField name="equipmentModel" label="设备型号" fullWidth />
+            <TextField name="equipmentModel" label={i18n.t('设备型号')} fullWidth />
           </Grid>
           <Grid xs={12}>
             <Stack
@@ -78,7 +79,7 @@ export const FindEquipmentForm = ({ onChange }: FindEquipmentFormProps) => {
                 loading={submitting}
                 onClick={handleSubmit}
               >
-                搜索
+                {i18n.t('搜索')}
               </LoadingButton>
               <Button
                 type="button"
@@ -86,7 +87,7 @@ export const FindEquipmentForm = ({ onChange }: FindEquipmentFormProps) => {
                 color="inherit"
                 onClick={() => form.reset()}
               >
-                重置
+                {i18n.t('重置')}
               </Button>
             </Stack>
           </Grid>

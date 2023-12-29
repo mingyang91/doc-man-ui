@@ -16,6 +16,8 @@ import { TypeAndIcons } from 'd/components/json-field/utils/icons'
 import { NodeTypes, PrimitiveValue } from '../type'
 import { StyledKeyInput, StyledValueInput } from './node/components/styled'
 
+import i18n from 'strings/i18n'
+
 interface KeyInputProps {
   value?: string
   onChange?: (value: string) => void
@@ -111,7 +113,7 @@ export const TypeSelect = ({ value, onChange }: TypeSelectProps) => {
 
   return (
     <>
-      <Tooltip title={`数据类型: ${value}`}>
+      <Tooltip title={`${i18n.t('数据类型')}: ${value}`}>
         <Button
           variant="text"
           color="secondary"

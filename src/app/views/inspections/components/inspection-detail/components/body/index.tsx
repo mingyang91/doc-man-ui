@@ -6,16 +6,19 @@ import { TableHeader } from './table-header'
 import { InspectionItemRow } from './table-row'
 
 import { DetailCard } from '@@/detail-card'
+import i18n from 'strings/i18n'
+
 
 export const InspectionDetailBody = () => {
   const data = useInspectionReportData()
 
   const items = useMemo(() => data?.items1 || [], [data?.items1])
+  console.log(items)
 
   return (
     <DetailCard sx={{ marginBlockStart: 3 }}>
       <TableContainer>
-        <Table className="border" stickyHeader aria-label="检测结果">
+        <Table className="border" stickyHeader aria-label={i18n.t('检测结果')}>
           <colgroup>
             <col width="20%" />
             <col width="10%" />

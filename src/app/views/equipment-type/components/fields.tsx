@@ -13,6 +13,9 @@ import { EquipmentTypes } from 'm/types'
 
 import { Edit } from './edit'
 
+import i18n from 'strings/i18n'
+
+
 interface FieldsProps {
   id: UUIDV4
   data: Omit<EquipmentTypes, 'inspectionItems' | 'inspectionItems_aggregate'>
@@ -58,7 +61,7 @@ export const Fields = ({ id, data, refetchHandler }: FieldsProps) => {
     {
       id: 'device-type-field-edit',
       props: {
-        title: '编辑设备类型',
+        title: i18n.t('编辑'),
       },
     }
   )
@@ -73,26 +76,26 @@ export const Fields = ({ id, data, refetchHandler }: FieldsProps) => {
             startIcon={<Iconify icon={MdEdit} />}
             onClick={() => openEdit()}
           >
-            编辑基本字段
+            {i18n.t('编辑')}
           </Button>
         </ButtonGroup>
       </Grid>
       <Grid xs={12} sm={6}>
         <FieldLine>
-          <FieldHeader>设备类型</FieldHeader>
+          <FieldHeader>{i18n.t('设备类型')}</FieldHeader>
           <FieldContent>{data?.displayName}</FieldContent>
         </FieldLine>
       </Grid>
       <Grid xs={12} sm={6}>
         <FieldLine>
-          <FieldHeader>设备类型标识</FieldHeader>
+          <FieldHeader>{i18n.t('设备类型标识')}</FieldHeader>
           <FieldContent>{data?.name}</FieldContent>
         </FieldLine>
       </Grid>
       {/* line 2 */}
       <Grid xs={12}>
         <FieldLine>
-          <FieldHeader>备注</FieldHeader>
+          <FieldHeader>{i18n.t('备注')}</FieldHeader>
           <FieldContent>{data.comment}</FieldContent>
         </FieldLine>
       </Grid>

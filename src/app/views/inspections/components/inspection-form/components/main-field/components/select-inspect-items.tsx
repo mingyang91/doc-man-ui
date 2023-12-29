@@ -23,6 +23,8 @@ import Iconify from 'd/components/iconify'
 
 import { InspectionReportItem } from 'm/presets'
 
+import i18n from 'strings/i18n'
+
 /**
  * 选择可用的检测项目，每添加一条，就会从列表中移除
  */
@@ -97,7 +99,7 @@ export const SelectInspectItems = memo(
           startIcon={<Iconify icon={MdAddCircle} />}
           {...bindTrigger(popupState)}
         >
-          添加可选的检测项
+          {i18n.t('新增')}
         </Button>
         <Popover {...bindPopover(popupState)}>
           <Paper>

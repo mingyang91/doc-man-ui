@@ -12,6 +12,8 @@ import Iconify from 'd/components/iconify'
 
 import { StyledOptions } from './node/components/styled'
 
+import i18n from 'strings/i18n'
+
 interface FoldButtonProps extends IconButtonProps {
   isOpen: boolean
   onOpenChange?: (isOpen: boolean) => void
@@ -49,7 +51,7 @@ export const NodeEditorButtons = forwardRef<
         onClick={onRemove}
         size="small"
         color="error"
-        aria-label="删除节点"
+        aria-label={i18n.t("删除节点")}
       >
         <Iconify icon={MdRemoveCircle} />
       </IconButton>
@@ -57,7 +59,7 @@ export const NodeEditorButtons = forwardRef<
         onClick={onAdd}
         size="small"
         color="info"
-        aria-label="增加兄弟节点"
+        aria-label={i18n.t("增加兄弟节点")}
       >
         <Iconify icon={MdAddCircle} />
       </IconButton>

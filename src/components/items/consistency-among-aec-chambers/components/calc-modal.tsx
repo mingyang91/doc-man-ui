@@ -21,6 +21,8 @@ import {
 } from '../type'
 import { calculateConsistencyAmongAECChambersData } from '../utils'
 
+import i18n from 'strings/i18n'
+
 const StyledBox = styled(Box)(({ theme }) => ({
   width: '60vw',
   maxWidth: '960px',
@@ -118,8 +120,8 @@ export const CalcModal = ({
           <TableHead>
             <TableRow>
               <TableCell component="th"></TableCell>
-              <TableCell component="th">测量值</TableCell>
-              <TableCell component="th">最大相对偏差</TableCell>
+              <TableCell component="th">{i18n.t('测量值')}</TableCell>
+              <TableCell component="th">{i18n.t('最大相对偏差')}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

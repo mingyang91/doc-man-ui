@@ -6,6 +6,8 @@ import Iconify from 'd/components/iconify'
 
 import { StyledHeader } from './styled'
 
+import i18n from 'strings/i18n'
+
 interface HeaderProps {
   children?: ReactNode
   removable?: boolean
@@ -16,7 +18,7 @@ export const Header = memo(({ children, removable, onRemove }: HeaderProps) => {
   return (
     <StyledHeader>
       <Typography variant="h6" color="primary" flex="1">
-        检测项目: {children}
+        {i18n.t('检测项目')}: {children}
       </Typography>
       {removable && (
         <Button
@@ -25,7 +27,7 @@ export const Header = memo(({ children, removable, onRemove }: HeaderProps) => {
           color="error"
           onClick={() => onRemove?.()}
         >
-          删除此项
+          {i18n.t('删除')}
         </Button>
       )}
     </StyledHeader>

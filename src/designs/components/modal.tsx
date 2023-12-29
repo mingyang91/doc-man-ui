@@ -15,6 +15,8 @@ import { MdClose } from 'react-icons/md'
 
 import Iconify from './iconify'
 
+import i18n from 'strings/i18n'
+
 export interface ModalProps
   extends Omit<DialogPrimitiveProps, 'open' | 'onClose'> {
   isOpen: boolean
@@ -59,7 +61,7 @@ export const Modal = ({
           <DialogActions>
             {showCloseButton ? (
               <Button onClick={e => onClose?.()} color="primary">
-                关闭
+                {i18n.t('关闭')}
               </Button>
             ) : null}
             <Button
@@ -68,7 +70,7 @@ export const Modal = ({
               color="primary"
               autoFocus
             >
-              确认
+              {i18n.t('确认')}
             </Button>
           </DialogActions>
         )

@@ -13,6 +13,8 @@ import { useImmer } from 'use-immer'
 
 import { SerialNumber } from 'm/presets'
 
+import i18n from 'strings/i18n'
+
 export const SerialTextField = styled((props: TextFieldProps) => (
   <TextField {...props} />
 ))(({ theme }) => ({
@@ -78,15 +80,15 @@ export const SerialNumberField = ({ initialValue }: SerialNumberFieldProps) => {
     () =>
       isEditing ? (
         <>
-          <IconButton aria-label="确定" color="primary" onClick={onEnsure}>
+          <IconButton aria-label={i18n.t('确定')} color="primary" onClick={onEnsure}>
             <MdCheck />
           </IconButton>
-          <IconButton aria-label="取消" color="error" onClick={onCancel}>
+          <IconButton aria-label={i18n.t('取消')} color="error" onClick={onCancel}>
             <MdClose />
           </IconButton>
         </>
       ) : (
-        <IconButton aria-label="编辑" onClick={setIsEditing.setTrue}>
+        <IconButton aria-label={i18n.t('编辑')} onClick={setIsEditing.setTrue}>
           <MdEdit />
         </IconButton>
       ),
@@ -96,7 +98,7 @@ export const SerialNumberField = ({ initialValue }: SerialNumberFieldProps) => {
   return (
     <FormControl>
       <SerialTextField
-        placeholder="请输入编号后几位"
+        placeholder={i18n.t('报告编号')}
         variant="filled"
         value={inputValue}
         onChange={onChange}

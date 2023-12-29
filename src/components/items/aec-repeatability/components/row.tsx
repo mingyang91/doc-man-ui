@@ -10,6 +10,9 @@ import { AECRepeatabilityData } from '../type'
 import { initialAECRepeatabilityData } from '../utils'
 import { CalcModal, CalcModalProps } from './calc-modal'
 
+import i18n from 'strings/i18n'
+
+
 export interface AECRepeatabilityRowProps {
   value: AECRepeatabilityData
   onChange: (value: AECRepeatabilityData) => void
@@ -34,7 +37,7 @@ export const AECRepeatabilityRow = ({
   const ResultText = useMemo(
     () =>
       isNil(finalValue.result?.value)
-        ? '点击填写结果'
+        ? i18n.t('点击填写结果')
         : `${finalValue.result.value}${finalValue.result.unit}`,
     [finalValue.result]
   )
@@ -59,7 +62,7 @@ export const AECRepeatabilityRow = ({
             <TextFieldWithUnit
               sx={fieldSx}
               variant="standard"
-              label="检测条件"
+              label={i18n.t('检测条件')}
               value={finalValue.condition}
             />
           </Box>

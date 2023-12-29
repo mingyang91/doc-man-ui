@@ -18,6 +18,8 @@ import { StyledBox } from 'd/components/json-field/components/node/components/st
 import { Point, StpDataCondition, StpDataInput, StpDataResult } from '../type'
 import { formatCondition } from '../utils'
 
+import i18n from 'strings/i18n'
+
 export interface CalcModalProps
   extends Omit<ModalProps, 'isOpen' | 'onConfirm'> {
   condition?: StpDataCondition
@@ -80,8 +82,8 @@ export function CalcModal({
           <TableHead>
             <TableRow>
               <TableCell component="th">#</TableCell>
-              <TableCell component="th">曝光条件 X</TableCell>
-              <TableCell component="th">平均像素 Y</TableCell>
+              <TableCell component="th">{i18n.t('曝光条件')} X</TableCell>
+              <TableCell component="th">{i18n.t('平均像素')} Y</TableCell>
               <TableCell component="th">R²</TableCell>
             </TableRow>
           </TableHead>

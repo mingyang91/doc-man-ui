@@ -9,6 +9,8 @@ import { InspectionRequirement, InspectionTypeEnum } from 'm/presets'
 import { ConclusionSelect } from './conclusion-select'
 import { StyledConclusion } from './styled'
 
+import i18n from 'strings/i18n'
+
 export interface BaseConclusionProps {
   itemFieldName: string
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -71,12 +73,12 @@ export const BaseConclusion = ({
   return (
     <StyledConclusion>
       <Typography variant="body1" className="typo">
-        结论：
+        {i18n.t('结论：')}
       </Typography>
       {isDifferent && (
         <Stack direction="row" spacing={1}>
           <Button variant="text" onClick={onChange}>
-            使用建议
+            {i18n.t('使用建议')}
           </Button>
           <Typography variant="body2" className="suggest">
             {conclusionMap[interConclusion]}

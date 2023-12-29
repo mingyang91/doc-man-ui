@@ -32,7 +32,7 @@ const RORField = ({ name, inspectionItem, requirement, item }: RORProps) => {
 
   const onAdd = useMemoizedFn(
     (fields: FieldArrayRenderProps<RORDataItem, HTMLElement>['fields']) => {
-      fields.push(initialRORDataItem({}, item.data?.items.length || 0))
+      fields.push(initialRORDataItem({}, item.data?.items?.length || 0))
     }
   )
 

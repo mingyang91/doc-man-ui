@@ -9,6 +9,7 @@ import Iconify from 'd/components/iconify'
 import { InspectionReportFormData } from '../../../utils'
 
 import { FindEquipmentRow, useSearchModal } from 'components/find-equipment'
+import i18n from 'strings/i18n'
 
 export const FromEquipment = () => {
   const { batch, change } = useForm<InspectionReportFormData>()
@@ -52,7 +53,7 @@ export const FromEquipment = () => {
       color="primary"
       onClick={() => show()}
     >
-      选择设备
+      {i18n.t('选择设备')}
     </Button>
   )
 }

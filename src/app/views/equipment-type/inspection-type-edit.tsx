@@ -22,7 +22,9 @@ import {
 import { InspectionTypeEnumFormData } from './components/inspection-type-form/utils'
 import { EditAlert } from './components/alert'
 
-const TITLE = '设备类型 - 检测类型 - 详情'
+import i18n from 'strings/i18n'
+
+const TITLE = `${i18n.t('设备类型')} - ${i18n.t('检测类型')} - ${i18n.t('详情')}`
 
 const PageInspectionItemEnumDetail = () => {
   const { activeRouteConfig } = useMenuAndRoutes()
@@ -48,11 +50,11 @@ const PageInspectionItemEnumDetail = () => {
     useUpdateInspectionTypesByIdMutation({
       onSuccess() {
         console.log('onSuccess')
-        pushSuccessMessage(`更新检测类型成功`)
+        pushSuccessMessage(i18n.t('成功'))
         refetch()
       },
       onError(error) {
-        pushErrorMessage(`更新检测类型失败: ${(error as Error).message}`)
+        pushErrorMessage(`${i18n.t('失败')}: ${(error as Error).message}`)
       },
     })
 

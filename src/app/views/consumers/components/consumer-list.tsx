@@ -30,6 +30,8 @@ import { AddressField } from 'm/presets'
 
 import { useConfirm } from '@@/confirm'
 import { formatLocation } from '@@/location-selector/utils'
+import i18n from 'strings/i18n'
+
 
 export interface ConsumerData
   extends ArrayItem<ClientsDetailListQuery['list']> {
@@ -51,7 +53,7 @@ const columnMaps: {
   },
   name: {
     field: 'name',
-    title: '委托单位',
+    title: i18n.t('委托单位'),
     width: 200,
     minWidth: 200,
     fixed: 'left',
@@ -71,7 +73,7 @@ const columnMaps: {
   },
   address: {
     field: 'address',
-    title: '检测地址',
+    title: i18n.t('地址'),
     width: 150,
     minWidth: 100,
     flexGrow: 2,
@@ -85,7 +87,7 @@ const columnMaps: {
   },
   createdAt: {
     field: 'createdAt',
-    title: '创建时间',
+    title: i18n.t('创建时间'),
     width: 120,
     minWidth: 120,
     flexGrow: 1,
@@ -93,7 +95,7 @@ const columnMaps: {
   },
   updatedAt: {
     field: 'updatedAt',
-    title: '更新时间',
+    title: i18n.t('更新时间'),
     width: 120,
     minWidth: 120,
     flexGrow: 1,
@@ -101,7 +103,7 @@ const columnMaps: {
   },
   comment: {
     field: 'comment',
-    title: '备注',
+    title: i18n.t('备注'),
     width: 120,
     minWidth: 120,
     flexGrow: 1,
@@ -171,11 +173,11 @@ export const ConsumerList = ({
         width: 60,
         minWidth: 60,
         fixed: 'right',
-        title: '操作',
+        title: i18n.t('操作'),
         render: ({ id, name }) => {
           return (
             <Stack spacing={2} direction="row">
-              <Tooltip title="删除">
+              <Tooltip title={i18n.t('删除')}>
                 <IconButton
                   size="small"
                   color="error"
@@ -184,7 +186,7 @@ export const ConsumerList = ({
                   <MdDelete />
                 </IconButton>
               </Tooltip>
-              <Tooltip title="编辑">
+              <Tooltip title={i18n.t('编辑')}>
                 <IconButton
                   size="small"
                   color="primary"
@@ -228,7 +230,7 @@ export const ConsumerList = ({
             component={RouteLink}
             startIcon={<MdAddCircle />}
           >
-            创建
+            {i18n.t('新增')}
           </Button>
           {isBulkActionEnabled && (
             <Button
@@ -237,7 +239,7 @@ export const ConsumerList = ({
               startIcon={<MdDelete />}
               onClick={handleBulkRemove}
             >
-              批量删除
+              {i18n.t('批量删除')}
             </Button>
           )}
         </Stack>
@@ -262,14 +264,14 @@ export const ConsumerList = ({
           component="div"
           showFirstButton
           showLastButton
-          labelRowsPerPage="每页显示"
+          labelRowsPerPage={i18n.t('每页显示')}
           rowsPerPageOptions={[
-            { label: '10条', value: 10 },
-            { label: '20条', value: 20 },
-            { label: '50条', value: 50 },
+            { label: '10 ' + i18n.t('行'), value: 10 },
+            { label: '20 ' + i18n.t('行'), value: 20 },
+            { label: '50 ' + i18n.t('行'), value: 50 },
           ]}
           labelDisplayedRows={({ from, to, count }) =>
-            `共 ${count} 条，当前第 ${from} 至 ${to} 条数据。`
+            `${i18n.t('总量')} ${count} ${i18n.t('行')}, ${i18n.t('当前范围')}: [${from} - ${to}]`
           }
           count={total}
           page={page}

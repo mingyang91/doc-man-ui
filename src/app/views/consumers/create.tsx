@@ -15,7 +15,9 @@ import { useCreateClientsMutation } from 'm/clients/index.generated'
 
 import { ConsumerForm, FnSubmitClient } from './components/consumer-form'
 
-const TITLE = `委托单位 - 创建`
+import i18n from 'strings/i18n'
+
+const TITLE = `${i18n.t('委托单位')} - ${i18n.t('新增')}`
 
 const PageConsumerCreate = () => {
   const { activeRouteConfig } = useMenuAndRoutes()
@@ -28,10 +30,10 @@ const PageConsumerCreate = () => {
 
   const { mutate, isLoading } = useCreateClientsMutation({
     onSuccess() {
-      pushSuccessMessage(`创建成功`)
+      pushSuccessMessage(`成功`)
     },
     onError(error) {
-      pushErrorMessage(`创建失败: ${(error as Error).message}`)
+      pushErrorMessage(`失败: ${(error as Error).message}`)
     },
   })
 
@@ -73,7 +75,7 @@ const PageConsumerCreate = () => {
           control={
             <Checkbox checked={shouldContinue} onChange={onContinueChange} />
           }
-          label="创建后继续"
+          label={i18n.t('创建后继续')}
         />
       </FormGroup>
     </Page>

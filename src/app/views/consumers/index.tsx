@@ -19,7 +19,10 @@ import {
 
 import { ConsumerData, ConsumerList } from './components/consumer-list'
 
-const TITLE = `委托单位 - 列表`
+import i18n from 'strings/i18n'
+
+
+const TITLE = `${i18n.t('委托单位')} - ${i18n.t('列表')}`
 
 const PageDevice = () => {
   const navigate = useNavigate()
@@ -74,7 +77,7 @@ const PageDevice = () => {
       await deleteConsumerById({
         id: uuid,
       })
-      pushSuccessMessage('删除成功')
+      pushSuccessMessage(i18n.t('成功'))
     },
     [deleteConsumerById, pushSuccessMessage]
   )

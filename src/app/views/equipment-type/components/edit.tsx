@@ -11,6 +11,9 @@ import { ModalComponentBaseProps } from 'ctx/modal'
 
 import { EquipmentTypes } from 'm/types'
 
+import i18n from 'strings/i18n'
+
+
 export interface FieldEditProps extends ModalComponentBaseProps {
   initialValue: Omit<
     EquipmentTypes,
@@ -43,7 +46,7 @@ export const Edit = ({
     return (
       <DialogActions>
         <Button onClick={() => onClose()} color="primary">
-          关闭
+          {i18n.t('关闭')}
         </Button>
         <LoadingButton
           type="button"
@@ -52,7 +55,7 @@ export const Edit = ({
           loading={submitting || isLoading}
           onClick={handleSubmit}
         >
-          {isEdit ? '保存设备类型更改' : '新增设备类型'}
+          {isEdit ? i18n.t('保存设备类型更改') : i18n.t('新增类型')}
         </LoadingButton>
       </DialogActions>
     )
@@ -62,7 +65,7 @@ export const Edit = ({
     <Form onSubmit={onSubmit} initialValues={initialValue}>
       {({ submitting, pristine, handleSubmit }) => (
         <Modal
-          title={isEdit ? '编辑设备类型基本字段' : '新增设备类型'}
+          title={isEdit ? i18n.t('编辑') : i18n.t('新增')}
           isOpen={isOpen}
           onClose={onClose}
           onConfirm={handleSubmit}
@@ -74,13 +77,13 @@ export const Edit = ({
         >
           <Grid container spacing={3}>
             <Grid xs={12} md={6}>
-              <TextField name="name" label="标识符" fullWidth />
+              <TextField name="name" label={i18n.t('标识符')} fullWidth />
             </Grid>
             <Grid xs={12} md={6}>
-              <TextField name="displayName" label="名称" fullWidth />
+              <TextField name="displayName" label={i18n.t('名称')} fullWidth />
             </Grid>
             <Grid xs={12}>
-              <TextField name="comment" label="备注" fullWidth />
+              <TextField name="comment" label={i18n.t('备注')} fullWidth />
             </Grid>
           </Grid>
         </Modal>

@@ -10,6 +10,9 @@ import { AECResponseData, AECResponseDataCondition } from '../type'
 import { initialAECResponseData } from '../utils'
 import { CalcModal, CalcModalProps } from './calc-modal'
 
+import i18n from 'strings/i18n'
+
+
 export interface AECResponseRowProps {
   value: AECResponseData
   onChange: (value: AECResponseData) => void
@@ -30,7 +33,7 @@ export const AECResponseRow = ({ value, onChange }: AECResponseRowProps) => {
   const ResultText = useMemo(
     () =>
       isNil(finalValue.result?.value)
-        ? '点击填写结果'
+        ? i18n.t('点击填写结果')
         : `${finalValue.result.prefix}${finalValue.result.value}${
             finalValue.result.unit || ''
           }`,
@@ -67,7 +70,7 @@ export const AECResponseRow = ({ value, onChange }: AECResponseRowProps) => {
             <TextFieldWithUnit
               sx={fieldSx}
               variant="standard"
-              label="检测条件"
+              label={i18n.t('检测条件')}
               value={finalValue.condition}
               onChange={onConditionChange}
             />

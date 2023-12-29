@@ -74,7 +74,7 @@ const TVIDField = ({ name, inspectionItem, requirement, item }: TVIDProps) => {
                     initialTVIDDataItem(
                       {},
                       item.consts,
-                      item.data?.items.length || 0
+                      item.data?.items?.length || 0
                     )
                   )
                 }

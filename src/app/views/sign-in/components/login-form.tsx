@@ -21,6 +21,9 @@ import { useAuth } from '@/providers/auth'
 
 import Iconify from 'd/components/iconify'
 
+import i18n from 'strings/i18n'
+
+
 function assertLocationState(state: unknown): state is { from: Location } {
   if (typeof state === 'object' && state !== null) {
     return 'from' in state
@@ -36,8 +39,8 @@ interface LoginFormData {
 
 const loginValidate = makeValidate<LoginFormData>(
   Yup.object().shape({
-    username: Yup.string().required('请填写登录名').trim('登录名不能有空格'),
-    password: Yup.string().required('请输入密码'),
+    username: Yup.string().required(i18n.t('请填写登录名')).trim(i18n.t('登录名不能有空格')),
+    password: Yup.string().required(i18n.t('请输入密码')),
     remember: Yup.boolean().optional(),
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   }) as any // 类型总是报错
@@ -94,15 +97,15 @@ export default function LoginForm() {
               fullWidth
               autoComplete="username"
               type="text"
-              label="登录账号"
-              name="username"
+              label={i18n.t("账号")}
+              name={"username"}
             />
 
             <TextField
               fullWidth
               autoComplete="current-password"
               type={showPassword ? 'text' : 'password'}
-              label="登录密码"
+              label={i18n.t("密码")}
               name="password"
               InputProps={{
                 endAdornment: (
@@ -149,7 +152,7 @@ export default function LoginForm() {
             loading={submitting}
             onClick={handleSubmit}
           >
-            登录
+            {i18n.t('登录')}
           </LoadingButton>
         </>
       )}

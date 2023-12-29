@@ -2,6 +2,8 @@ import { hasEmpty } from 'u/helper'
 
 import { SerialNumber } from './presets'
 
+import i18n from 'strings/i18n'
+
 export type PaginationConfig = {
   pageSize: number
   page: number
@@ -15,9 +17,9 @@ export enum Conclusions {
 }
 
 export const conclusionMap = {
-  [Conclusions.Good]: '合格',
-  [Conclusions.Bad]: '不合格',
-  [Conclusions.Unknown]: '未知',
+  [Conclusions.Good]: i18n.t('合格'),
+  [Conclusions.Bad]: i18n.t('不合格'),
+  [Conclusions.Unknown]: i18n.t('未知'),
 } as const
 
 export const isSamplesAvailable = (

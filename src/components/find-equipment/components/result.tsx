@@ -13,6 +13,8 @@ import { AddressField } from 'm/presets'
 import { FindEquipmentResult, FindEquipmentRow } from '../utils'
 
 import { formatLocation } from '@@/location-selector/utils'
+import i18n from 'strings/i18n'
+
 
 interface SearchResultProps {
   data?: FindEquipmentResult
@@ -29,7 +31,7 @@ export const SearchResult = ({
     () => [
       {
         field: 'client',
-        title: '委托单位',
+        title: i18n.t('委托单位'),
         width: 180,
         minWidth: 180,
         render: ({ client }) => (
@@ -40,7 +42,7 @@ export const SearchResult = ({
       },
       {
         field: 'equipmentCode',
-        title: '设备信息',
+        title: i18n.t('设备详情'),
         minWidth: 200,
         flexGrow: 2,
         render: ({ equipmentCode, equipmentName, id }) => {
@@ -52,11 +54,11 @@ export const SearchResult = ({
             <>
               <Typography variant="body1" component="div">
                 <Link component={RouteLink} to={path}>
-                  {equipmentCode || '无编号'}
+                  {equipmentCode || i18n.t('无编号')}
                 </Link>
               </Typography>{' '}
               <Typography variant="body1" component="div">
-                {equipmentName || '未命名设备'}
+                {equipmentName || i18n.t('未命名设备')}
               </Typography>
             </>
           )
@@ -64,7 +66,7 @@ export const SearchResult = ({
       },
       {
         field: 'address',
-        title: '检测地址',
+        title: i18n.t('地址'),
         width: 150,
         minWidth: 100,
         flexGrow: 2,
@@ -78,7 +80,7 @@ export const SearchResult = ({
       },
       {
         field: 'equipmentManufacturer',
-        title: '制造厂商',
+        title: i18n.t('制造厂商'),
         width: 80,
         minWidth: 80,
         flexGrow: 1,
@@ -90,7 +92,7 @@ export const SearchResult = ({
       },
       {
         field: 'equipmentModel',
-        title: '设备型号',
+        title: i18n.t('设备型号'),
         width: 80,
         minWidth: 80,
         flexGrow: 1,
@@ -103,11 +105,11 @@ export const SearchResult = ({
       //   flexGrow: 1,
       //   width: 100,
       //   fixed: 'right',
-      //   title: '选择',
+      //   title: i18n.t('选择'),
       //   render: row => {
       //     return (
       //       <Stack spacing={2} direction="row">
-      //         <Tooltip title="选择">
+      //         <Tooltip title={i18n.t('选择')}>
       //           <IconButton
       //             size="small"
       //             color="primary"

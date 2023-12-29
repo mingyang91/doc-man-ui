@@ -21,6 +21,9 @@ import { InspectionType, InspectionTypeEnum } from 'm/presets'
 import { OnChange } from '../type'
 import { initialInspectionItemTypeData, inspectionTypeOptions } from '../utils'
 
+import i18n from 'strings/i18n'
+
+
 type OnSelectChange = (
   event: SelectChangeEvent<InspectionTypeEnum>,
   child: ReactNode
@@ -39,7 +42,7 @@ export interface InspectionItemTypeSelectorProps
 
 export const InspectionItemTypeSelector = ({
   id,
-  label = '检测类型',
+  label = i18n.t('检测类型'),
   value: valueProps,
   onChange,
   isError,
@@ -113,7 +116,7 @@ export const InspectionItemTypeSelector = ({
               flex: 1,
             }}
             fullWidth
-            placeholder="检测项目描述"
+            placeholder={i18n.t('检测项目描述')}
             value={value?.text || ''}
             onChange={onInputChange}
             onFocus={() => handleChangeFocus(1, true)}

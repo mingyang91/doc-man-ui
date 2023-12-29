@@ -21,7 +21,9 @@ import {
   InspectionReportFormData,
 } from './components/inspection-form/utils'
 
-const TITLE = `设备检验检测 - 编辑`
+import i18n from 'strings/i18n'
+
+const TITLE = `${i18n.t('设备检验检测')} - 编辑`
 
 const PageInspectionEdit = () => {
   const { activeRouteConfig } = useMenuAndRoutes()
@@ -37,10 +39,10 @@ const PageInspectionEdit = () => {
   const { mutate, isLoading: isMutationLoading } =
     useUpdateInspectionReportByIdMutation({
       onSuccess() {
-        pushSuccessMessage(`更新设备检验检测成功`)
+        pushSuccessMessage(`成功`)
       },
       onError(error) {
-        pushErrorMessage(`更新设备检验检测失败: ${(error as Error).message}`)
+        pushErrorMessage(`失败: ${(error as Error).message}`)
       },
     })
 

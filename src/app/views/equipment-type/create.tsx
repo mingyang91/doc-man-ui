@@ -19,6 +19,8 @@ import {
   CreateEquipmentTypesMutationVariables,
 } from 'm/equipment-type/index.generated'
 
+import i18n from 'strings/i18n'
+
 const TITLE = '设备类型 - 新增'
 
 const PageEquipmentTypeCreate = () => {
@@ -37,10 +39,10 @@ const PageEquipmentTypeCreate = () => {
 
   const { mutate, isLoading } = useCreateEquipmentTypesMutation({
     onSuccess() {
-      pushSuccessMessage(`创建成功`)
+      pushSuccessMessage(i18n.t('成功'))
     },
     onError(error) {
-      pushErrorMessage(`创建失败: ${(error as Error).message}`)
+      pushErrorMessage(`${i18n.t('失败')}: ${(error as Error).message}`)
     },
   })
 
@@ -72,17 +74,17 @@ const PageEquipmentTypeCreate = () => {
         {({ submitting, pristine, handleSubmit }) => (
           <Grid container spacing={3}>
             <Grid item xs={12} md={6}>
-              <TextField name="name" label="设备类型标识" fullWidth />
+              <TextField name="name" label={i18n.t('设备类型标识')} fullWidth />
             </Grid>
             <Grid item xs={12} md={6}>
-              <TextField name="displayName" label="设备名" fullWidth />
+              <TextField name="displayName" label={i18n.t('设备名')} fullWidth />
             </Grid>
             <Grid item xs={12}>
-              <TextField name="comment" label="备注" fullWidth />
+              <TextField name="comment" label={i18n.t('备注')} fullWidth />
             </Grid>
             <Grid item xs={12}>
               <Alert variant="filled" color="info">
-                设备类型创建之后，可以对该类型设备添加预设的检测项。
+                {i18n.t('设备类型创建之后，可以对该类型设备添加预设的检测项目。')}
               </Alert>
             </Grid>
             <Grid item xs={12}>
@@ -104,7 +106,7 @@ const PageEquipmentTypeCreate = () => {
                   loading={submitting || isLoading}
                   onClick={handleSubmit}
                 >
-                  创建设备类型
+                  {i18n.t('创建设备类型')}
                 </LoadingButton>
               </Stack>
             </Grid>

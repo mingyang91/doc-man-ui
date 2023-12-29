@@ -34,10 +34,10 @@ const PageConsumerEdit = () => {
 
   const { mutate, isLoading } = useUpdateEquipmentByIdMutation({
     onSuccess() {
-      pushSuccessMessage(`更新设备成功`)
+      pushSuccessMessage(`成功`)
     },
     onError(error) {
-      pushErrorMessage(`更新设备失败: ${(error as Error).message}`)
+      pushErrorMessage(`失败: ${(error as Error).message}`)
     },
   })
 
